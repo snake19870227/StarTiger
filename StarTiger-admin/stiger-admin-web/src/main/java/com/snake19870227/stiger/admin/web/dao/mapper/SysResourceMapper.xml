@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.snake19870227.stiger.admin.web.dao.mapper.SysResourceMapper">
+    <resultMap id="base" type="com.snake19870227.stiger.admin.web.entity.po.SysResource">
+        <id column="res_id" property="resId"/>
+        <result column="res_code" property="resCode"/>
+        <result column="res_name" property="resName"/>
+        <result column="res_path" property="resPath"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="base">
+        select * from sys_resource
+    </select>
+</mapper>
