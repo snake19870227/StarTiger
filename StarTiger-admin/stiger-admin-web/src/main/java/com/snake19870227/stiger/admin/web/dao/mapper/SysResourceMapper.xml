@@ -11,4 +11,8 @@
     <select id="getAll" resultMap="base">
         select * from sys_resource
     </select>
+
+    <select id="queryByResId" resultMap="base">
+        select * from sys_resource where res_id = #{resId}
+    </select>
 </mapper>

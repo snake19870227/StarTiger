@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface SysRoleResourceMapper {
 
+    List<SysRoleResource> getAll();
+
     List<SysRoleResource> queryByResourceId(@Param("resId") String resId);
 }

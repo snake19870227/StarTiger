@@ -9,6 +9,10 @@
         <result column="res_code" property="resCode"/>
     </resultMap>
 
+    <select id="getAll" resultMap="base">
+        select * from sys_role_resource
+    </select>
+
     <select id="queryByResourceId" resultMap="base">
         select * from sys_role_resource where res_id = #{resId}
     </select>

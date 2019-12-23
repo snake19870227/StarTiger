@@ -1,6 +1,7 @@
 package com.snake19870227.stiger.admin.web.dao.mapper;
 
 import com.snake19870227.stiger.admin.web.entity.po.SysResource;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,4 +11,6 @@ import java.util.List;
 public interface SysResourceMapper {
 
     List<SysResource> getAll();
+
+    SysResource queryByResId(@Param("resId") String resId);
 }

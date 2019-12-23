@@ -1,14 +1,22 @@
 package com.snake19870227.stiger.admin.web.config;
 
+import com.snake19870227.stiger.admin.web.dao.mapper.SysResourceMapper;
+import com.snake19870227.stiger.admin.web.dao.mapper.SysRoleMapper;
+import com.snake19870227.stiger.admin.web.dao.mapper.SysRoleResourceMapper;
 import com.snake19870227.stiger.admin.web.dao.mapper.SysUserMapper;
 import com.snake19870227.stiger.admin.web.dao.mapper.SysUserRoleMapper;
+import com.snake19870227.stiger.admin.web.entity.po.SysResource;
+import com.snake19870227.stiger.admin.web.entity.po.SysRole;
+import com.snake19870227.stiger.admin.web.entity.po.SysRoleResource;
 import com.snake19870227.stiger.admin.web.entity.po.SysUser;
 import com.snake19870227.stiger.admin.web.entity.po.SysUserRole;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,8 +24,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -26,53 +38,50 @@ import java.util.stream.Collectors;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    private SysRoleMapper sysRoleMapper;
-//    private SysResourceMapper sysResourceMapper;
-//    private SysRoleResourceMapper sysRoleResourceMapper;
+    @Value("${stiger.h2.console.root-path:/h2}")
+    private String h2ConsoleRootPath;
 
-//    public SecurityConfig(SysRoleMapper sysRoleMapper, SysResourceMapper sysResourceMapper, SysRoleResourceMapper sysRoleResourceMapper) {
-//        this.sysRoleMapper = sysRoleMapper;
-//        this.sysResourceMapper = sysResourceMapper;
-//        this.sysRoleResourceMapper = sysRoleResourceMapper;
-//    }
+    private SysRoleMapper sysRoleMapper;
+    private SysResourceMapper sysResourceMapper;
+    private SysRoleResourceMapper sysRoleResourceMapper;
 
-//    @Bean
-//    public AccessDecisionManager affirmativeBased() {
-//        return new AffirmativeBased(Arrays.asList(new RoleVoter(), new WebExpressionVoter()));
-//    }
+    public SecurityConfig(SysRoleMapper sysRoleMapper,
+                          SysResourceMapper sysResourceMapper,
+                          SysRoleResourceMapper sysRoleResourceMapper) {
+        this.sysRoleMapper = sysRoleMapper;
+        this.sysResourceMapper = sysResourceMapper;
+        this.sysRoleResourceMapper = sysRoleResourceMapper;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().ignoringAntMatchers("/h2/**")
-                .and().headers().frameOptions().sameOrigin()
-                .and().authorizeRequests()
-                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .antMatchers("/h2/**").permitAll()
-//                    .antMatchers("/res2").hasRole("Admin3")
-                        .anyRequest().authenticated()
-//                        .withObjectPostProcessor(filterSecurityInterceptorObjectPostProcessor())
-                .and().formLogin()
-        ;
+
+        String h2ConsolePaths = h2ConsoleRootPath + "/**";
+
+        http.csrf().ignoringAntMatchers(h2ConsolePaths);
+        http.headers().frameOptions().sameOrigin();
+
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry = http.authorizeRequests();
+        urlRegistry.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
+        urlRegistry.antMatchers(h2ConsolePaths).permitAll();
+
+        loadAllResource().forEach(resource -> {
+            List<SysRoleResource> roleResourceList = sysRoleResourceMapper.queryByResourceId(resource.getResId());
+            List<String> roleList = roleResourceList.stream().map(SysRoleResource::getRoleId).collect(Collectors.toList());
+            if (CollectionUtils.isEmpty(roleList)) {
+                return;
+            }
+            urlRegistry.antMatchers(resource.getResPath()).hasAnyRole(roleList.toArray(new String[0]));
+        });
+
+        urlRegistry.anyRequest().authenticated();
+
+        http.formLogin();
     }
 
-    //    private ObjectPostProcessor<FilterSecurityInterceptor> filterSecurityInterceptorObjectPostProcessor() {
-//        return new ObjectPostProcessor<FilterSecurityInterceptor>() {
-//            @Override
-//            public <O extends FilterSecurityInterceptor> O postProcess(O object) {
-//
-//                FilterInvocationSecurityMetadataSource parentMetadataSource = object.getSecurityMetadataSource();
-//
-//                CustomFilterInvocationSecurityMetadataSource metadataSource
-//                        = new CustomFilterInvocationSecurityMetadataSource(sysRoleMapper, sysResourceMapper, sysRoleResourceMapper);
-//                metadataSource.setParentMetadataSource(parentMetadataSource);
-//
-//                object.setAccessDecisionManager(affirmativeBased());
-//                object.setSecurityMetadataSource(metadataSource);
-//
-//                return object;
-//            }
-//        };
-//    }
+    private List<SysResource> loadAllResource() {
+        return sysResourceMapper.getAll();
+    }
 
     @Bean
     public UserDetailsManager userDetailsManager(SysUserMapper sysUserMapper,
