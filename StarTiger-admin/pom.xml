@@ -26,6 +26,7 @@
     <modules>
         <module>stiger-admin-common</module>
         <module>stiger-admin-web</module>
+        <module>stiger-admin-api</module>
     </modules>
 
     <build>

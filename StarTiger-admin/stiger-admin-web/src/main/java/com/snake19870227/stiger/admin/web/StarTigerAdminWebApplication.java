@@ -7,7 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author BuHuaYang
  * @date 2019/12/22
  */
-@SpringBootApplication
+@SpringBootApplication(
+        scanBasePackages = {
+                "com.snake19870227.stiger.admin"
+        }
+)
 public class StarTigerAdminWebApplication {
 
     public static void main(String[] args) {

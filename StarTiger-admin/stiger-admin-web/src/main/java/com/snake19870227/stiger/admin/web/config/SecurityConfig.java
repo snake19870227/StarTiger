@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry = http.authorizeRequests();
         urlRegistry.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
         urlRegistry.antMatchers(h2ConsolePaths).permitAll();
-        urlRegistry.anyRequest().access("@authAssert.canAccess(httpServletRequest, authentication)");
+        urlRegistry.anyRequest().access("@authAssert.canAccess(request, authentication)");
 
         http.formLogin();
     }
