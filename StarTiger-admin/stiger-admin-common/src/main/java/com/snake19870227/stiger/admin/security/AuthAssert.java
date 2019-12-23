@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.web.security;
+package com.snake19870227.stiger.admin.security;
 
 import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysRoleResourceMapper;

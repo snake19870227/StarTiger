@@ -7,6 +7,7 @@ import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.entity.po.SysUserRole;
+import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -51,49 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public UserDetailsManager userDetailsManager(SysUserMapper sysUserMapper,
-                                                 SysUserRoleMapper sysUserRoleMapper) {
-        return new UserDetailsManager() {
-            @Override
-            public void createUser(UserDetails user) {
-
-            }
-
-            @Override
-            public void updateUser(UserDetails user) {
-
-            }
-
-            @Override
-            public void deleteUser(String username) {
-
-            }
-
-            @Override
-            public void changePassword(String oldPassword, String newPassword) {
-
-            }
-
-            @Override
-            public boolean userExists(String username) {
-                SysUser sysUser = sysUserMapper.queryByUsername(username);
-                return sysUser != null;
-            }
-
-            @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                SysUser sysUser = sysUserMapper.queryByUsername(username);
-                if (sysUser == null) {
-                    return null;
-                }
-                List<SysUserRole> sysUserRoleList = sysUserRoleMapper.queryByUserId(sysUser.getUserId());
-                List<GrantedAuthority> roleCodeList = sysUserRoleList.stream()
-                                                                     .map(sysUserRole -> new SimpleGrantedAuthority(sysUserRole.getRoleCode()))
-                                                                     .collect(Collectors.toList());
-                return User.withUsername(sysUser.getUsername())
-                           .password(sysUser.getEncodePassword())
-                           .authorities(roleCodeList.isEmpty() ? AuthorityUtils.NO_AUTHORITIES : roleCodeList).build();
-            }
-        };
+    public UserDetailsManager userDetailsManager() {
+        return new CustomUserDetailsManager();
     }
 }
