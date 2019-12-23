@@ -24,6 +24,7 @@
     </properties>
 
     <modules>
+        <module>stiger-admin-common</module>
         <module>stiger-admin-web</module>
     </modules>
 

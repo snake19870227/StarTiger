@@ -14,6 +14,9 @@
     <artifactId>StarTiger-dependencies</artifactId>
     <packaging>pom</packaging>
 
+    <name>StarTigerDependencies</name>
+    <description>StarTiger Framework Dependencies Module</description>
+
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,8 +27,14 @@
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
 
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <mybatis.version>3.5.3</mybatis.version>
+        <mybatis-spring.version>2.0.3</mybatis-spring.version>
         <mybatis-spring-boot-starter.version>2.1.1</mybatis-spring-boot-starter.version>
     </properties>
+
+    <modules>
+        <module>../StarTiger-admin</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -35,6 +44,11 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>

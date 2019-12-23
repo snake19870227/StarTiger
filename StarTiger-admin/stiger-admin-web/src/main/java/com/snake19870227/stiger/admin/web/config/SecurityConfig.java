@@ -1,15 +1,12 @@
 package com.snake19870227.stiger.admin.web.config;
 
-import com.snake19870227.stiger.admin.web.dao.mapper.SysResourceMapper;
-import com.snake19870227.stiger.admin.web.dao.mapper.SysRoleMapper;
-import com.snake19870227.stiger.admin.web.dao.mapper.SysRoleResourceMapper;
-import com.snake19870227.stiger.admin.web.dao.mapper.SysUserMapper;
-import com.snake19870227.stiger.admin.web.dao.mapper.SysUserRoleMapper;
-import com.snake19870227.stiger.admin.web.entity.po.SysResource;
-import com.snake19870227.stiger.admin.web.entity.po.SysRole;
-import com.snake19870227.stiger.admin.web.entity.po.SysRoleResource;
-import com.snake19870227.stiger.admin.web.entity.po.SysUser;
-import com.snake19870227.stiger.admin.web.entity.po.SysUserRole;
+import com.snake19870227.stiger.admin.dao.mapper.SysUserMapper;
+import com.snake19870227.stiger.admin.dao.mapper.SysUserRoleMapper;
+import com.snake19870227.stiger.admin.entity.po.SysResource;
+import com.snake19870227.stiger.admin.entity.po.SysRole;
+import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
+import com.snake19870227.stiger.admin.entity.po.SysUser;
+import com.snake19870227.stiger.admin.entity.po.SysUserRole;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -24,12 +21,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.util.CollectionUtils;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 
 /**

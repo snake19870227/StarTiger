@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.web.entity.po;
+package com.snake19870227.stiger.admin.entity.po;
 
 public class SysUserRole {
 

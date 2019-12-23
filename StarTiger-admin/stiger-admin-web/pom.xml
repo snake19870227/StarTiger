@@ -74,6 +74,13 @@
             <artifactId>h2</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.snake19870227</groupId>
+            <artifactId>stiger-admin-common</artifactId>
+            <version>${admin.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

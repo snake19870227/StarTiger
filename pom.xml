@@ -10,6 +10,9 @@
     <version>${framework.version}</version>
     <packaging>pom</packaging>
 
+    <name>StarTiger</name>
+    <description>StarTiger Framework</description>
+
     <properties>
         <framework.version>1.0</framework.version>
     </properties>

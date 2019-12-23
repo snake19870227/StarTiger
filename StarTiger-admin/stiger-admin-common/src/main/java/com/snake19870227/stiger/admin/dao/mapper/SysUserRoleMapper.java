@@ -1,6 +1,6 @@
-package com.snake19870227.stiger.admin.web.dao.mapper;
+package com.snake19870227.stiger.admin.dao.mapper;
 
-import com.snake19870227.stiger.admin.web.entity.po.SysUserRole;
+import com.snake19870227.stiger.admin.entity.po.SysUserRole;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

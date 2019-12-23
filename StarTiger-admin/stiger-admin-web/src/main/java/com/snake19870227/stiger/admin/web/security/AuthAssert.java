@@ -1,9 +1,9 @@
 package com.snake19870227.stiger.admin.web.security;
 
-import com.snake19870227.stiger.admin.web.dao.mapper.SysResourceMapper;
-import com.snake19870227.stiger.admin.web.dao.mapper.SysRoleResourceMapper;
-import com.snake19870227.stiger.admin.web.entity.po.SysResource;
-import com.snake19870227.stiger.admin.web.entity.po.SysRoleResource;
+import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
+import com.snake19870227.stiger.admin.dao.mapper.SysRoleResourceMapper;
+import com.snake19870227.stiger.admin.entity.po.SysResource;
+import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.access.vote.RoleVoter;
