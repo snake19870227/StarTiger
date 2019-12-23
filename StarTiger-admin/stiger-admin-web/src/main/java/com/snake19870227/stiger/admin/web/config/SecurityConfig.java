@@ -65,16 +65,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         urlRegistry.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
         urlRegistry.antMatchers(h2ConsolePaths).permitAll();
 
-        loadAllResource().forEach(resource -> {
-            List<SysRoleResource> roleResourceList = sysRoleResourceMapper.queryByResourceId(resource.getResId());
-            List<String> roleList = roleResourceList.stream().map(SysRoleResource::getRoleId).collect(Collectors.toList());
-            if (CollectionUtils.isEmpty(roleList)) {
-                return;
-            }
-            urlRegistry.antMatchers(resource.getResPath()).hasAnyRole(roleList.toArray(new String[0]));
-        });
+//        loadAllResource().forEach(resource -> {
+//            List<SysRoleResource> roleResourceList = sysRoleResourceMapper.queryByResourceId(resource.getResId());
+//            List<String> roleList = roleResourceList.stream().map(SysRoleResource::getRoleId).collect(Collectors.toList());
+//            if (CollectionUtils.isEmpty(roleList)) {
+//                return;
+//            }
+//            urlRegistry.antMatchers(resource.getResPath()).hasAnyRole(roleList.toArray(new String[0]));
+//        });
 
-        urlRegistry.anyRequest().authenticated();
+        urlRegistry.anyRequest().access("@authAssert.canAccess(request, authentication)");
 
         http.formLogin();
     }
