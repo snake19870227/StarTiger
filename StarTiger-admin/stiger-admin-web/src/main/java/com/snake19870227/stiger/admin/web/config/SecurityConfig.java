@@ -64,17 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry = http.authorizeRequests();
         urlRegistry.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
         urlRegistry.antMatchers(h2ConsolePaths).permitAll();
-
-//        loadAllResource().forEach(resource -> {
-//            List<SysRoleResource> roleResourceList = sysRoleResourceMapper.queryByResourceId(resource.getResId());
-//            List<String> roleList = roleResourceList.stream().map(SysRoleResource::getRoleId).collect(Collectors.toList());
-//            if (CollectionUtils.isEmpty(roleList)) {
-//                return;
-//            }
-//            urlRegistry.antMatchers(resource.getResPath()).hasAnyRole(roleList.toArray(new String[0]));
-//        });
-
-        urlRegistry.anyRequest().access("@authAssert.canAccess(request, authentication)");
+        urlRegistry.anyRequest().access("@authAssert.canAccess(httpServletRequest, authentication)");
 
         http.formLogin();
     }
