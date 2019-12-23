@@ -41,18 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${stiger.h2.console.root-path:/h2}")
     private String h2ConsoleRootPath;
 
-    private SysRoleMapper sysRoleMapper;
-    private SysResourceMapper sysResourceMapper;
-    private SysRoleResourceMapper sysRoleResourceMapper;
-
-    public SecurityConfig(SysRoleMapper sysRoleMapper,
-                          SysResourceMapper sysResourceMapper,
-                          SysRoleResourceMapper sysRoleResourceMapper) {
-        this.sysRoleMapper = sysRoleMapper;
-        this.sysResourceMapper = sysResourceMapper;
-        this.sysRoleResourceMapper = sysRoleResourceMapper;
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -67,10 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         urlRegistry.anyRequest().access("@authAssert.canAccess(httpServletRequest, authentication)");
 
         http.formLogin();
-    }
-
-    private List<SysResource> loadAllResource() {
-        return sysResourceMapper.getAll();
     }
 
     @Bean
