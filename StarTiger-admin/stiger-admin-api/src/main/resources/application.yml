@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ${project.artifactId}
+server:
+  port: 10002
+logging:
+  level:
+    org.springframework.security: debug
+mybatis:
+  configuration:
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: false
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

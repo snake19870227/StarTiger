@@ -42,7 +42,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}</outputDirectory>
-                            <mainClass>cn.hihealthy.clinic1.nethos.server.Application</mainClass>
+                            <mainClass>com.snake19870227.stiger.admin.web.StarTigerAdminWebApplication</mainClass>
                         </configuration>
                     </execution>
                 </executions>
@@ -51,6 +51,7 @@
     </build>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
