@@ -30,6 +30,7 @@
         <mybatis.version>3.5.3</mybatis.version>
         <mybatis-spring.version>2.0.3</mybatis-spring.version>
         <mybatis-spring-boot-starter.version>2.1.1</mybatis-spring-boot-starter.version>
+        <hutool.version>5.1.0</hutool.version>
     </properties>
 
     <modules>
@@ -59,6 +60,11 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
