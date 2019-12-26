@@ -38,15 +38,33 @@ public abstract class AbstractRestResponse<T> {
     }
 
     public static DefaultRestResponse createSuccessRestResp(Object data) {
+        return createRestResp(DEFAULT_SUCCESS_RESP_CODE, DEFAULT_SUCCESS_RESP_MESSAGE, data);
+    }
+
+    public static DefaultRestResponse createFailureRestResp(Object data) {
+        return createRestResp(DEFAULT_FAILURE_RESP_CODE, DEFAULT_FAILURE_RESP_MESSAGE, data);
+    }
+
+    public static DefaultRestResponse createRestResp(String respCode, String respMessage, Object data) {
         try {
-            return createSuccessRestResp(data, DefaultRestResponse.class);
+            return createRestResp(respCode, respMessage, data, DefaultRestResponse.class);
         } catch (Exception e) {
             logger.error("创建RestResponse失败", e);
-            return new DefaultRestResponse(DEFAULT_SUCCESS_RESP_CODE, DEFAULT_SUCCESS_RESP_MESSAGE, data);
+            return new DefaultRestResponse(respCode, respMessage, data);
         }
     }
 
     public static <F, M extends AbstractRestResponse<F>> M createSuccessRestResp(F data, Class<M> clazz)
+            throws IllegalAccessException, InstantiationException, InvocationTargetException {
+        return createRestResp(DEFAULT_SUCCESS_RESP_CODE, DEFAULT_SUCCESS_RESP_MESSAGE, data, clazz);
+    }
+
+    public static <F, M extends AbstractRestResponse<F>> M createFailureRestResp(F data, Class<M> clazz)
+            throws IllegalAccessException, InstantiationException, InvocationTargetException {
+        return createRestResp(DEFAULT_FAILURE_RESP_CODE, DEFAULT_FAILURE_RESP_MESSAGE, data, clazz);
+    }
+
+    public static <F, M extends AbstractRestResponse<F>> M createRestResp(String respCode, String respMessage, F data, Class<M> clazz)
             throws IllegalAccessException, InstantiationException, InvocationTargetException {
 
         M restResp;
@@ -55,14 +73,14 @@ public abstract class AbstractRestResponse<T> {
         Constructor<M> constructor2 = ClassUtils.getConstructorIfAvailable(clazz, String.class, String.class);
 
         if (constructor1 != null) {
-            restResp = constructor1.newInstance(DEFAULT_SUCCESS_RESP_CODE, DEFAULT_SUCCESS_RESP_MESSAGE, data);
+            restResp = constructor1.newInstance(respCode, respMessage, data);
         } else if (constructor2 != null) {
-            restResp = constructor2.newInstance(DEFAULT_SUCCESS_RESP_CODE, DEFAULT_SUCCESS_RESP_MESSAGE);
+            restResp = constructor2.newInstance(respCode, respMessage);
             restResp.setData(data);
         } else {
             restResp = clazz.newInstance();
-            restResp.setRespCode(DEFAULT_SUCCESS_RESP_CODE);
-            restResp.setRespMessage(DEFAULT_SUCCESS_RESP_MESSAGE);
+            restResp.setRespCode(respCode);
+            restResp.setRespMessage(respMessage);
             restResp.setData(data);
         }
 
