@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.api.security.JwtRsaSignKey;
 import com.snake19870227.stiger.admin.api.security.JwtSignKey;
 import com.snake19870227.stiger.admin.api.security.LoadUsernameAndPasswordFilter;
+import com.snake19870227.stiger.admin.api.security.RestAuthenticationFailureHandler;
 import com.snake19870227.stiger.admin.api.security.RestAuthenticationSuccessHandler;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -41,10 +43,14 @@ public class SecurityConfig {
 
         private AuthenticationSuccessHandler authenticationSuccessHandler;
 
+        private AuthenticationFailureHandler authenticationFailureHandler;
+
         CustomWebSecurityConfigurerAdapter(LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter,
-                                           AuthenticationSuccessHandler authenticationSuccessHandler) {
+                                           AuthenticationSuccessHandler authenticationSuccessHandler,
+                                           AuthenticationFailureHandler authenticationFailureHandler) {
             this.loadUsernameAndPasswordFilter = loadUsernameAndPasswordFilter;
             this.authenticationSuccessHandler = authenticationSuccessHandler;
+            this.authenticationFailureHandler = authenticationFailureHandler;
         }
 
         @Override
@@ -64,7 +70,7 @@ public class SecurityConfig {
             http.formLogin()
                     .loginProcessingUrl(LOGIN_PROCESSING_URL)
                     .successHandler(authenticationSuccessHandler)
-                    .failureForwardUrl(LOGIN_FAILURE_URL);
+                    .failureHandler(authenticationFailureHandler);
 
             http.addFilterBefore(loadUsernameAndPasswordFilter, UsernamePasswordAuthenticationFilter.class);
         }
@@ -88,5 +94,10 @@ public class SecurityConfig {
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return new RestAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new RestAuthenticationFailureHandler();
     }
 }

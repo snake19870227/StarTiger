@@ -2,6 +2,7 @@ package com.snake19870227.stiger.admin.api.security;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.extra.servlet.ServletUtil;
+import cn.hutool.http.ContentType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.api.entity.dto.AbstractRestResponse;
 import io.jsonwebtoken.Jwts;
@@ -18,6 +19,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -59,7 +62,8 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
         Instant iat = Instant.now();
         Instant exp = iat.plus(duration);
 
-        String token = Jwts.builder().setIssuer(appName)
+        String token = Jwts.builder()
+                .setIssuer(appName)
                 .setIssuedAt(Date.from(iat))
                 .setSubject(user.getUsername())
                 .setAudience(user.getUsername())
@@ -84,6 +88,6 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
 
         AbstractRestResponse.DefaultRestResponse restResponse = AbstractRestResponse.createSuccessRestResp(resultData);
 
-        ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), MediaType.APPLICATION_JSON_VALUE);
+        ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }
 }

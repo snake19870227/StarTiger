@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.api.entity.dto;
 
+import com.snake19870227.stiger.admin.api.ProjectConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ClassUtils;
@@ -14,11 +15,11 @@ public abstract class AbstractRestResponse<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractRestResponse.class);
 
-    public static final String DEFAULT_SUCCESS_RESP_CODE = "0000";
-    public static final String DEFAULT_SUCCESS_RESP_MESSAGE = "成功";
+    public static final String DEFAULT_SUCCESS_RESP_CODE = ProjectConstant.RestResp.Success.CODE;
+    public static final String DEFAULT_SUCCESS_RESP_MESSAGE = ProjectConstant.RestResp.Success.MESSAGE;
 
-    public static final String DEFAULT_FAILURE_RESP_CODE = "9999";
-    public static final String DEFAULT_FAILURE_RESP_MESSAGE = "失败";
+    public static final String DEFAULT_FAILURE_RESP_CODE = ProjectConstant.RestResp.Failure.CODE;
+    public static final String DEFAULT_FAILURE_RESP_MESSAGE = ProjectConstant.RestResp.Failure.MESSAGE;
 
     private String respCode;
 
