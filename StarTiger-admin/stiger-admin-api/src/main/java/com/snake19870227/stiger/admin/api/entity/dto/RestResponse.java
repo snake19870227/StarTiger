@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * @author Bu HuaYang
  */
-public abstract class RestResponse<T> {
+public class RestResponse<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(RestResponse.class);
 
