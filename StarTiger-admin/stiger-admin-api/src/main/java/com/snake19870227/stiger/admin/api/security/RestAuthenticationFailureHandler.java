@@ -4,8 +4,8 @@ import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.ContentType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.api.ProjectConstant.RestResp.*;
-import com.snake19870227.stiger.admin.api.entity.dto.AbstractRestResponse;
-import com.snake19870227.stiger.admin.api.entity.dto.AbstractRestResponse.DefaultRestResponse;
+import com.snake19870227.stiger.admin.api.entity.dto.RestResponse;
+import com.snake19870227.stiger.admin.api.entity.dto.RestResponse.DefaultRestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class RestAuthenticationFailureHandler implements AuthenticationFailureHa
         }
 
         DefaultRestResponse restResponse
-                = AbstractRestResponse.createRestResp(Code1001.CODE, Code1001.MESSAGE, null);
+                = RestResponse.createRestResp(Code1001.CODE, Code1001.MESSAGE, null);
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
 

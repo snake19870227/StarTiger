@@ -4,7 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.ContentType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.admin.api.entity.dto.AbstractRestResponse;
+import com.snake19870227.stiger.admin.api.entity.dto.RestResponse;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
@@ -86,7 +85,7 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
                 }
         });
 
-        AbstractRestResponse.DefaultRestResponse restResponse = AbstractRestResponse.createSuccessRestResp(resultData);
+        RestResponse.DefaultRestResponse restResponse = RestResponse.createSuccessRestResp(resultData);
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }

@@ -11,9 +11,9 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * @author Bu HuaYang
  */
-public abstract class AbstractRestResponse<T> {
+public abstract class RestResponse<T> {
 
-    private static final Logger logger = LoggerFactory.getLogger(AbstractRestResponse.class);
+    private static final Logger logger = LoggerFactory.getLogger(RestResponse.class);
 
     public static final String DEFAULT_SUCCESS_RESP_CODE = ProjectConstant.RestResp.Success.CODE;
     public static final String DEFAULT_SUCCESS_RESP_MESSAGE = ProjectConstant.RestResp.Success.MESSAGE;
@@ -27,12 +27,12 @@ public abstract class AbstractRestResponse<T> {
 
     private T data;
 
-    public AbstractRestResponse(String respCode, String respMessage) {
+    public RestResponse(String respCode, String respMessage) {
         this.respCode = respCode;
         this.respMessage = respMessage;
     }
 
-    public AbstractRestResponse(String respCode, String respMessage, T data) {
+    public RestResponse(String respCode, String respMessage, T data) {
         this.respCode = respCode;
         this.respMessage = respMessage;
         this.data = data;
@@ -55,17 +55,17 @@ public abstract class AbstractRestResponse<T> {
         }
     }
 
-    public static <F, M extends AbstractRestResponse<F>> M createSuccessRestResp(F data, Class<M> clazz)
+    public static <F, M extends RestResponse<F>> M createSuccessRestResp(F data, Class<M> clazz)
             throws IllegalAccessException, InstantiationException, InvocationTargetException {
         return createRestResp(DEFAULT_SUCCESS_RESP_CODE, DEFAULT_SUCCESS_RESP_MESSAGE, data, clazz);
     }
 
-    public static <F, M extends AbstractRestResponse<F>> M createFailureRestResp(F data, Class<M> clazz)
+    public static <F, M extends RestResponse<F>> M createFailureRestResp(F data, Class<M> clazz)
             throws IllegalAccessException, InstantiationException, InvocationTargetException {
         return createRestResp(DEFAULT_FAILURE_RESP_CODE, DEFAULT_FAILURE_RESP_MESSAGE, data, clazz);
     }
 
-    public static <F, M extends AbstractRestResponse<F>> M createRestResp(String respCode, String respMessage, F data, Class<M> clazz)
+    public static <F, M extends RestResponse<F>> M createRestResp(String respCode, String respMessage, F data, Class<M> clazz)
             throws IllegalAccessException, InstantiationException, InvocationTargetException {
 
         M restResp;
@@ -88,7 +88,7 @@ public abstract class AbstractRestResponse<T> {
         return restResp;
     }
 
-    public static class DefaultRestResponse extends AbstractRestResponse<Object> {
+    public static class DefaultRestResponse extends RestResponse<Object> {
 
         public DefaultRestResponse(String respCode, String respMessage) {
             super(respCode, respMessage);
