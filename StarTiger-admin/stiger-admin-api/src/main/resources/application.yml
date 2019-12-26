@@ -10,11 +10,6 @@ spring:
       FAIL_ON_UNKNOWN_PROPERTIES: false
     parser:
       ALLOW_UNQUOTED_FIELD_NAMES: true
-server:
-  port: 10002
-logging:
-  level:
-    org.springframework.security: debug
 mybatis:
   configuration:
     lazy-loading-enabled: false

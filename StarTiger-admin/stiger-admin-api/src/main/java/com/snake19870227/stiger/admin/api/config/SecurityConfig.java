@@ -1,7 +1,10 @@
 package com.snake19870227.stiger.admin.api.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.snake19870227.stiger.admin.api.security.JwtRsaSignKey;
+import com.snake19870227.stiger.admin.api.security.JwtSignKey;
 import com.snake19870227.stiger.admin.api.security.LoadUsernameAndPasswordFilter;
+import com.snake19870227.stiger.admin.api.security.RestAuthenticationSuccessHandler;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -11,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -35,8 +39,12 @@ public class SecurityConfig {
 
         private LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter;
 
-        CustomWebSecurityConfigurerAdapter(LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter) {
+        private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+        CustomWebSecurityConfigurerAdapter(LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter,
+                                           AuthenticationSuccessHandler authenticationSuccessHandler) {
             this.loadUsernameAndPasswordFilter = loadUsernameAndPasswordFilter;
+            this.authenticationSuccessHandler = authenticationSuccessHandler;
         }
 
         @Override
@@ -55,7 +63,7 @@ public class SecurityConfig {
 
             http.formLogin()
                     .loginProcessingUrl(LOGIN_PROCESSING_URL)
-                    .successForwardUrl(LOGIN_SUCCESS_URL)
+                    .successHandler(authenticationSuccessHandler)
                     .failureForwardUrl(LOGIN_FAILURE_URL);
 
             http.addFilterBefore(loadUsernameAndPasswordFilter, UsernamePasswordAuthenticationFilter.class);
@@ -70,5 +78,15 @@ public class SecurityConfig {
     @Bean
     public LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter(ObjectMapper objectMapper) {
         return new LoadUsernameAndPasswordFilter(objectMapper);
+    }
+
+    @Bean
+    public JwtSignKey jwtSignKey() {
+        return new JwtRsaSignKey();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new RestAuthenticationSuccessHandler();
     }
 }

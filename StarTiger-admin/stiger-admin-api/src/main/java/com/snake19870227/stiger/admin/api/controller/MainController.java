@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.api.controller;
 
+import cn.hutool.crypto.asymmetric.RSA;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwt;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.KeyPair;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -36,26 +39,39 @@ public class MainController {
         return HttpStatus.OK.value();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        LocalDateTime localDateTime = LocalDateTime.now();
+        Instant instant = Instant.now();
 
         KeyPair keyPair = Keys.keyPairFor(SignatureAlgorithm.RS256);
 
+        RSA rsa = new RSA(keyPair.getPrivate(), keyPair.getPublic());
+
+
+
+        System.out.println(rsa.getPrivateKeyBase64());
+        System.out.println(rsa.getPublicKeyBase64());
+
         String token = Jwts.builder().setIssuer("snake")
-                .setIssuedAt(Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant()))
+                .setIssuedAt(Date.from(instant))
                 .setSubject("xixi")
                 .setAudience("xixi")
-                .setExpiration(Date.from(localDateTime.plusMinutes(30).atZone(ZoneId.systemDefault()).toInstant()))
+                .setExpiration(Date.from(instant.plus(Duration.parse("PT5S"))))
                 .setId(UUID.randomUUID().toString())
                 .signWith(keyPair.getPrivate())
                 .compact();
 
         System.out.println(token);
 
+        Thread.sleep(3000);
+
         Jws<Claims> jws = Jwts.parser().setSigningKey(keyPair.getPublic()).parseClaimsJws(token);
 
         System.out.println(jws.toString());
+
+        Thread.sleep(3000);
+
+        Jwts.parser().setSigningKey(keyPair.getPublic()).parseClaimsJws(token);
     }
 
 }

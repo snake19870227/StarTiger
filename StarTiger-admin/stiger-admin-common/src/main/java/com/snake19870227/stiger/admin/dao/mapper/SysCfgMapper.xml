@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.snake19870227.stiger.admin.dao.mapper.SysCfgMapper">
+
+    <resultMap id="base" type="com.snake19870227.stiger.admin.entity.po.SysCfg">
+        <id column="cfg_code" property="cfgCode"/>
+        <result column="cfg_value" property="cfgValue"/>
+    </resultMap>
+
+    <select id="queryByCfgCode" resultMap="base">
+        select * from sys_cfg where cfg_code = #{cfgCode}
+    </select>
+
+    <insert id="insert" parameterType="com.snake19870227.stiger.admin.entity.po.SysCfg">
+        insert into sys_cfg (cfg_code, cfg_value)
+        values (#{cfg.cfgCode}, #{cfg.cfgValue})
+    </insert>
+
+    <delete id="delByCfgCode">
+        delete from sys_cfg where cfg_code = #{cfgCode}
+    </delete>
+
+</mapper>
