@@ -1,9 +1,11 @@
 package com.snake19870227.stiger.admin.api.entity.dto;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.snake19870227.stiger.admin.api.ProjectConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -70,7 +72,11 @@ public class RestResponse<T> {
 
         M restResp;
 
-        Constructor<M> constructor1 = ClassUtils.getConstructorIfAvailable(clazz, String.class, String.class, data.getClass());
+        Constructor<M> constructor1 = null;
+        if (ObjectUtil.isNotNull(data)) {
+            constructor1 = ClassUtils.getConstructorIfAvailable(clazz, String.class, String.class, data.getClass());
+        }
+
         Constructor<M> constructor2 = ClassUtils.getConstructorIfAvailable(clazz, String.class, String.class);
 
         if (constructor1 != null) {

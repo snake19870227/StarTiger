@@ -8,8 +8,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.KeyPair;
@@ -37,6 +39,16 @@ public class MainController {
     @PostMapping(path = LOGIN_SUCCESS_PATH)
     public Object loginSuccess() {
         return HttpStatus.OK.value();
+    }
+
+    @GetMapping(path = "/res1")
+    public String res1() {
+        return "res1";
+    }
+
+    @GetMapping(path = "/res2")
+    public String res2() {
+        return "res2";
     }
 
     public static void main(String[] args) throws InterruptedException {

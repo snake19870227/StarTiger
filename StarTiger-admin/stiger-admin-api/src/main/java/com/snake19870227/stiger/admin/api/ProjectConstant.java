@@ -22,5 +22,10 @@ public class ProjectConstant {
             public static final String MESSAGE = "登录失败";
         }
 
+        public static class Code2001 {
+            public static final String CODE = "2001";
+            public static final String MESSAGE = "接口用户认证失败";
+        }
+
     }
 }
