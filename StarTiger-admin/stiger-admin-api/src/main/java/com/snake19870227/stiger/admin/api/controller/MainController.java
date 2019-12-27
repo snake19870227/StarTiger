@@ -41,16 +41,6 @@ public class MainController {
         return HttpStatus.OK.value();
     }
 
-    @GetMapping(path = "/res1")
-    public String res1() {
-        return "res1";
-    }
-
-    @GetMapping(path = "/res2")
-    public String res2() {
-        return "res2";
-    }
-
     public static void main(String[] args) throws InterruptedException {
 
         Instant instant = Instant.now();

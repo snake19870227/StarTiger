@@ -1,6 +1,7 @@
 package com.snake19870227.stiger.admin.api.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.snake19870227.stiger.admin.api.security.JwtAuthenticationFilter;
 import com.snake19870227.stiger.admin.api.security.JwtRsaSignKey;
 import com.snake19870227.stiger.admin.api.security.JwtSignKey;
 import com.snake19870227.stiger.admin.api.security.LoadUsernameAndPasswordFilter;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -43,6 +45,8 @@ public class SecurityConfig {
 
         private LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter;
 
+        private JwtAuthenticationFilter jwtAuthenticationFilter;
+
         private AuthenticationSuccessHandler authenticationSuccessHandler;
 
         private AuthenticationFailureHandler authenticationFailureHandler;
@@ -50,10 +54,12 @@ public class SecurityConfig {
         private AuthenticationEntryPoint authenticationEntryPoint;
 
         CustomWebSecurityConfigurerAdapter(LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter,
+                                           JwtAuthenticationFilter jwtAuthenticationFilter,
                                            AuthenticationSuccessHandler authenticationSuccessHandler,
                                            AuthenticationFailureHandler authenticationFailureHandler,
                                            AuthenticationEntryPoint authenticationEntryPoint) {
             this.loadUsernameAndPasswordFilter = loadUsernameAndPasswordFilter;
+            this.jwtAuthenticationFilter = jwtAuthenticationFilter;
             this.authenticationSuccessHandler = authenticationSuccessHandler;
             this.authenticationFailureHandler = authenticationFailureHandler;
             this.authenticationEntryPoint = authenticationEntryPoint;
@@ -64,6 +70,7 @@ public class SecurityConfig {
 
             String h2ConsolePaths = h2ConsoleRootPath + "/**";
 
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.csrf().disable();
             http.cors();
             http.headers().frameOptions().sameOrigin();
@@ -78,7 +85,8 @@ public class SecurityConfig {
                     .successHandler(authenticationSuccessHandler)
                     .failureHandler(authenticationFailureHandler);
 
-            http.addFilterBefore(loadUsernameAndPasswordFilter, UsernamePasswordAuthenticationFilter.class);
+            http.addFilterBefore(loadUsernameAndPasswordFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
             http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         }
@@ -92,6 +100,14 @@ public class SecurityConfig {
     @Bean
     public LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter(ObjectMapper objectMapper) {
         return new LoadUsernameAndPasswordFilter(objectMapper);
+    }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter(ObjectMapper objectMapper,
+                                                           JwtSignKey jwtSignKey,
+                                                           AuthenticationEntryPoint authenticationEntryPoint,
+                                                           UserDetailsManager userDetailsManager) {
+        return new JwtAuthenticationFilter(jwtSignKey, objectMapper, authenticationEntryPoint, userDetailsManager);
     }
 
     @Bean
