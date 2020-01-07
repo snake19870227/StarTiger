@@ -2,8 +2,8 @@ package com.snake19870227.stiger.admin.api.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.api.security.JwtAuthenticationFilter;
-import com.snake19870227.stiger.admin.api.security.JwtRsaSignKey;
-import com.snake19870227.stiger.admin.api.security.JwtSignKey;
+import com.snake19870227.stiger.admin.security.JwtRsaSignKey;
+import com.snake19870227.stiger.admin.security.JwtSignKey;
 import com.snake19870227.stiger.admin.api.security.LoadUsernameAndPasswordFilter;
 import com.snake19870227.stiger.admin.api.security.RestAccessDeniedHandler;
 import com.snake19870227.stiger.admin.api.security.RestAuthenticationEntryPoint;

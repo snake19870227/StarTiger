@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.api.security;
+package com.snake19870227.stiger.admin.security;
 
 import com.snake19870227.stiger.admin.dao.mapper.SysCfgMapper;
 import com.snake19870227.stiger.admin.entity.po.SysCfg;
