@@ -27,5 +27,10 @@ public class ProjectConstant {
             public static final String MESSAGE = "接口用户认证失败";
         }
 
+        public static class Code2002 {
+            public static final String CODE = "2002";
+            public static final String MESSAGE = "用户无权访问该接口";
+        }
+
     }
 }

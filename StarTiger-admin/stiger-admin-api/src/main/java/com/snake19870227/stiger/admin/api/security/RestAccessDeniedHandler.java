@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,20 +21,19 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author Bu HuaYang
  */
-public class RestAuthenticationEntryPoint extends BaseSecurityExceptionHandler implements AuthenticationEntryPoint {
+public class RestAccessDeniedHandler extends BaseSecurityExceptionHandler implements AccessDeniedHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(RestAuthenticationEntryPoint.class);
+    private static final Logger logger = LoggerFactory.getLogger(RestAccessDeniedHandler.class);
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-            throws IOException, ServletException {
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
-        doHandle(request, response, authException);
+        doHandle(request, response, accessDeniedException);
 
     }
 
     @Override
     protected RestResponse.DefaultRestResponse createRestResponse(HttpServletRequest request, HttpServletResponse response, Exception exception) {
-        return RestResponse.createRestResp(ProjectConstant.RestResp.Code2001.CODE, ProjectConstant.RestResp.Code2001.MESSAGE, null);
+        return RestResponse.createRestResp(ProjectConstant.RestResp.Code2002.CODE, ProjectConstant.RestResp.Code2002.MESSAGE, null);
     }
 }

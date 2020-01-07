@@ -5,6 +5,7 @@ import com.snake19870227.stiger.admin.api.security.JwtAuthenticationFilter;
 import com.snake19870227.stiger.admin.api.security.JwtRsaSignKey;
 import com.snake19870227.stiger.admin.api.security.JwtSignKey;
 import com.snake19870227.stiger.admin.api.security.LoadUsernameAndPasswordFilter;
+import com.snake19870227.stiger.admin.api.security.RestAccessDeniedHandler;
 import com.snake19870227.stiger.admin.api.security.RestAuthenticationEntryPoint;
 import com.snake19870227.stiger.admin.api.security.RestAuthenticationFailureHandler;
 import com.snake19870227.stiger.admin.api.security.RestAuthenticationSuccessHandler;
@@ -19,6 +20,7 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -53,16 +55,20 @@ public class SecurityConfig {
 
         private AuthenticationEntryPoint authenticationEntryPoint;
 
+        private AccessDeniedHandler accessDeniedHandler;
+
         CustomWebSecurityConfigurerAdapter(LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter,
                                            JwtAuthenticationFilter jwtAuthenticationFilter,
                                            AuthenticationSuccessHandler authenticationSuccessHandler,
                                            AuthenticationFailureHandler authenticationFailureHandler,
-                                           AuthenticationEntryPoint authenticationEntryPoint) {
+                                           AuthenticationEntryPoint authenticationEntryPoint,
+                                           AccessDeniedHandler accessDeniedHandler) {
             this.loadUsernameAndPasswordFilter = loadUsernameAndPasswordFilter;
             this.jwtAuthenticationFilter = jwtAuthenticationFilter;
             this.authenticationSuccessHandler = authenticationSuccessHandler;
             this.authenticationFailureHandler = authenticationFailureHandler;
             this.authenticationEntryPoint = authenticationEntryPoint;
+            this.accessDeniedHandler = accessDeniedHandler;
         }
 
         @Override
@@ -88,7 +94,9 @@ public class SecurityConfig {
             http.addFilterBefore(loadUsernameAndPasswordFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-            http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+            http.exceptionHandling()
+                    .authenticationEntryPoint(authenticationEntryPoint)
+                    .accessDeniedHandler(accessDeniedHandler);
         }
     }
 
@@ -128,5 +136,10 @@ public class SecurityConfig {
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new RestAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new RestAccessDeniedHandler();
     }
 }
