@@ -78,7 +78,7 @@ public class SecurityConfig {
             ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry = http.authorizeRequests();
             urlRegistry.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
             urlRegistry.antMatchers(h2ConsolePaths).permitAll();
-            urlRegistry.anyRequest().authenticated();
+            urlRegistry.anyRequest().access("@authAssert.canAccess(request, authentication)");
 
             http.formLogin()
                     .loginProcessingUrl(LOGIN_PROCESSING_URL)

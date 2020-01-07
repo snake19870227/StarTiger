@@ -73,13 +73,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     Jws<Claims> jws = Jwts.parser().setSigningKey(jwtSignKey.getSigningKey()).parseClaimsJws(jwtToken);
                     Claims claims = jws.getBody();
 
-                    UserDetails userDetails
-                            = User.withUsername(claims.getSubject())
-                                .password("")
-                                .authorities(AuthorityUtils.NO_AUTHORITIES)
-                                .build();
+                    UserDetails userDetails = userDetailsManager.loadUserByUsername(claims.getSubject());
 
-                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+//                    UserDetails userDetails
+//                            = User.withUsername(claims.getSubject())
+//                                .password("")
+//                                .authorities(AuthorityUtils.NO_AUTHORITIES)
+//                                .build();
+
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
