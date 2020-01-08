@@ -29,6 +29,6 @@ public class RestAuthenticationEntryPoint extends BaseSecurityExceptionHandler i
 
     @Override
     protected RestResponse.DefaultRestResponse createRestResponse(HttpServletRequest request, HttpServletResponse response, Exception exception) {
-        return RestResponse.createRestResp(ProjectConstant.RestResp.Code2001.CODE, ProjectConstant.RestResp.Code2001.MESSAGE, null);
+        return RestResponse.createRestResp(false, "code.2001", null);
     }
 }

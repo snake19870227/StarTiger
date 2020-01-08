@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * @author Bu HuaYang
  */
-public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class RestAuthenticationSuccessHandler extends BaseAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(RestAuthenticationSuccessHandler.class);
 
@@ -52,42 +52,48 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
-        if (response.isCommitted()) {
-            logger.warn("请求响应已被提交");
-            return;
+        doHandler(request, response, authentication);
+    }
+
+    @Override
+    protected RestResponse.DefaultRestResponse buildResponse(HttpServletRequest request, HttpServletResponse response, Object object) {
+
+        if (object instanceof Authentication) {
+
+            Authentication authentication = (Authentication) object;
+
+            User user = (User) authentication.getPrincipal();
+
+            Instant iat = Instant.now();
+            Instant exp = iat.plus(duration);
+
+            String token = Jwts.builder()
+                    .setIssuer(appName)
+                    .setIssuedAt(Date.from(iat))
+                    .setSubject(user.getUsername())
+                    .setAudience(user.getUsername())
+                    .setExpiration(Date.from(exp))
+                    .setId(user.getUsername())
+                    .signWith(jwtSignKey.getSignKey())
+                    .compact();
+
+            logger.info("用户[{}]获取token[{}]", user.getUsername(), token);
+
+            Map<Object, Object> resultData;
+            resultData = MapUtil.of(new String[][] {
+                    {
+                            "accessToken", token
+                    },
+                    {
+                            "expiresTime",
+                            LocalDateTime.ofInstant(exp, ZoneId.systemDefault())
+                                    .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"))
+                    }
+            });
+
+            return RestResponse.createSuccessRestResp(resultData);
         }
 
-        User user = (User) authentication.getPrincipal();
-
-        Instant iat = Instant.now();
-        Instant exp = iat.plus(duration);
-
-        String token = Jwts.builder()
-                .setIssuer(appName)
-                .setIssuedAt(Date.from(iat))
-                .setSubject(user.getUsername())
-                .setAudience(user.getUsername())
-                .setExpiration(Date.from(exp))
-                .setId(user.getUsername())
-                .signWith(jwtSignKey.getSignKey())
-                .compact();
-
-        logger.info("用户[{}]获取token[{}]", user.getUsername(), token);
-
-        Map<Object, Object> resultData;
-        resultData = MapUtil.of(new String[][] {
-                {
-                    "accessToken", token
-                },
-                {
-                    "expiresTime",
-                        LocalDateTime.ofInstant(exp, ZoneId.systemDefault())
-                                .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"))
-                }
-        });
-
-        RestResponse.DefaultRestResponse restResponse = RestResponse.createSuccessRestResp(resultData);
-
-        ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
+        return RestResponse.createRestResp(false, "code.1001", null);
     }
 }

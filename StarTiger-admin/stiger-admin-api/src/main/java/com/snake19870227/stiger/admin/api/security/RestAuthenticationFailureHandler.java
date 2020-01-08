@@ -22,26 +22,20 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author Bu HuaYang
  */
-public class RestAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class RestAuthenticationFailureHandler extends BaseAuthenticationSuccessHandler implements AuthenticationFailureHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(RestAuthenticationFailureHandler.class);
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
             throws IOException, ServletException {
 
-        if (response.isCommitted()) {
-            logger.warn("请求响应已被提交");
-            return;
-        }
+        doHandler(request, response, exception);
 
-        DefaultRestResponse restResponse
-                = RestResponse.createRestResp(Code1001.CODE, Code1001.MESSAGE, null);
+    }
 
-        ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
-
+    @Override
+    protected DefaultRestResponse buildResponse(HttpServletRequest request, HttpServletResponse response, Object object) {
+        return RestResponse.createRestResp(false, "code.1001", null);
     }
 }
