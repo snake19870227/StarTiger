@@ -17,9 +17,9 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author Bu HuaYang
  */
-public abstract class BaseSecurityExceptionHandler {
+public abstract class BaseRestSecurityExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseSecurityExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseRestSecurityExceptionHandler.class);
 
     @Autowired
     private ObjectMapper objectMapper;

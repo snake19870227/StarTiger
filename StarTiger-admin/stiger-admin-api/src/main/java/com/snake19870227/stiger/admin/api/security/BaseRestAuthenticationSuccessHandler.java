@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +19,9 @@ import static com.snake19870227.stiger.admin.entity.dto.RestResponse.*;
 /**
  * @author Bu HuaYang
  */
-public abstract class BaseAuthenticationSuccessHandler {
+public abstract class BaseRestAuthenticationSuccessHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseAuthenticationSuccessHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseRestAuthenticationSuccessHandler.class);
 
     @Autowired
     private ObjectMapper objectMapper;

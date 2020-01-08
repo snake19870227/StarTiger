@@ -1,8 +1,6 @@
 package com.snake19870227.stiger.admin.api.security;
 
 import cn.hutool.core.map.MapUtil;
-import cn.hutool.extra.servlet.ServletUtil;
-import cn.hutool.http.ContentType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.entity.dto.RestResponse;
 import com.snake19870227.stiger.admin.security.JwtSignKey;
@@ -11,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -20,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -32,7 +28,7 @@ import java.util.Map;
 /**
  * @author Bu HuaYang
  */
-public class RestAuthenticationSuccessHandler extends BaseAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class RestAuthenticationSuccessHandler extends BaseRestAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(RestAuthenticationSuccessHandler.class);
 

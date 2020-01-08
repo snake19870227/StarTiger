@@ -1,6 +1,5 @@
 package com.snake19870227.stiger.admin.api.security;
 
-import com.snake19870227.stiger.admin.ProjectConstant;
 import com.snake19870227.stiger.admin.entity.dto.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,7 @@ import java.io.IOException;
 /**
  * @author Bu HuaYang
  */
-public class RestAccessDeniedHandler extends BaseSecurityExceptionHandler implements AccessDeniedHandler {
+public class RestAccessDeniedHandler extends BaseRestSecurityExceptionHandler implements AccessDeniedHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(RestAccessDeniedHandler.class);
 
