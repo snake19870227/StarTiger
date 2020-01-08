@@ -7,6 +7,8 @@ import java.security.Key;
  */
 public interface JwtSignKey {
 
+    void init();
+
     Key getSignKey();
 
     Key getSigningKey();

@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.admin.api.controller;
 
-import com.snake19870227.stiger.admin.api.entity.dto.RestResponse;
+import com.snake19870227.stiger.admin.entity.dto.RestResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

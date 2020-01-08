@@ -1,11 +1,10 @@
-package com.snake19870227.stiger.admin.api.entity.dto;
+package com.snake19870227.stiger.admin.entity.dto;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.snake19870227.stiger.admin.api.ProjectConstant;
+import com.snake19870227.stiger.admin.ProjectConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ClassUtils;
-import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

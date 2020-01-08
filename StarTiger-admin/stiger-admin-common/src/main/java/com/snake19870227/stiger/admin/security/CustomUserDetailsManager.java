@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -48,22 +51,21 @@ public class CustomUserDetailsManager implements UserDetailsManager {
 
     @Override
     public boolean userExists(String username) {
-        SysUser sysUser = sysUserMapper.queryByUsername(username);
-        return sysUser != null;
+        return sysUserMapper.queryByUsername(username).isPresent();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser sysUser = sysUserMapper.queryByUsername(username);
-        if (sysUser == null) {
-            return null;
-        }
-        List<SysUserRole> sysUserRoleList = sysUserRoleMapper.queryByUserId(sysUser.getUserId());
-        List<GrantedAuthority> roleCodeList = sysUserRoleList.stream()
-                .map(sysUserRole -> new SimpleGrantedAuthority(sysUserRole.getRoleCode()))
-                .collect(Collectors.toList());
-        return User.withUsername(sysUser.getUsername())
-                .password(sysUser.getEncodePassword())
-                .authorities(roleCodeList.isEmpty() ? AuthorityUtils.NO_AUTHORITIES : roleCodeList).build();
+        Optional<SysUser> sysUserObj = sysUserMapper.queryByUsername(username);
+        Optional<UserDetails> userDetailsObj = sysUserObj.map(sysUser -> {
+            List<SysUserRole> sysUserRoleList = sysUserRoleMapper.queryByUserId(sysUser.getUserId());
+            List<GrantedAuthority> roleCodeList = sysUserRoleList.stream()
+                    .map(sysUserRole -> new SimpleGrantedAuthority(sysUserRole.getRoleCode()))
+                    .collect(Collectors.toList());
+            return User.withUsername(sysUser.getUsername())
+                    .password(sysUser.getEncodePassword())
+                    .authorities(roleCodeList.isEmpty() ? AuthorityUtils.NO_AUTHORITIES : roleCodeList).build();
+        });
+        return userDetailsObj.orElse(null);
     }
 }

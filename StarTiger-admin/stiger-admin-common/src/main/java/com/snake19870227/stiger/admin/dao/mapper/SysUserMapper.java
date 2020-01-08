@@ -2,7 +2,9 @@ package com.snake19870227.stiger.admin.dao.mapper;
 
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 
+import java.util.Optional;
+
 public interface SysUserMapper {
 
-    SysUser queryByUsername(String username);
+    Optional<SysUser> queryByUsername(String username);
 }

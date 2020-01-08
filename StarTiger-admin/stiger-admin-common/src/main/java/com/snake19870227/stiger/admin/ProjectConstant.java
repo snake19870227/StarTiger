@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.api;
+package com.snake19870227.stiger.admin;
 
 /**
  * @author Bu HuaYang
