@@ -8,6 +8,9 @@ import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.entity.po.SysUserRole;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
+import com.snake19870227.stiger.admin.web.security.WebSecurityExceptionHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -30,25 +33,49 @@ import java.util.stream.Collectors;
  * @author Bu HuaYang
  */
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    @Value("${stiger.h2.console.root-path:/h2}")
-    private String h2ConsoleRootPath;
+    @Configuration
+    public static class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+        @Value("${stiger.h2.console.root-path:/h2}")
+        private String h2ConsoleRootPath;
 
-        String h2ConsolePaths = h2ConsoleRootPath + "/**";
+        @Autowired
+        private WebSecurityExceptionHandler authenticationEntryPoint;
+        @Autowired
+        private WebSecurityExceptionHandler accessDeniedHandler;
 
-        http.csrf().ignoringAntMatchers(h2ConsolePaths);
-        http.headers().frameOptions().sameOrigin();
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
 
-        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry = http.authorizeRequests();
-        urlRegistry.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
-        urlRegistry.antMatchers(h2ConsolePaths).permitAll();
-        urlRegistry.anyRequest().access("@authAssert.canAccess(request, authentication)");
+            String h2ConsolePaths = h2ConsoleRootPath + "/**";
 
-        http.formLogin();
+            http.csrf().ignoringAntMatchers(h2ConsolePaths);
+            http.headers().frameOptions().sameOrigin();
+
+            ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry = http.authorizeRequests();
+            urlRegistry
+                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                    .antMatchers(h2ConsolePaths, "/login").permitAll()
+                    .anyRequest().access("@authAssert.canAccess(request, authentication)");
+
+            http.formLogin().loginPage("/login").permitAll();
+
+            http.exceptionHandling()
+                    .authenticationEntryPoint(authenticationEntryPoint)
+                    .accessDeniedHandler(accessDeniedHandler);
+        }
+    }
+
+    @Bean
+    public WebSecurityExceptionHandler authenticationEntryPoint() {
+        return new WebSecurityExceptionHandler();
+    }
+
+    @Bean
+    public WebSecurityExceptionHandler accessDeniedHandler() {
+        return new WebSecurityExceptionHandler();
     }
 
     @Bean

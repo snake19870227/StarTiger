@@ -3,7 +3,7 @@ package com.snake19870227.stiger.admin;
 /**
  * @author Bu HuaYang
  */
-public class ProjectConstant {
+public class SuperConstant {
 
     public static class RestResp {
 

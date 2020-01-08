@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.admin.entity.dto;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.snake19870227.stiger.admin.ProjectConstant;
+import com.snake19870227.stiger.admin.SuperConstant;
 import com.snake19870227.stiger.admin.project.SuperContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +17,10 @@ public class RestResponse<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(RestResponse.class);
 
-    public static final String DEFAULT_SUCCESS_RESP_CODE = ProjectConstant.RestResp.CODE_0000;
+    public static final String DEFAULT_SUCCESS_RESP_CODE = SuperConstant.RestResp.CODE_0000;
     public static final String DEFAULT_SUCCESS_RESP_MESSAGE = SuperContext.getMessage(DEFAULT_SUCCESS_RESP_CODE);
 
-    public static final String DEFAULT_FAILURE_RESP_CODE = ProjectConstant.RestResp.CODE_9999;
+    public static final String DEFAULT_FAILURE_RESP_CODE = SuperConstant.RestResp.CODE_9999;
     public static final String DEFAULT_FAILURE_RESP_MESSAGE = SuperContext.getMessage(DEFAULT_FAILURE_RESP_CODE);
 
     private String respCode;
@@ -58,7 +58,7 @@ public class RestResponse<T> {
             respCode = isSuccess ? DEFAULT_SUCCESS_RESP_CODE : DEFAULT_FAILURE_RESP_CODE;
             respMessage = isSuccess ? DEFAULT_SUCCESS_RESP_MESSAGE : DEFAULT_FAILURE_RESP_MESSAGE;
         }
-        
+
         try {
             return createRestResp(respCode, respMessage, data, DefaultRestResponse.class);
         } catch (Exception e) {
