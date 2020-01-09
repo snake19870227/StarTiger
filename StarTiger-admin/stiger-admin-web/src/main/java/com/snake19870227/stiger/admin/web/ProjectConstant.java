@@ -15,6 +15,14 @@ public class ProjectConstant {
     }
 
     public static class UrlPath {
+        public static final String ROOT = "/";
+        public static final String INDEX = "/index";
         public static final String LOGIN = "/login";
+
+        public static String[] anonymousPaths() {
+            return new String[] {
+                    ROOT, INDEX, LOGIN
+            };
+        }
     }
 }

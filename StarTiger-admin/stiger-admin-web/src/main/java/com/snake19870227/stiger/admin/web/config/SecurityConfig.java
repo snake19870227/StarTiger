@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.web.config;
 
+import cn.hutool.core.util.ArrayUtil;
 import com.snake19870227.stiger.admin.dao.mapper.SysUserMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysUserRoleMapper;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
@@ -8,6 +9,7 @@ import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.entity.po.SysUserRole;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
+import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.security.WebSecurityExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -53,12 +55,14 @@ public class SecurityConfig {
             http.headers().frameOptions().sameOrigin();
 
             ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry = http.authorizeRequests();
+
+            String[] anonymousPaths = ArrayUtil.addAll(new String[]{h2ConsolePaths}, ProjectConstant.UrlPath.anonymousPaths());
             urlRegistry
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                    .antMatchers(h2ConsolePaths, "/login").permitAll()
+                    .antMatchers(anonymousPaths).permitAll()
                     .anyRequest().access("@authAssert.canAccess(request, authentication)");
 
-            http.formLogin().loginPage("/login");
+            http.formLogin().loginPage(ProjectConstant.UrlPath.LOGIN);
 
             http.exceptionHandling()
                     .authenticationEntryPoint(webSecurityExceptionHandler)

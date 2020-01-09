@@ -1,12 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: ${proj.profile.id}
+    include: base
   application:
-    name: ${project.artifactId}
-server:
-  port: 10001
-mybatis:
-  configuration:
-    lazy-loading-enabled: false
-    aggressive-lazy-loading: false
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    name: ${project.artifactId}-${proj.profile.id}-${server.port}

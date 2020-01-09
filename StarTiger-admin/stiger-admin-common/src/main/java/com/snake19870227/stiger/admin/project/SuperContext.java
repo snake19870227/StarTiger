@@ -4,7 +4,9 @@ import cn.hutool.core.util.ArrayUtil;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
+import org.springframework.web.context.WebApplicationContext;
 
+import javax.servlet.ServletContext;
 import java.util.Locale;
 
 /**
@@ -16,6 +18,8 @@ public class SuperContext {
     private static String applicationName;
 
     private static ApplicationContext springContext;
+
+    private static ServletContext servletContext;
 
     private static ServerProperties serverProperties;
 
@@ -53,7 +57,11 @@ public class SuperContext {
     public static void setSpringContext(ApplicationContext springContext) {
         SuperContext.springContext = springContext;
         SuperContext.activeProfiles = springContext.getEnvironment().getActiveProfiles();
-        SuperContext.applicationName = springContext.getApplicationName();
+        SuperContext.applicationName = springContext.getId();
         SuperContext.serverProperties = springContext.getBean(ServerProperties.class);
+        if (springContext instanceof WebApplicationContext) {
+            SuperContext.servletContext = ((WebApplicationContext) springContext).getServletContext();
+            SuperContext.servletContext.setAttribute("activeProfiles", activeProfiles);
+        }
     }
 }

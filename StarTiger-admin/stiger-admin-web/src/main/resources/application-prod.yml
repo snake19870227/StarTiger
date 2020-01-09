@@ -11,8 +11,6 @@ spring:
         trace: true
         web-allow-others: true
       path: ${stiger.h2.console.root-path}/console
-server:
-  port: 10001
 stiger:
   h2:
     console:

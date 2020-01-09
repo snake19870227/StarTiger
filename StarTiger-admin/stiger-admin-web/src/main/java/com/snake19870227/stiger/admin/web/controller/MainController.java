@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.web.controller;
 
+import com.snake19870227.stiger.admin.web.ProjectConstant;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MainController {
 
-    @GetMapping(path = {"/", "/index"})
+    @GetMapping(path = {ProjectConstant.UrlPath.ROOT, ProjectConstant.UrlPath.INDEX})
     public String index() {
         return "index";
     }

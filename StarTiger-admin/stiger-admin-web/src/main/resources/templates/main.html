@@ -19,13 +19,20 @@
 
 <textarea id="txt" cols="100" rows="50"></textarea>
 
+<th:block th:replace="script :: script"/>
 <script>
     function req(url) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, false);
-        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        xhr.send();
-        document.getElementById('txt').innerText = xhr.responseText;
+        // var xhr = new XMLHttpRequest();
+        // xhr.open("GET", url, false);
+        // xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        // xhr.send();
+        // document.getElementById('txt').innerText = xhr.responseText;
+
+        $.get(url, function (data, textStatus, jqXHR) {
+            console.log(textStatus);
+            console.log(JSON.stringify(jqXHR));
+            $("#txt").val(data);
+        });
     }
 </script>
 </body>

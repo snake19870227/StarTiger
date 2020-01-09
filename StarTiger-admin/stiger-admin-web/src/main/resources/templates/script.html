@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="script">
+    <script th:if="${#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script th:if="${!#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</th:block>
+</body>
+</html>

@@ -16,11 +16,33 @@
     <name>STigerAdminWeb</name>
     <description>StarTiger Admin Web Project</description>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <proj.profile.id>dev</proj.profile.id>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <proj.profile.id>prod</proj.profile.id>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/webresources</directory>
+                <filtering>false</filtering>
             </resource>
             <resource>
                 <directory>src/main/java</directory>

@@ -1,0 +1,5 @@
+mybatis:
+  configuration:
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: false
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

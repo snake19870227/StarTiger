@@ -32,7 +32,7 @@ public class LoginController {
         }
     }
 
-    @GetMapping(path = "/login")
+    @GetMapping(path = ProjectConstant.UrlPath.LOGIN)
     public String login() {
         return "login";
     }
