@@ -6,5 +6,5 @@ import org.springframework.context.annotation.Configuration;
  * @author Bu HuaYang
  */
 @Configuration
-public class SuperProjectConfig {
+public class SuperConfig {
 }

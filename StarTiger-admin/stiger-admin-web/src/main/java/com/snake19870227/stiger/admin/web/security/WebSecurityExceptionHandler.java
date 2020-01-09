@@ -45,6 +45,7 @@ public class WebSecurityExceptionHandler implements AuthenticationEntryPoint, Ac
             responseIfAjax("code.2001", response);
         } else {
             response.sendRedirect("/login?" + ProjectConstant.UrlParamNames.LOGIN_EXPIRE);
+//            response.sendRedirect("/login");
         }
     }
 
@@ -57,7 +58,7 @@ public class WebSecurityExceptionHandler implements AuthenticationEntryPoint, Ac
         }
 
         if (WebUtil.isAjaxRequest(request)) {
-            responseIfAjax("code.2003", response);
+            responseIfAjax("code.2002", response);
         } else {
 //            response.sendRedirect("/accessDenied");
             ServletUtil.write(

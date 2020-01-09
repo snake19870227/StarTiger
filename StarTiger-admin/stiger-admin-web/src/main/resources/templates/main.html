@@ -23,7 +23,7 @@
     function req(url) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url, false);
-        // xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhr.send();
         document.getElementById('txt').innerText = xhr.responseText;
     }

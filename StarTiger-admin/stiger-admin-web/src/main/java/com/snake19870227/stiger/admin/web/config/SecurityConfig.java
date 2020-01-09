@@ -42,9 +42,7 @@ public class SecurityConfig {
         private String h2ConsoleRootPath;
 
         @Autowired
-        private WebSecurityExceptionHandler authenticationEntryPoint;
-        @Autowired
-        private WebSecurityExceptionHandler accessDeniedHandler;
+        private WebSecurityExceptionHandler webSecurityExceptionHandler;
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -60,21 +58,16 @@ public class SecurityConfig {
                     .antMatchers(h2ConsolePaths, "/login").permitAll()
                     .anyRequest().access("@authAssert.canAccess(request, authentication)");
 
-            http.formLogin().loginPage("/login").permitAll();
+            http.formLogin().loginPage("/login");
 
             http.exceptionHandling()
-                    .authenticationEntryPoint(authenticationEntryPoint)
-                    .accessDeniedHandler(accessDeniedHandler);
+                    .authenticationEntryPoint(webSecurityExceptionHandler)
+                    .accessDeniedHandler(webSecurityExceptionHandler);
         }
     }
 
     @Bean
-    public WebSecurityExceptionHandler authenticationEntryPoint() {
-        return new WebSecurityExceptionHandler();
-    }
-
-    @Bean
-    public WebSecurityExceptionHandler accessDeniedHandler() {
+    public WebSecurityExceptionHandler webSecurityExceptionHandler() {
         return new WebSecurityExceptionHandler();
     }
 
