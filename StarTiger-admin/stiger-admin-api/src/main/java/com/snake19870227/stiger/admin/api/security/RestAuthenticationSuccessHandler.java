@@ -90,6 +90,6 @@ public class RestAuthenticationSuccessHandler extends BaseRestAuthenticationSucc
             return RestResponse.createSuccessRestResp(resultData);
         }
 
-        return RestResponse.createRestResp(false, "code.1001", null);
+        return RestResponse.createRestResp(false, "1001", null);
     }
 }

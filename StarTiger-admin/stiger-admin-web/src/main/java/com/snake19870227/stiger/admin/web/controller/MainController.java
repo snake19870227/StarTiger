@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.web.controller;
 
+import com.snake19870227.stiger.admin.entity.dto.RestResponse;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,13 +34,13 @@ public class MainController {
 
     @GetMapping(path = "/res1")
     @ResponseBody
-    public String res1() {
-        return "res1";
+    public RestResponse<Object> res1() {
+        return RestResponse.createSuccessRestResp("res1");
     }
 
     @GetMapping(path = "/res2")
     @ResponseBody
-    public String res2() {
-        return "res2";
+    public RestResponse<Object> res2() {
+        return RestResponse.createSuccessRestResp("res2");
     }
 }

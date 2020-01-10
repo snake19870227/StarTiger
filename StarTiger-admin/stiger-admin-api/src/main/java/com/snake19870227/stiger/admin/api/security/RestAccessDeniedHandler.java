@@ -27,6 +27,6 @@ public class RestAccessDeniedHandler extends BaseRestSecurityExceptionHandler im
 
     @Override
     protected RestResponse.DefaultRestResponse createRestResponse(HttpServletRequest request, HttpServletResponse response, Exception exception) {
-        return RestResponse.createRestResp(false, "code.2002", null);
+        return RestResponse.createRestResp(false, "2002", null);
     }
 }

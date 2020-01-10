@@ -29,6 +29,6 @@ public class RestAuthenticationFailureHandler extends BaseRestAuthenticationSucc
 
     @Override
     protected DefaultRestResponse buildResponse(HttpServletRequest request, HttpServletResponse response, Object object) {
-        return RestResponse.createRestResp(false, "code.1001", null);
+        return RestResponse.createRestResp(false, "1001", null);
     }
 }

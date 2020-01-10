@@ -3,6 +3,7 @@ package com.snake19870227.stiger.admin.web.controller;
 import cn.hutool.core.util.StrUtil;
 import com.snake19870227.stiger.admin.project.SuperContext;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 
 /**
@@ -38,7 +40,7 @@ public class LoginController {
     }
 
     @GetMapping(path = "/accessDenied")
-    public String accessDenied() {
+    public String accessDenied(HttpServletResponse response) {
         return "403";
     }
 }

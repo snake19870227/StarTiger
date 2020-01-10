@@ -10,6 +10,7 @@ import com.snake19870227.stiger.admin.web.ProjectConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
@@ -42,10 +43,9 @@ public class WebSecurityExceptionHandler implements AuthenticationEntryPoint, Ac
         }
 
         if (WebUtil.isAjaxRequest(request)) {
-            responseIfAjax("code.2001", response);
+            responseIfAjax("2001", response);
         } else {
-            response.sendRedirect("/login?" + ProjectConstant.UrlParamNames.LOGIN_EXPIRE);
-//            response.sendRedirect("/login");
+            response.sendRedirect(ProjectConstant.UrlPath.LOGIN + "?" + ProjectConstant.UrlParamNames.LOGIN_EXPIRE);
         }
     }
 
@@ -58,14 +58,9 @@ public class WebSecurityExceptionHandler implements AuthenticationEntryPoint, Ac
         }
 
         if (WebUtil.isAjaxRequest(request)) {
-            responseIfAjax("code.2002", response);
+            responseIfAjax("2002", response);
         } else {
-//            response.sendRedirect("/accessDenied");
-            ServletUtil.write(
-                    response,
-                    "accessDenied",
-                    ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8)
-            );
+            response.sendRedirect(ProjectConstant.UrlPath.ACCESS_DENIED);
         }
     }
 

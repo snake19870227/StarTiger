@@ -6,8 +6,12 @@
 </head>
 <body>
 <th:block th:fragment="script">
+    <input type="hidden" th:if="${#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" id="runningMode" value="dev" />
+    <input type="hidden" th:if="${!#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" id="runningMode" value="notdev" />
     <script th:if="${#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script th:if="${!#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script th:src="@{/js/Proj.js}"></script>
+    <script th:src="@{/js/HttpUtil.js}"></script>
 </th:block>
 </body>
 </html>

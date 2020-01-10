@@ -10,6 +10,8 @@ import org.springframework.util.ClassUtils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import static com.snake19870227.stiger.admin.SuperConstant.RestResp;
+
 /**
  * @author Bu HuaYang
  */
@@ -17,11 +19,11 @@ public class RestResponse<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(RestResponse.class);
 
-    public static final String DEFAULT_SUCCESS_RESP_CODE = SuperConstant.RestResp.CODE_0000;
-    public static final String DEFAULT_SUCCESS_RESP_MESSAGE = SuperContext.getMessage(DEFAULT_SUCCESS_RESP_CODE);
+    public static final String DEFAULT_SUCCESS_RESP_CODE = RestResp.CODE_0000;
+    public static final String DEFAULT_SUCCESS_RESP_MESSAGE = SuperContext.getMessage(RestResp.PREFIX_CODE + DEFAULT_SUCCESS_RESP_CODE);
 
-    public static final String DEFAULT_FAILURE_RESP_CODE = SuperConstant.RestResp.CODE_9999;
-    public static final String DEFAULT_FAILURE_RESP_MESSAGE = SuperContext.getMessage(DEFAULT_FAILURE_RESP_CODE);
+    public static final String DEFAULT_FAILURE_RESP_CODE = RestResp.CODE_9999;
+    public static final String DEFAULT_FAILURE_RESP_MESSAGE = SuperContext.getMessage(RestResp.PREFIX_CODE + DEFAULT_FAILURE_RESP_CODE);
 
     private String respCode;
 
@@ -52,7 +54,7 @@ public class RestResponse<T> {
 
         String respMessage = null;
         try {
-            respMessage = SuperContext.getMessage(respCode);
+            respMessage = SuperContext.getMessage(RestResp.PREFIX_CODE + respCode);
         } catch (Exception e) {
             logger.warn("未找到国际化文本配置[{}]", respCode, e);
             respCode = isSuccess ? DEFAULT_SUCCESS_RESP_CODE : DEFAULT_FAILURE_RESP_CODE;
