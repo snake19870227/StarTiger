@@ -1,8 +1,9 @@
 spring:
   profiles:
-    active: dev
+    active: ${proj.profile.id}
+    include: base
   application:
-    name: ${project.artifactId}
+    name: ${project.artifactId}-${proj.profile.id}-${server.port}
   jackson:
     serialization:
       INDENT_OUTPUT: true
@@ -10,8 +11,3 @@ spring:
       FAIL_ON_UNKNOWN_PROPERTIES: false
     parser:
       ALLOW_UNQUOTED_FIELD_NAMES: true
-mybatis:
-  configuration:
-    lazy-loading-enabled: false
-    aggressive-lazy-loading: false
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

@@ -13,6 +13,18 @@
 
     <artifactId>stiger-admin-api</artifactId>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <proj.profile.id>dev</proj.profile.id>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <resources>
             <resource>
