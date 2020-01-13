@@ -9,5 +9,12 @@ function req(url) {
 }
 
 function load(url) {
-    $("#area").load(url);
+    // $("#area").load(url);
+    HttpUtil.ajaxReq({
+        url: url,
+        dataType: "html",
+        callbackFunc: function (resp) {
+            $("#area").html(resp);
+        }
+    });
 }

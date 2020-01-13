@@ -49,9 +49,31 @@ var HttpUtil = function () {
                     }
                 },
                 success: function (data, textStatus, XMLHttpRequest) {
-                    var codeFunc = RespCode["code" + data.respCode];
-                    if (codeFunc && $.type(codeFunc) === "function") {
-                        codeFunc(data, obj.callbackFunc, this);
+                    var dataObj = {};
+                    var isJsonObject = false;
+                    if (typeof data === "object") {
+                        dataObj = data;
+                        isJsonObject = true;
+                    } else {
+                        try {
+                            dataObj = JSON.parse(data);
+                            isJsonObject = true;
+                        } catch (err) {
+                            if (Proj.isDev()) {
+                                console.warn(err.message);
+                            }
+                            isJsonObject = false;
+                        }
+                    }
+                    if (isJsonObject) {
+                        var codeFunc = RespCode["code" + dataObj.respCode];
+                        if (codeFunc && $.type(codeFunc) === "function") {
+                            codeFunc(dataObj, obj.callbackFunc, this);
+                        }
+                    } else {
+                        if (obj.callbackFunc && $.type(obj.callbackFunc) === "function") {
+                            obj.callbackFunc(data);
+                        }
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
