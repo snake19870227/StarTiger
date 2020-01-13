@@ -13,6 +13,9 @@
 
     <artifactId>stiger-admin-api</artifactId>
 
+    <name>STigerAdminApi</name>
+    <description>StarTiger Admin Rest Api Module</description>
+
     <profiles>
         <profile>
             <id>dev</id>
@@ -22,6 +25,25 @@
             <properties>
                 <proj.profile.id>dev</proj.profile.id>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>mac</id>
+            <properties>
+                <proj.profile.id>mac</proj.profile.id>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 
@@ -64,12 +86,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>

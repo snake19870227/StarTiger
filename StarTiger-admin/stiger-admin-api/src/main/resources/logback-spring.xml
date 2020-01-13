@@ -10,4 +10,10 @@
         </root>
     </springProfile>
 
+    <springProfile name="mac">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
 </configuration>

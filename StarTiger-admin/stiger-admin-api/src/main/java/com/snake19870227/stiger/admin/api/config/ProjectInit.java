@@ -2,6 +2,7 @@ package com.snake19870227.stiger.admin.api.config;
 
 import com.snake19870227.stiger.admin.project.BaseInit;
 import com.snake19870227.stiger.admin.project.SuperContext;
+import com.snake19870227.stiger.admin.security.JwtSignKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

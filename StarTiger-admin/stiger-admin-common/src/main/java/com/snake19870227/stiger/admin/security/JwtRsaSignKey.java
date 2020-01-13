@@ -59,7 +59,7 @@ public class JwtRsaSignKey extends AbstractJwtSignKeyStorage implements JwtSignK
         String privateKey = getKey(privateKeyCode);
 
         if (StringUtils.isNotBlank(publicKey) && StringUtils.isNotBlank(privateKey)) {
-            RSA rsa = new RSA(privateKey, privateKey);
+            RSA rsa = new RSA(privateKey, publicKey);
             this.keyPair = new KeyPair(rsa.getPublicKey(), rsa.getPrivateKey());
         } else {
             delRsaKey();
