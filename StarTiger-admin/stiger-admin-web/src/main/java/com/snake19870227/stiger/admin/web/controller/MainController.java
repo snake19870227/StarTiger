@@ -43,4 +43,9 @@ public class MainController {
     public RestResponse<Object> res2() {
         return RestResponse.createSuccessRestResp("res2");
     }
+
+    @GetMapping(path = "/res3")
+    public String res3() {
+        return "demo/res3";
+    }
 }

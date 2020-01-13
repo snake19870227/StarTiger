@@ -7,3 +7,7 @@ function req(url) {
         }
     });
 }
+
+function load(url) {
+    $("#area").load(url);
+}

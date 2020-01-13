@@ -16,8 +16,12 @@
 
 <button type="button" onclick="req('/res1')">/res1</button><br/>
 <button type="button" onclick="req('/res2')">/res2</button><br/>
+<button type="button" onclick="load('/res3')">/res3</button><br/>
 
-<textarea id="txt" cols="100" rows="50"></textarea>
+<textarea id="txt" cols="100" rows="25"></textarea>
+<div id="area">
+
+</div>
 
 <th:block th:replace="script :: script"/>
 <script th:src="@{/js/main.js}"></script>

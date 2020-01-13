@@ -37,7 +37,7 @@ var HttpUtil = function () {
         ajaxReq: function (obj) {
             $.ajax({
                 type: obj.type || "get",
-                url: obj.url,
+                url: this.contextPath() + obj.url,
                 data: obj.data,
                 cache: obj.cache || false,
                 contentType: obj.contentType || "application/json",

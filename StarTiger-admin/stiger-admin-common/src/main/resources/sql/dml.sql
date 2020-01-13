@@ -20,6 +20,8 @@ insert into sys_resource (res_id, res_code, res_name, res_path)
 values ('RS1', 'RS1', '资源1', '/res1');
 insert into sys_resource (res_id, res_code, res_name, res_path)
 values ('RS2', 'RS2', '资源2', '/res2');
+insert into sys_resource (res_id, res_code, res_name, res_path)
+values ('RS3', 'RS3', '资源3', '/res3');
 
 --insert into sys_role_resource (role_res_id, role_id, role_code, res_id, res_code)
 --values ('RR4', 'R1', 'ROLE_Admin', 'index', 'index');
