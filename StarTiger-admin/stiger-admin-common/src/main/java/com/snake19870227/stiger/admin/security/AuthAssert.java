@@ -40,7 +40,7 @@ public class AuthAssert {
             return false;
         }
 
-        List<SysResource> allResourceList = sysResourceMapper.getAll();
+        List<SysResource> allResourceList = sysResourceMapper.selectList(null);
 
         List<SysRoleResource> matchedRoleResourceList = new ArrayList<>();
         allResourceList.stream()

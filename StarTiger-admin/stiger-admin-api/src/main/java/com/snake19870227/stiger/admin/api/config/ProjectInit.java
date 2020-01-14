@@ -23,8 +23,14 @@ import java.util.Optional;
 @Component
 public class ProjectInit extends BaseInit {
 
+    private JwtSignKey jwtSignKey;
+
+    public ProjectInit(JwtSignKey jwtSignKey) {
+        this.jwtSignKey = jwtSignKey;
+    }
+
     @Override
     protected void projectInit(ApplicationArguments args) {
-
+        jwtSignKey.init();
     }
 }

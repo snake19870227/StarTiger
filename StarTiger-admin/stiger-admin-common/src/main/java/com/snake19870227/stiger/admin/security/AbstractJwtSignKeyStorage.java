@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.security;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.snake19870227.stiger.admin.dao.mapper.SysCfgMapper;
 import com.snake19870227.stiger.admin.entity.po.SysCfg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public abstract class AbstractJwtSignKeyStorage {
     private SysCfgMapper sysCfgMapper;
 
     protected String getKey(String code) {
-        Optional<SysCfg> sysCfgObj = sysCfgMapper.queryByCfgCode(code);
+        Optional<SysCfg> sysCfgObj = Optional.ofNullable(sysCfgMapper.selectById(code));
         return sysCfgObj.map(SysCfg::getCfgValue).orElse(null);
     }
 
@@ -31,6 +32,6 @@ public abstract class AbstractJwtSignKeyStorage {
     }
 
     protected void delKey(String code) {
-        sysCfgMapper.delByCfgCode(code);
+        sysCfgMapper.deleteById(code);
     }
 }

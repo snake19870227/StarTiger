@@ -13,7 +13,7 @@ import java.security.KeyPair;
 /**
  * @author Bu HuaYang
  */
-public class JwtRsaSignKey extends AbstractJwtSignKeyStorage implements JwtSignKey, InitializingBean {
+public class JwtRsaSignKey extends AbstractJwtSignKeyStorage implements JwtSignKey {
 
     @Value("${stiger.security.jwt.public-key-code:jwt-public-key}")
     private String publicKeyCode;
@@ -46,11 +46,6 @@ public class JwtRsaSignKey extends AbstractJwtSignKeyStorage implements JwtSignK
     private void delRsaKey() {
         delKey(publicKeyCode);
         delKey(privateKeyCode);
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        loadKey();
     }
 
     private synchronized void loadKey() {

@@ -1,10 +1,13 @@
 package com.snake19870227.stiger.admin.entity.po;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+
 /**
  * @author Bu HuaYang
  */
 public class SysRole {
 
+    @TableId
     private String roleId;
     private String roleCode;
     private String roleName;
