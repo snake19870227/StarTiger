@@ -8,6 +8,7 @@
         <root level="info">
             <appender-ref ref="CONSOLE"/>
         </root>
+        <logger name="com.snake19870227.stiger.admin.dao" level="ERROR"/>
     </springProfile>
 
     <springProfile name="prod">

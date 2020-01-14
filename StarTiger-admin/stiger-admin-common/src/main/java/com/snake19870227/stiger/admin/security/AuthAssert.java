@@ -4,6 +4,7 @@ import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysRoleResourceMapper;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
+import com.snake19870227.stiger.admin.opt.SysResourceOpt;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.access.vote.RoleVoter;
@@ -26,11 +27,15 @@ public class AuthAssert {
 
     private SysResourceMapper sysResourceMapper;
 
+    private SysResourceOpt sysResourceOpt;
+
     private SysRoleResourceMapper sysRoleResourceMapper;
 
     public AuthAssert(SysResourceMapper sysResourceMapper,
+                      SysResourceOpt sysResourceOpt,
                       SysRoleResourceMapper sysRoleResourceMapper) {
         this.sysResourceMapper = sysResourceMapper;
+        this.sysResourceOpt = sysResourceOpt;
         this.sysRoleResourceMapper = sysRoleResourceMapper;
     }
 
@@ -40,7 +45,7 @@ public class AuthAssert {
             return false;
         }
 
-        List<SysResource> allResourceList = sysResourceMapper.selectList(null);
+        List<SysResource> allResourceList = sysResourceOpt.getAll();
 
         List<SysRoleResource> matchedRoleResourceList = new ArrayList<>();
         allResourceList.stream()

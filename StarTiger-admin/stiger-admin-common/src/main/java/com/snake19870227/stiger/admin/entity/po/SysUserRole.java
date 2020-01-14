@@ -1,10 +1,11 @@
 package com.snake19870227.stiger.admin.entity.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 public class SysUserRole {
 
-    @TableId
+    @TableId(type = IdType.ASSIGN_UUID)
     private String userRoleId;
     private String userId;
     private String roleId;

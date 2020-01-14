@@ -3,3 +3,6 @@ mybatis:
     lazy-loading-enabled: false
     aggressive-lazy-loading: false
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+mybatis-plus:
+  global-config:
+    banner: false
