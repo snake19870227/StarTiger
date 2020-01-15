@@ -13,6 +13,9 @@ spring:
       path: ${stiger.h2.console.root-path}/console
 server:
   port: 10001
+  servlet:
+    session:
+      timeout: 30M
 stiger:
   h2:
     console:

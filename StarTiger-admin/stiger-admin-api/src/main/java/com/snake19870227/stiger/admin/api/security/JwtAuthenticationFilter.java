@@ -34,18 +34,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private JwtSignKey jwtSignKey;
 
-    private ObjectMapper objectMapper;
-
-    private AuthenticationEntryPoint authenticationEntryPoint;
-
     private UserDetailsManager userDetailsManager;
 
-    public JwtAuthenticationFilter(JwtSignKey jwtSignKey, ObjectMapper objectMapper,
-                                   AuthenticationEntryPoint authenticationEntryPoint,
-                                   UserDetailsManager userDetailsManager) {
+    public JwtAuthenticationFilter(JwtSignKey jwtSignKey, UserDetailsManager userDetailsManager) {
         this.jwtSignKey = jwtSignKey;
-        this.objectMapper = objectMapper;
-        this.authenticationEntryPoint = authenticationEntryPoint;
         this.userDetailsManager = userDetailsManager;
     }
 
@@ -71,12 +63,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     Claims claims = jws.getBody();
 
                     UserDetails userDetails = userDetailsManager.loadUserByUsername(claims.getSubject());
-
-//                    UserDetails userDetails
-//                            = User.withUsername(claims.getSubject())
-//                                .password("")
-//                                .authorities(AuthorityUtils.NO_AUTHORITIES)
-//                                .build();
 
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

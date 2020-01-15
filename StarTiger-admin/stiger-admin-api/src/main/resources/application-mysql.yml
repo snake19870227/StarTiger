@@ -4,13 +4,6 @@ spring:
     url: jdbc:mysql://localhost:3306/stiger
     username: root
     password: 123456
-  h2:
-    console:
-      enabled: true
-      settings:
-        trace: true
-        web-allow-others: true
-      path: ${stiger.h2.console.root-path}/console
 server:
   port: 10002
 stiger:
@@ -19,6 +12,3 @@ stiger:
       public-key-code: jwt-public-key
       private-key-code: jwt-private-key
       expiration-time: 30M
-  h2:
-    console:
-      root-path: /h2

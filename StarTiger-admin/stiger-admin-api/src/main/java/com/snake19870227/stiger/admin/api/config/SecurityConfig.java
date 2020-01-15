@@ -95,11 +95,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(ObjectMapper objectMapper,
-                                                           JwtSignKey jwtSignKey,
-                                                           AuthenticationEntryPoint authenticationEntryPoint,
-                                                           UserDetailsManager userDetailsManager) {
-        return new JwtAuthenticationFilter(jwtSignKey, objectMapper, authenticationEntryPoint, userDetailsManager);
+    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtSignKey jwtSignKey, UserDetailsManager userDetailsManager) {
+        return new JwtAuthenticationFilter(jwtSignKey, userDetailsManager);
     }
 
     @Bean

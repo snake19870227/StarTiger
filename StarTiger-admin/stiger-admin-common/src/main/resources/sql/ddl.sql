@@ -15,6 +15,17 @@ create table sys_org
     primary key (org_id)
 );
 
+drop table if exists sys_dept;
+create table sys_dept
+(
+    dept_id   varchar(32) not null,
+    org_id    varchar(32) not null,
+    org_code  varchar(50),
+    dept_code varchar(50),
+    dept_name varchar(500),
+    primary key (dept_id)
+);
+
 drop table if exists sys_user;
 create table sys_user
 (
@@ -22,6 +33,18 @@ create table sys_user
     username        varchar(50),
     encode_password varchar(500),
     primary key (user_id)
+);
+
+drop table if exists sys_user_org_dept;
+create table sys_user_org_dept
+(
+    user_org_dept_id varchar(32) not null,
+    org_id           varchar(32) not null,
+    org_code         varchar(50),
+    dept_id          varchar(32) not null,
+    dept_code        varchar(50),
+    user_id          varchar(32) not null,
+    primary key (user_org_dept_id)
 );
 
 drop table if exists sys_role;

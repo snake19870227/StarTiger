@@ -8,12 +8,14 @@
         <root level="info">
             <appender-ref ref="CONSOLE"/>
         </root>
+        <logger name="com.snake19870227.stiger.admin.dao" level="DEBUG"/>
     </springProfile>
 
-    <springProfile name="mac">
+    <springProfile name="mysql">
         <root level="info">
             <appender-ref ref="CONSOLE"/>
         </root>
+        <logger name="com.snake19870227.stiger.admin.dao" level="DEBUG"/>
     </springProfile>
 
 </configuration>

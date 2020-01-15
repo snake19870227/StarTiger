@@ -25,16 +25,12 @@ public class AuthAssert {
 
     private RoleVoter roleVoter = new RoleVoter();
 
-    private SysResourceMapper sysResourceMapper;
-
     private SysResourceOpt sysResourceOpt;
 
     private SysRoleResourceMapper sysRoleResourceMapper;
 
-    public AuthAssert(SysResourceMapper sysResourceMapper,
-                      SysResourceOpt sysResourceOpt,
+    public AuthAssert(SysResourceOpt sysResourceOpt,
                       SysRoleResourceMapper sysRoleResourceMapper) {
-        this.sysResourceMapper = sysResourceMapper;
         this.sysResourceOpt = sysResourceOpt;
         this.sysRoleResourceMapper = sysRoleResourceMapper;
     }

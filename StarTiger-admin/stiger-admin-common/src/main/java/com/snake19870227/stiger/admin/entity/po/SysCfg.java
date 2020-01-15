@@ -2,29 +2,49 @@ package com.snake19870227.stiger.admin.entity.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
 
 /**
- * @author Bu HuaYang
+ * <p>
+ * 
+ * </p>
+ *
+ * @author buhuayang
+ * @since 2020-01-15
  */
-public class SysCfg {
+public class SysCfg implements Serializable {
 
-    @TableId(type = IdType.ASSIGN_UUID)
+    private static final long serialVersionUID=1L;
+
+    @TableId(value = "cfg_code", type = IdType.ASSIGN_UUID)
     private String cfgCode;
+
     private String cfgValue;
+
 
     public String getCfgCode() {
         return cfgCode;
     }
 
-    public void setCfgCode(String cfgCode) {
+    public SysCfg setCfgCode(String cfgCode) {
         this.cfgCode = cfgCode;
+        return this;
     }
 
     public String getCfgValue() {
         return cfgValue;
     }
 
-    public void setCfgValue(String cfgValue) {
+    public SysCfg setCfgValue(String cfgValue) {
         this.cfgValue = cfgValue;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "SysCfg{" +
+        "cfgCode=" + cfgCode +
+        ", cfgValue=" + cfgValue +
+        "}";
     }
 }

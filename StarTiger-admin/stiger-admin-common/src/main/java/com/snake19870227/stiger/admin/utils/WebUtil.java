@@ -18,9 +18,4 @@ public class WebUtil {
     public static boolean isAjaxRequest(HttpServletRequest request) {
         return StrUtil.equals(AJAX_HEADER_VALUE, ServletUtil.getHeader(request, AJAX_HEADER_NAME, StandardCharsets.UTF_8));
     }
-
-//    public static boolean buildRelativePath(String path, Map<String, Object> params, boolean includeContextPath) {
-//        StringBuilder url = new StringBuilder();
-//
-//    }
 }

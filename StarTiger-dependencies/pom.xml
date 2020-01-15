@@ -30,9 +30,10 @@
         <mybatis.version>3.5.3</mybatis.version>
         <mybatis-spring.version>2.0.3</mybatis-spring.version>
         <mybatis-spring-boot-starter.version>2.1.1</mybatis-spring-boot-starter.version>
-        <mybatis-plus-boot-starter.version>3.3.0</mybatis-plus-boot-starter.version>
+        <mybatis-plus.version>3.3.0</mybatis-plus.version>
         <jjwt.version>0.10.6</jjwt.version>
         <hutool.version>5.1.0</hutool.version>
+        <velocity-engine.version>2.1</velocity-engine.version>
     </properties>
 
     <modules>
@@ -66,7 +67,12 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus-boot-starter.version}</version>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
@@ -88,6 +94,11 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity-engine.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
