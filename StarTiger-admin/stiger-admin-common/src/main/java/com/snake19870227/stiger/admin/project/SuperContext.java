@@ -1,6 +1,9 @@
 package com.snake19870227.stiger.admin.project;
 
 import cn.hutool.core.util.ArrayUtil;
+import com.snake19870227.stiger.admin.entity.dto.RestResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
@@ -8,11 +11,15 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
 import java.util.Locale;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author Bu HuaYang
  */
 public class SuperContext {
+
+    private static final Logger logger = LoggerFactory.getLogger(SuperContext.class);
 
     private static String[] activeProfiles;
     private static String applicationName;
@@ -60,8 +67,15 @@ public class SuperContext {
         SuperContext.applicationName = springContext.getId();
         SuperContext.serverProperties = springContext.getBean(ServerProperties.class);
         if (springContext instanceof WebApplicationContext) {
-            SuperContext.servletContext = ((WebApplicationContext) springContext).getServletContext();
-            SuperContext.servletContext.setAttribute("activeProfiles", activeProfiles);
+            try {
+                Optional<ServletContext> scObj = Optional.ofNullable(((WebApplicationContext) springContext).getServletContext());
+                SuperContext.servletContext = scObj.orElseThrow((Supplier<Throwable>) () -> new NullPointerException("SpringContext 中未包含 ServletContext..."));
+                SuperContext.servletContext.setAttribute("activeProfiles", activeProfiles);
+            } catch (Throwable e) {
+                logger.error("未能获取到 ServletContext ! 终止程序...");
+                System.exit(1);
+            }
         }
+        RestResponse.initDefaultMessage();
     }
 }

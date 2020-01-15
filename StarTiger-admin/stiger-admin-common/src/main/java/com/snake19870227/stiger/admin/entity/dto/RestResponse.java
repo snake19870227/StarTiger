@@ -1,7 +1,6 @@
 package com.snake19870227.stiger.admin.entity.dto;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.snake19870227.stiger.admin.SuperConstant;
 import com.snake19870227.stiger.admin.project.SuperContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +9,7 @@ import org.springframework.util.ClassUtils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import static com.snake19870227.stiger.admin.SuperConstant.RestResp;
+import static com.snake19870227.stiger.admin.SuperConstant.StatusCode;
 
 /**
  * @author Bu HuaYang
@@ -19,17 +18,22 @@ public class RestResponse<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(RestResponse.class);
 
-    public static final String DEFAULT_SUCCESS_RESP_CODE = RestResp.CODE_0000;
-    public static final String DEFAULT_SUCCESS_RESP_MESSAGE = SuperContext.getMessage(RestResp.PREFIX_CODE + DEFAULT_SUCCESS_RESP_CODE);
+    public static final String DEFAULT_SUCCESS_RESP_CODE = StatusCode.CODE_0000;
+    public static String DEFAULT_SUCCESS_RESP_MESSAGE;
 
-    public static final String DEFAULT_FAILURE_RESP_CODE = RestResp.CODE_9999;
-    public static final String DEFAULT_FAILURE_RESP_MESSAGE = SuperContext.getMessage(RestResp.PREFIX_CODE + DEFAULT_FAILURE_RESP_CODE);
+    public static final String DEFAULT_FAILURE_RESP_CODE = StatusCode.CODE_9999;
+    public static String DEFAULT_FAILURE_RESP_MESSAGE;
 
     private String respCode;
 
     private String respMessage;
 
     private T data;
+
+    public static void initDefaultMessage() {
+        DEFAULT_SUCCESS_RESP_MESSAGE = buildMessage(DEFAULT_SUCCESS_RESP_CODE);
+        DEFAULT_FAILURE_RESP_MESSAGE = buildMessage(DEFAULT_FAILURE_RESP_CODE);
+    }
 
     public RestResponse(String respCode, String respMessage) {
         this.respCode = respCode;
@@ -54,19 +58,14 @@ public class RestResponse<T> {
 
         String respMessage = null;
         try {
-            respMessage = SuperContext.getMessage(RestResp.PREFIX_CODE + respCode);
+            respMessage = buildMessage(respCode);
         } catch (Exception e) {
             logger.warn("未找到国际化文本配置[{}]", respCode, e);
             respCode = isSuccess ? DEFAULT_SUCCESS_RESP_CODE : DEFAULT_FAILURE_RESP_CODE;
             respMessage = isSuccess ? DEFAULT_SUCCESS_RESP_MESSAGE : DEFAULT_FAILURE_RESP_MESSAGE;
         }
 
-        try {
-            return createRestResp(respCode, respMessage, data, DefaultRestResponse.class);
-        } catch (Exception e) {
-            logger.error("创建RestResponse失败", e);
-            return new DefaultRestResponse(respCode, respMessage, data);
-        }
+        return new DefaultRestResponse(respCode, respMessage, data);
     }
 
     public static <F, M extends RestResponse<F>> M createSuccessRestResp(F data, Class<M> clazz)
@@ -104,6 +103,10 @@ public class RestResponse<T> {
         }
 
         return restResp;
+    }
+
+    private static String buildMessage(String code, Object... args) {
+        return SuperContext.getMessage(StatusCode.PREFIX_CODE + code, args);
     }
 
     public static class DefaultRestResponse extends RestResponse<Object> {
