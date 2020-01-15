@@ -1,4 +1,14 @@
 spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+        username: actadmin
+        password: 123456
+        instance:
+          metadata:
+            user.name: snake
+            user.password: 123456
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:sbs;MODE=MySQL;DATABASE_TO_LOWER=TRUE

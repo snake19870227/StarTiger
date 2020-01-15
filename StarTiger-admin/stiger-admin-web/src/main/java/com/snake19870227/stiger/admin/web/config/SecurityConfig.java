@@ -43,6 +43,9 @@ public class SecurityConfig {
         @Value("${stiger.h2.console.root-path:/h2}")
         private String h2ConsoleRootPath;
 
+        @Value("${management.endpoints.web.base-path:/actuator}")
+        private String springActuatorPath;
+
         @Autowired
         private WebSecurityExceptionHandler webSecurityExceptionHandler;
 
@@ -50,8 +53,9 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
 
             String h2ConsolePaths = h2ConsoleRootPath + "/**";
+            String springActuatorPaths = springActuatorPath + "/**";
 
-            http.csrf().ignoringAntMatchers(h2ConsolePaths);
+            http.csrf().ignoringAntMatchers(h2ConsolePaths, springActuatorPaths);
             http.headers().frameOptions().sameOrigin();
 
             ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry = http.authorizeRequests();
@@ -62,7 +66,8 @@ public class SecurityConfig {
                     .antMatchers(anonymousPaths).permitAll()
                     .anyRequest().access("@authAssert.canAccess(request, authentication)");
 
-            http.formLogin().loginPage(ProjectConstant.UrlPath.LOGIN);
+            http.formLogin().loginPage(ProjectConstant.UrlPath.LOGIN)
+                .and().httpBasic();
 
             http.exceptionHandling()
                     .authenticationEntryPoint(webSecurityExceptionHandler)
