@@ -3,4 +3,4 @@ spring:
     active: ${proj.profile.id}
     include: base
   application:
-    name: ${project.artifactId}-${proj.profile.id}-${server.port}
+    name: ${project.artifactId}-${proj.profile.id}

@@ -75,6 +75,8 @@ public class SecurityConfig {
                     .successHandler(restAuthenticationHandler)
                     .failureHandler(restAuthenticationHandler);
 
+            http.httpBasic();
+
             http.addFilterBefore(loadUsernameAndPasswordFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
