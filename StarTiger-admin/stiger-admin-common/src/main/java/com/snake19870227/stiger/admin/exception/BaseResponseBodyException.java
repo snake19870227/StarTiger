@@ -1,9 +1,6 @@
 package com.snake19870227.stiger.admin.exception;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.snake19870227.stiger.admin.project.SuperContext;
 import com.snake19870227.stiger.admin.utils.JsonUtil;
 import org.slf4j.Logger;
@@ -17,23 +14,23 @@ import java.util.Map;
 /**
  * @author Bu HuaYang
  */
-public abstract class BaseRestHttpException extends BaseMvcException {
+public abstract class BaseResponseBodyException extends BaseMvcException {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseRestHttpException.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseResponseBodyException.class);
 
-    public BaseRestHttpException(String errorCode, Object... args) {
+    public BaseResponseBodyException(String errorCode, Object... args) {
         super(errorCode, args);
     }
 
-    public BaseRestHttpException(String errorCode, Throwable cause, Object... args) {
+    public BaseResponseBodyException(String errorCode, Throwable cause, Object... args) {
         super(errorCode, cause, args);
     }
 
-    public BaseRestHttpException(String message) {
+    public BaseResponseBodyException(String message) {
         super(message);
     }
 
-    public BaseRestHttpException(Throwable cause) {
+    public BaseResponseBodyException(Throwable cause) {
         super(cause);
     }
 

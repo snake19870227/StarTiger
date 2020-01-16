@@ -19,4 +19,10 @@ public class ResourceController {
     public RestResponse<Object> res2() {
         return RestResponse.createSuccessRestResp("res2");
     }
+
+    @GetMapping(path = "/resError1")
+    public RestResponse<Object> resError1() {
+        int i = 1 / 0;
+        return null;
+    }
 }

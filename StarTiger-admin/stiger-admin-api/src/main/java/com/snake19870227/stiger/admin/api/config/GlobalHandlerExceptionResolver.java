@@ -1,9 +1,6 @@
-package com.snake19870227.stiger.admin.web.config;
+package com.snake19870227.stiger.admin.api.config;
 
-import com.snake19870227.stiger.admin.exception.BaseMvcException;
-import com.snake19870227.stiger.admin.utils.WebUtil;
-import com.snake19870227.stiger.admin.web.exception.AjaxHttpException;
-import com.snake19870227.stiger.admin.web.exception.NormalHttpException;
+import com.snake19870227.stiger.admin.api.exception.RestHttpException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,13 +24,11 @@ public class GlobalHandlerExceptionResolver extends AbstractHandlerExceptionReso
                                               Object handler,
                                               Exception ex) {
 
-        if (ex instanceof BaseMvcException) {
-            BaseMvcException bme = (BaseMvcException) ex;
-            return bme.buildMvcView();
-        } else if (WebUtil.isAjaxRequest(request)) {
-            return new AjaxHttpException(ex).buildMvcView();
+        if (ex instanceof RestHttpException) {
+            RestHttpException rhe = (RestHttpException) ex;
+            return rhe.buildMvcView();
         } else {
-            return new NormalHttpException(ex).buildMvcView();
+            return new RestHttpException(ex).buildMvcView();
         }
     }
 }
