@@ -48,4 +48,10 @@ public class MainController {
     public String res3() {
         return "demo/res3";
     }
+
+    @GetMapping(path = "/resError1")
+    public String resError1() {
+        int i = 1 / 0;
+        return null;
+    }
 }

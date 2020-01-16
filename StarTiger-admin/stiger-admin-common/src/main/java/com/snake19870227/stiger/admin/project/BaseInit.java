@@ -42,8 +42,12 @@ public abstract class BaseInit implements ApplicationContextAware, ApplicationRu
             });
         }
 
+        afterLoadedSpringContext(applicationContext);
+
         logger.info("加载 spring context 完成");
     }
 
     protected abstract void projectInit(ApplicationArguments args);
+
+    protected abstract void afterLoadedSpringContext(ApplicationContext applicationContext);
 }

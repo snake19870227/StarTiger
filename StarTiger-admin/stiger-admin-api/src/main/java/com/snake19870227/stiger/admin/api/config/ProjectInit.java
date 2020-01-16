@@ -33,4 +33,9 @@ public class ProjectInit extends BaseInit {
     protected void projectInit(ApplicationArguments args) {
         jwtSignKey.init();
     }
+
+    @Override
+    protected void afterLoadedSpringContext(ApplicationContext applicationContext) {
+
+    }
 }

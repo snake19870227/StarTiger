@@ -4,6 +4,7 @@ import cn.hutool.core.util.ArrayUtil;
 import com.snake19870227.stiger.admin.entity.dto.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
@@ -59,6 +60,10 @@ public class SuperContext {
 
     public static String getMessage(String code, Object... args) {
         return springContext.getMessage(code, args, Locale.CHINA);
+    }
+
+    public static <T> T getBean(Class<? extends T> beanClass) throws BeansException {
+        return springContext.getBean(beanClass);
     }
 
     public static void setSpringContext(ApplicationContext springContext) {

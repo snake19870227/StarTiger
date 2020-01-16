@@ -1,7 +1,9 @@
 package com.snake19870227.stiger.admin.web.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.project.BaseInit;
 import com.snake19870227.stiger.admin.project.SuperContext;
+import com.snake19870227.stiger.admin.web.ProjectContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -24,5 +26,10 @@ public class ProjectInit extends BaseInit {
     @Override
     protected void projectInit(ApplicationArguments args) {
 
+    }
+
+    @Override
+    protected void afterLoadedSpringContext(ApplicationContext applicationContext) {
+        ProjectContext.jacksonObjectMapper = applicationContext.getBean(ObjectMapper.class);
     }
 }

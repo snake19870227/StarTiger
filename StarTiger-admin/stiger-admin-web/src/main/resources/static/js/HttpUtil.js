@@ -18,6 +18,7 @@ var RespCode = function () {
     return {
         code0000: defSuccess,
         code9999: defError,
+        code9998: defError,
         code1001: defError,
         code2001: function (resp, func, options) {
             def(resp, options);

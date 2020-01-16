@@ -1,3 +1,11 @@
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    parser:
+      ALLOW_UNQUOTED_FIELD_NAMES: true
 management:
   endpoints:
     enabled-by-default: true
