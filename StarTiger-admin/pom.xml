@@ -27,6 +27,7 @@
         <module>stiger-admin-common</module>
         <module>stiger-admin-web</module>
         <module>stiger-admin-api</module>
+        <module>stiger-admin-job</module>
     </modules>
 
     <build>
@@ -70,21 +71,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-        </dependency>
-    </dependencies>
 
 </project>
