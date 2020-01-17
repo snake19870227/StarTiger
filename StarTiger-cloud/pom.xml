@@ -13,15 +13,19 @@
     </parent>
 
     <artifactId>StarTiger-cloud</artifactId>
+    <version>${cloud.version}</version>
     <packaging>pom</packaging>
 
     <name>STigerCloud</name>
-    <version>${cloud.version}</version>
     <description>StarTiger Cloud Project</description>
 
     <properties>
         <cloud.version>0.0.1</cloud.version>
     </properties>
+
+    <modules>
+        <module>stiger-cloud-register-center-eureka</module>
+    </modules>
 
     <build>
         <plugins>
