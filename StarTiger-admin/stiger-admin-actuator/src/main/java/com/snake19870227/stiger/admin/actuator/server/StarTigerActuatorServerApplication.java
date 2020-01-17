@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.actuator.server;
+package com.snake19870227.stiger.admin.actuator.server;
 
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;

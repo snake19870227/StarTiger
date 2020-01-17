@@ -7,15 +7,14 @@
 
     <parent>
         <groupId>com.snake19870227</groupId>
-        <artifactId>StarTiger-dependencies</artifactId>
-        <version>${framework.version}</version>
-        <relativePath>../StarTiger-dependencies/pom.xml</relativePath>
+        <artifactId>StarTiger-admin</artifactId>
+        <version>${admin.version}</version>
     </parent>
 
-    <artifactId>StarTiger-actuator</artifactId>
+    <artifactId>stiger-admin-actuator</artifactId>
 
-    <name>STigerActuator</name>
-    <description>StarTiger Actuator Project</description>
+    <name>STigerAdminActuator</name>
+    <description>StarTiger Admin Actuator Project</description>
 
     <dependencies>
         <dependency>

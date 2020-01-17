@@ -12,24 +12,16 @@
         <relativePath>../StarTiger-dependencies/pom.xml</relativePath>
     </parent>
 
-    <artifactId>StarTiger-admin</artifactId>
-    <version>${admin.version}</version>
+    <artifactId>StarTiger-cloud</artifactId>
     <packaging>pom</packaging>
 
-    <name>STigerAdmin</name>
-    <description>StarTiger Admin Project</description>
+    <name>STigerCloud</name>
+    <version>${cloud.version}</version>
+    <description>StarTiger Cloud Project</description>
 
     <properties>
-        <admin.version>0.0.1</admin.version>
+        <cloud.version>0.0.1</cloud.version>
     </properties>
-
-    <modules>
-        <module>stiger-admin-common</module>
-        <module>stiger-admin-web</module>
-        <module>stiger-admin-api</module>
-        <module>stiger-admin-job</module>
-        <module>stiger-admin-actuator</module>
-    </modules>
 
     <build>
         <plugins>

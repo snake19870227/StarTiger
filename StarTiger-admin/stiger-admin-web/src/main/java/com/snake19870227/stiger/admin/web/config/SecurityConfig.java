@@ -51,7 +51,7 @@ public class SecurityConfig {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-
+            // @formatter:off
             String h2ConsolePaths = h2ConsoleRootPath + "/**";
             String springActuatorPaths = springActuatorPath + "/**";
 
@@ -72,6 +72,7 @@ public class SecurityConfig {
             http.exceptionHandling()
                     .authenticationEntryPoint(webSecurityExceptionHandler)
                     .accessDeniedHandler(webSecurityExceptionHandler);
+            // @formatter:on
         }
     }
 
