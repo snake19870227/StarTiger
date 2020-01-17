@@ -6,6 +6,7 @@ import com.snake19870227.stiger.admin.security.JwtRsaSignKey;
 import com.snake19870227.stiger.admin.security.JwtSignKey;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author Bu HuaYang
  */
 @Configuration
+@ConditionalOnWebApplication
 public class SecurityConfig {
 
     public static final String LOGIN_PROCESSING_URL = "/process";
@@ -32,6 +34,7 @@ public class SecurityConfig {
     public static final String LOGIN_SUCCESS_URL = LOGIN_PRE_PATH + LOGIN_SUCCESS_PATH;
 
     @Configuration
+    @ConditionalOnWebApplication
     static class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
         @Value("${stiger.h2.console.root-path:/h2}")
@@ -87,11 +90,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsManager userDetailsManager() {
-        return new CustomUserDetailsManager();
-    }
-
-    @Bean
     public LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter(ObjectMapper objectMapper) {
         return new LoadUsernameAndPasswordFilter(objectMapper);
     }
@@ -99,11 +97,6 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(JwtSignKey jwtSignKey, UserDetailsManager userDetailsManager) {
         return new JwtAuthenticationFilter(jwtSignKey, userDetailsManager);
-    }
-
-    @Bean
-    public JwtSignKey jwtSignKey() {
-        return new JwtRsaSignKey();
     }
 
     @Bean

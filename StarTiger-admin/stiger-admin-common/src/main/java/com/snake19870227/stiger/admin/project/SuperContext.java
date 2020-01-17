@@ -70,8 +70,8 @@ public class SuperContext {
         SuperContext.springContext = springContext;
         SuperContext.activeProfiles = springContext.getEnvironment().getActiveProfiles();
         SuperContext.applicationName = springContext.getId();
-        SuperContext.serverProperties = springContext.getBean(ServerProperties.class);
         if (springContext instanceof WebApplicationContext) {
+            SuperContext.serverProperties = springContext.getBean(ServerProperties.class);
             try {
                 Optional<ServletContext> scObj = Optional.ofNullable(((WebApplicationContext) springContext).getServletContext());
                 SuperContext.servletContext = scObj.orElseThrow((Supplier<Throwable>) () -> new NullPointerException("SpringContext 中未包含 ServletContext..."));

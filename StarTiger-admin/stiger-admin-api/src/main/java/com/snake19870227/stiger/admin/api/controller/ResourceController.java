@@ -2,6 +2,7 @@ package com.snake19870227.stiger.admin.api.controller;
 
 import com.snake19870227.stiger.admin.entity.dto.RestResponse;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,6 +19,11 @@ public class ResourceController {
     @GetMapping(path = "/res2")
     public RestResponse<Object> res2() {
         return RestResponse.createSuccessRestResp("res2");
+    }
+
+    @PostMapping(path = "/res3")
+    public RestResponse<Object> res3() {
+        return RestResponse.createSuccessRestResp("res3");
     }
 
     @GetMapping(path = "/resError1")

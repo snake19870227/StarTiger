@@ -1,4 +1,9 @@
 spring:
+  http:
+    encoding:
+      enabled: true
+      charset: utf-8
+      force-response: true
   jackson:
     serialization:
       INDENT_OUTPUT: true
