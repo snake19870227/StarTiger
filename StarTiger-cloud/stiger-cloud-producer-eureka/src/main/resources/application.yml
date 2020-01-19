@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: producer-eureka
+  profiles:
+    active: p30000

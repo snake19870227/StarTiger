@@ -19,6 +19,7 @@
 
     <modules>
         <module>StarTiger-dependencies</module>
+        <module>StarTiger-cloud</module>
     </modules>
 
     <repositories>

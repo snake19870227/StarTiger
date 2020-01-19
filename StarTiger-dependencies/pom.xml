@@ -17,6 +17,12 @@
     <name>StarTigerDependencies</name>
     <description>StarTiger Framework Dependencies Module</description>
 
+    <modules>
+        <module>StarTiger-framework</module>
+        <module>StarTiger-spring-boot-autoconfigure</module>
+        <module>StarTiger-spring-boot-starter</module>
+    </modules>
+
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

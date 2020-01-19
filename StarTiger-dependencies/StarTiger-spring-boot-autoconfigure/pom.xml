@@ -9,25 +9,12 @@
         <groupId>com.snake19870227</groupId>
         <artifactId>StarTiger-dependencies</artifactId>
         <version>${framework.version}</version>
-        <relativePath>../StarTiger-dependencies/pom.xml</relativePath>
     </parent>
 
-    <artifactId>StarTiger-cloud</artifactId>
-    <version>${cloud.version}</version>
-    <packaging>pom</packaging>
+    <artifactId>StarTiger-spring-boot-autoconfigure</artifactId>
 
-    <name>STigerCloud</name>
-    <description>StarTiger Cloud Project</description>
-
-    <properties>
-        <cloud.version>0.0.1</cloud.version>
-    </properties>
-
-    <modules>
-        <module>stiger-cloud-register-center-eureka</module>
-        <module>stiger-cloud-producer-eureka</module>
-        <module>stiger-cloud-consumer-eureka</module>
-    </modules>
+    <name>StarTigerSpringBootAutoconfigure</name>
+    <description>StarTiger Framework SpringBoot Autoconfigure Module</description>
 
     <build>
         <plugins>
@@ -64,17 +51,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>StarTiger-spring-boot-starter</artifactId>
+            <artifactId>StarTiger-framework</artifactId>
             <version>${framework.version}</version>
         </dependency>
     </dependencies>

@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: register-center-eureka
+  profiles:
+    active: single

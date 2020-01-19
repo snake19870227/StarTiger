@@ -1,0 +1,10 @@
+server:
+  port: 20001
+eureka:
+  instance:
+    hostname: point1
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://point2:20002/eureka/
