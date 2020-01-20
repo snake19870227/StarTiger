@@ -1,8 +1,6 @@
 spring:
   application:
     name: consumer-eureka-ribbon
-server:
-  port: 40002
 eureka:
   client:
     service-url:

@@ -23,6 +23,7 @@
         <module>stiger-cloud-eureka-consumer</module>
         <module>stiger-cloud-eureka-consumer-ribbon</module>
         <module>stiger-cloud-eureka-consumer-feign</module>
+        <module>stiger-cloud-eureka-consumer-feign-hystrix</module>
     </modules>
 
 </project>

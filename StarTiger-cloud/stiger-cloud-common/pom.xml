@@ -20,7 +20,7 @@
     <modules>
         <module>stiger-cloud-producer</module>
         <module>stiger-cloud-consumer</module>
-        <module>stiger-cloud-consumer-ribbon</module>
+        <module>stiger-cloud-consumer-feign-iface</module>
     </modules>
 
 </project>

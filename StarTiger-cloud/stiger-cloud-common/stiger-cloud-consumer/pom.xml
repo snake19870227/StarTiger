@@ -16,12 +16,4 @@
     <name>STigerCloudConsumer</name>
     <description>StarTiger Cloud Consumer Base Module</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-openfeign-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
 </project>

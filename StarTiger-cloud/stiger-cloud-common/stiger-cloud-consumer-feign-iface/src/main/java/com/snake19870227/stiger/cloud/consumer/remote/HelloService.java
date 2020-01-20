@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * @author Bu HuaYang
  */
-@FeignClient(name = "producer-eureka", fallback = HelloServiceHystrix.class)
+@FeignClient(name = "producer-eureka")
 public interface HelloService {
 
     @GetMapping(path = "/hello")

@@ -22,7 +22,6 @@ import java.util.function.Supplier;
 /**
  * @author Bu HuaYang
  */
-@Profile("balancer")
 @Component
 public class BalancerClientJob {
 

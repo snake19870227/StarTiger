@@ -1,8 +1,6 @@
 spring:
   application:
     name: consumer-eureka-feign
-server:
-  port: 40003
 eureka:
   client:
     service-url:
