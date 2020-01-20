@@ -22,6 +22,9 @@ public class RestResponse<T> {
 
     private T data;
 
+    public RestResponse() {
+    }
+
     public RestResponse(String respCode, String respMessage) {
         this.respCode = respCode;
         this.respMessage = respMessage;

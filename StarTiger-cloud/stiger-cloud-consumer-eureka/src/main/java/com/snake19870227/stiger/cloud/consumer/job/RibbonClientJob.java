@@ -1,9 +1,7 @@
 package com.snake19870227.stiger.cloud.consumer.job;
 
-import com.snake19870227.stiger.StarTigerConstant;
 import com.snake19870227.stiger.cloud.consumer.http.RestStringMapTypeReference;
 import com.snake19870227.stiger.http.RestResponse;
-import com.snake19870227.stiger.http.RestResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.client.ServiceInstance;
@@ -22,25 +20,21 @@ import java.util.function.Supplier;
 /**
  * @author Bu HuaYang
  */
-@Profile("balancer")
+@Profile("ribbon")
 @Component
-public class BalancerClientJob {
+public class RibbonClientJob {
 
-    private static final Logger logger = LoggerFactory.getLogger(BalancerClientJob.class);
-
-    private final LoadBalancerClient client;
+    private static final Logger logger = LoggerFactory.getLogger(RibbonClientJob.class);
 
     private final RestTemplate restTemplate;
 
-    public BalancerClientJob(LoadBalancerClient client, RestTemplate restTemplate) {
-        this.client = client;
+    public RibbonClientJob(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
     @Scheduled(cron = "* * * * * ?")
     public void doRequest() throws Throwable {
-        ServiceInstance instance = client.choose("producer-eureka");
-        String url = "http://" + instance.getHost() + ":" + instance.getPort() + "/hello";
+        String url = "http://producer-eureka/hello";
         RestStringMapTypeReference typeReference = new RestStringMapTypeReference();
         ResponseEntity<RestResponse<Map<String, String>>> response = restTemplate.exchange(url, HttpMethod.GET, null, typeReference);
         logger.info(
