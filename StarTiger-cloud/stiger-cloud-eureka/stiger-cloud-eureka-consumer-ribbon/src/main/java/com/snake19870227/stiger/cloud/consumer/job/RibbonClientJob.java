@@ -20,7 +20,6 @@ import java.util.function.Supplier;
 /**
  * @author Bu HuaYang
  */
-@Profile("ribbon")
 @Component
 public class RibbonClientJob {
 

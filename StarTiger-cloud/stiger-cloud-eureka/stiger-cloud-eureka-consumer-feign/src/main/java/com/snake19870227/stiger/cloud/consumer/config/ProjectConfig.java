@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Bu HuaYang
  */
 @Configuration
+@EnableFeignClients(basePackages = "com.snake19870227.stiger.cloud.consumer.remote")
 public class ProjectConfig {
 
     @Bean
@@ -25,7 +26,7 @@ public class ProjectConfig {
     }
 
     @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
+    public HelloServiceHystrix helloServiceHystrix() {
+        return new HelloServiceHystrix();
     }
 }

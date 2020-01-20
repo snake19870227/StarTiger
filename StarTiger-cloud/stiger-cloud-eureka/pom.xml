@@ -21,6 +21,8 @@
         <module>stiger-cloud-eureka-register-center</module>
         <module>stiger-cloud-eureka-producer</module>
         <module>stiger-cloud-eureka-consumer</module>
+        <module>stiger-cloud-eureka-consumer-ribbon</module>
+        <module>stiger-cloud-eureka-consumer-feign</module>
     </modules>
 
 </project>
