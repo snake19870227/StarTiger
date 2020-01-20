@@ -1,10 +1,10 @@
 spring:
+  profiles:
+    active: 40010
   application:
     name: consumer-eureka-feign-hystrix
   main:
     allow-bean-definition-overriding: true
-server:
-  port: 40004
 eureka:
   client:
     service-url:
