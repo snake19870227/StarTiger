@@ -24,11 +24,11 @@
     </properties>
 
     <modules>
-        <module>stiger-cloud-register-center-eureka</module>
-        <module>stiger-cloud-producer-eureka</module>
-        <module>stiger-cloud-consumer-eureka</module>
+        <module>stiger-cloud-common</module>
+        <module>stiger-cloud-eureka</module>
         <module>stiger-cloud-hystrix-dashboard</module>
         <module>stiger-cloud-turbine</module>
+        <module>stiger-cloud-turbine-stream-rabbitmq</module>
     </modules>
 
     <build>
@@ -74,6 +74,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>

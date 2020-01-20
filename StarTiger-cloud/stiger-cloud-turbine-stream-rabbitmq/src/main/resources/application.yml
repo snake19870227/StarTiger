@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: turbine-stream-rabbitmq
+server:
+  port: 50002
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:20000/eureka/
+turbine:
+  app-config: consumer-eureka
+  cluster-name-expression: new String("default")
+  combine-host-port: true

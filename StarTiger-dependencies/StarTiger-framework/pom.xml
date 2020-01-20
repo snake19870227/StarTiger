@@ -6,8 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>StarTiger-dependencies</artifactId>
         <groupId>com.snake19870227</groupId>
+        <artifactId>StarTiger-dependencies</artifactId>
         <version>${framework.version}</version>
     </parent>
 
