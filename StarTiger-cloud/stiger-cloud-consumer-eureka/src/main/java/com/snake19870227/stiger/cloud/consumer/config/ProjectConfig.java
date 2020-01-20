@@ -1,6 +1,7 @@
 package com.snake19870227.stiger.cloud.consumer.config;
 
 import com.snake19870227.stiger.http.RestResponse;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -18,6 +19,7 @@ import java.util.Map;
  * @author Bu HuaYang
  */
 @Configuration
+@EnableCircuitBreaker
 public class ProjectConfig {
 
     @Bean
@@ -50,13 +52,7 @@ public class ProjectConfig {
 
     @Profile("feign")
     @Configuration
-    @EnableFeignClients
+    @EnableFeignClients(basePackages = "com.snake19870227.stiger.cloud.consumer.remote")
     public static class FeignModeConfig {
-
-        @FeignClient(name = "producer-eureka")
-        public interface HelloService {
-            @GetMapping(path = "/hello")
-            RestResponse<Map<String, String>> hello();
-        }
     }
 }

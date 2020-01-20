@@ -27,6 +27,8 @@
         <module>stiger-cloud-register-center-eureka</module>
         <module>stiger-cloud-producer-eureka</module>
         <module>stiger-cloud-consumer-eureka</module>
+        <module>stiger-cloud-hystrix-dashboard</module>
+        <module>stiger-cloud-turbine</module>
     </modules>
 
     <build>
@@ -72,6 +74,10 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>StarTiger-spring-boot-starter</artifactId>

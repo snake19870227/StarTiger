@@ -11,27 +11,19 @@
         <version>${cloud.version}</version>
     </parent>
 
-    <artifactId>stiger-cloud-consumer-eureka</artifactId>
+    <artifactId>stiger-cloud-hystrix-dashboard</artifactId>
 
-    <name>STigerCloudConsumerEureka</name>
-    <description>StarTiger Cloud Consumer By Eureka</description>
+    <name>STigerCloudHystrixDashboard</name>
+    <description>StarTiger Cloud Hystrix Dashboard</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
         </dependency>
     </dependencies>
 

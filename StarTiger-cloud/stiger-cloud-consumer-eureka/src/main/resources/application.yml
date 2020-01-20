@@ -3,3 +3,8 @@ spring:
     name: consumer-eureka
   profiles:
     active: feign
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream

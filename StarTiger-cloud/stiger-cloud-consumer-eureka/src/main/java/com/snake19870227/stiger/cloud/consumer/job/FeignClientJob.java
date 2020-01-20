@@ -1,7 +1,11 @@
 package com.snake19870227.stiger.cloud.consumer.job;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.cloud.consumer.config.ProjectConfig;
+import com.snake19870227.stiger.cloud.consumer.entity.dto.KeyValueRestResponse;
 import com.snake19870227.stiger.cloud.consumer.http.RestStringMapTypeReference;
+import com.snake19870227.stiger.cloud.consumer.remote.HelloService;
 import com.snake19870227.stiger.http.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,15 +29,18 @@ public class FeignClientJob {
 
     private static final Logger logger = LoggerFactory.getLogger(FeignClientJob.class);
 
-    private ProjectConfig.FeignModeConfig.HelloService helloService;
+    private ObjectMapper objectMapper;
 
-    public FeignClientJob(ProjectConfig.FeignModeConfig.HelloService helloService) {
+    private HelloService helloService;
+
+    public FeignClientJob(ObjectMapper objectMapper, HelloService helloService) {
+        this.objectMapper = objectMapper;
         this.helloService = helloService;
     }
 
     @Scheduled(cron = "* * * * * ?")
-    public void doRequest() throws Throwable {
-        RestResponse<Map<String, String>> response = helloService.hello();
-        logger.info(response.getData().toString());
+    public void doRequest() throws JsonProcessingException {
+        KeyValueRestResponse response = helloService.hello();
+        logger.info(objectMapper.writeValueAsString(response));
     }
 }

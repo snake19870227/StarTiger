@@ -50,7 +50,7 @@ public class RestResponseBuilder {
 
     public static <F, M extends RestResponse<F>> M createFailureRestResp(F data, Class<M> clazz)
             throws IllegalAccessException, InstantiationException, InvocationTargetException {
-        return createRestResp(DEFAULT_FAILURE_RESP_CODE, buildMessage(DEFAULT_SUCCESS_RESP_CODE), data, clazz);
+        return createRestResp(DEFAULT_FAILURE_RESP_CODE, buildMessage(DEFAULT_FAILURE_RESP_CODE), data, clazz);
     }
 
     public static <F, M extends RestResponse<F>> M createRestResp(String respCode, String respMessage, F data, Class<M> clazz)
