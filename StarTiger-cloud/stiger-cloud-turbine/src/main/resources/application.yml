@@ -1,3 +1,11 @@
 spring:
   profiles:
     active: eureka
+  application:
+    name: turbine-eureka
+server:
+  port: 50002
+turbine:
+  app-config: consumer-eureka-feign-hystrix
+  cluster-name-expression: new String("default")
+  combine-host-port: true

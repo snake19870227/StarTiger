@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: eureka9000
+  application:
+    name: config-server-git
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/snake19870227/StarTigerConfig.git
+          search-paths: stiger-config-repo

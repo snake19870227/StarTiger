@@ -11,19 +11,19 @@
         <version>${cloud.version}</version>
     </parent>
 
-    <artifactId>stiger-cloud-turbine-stream-rabbitmq</artifactId>
+    <artifactId>stiger-cloud-config-git</artifactId>
 
-    <name>STigerCloudTurbineStreamRabbitmq</name>
-    <description>StarTiger Cloud Turbine Stream By Rabbitmq</description>
+    <name>STigerCloudConfigGit</name>
+    <description>StarTiger Cloud Config Server by Git</description>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-turbine-stream</artifactId>
+            <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
     </dependencies>
 

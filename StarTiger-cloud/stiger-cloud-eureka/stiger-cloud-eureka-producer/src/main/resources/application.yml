@@ -3,3 +3,4 @@ spring:
     name: producer-eureka
   profiles:
     active: p30000
+    include: base
