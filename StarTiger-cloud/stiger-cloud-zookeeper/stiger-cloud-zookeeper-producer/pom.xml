@@ -7,19 +7,24 @@
 
     <parent>
         <groupId>com.snake19870227</groupId>
-        <artifactId>stiger-cloud-eureka</artifactId>
+        <artifactId>stiger-cloud-zookeeper</artifactId>
         <version>${cloud.version}</version>
     </parent>
 
-    <artifactId>stiger-cloud-eureka-register-center</artifactId>
+    <artifactId>stiger-cloud-zookeeper-producer</artifactId>
 
-    <name>STigerCloudEurekaRegisterCenter</name>
-    <description>StarTiger Cloud Register Center By Eureka</description>
+    <name>STigerCloudZookeeperProducer</name>
+    <description>StarTiger Cloud Zookeeper Producer Module</description>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>stiger-cloud-producer</artifactId>
+            <version>${cloud.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,6 +1,5 @@
 package com.snake19870227.stiger.cloud.consumer.service;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.snake19870227.stiger.cloud.consumer.entity.dto.KeyValueRestResponse;
 import com.snake19870227.stiger.http.RestResponseBuilder;
 import org.slf4j.Logger;
@@ -24,9 +23,9 @@ public class HelloService {
         this.restTemplate = restTemplate;
     }
 
-    @HystrixCommand(fallbackMethod = "helloFallback")
+//    @HystrixCommand(fallbackMethod = "helloFallback")
     public KeyValueRestResponse hello() throws Throwable {
-        String url = "http://producer-eureka/hello";
+        String url = "http://producer-zookeeper/hello";
         return restTemplate.getForObject(url, KeyValueRestResponse.class);
     }
 
