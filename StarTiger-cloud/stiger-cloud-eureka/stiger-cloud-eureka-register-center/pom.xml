@@ -13,7 +13,7 @@
 
     <artifactId>stiger-cloud-eureka-register-center</artifactId>
 
-    <name>STigerCloudRegisterCenterEureka</name>
+    <name>STigerCloudEurekaRegisterCenter</name>
     <description>StarTiger Cloud Register Center By Eureka</description>
 
     <build>

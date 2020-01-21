@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.cloud.consumer.config;
 
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Bu HuaYang
  */
 @Configuration
+@EnableCircuitBreaker
 public class ProjectConfig {
 
     @Bean

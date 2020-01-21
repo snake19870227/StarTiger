@@ -6,6 +6,6 @@ spring:
 server:
   port: 50002
 turbine:
-  app-config: consumer-eureka-feign-hystrix
+  app-config: consumer-eureka-feign-hystrix,consumer-eureka-ribbon
   cluster-name-expression: new String("default")
   combine-host-port: true
