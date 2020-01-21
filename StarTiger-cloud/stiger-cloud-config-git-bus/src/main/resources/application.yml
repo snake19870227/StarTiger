@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: eureka9000
+  application:
+    name: config-server-git
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/snake19870227/StarTigerConfig.git
+          search-paths: stiger-config-repo
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

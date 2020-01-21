@@ -26,6 +26,7 @@
     <modules>
         <module>stiger-cloud-common</module>
         <module>stiger-cloud-config-git</module>
+        <module>stiger-cloud-config-git-bus</module>
         <module>stiger-cloud-eureka</module>
         <module>stiger-cloud-hystrix-dashboard</module>
         <module>stiger-cloud-turbine</module>

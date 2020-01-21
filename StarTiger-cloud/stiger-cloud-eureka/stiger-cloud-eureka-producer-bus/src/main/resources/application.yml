@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: producer-eureka
+  profiles:
+    active: p30000
+    include: base
+  cloud:
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456
