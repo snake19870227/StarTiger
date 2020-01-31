@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: 9000
+    include: base
+  application:
+    name: config-server-git

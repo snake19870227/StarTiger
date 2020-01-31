@@ -7,19 +7,20 @@
 
     <parent>
         <groupId>com.snake19870227</groupId>
-        <artifactId>StarTiger-cloud</artifactId>
+        <artifactId>stiger-cloud-eureka</artifactId>
         <version>${cloud.version}</version>
     </parent>
 
-    <artifactId>stiger-cloud-config-git</artifactId>
+    <artifactId>stiger-cloud-eureka-config-git</artifactId>
 
-    <name>STigerCloudConfigGit</name>
+    <name>STigerCloudEurekaConfigGit</name>
     <description>StarTiger Cloud Config Server by Git</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>stiger-cloud-config-git</artifactId>
+            <version>${cloud.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

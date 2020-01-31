@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: producer-zookeeper
+  cloud:
+    config:
+#      uri: http://localhost:9000
+      name: config
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: config-server-git
+    zookeeper:
+      connect-string: localhost:2181
+      discovery:
+        enabled: true
+        register: true

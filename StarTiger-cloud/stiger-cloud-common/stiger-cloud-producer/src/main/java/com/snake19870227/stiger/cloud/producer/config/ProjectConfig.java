@@ -14,7 +14,7 @@ public class ProjectConfig {
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("base-messages");
+        messageSource.setBasenames("base-messages", "producer-messages");
         return messageSource;
     }
 }

@@ -13,13 +13,6 @@ import org.springframework.web.client.RestTemplate;
 public class ProjectConfig {
 
     @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("base-messages");
-        return messageSource;
-    }
-
-    @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }

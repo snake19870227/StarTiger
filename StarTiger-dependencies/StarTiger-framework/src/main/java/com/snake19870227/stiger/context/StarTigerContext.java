@@ -43,6 +43,10 @@ public class StarTigerContext {
         return applicationName;
     }
 
+    public static String getApplicationId() {
+        return applicationName + "-" + springContext.getId();
+    }
+
     public static String[] getActiveProfiles() {
         return activeProfiles;
     }
@@ -66,10 +70,13 @@ public class StarTigerContext {
         return springContext.getBean(beanClass);
     }
 
+    public static void setApplicationName(String applicationName) {
+        StarTigerContext.applicationName = applicationName;
+    }
+
     public static void setSpringContext(ApplicationContext springContext) {
         StarTigerContext.springContext = springContext;
         StarTigerContext.activeProfiles = springContext.getEnvironment().getActiveProfiles();
-        StarTigerContext.applicationName = springContext.getId();
         if (springContext instanceof WebApplicationContext) {
             StarTigerContext.serverProperties = springContext.getBean(ServerProperties.class);
             try {

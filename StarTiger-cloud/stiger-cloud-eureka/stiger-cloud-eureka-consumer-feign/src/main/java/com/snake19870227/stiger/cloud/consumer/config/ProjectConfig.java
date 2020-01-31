@@ -12,11 +12,4 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @Configuration
 @EnableFeignClients(basePackages = "com.snake19870227.stiger.cloud.consumer.remote")
 public class ProjectConfig {
-
-    @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("base-messages");
-        return messageSource;
-    }
 }

@@ -19,6 +19,8 @@
 
     <modules>
         <module>stiger-cloud-eureka-register-center</module>
+        <module>stiger-cloud-eureka-config-git</module>
+        <module>stiger-cloud-eureka-config-git-bus</module>
         <module>stiger-cloud-eureka-producer</module>
         <module>stiger-cloud-eureka-producer-bus</module>
         <module>stiger-cloud-eureka-consumer</module>

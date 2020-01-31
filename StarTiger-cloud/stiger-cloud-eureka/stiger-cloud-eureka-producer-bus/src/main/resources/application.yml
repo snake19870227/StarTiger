@@ -2,7 +2,7 @@ spring:
   application:
     name: producer-eureka
   profiles:
-    active: p30000
+    active: 30000
     include: base
   cloud:
     bus:
@@ -14,3 +14,10 @@ spring:
     port: 5672
     username: admin
     password: 123456
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      base-path: /actuator
+      exposure:
+        include: refresh,bus-refresh

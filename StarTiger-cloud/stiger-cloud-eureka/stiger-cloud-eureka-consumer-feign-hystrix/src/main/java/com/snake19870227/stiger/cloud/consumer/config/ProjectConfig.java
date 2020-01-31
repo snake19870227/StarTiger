@@ -17,13 +17,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 public class ProjectConfig {
 
     @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("base-messages");
-        return messageSource;
-    }
-
-    @Bean
     public HelloServiceFallback helloServiceHystrix() {
         return new HelloServiceFallback();
     }

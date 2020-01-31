@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.cloud.consumer.entity.dto.KeyValueRestResponse;
 import com.snake19870227.stiger.cloud.consumer.remote.HelloServiceHystrix;
+import com.snake19870227.stiger.context.StarTigerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,7 +29,7 @@ public class FeignClientJob {
 
     @Scheduled(cron = "* * * * * ?")
     public void doRequest() throws JsonProcessingException {
-        KeyValueRestResponse response = helloService.hello();
+        KeyValueRestResponse response = helloService.hello(StarTigerContext.getApplicationId());
         logger.info(objectMapper.writeValueAsString(response));
     }
 }

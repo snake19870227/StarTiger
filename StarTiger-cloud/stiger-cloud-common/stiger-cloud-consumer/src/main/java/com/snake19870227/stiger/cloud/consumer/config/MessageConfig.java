@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.cloud.producer.config;
+package com.snake19870227.stiger.cloud.consumer.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -9,12 +9,12 @@ import org.springframework.context.support.ResourceBundleMessageSource;
  * @author Bu HuaYang
  */
 @Configuration
-public class ProjectConfig {
+public class MessageConfig {
 
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("base-messages");
+        messageSource.setBasenames("base-messages", "consumer-messages");
         return messageSource;
     }
 }
