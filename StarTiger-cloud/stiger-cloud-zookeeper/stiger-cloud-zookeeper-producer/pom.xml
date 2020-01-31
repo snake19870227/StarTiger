@@ -22,6 +22,14 @@
             <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-bus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>stiger-cloud-producer</artifactId>
             <version>${cloud.version}</version>

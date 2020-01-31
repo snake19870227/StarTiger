@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: consumer-zookeeper
   cloud:
@@ -9,3 +11,7 @@ spring:
         register: false
 server:
   port: 30020
+stiger:
+  cloud:
+    producers:
+      hello: http://producer-zookeeper

@@ -9,7 +9,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
  * @author Bu HuaYang
  */
 @Configuration
-public class ProjectConfig {
+public class MessageConfig {
 
     @Bean
     public MessageSource messageSource() {

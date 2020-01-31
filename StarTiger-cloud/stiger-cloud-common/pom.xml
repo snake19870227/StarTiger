@@ -19,9 +19,10 @@
 
     <modules>
         <module>stiger-cloud-producer</module>
-        <module>stiger-cloud-consumer</module>
-        <module>stiger-cloud-consumer-feign-iface</module>
         <module>stiger-cloud-config-git</module>
+        <module>stiger-cloud-consumer</module>
+        <module>stiger-cloud-consumer-feign</module>
+        <module>stiger-cloud-consumer-ribbon</module>
     </modules>
 
 </project>

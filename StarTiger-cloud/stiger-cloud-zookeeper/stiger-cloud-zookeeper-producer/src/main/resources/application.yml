@@ -1,2 +1,13 @@
 server:
   port: 30010
+spring:
+  cloud:
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456

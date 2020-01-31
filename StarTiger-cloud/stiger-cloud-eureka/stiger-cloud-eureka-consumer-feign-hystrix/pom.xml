@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>stiger-cloud-consumer-feign-iface</artifactId>
+            <artifactId>stiger-cloud-consumer-feign</artifactId>
             <version>${cloud.version}</version>
         </dependency>
     </dependencies>

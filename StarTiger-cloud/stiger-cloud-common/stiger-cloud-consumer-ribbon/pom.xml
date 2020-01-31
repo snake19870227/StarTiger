@@ -11,15 +11,19 @@
         <version>${cloud.version}</version>
     </parent>
 
-    <artifactId>stiger-cloud-consumer-feign-iface</artifactId>
+    <artifactId>stiger-cloud-consumer-ribbon</artifactId>
 
-    <name>STigerCloudConsumerFeignIface</name>
-    <description>StarTiger Cloud Feign Consumer Interface Module</description>
+    <name>STigerCloudConsumerRibbon</name>
+    <description>StarTiger Cloud Ribbon Consumer Module</description>
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-openfeign-core</artifactId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>

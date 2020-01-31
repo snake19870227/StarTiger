@@ -18,6 +18,7 @@
     <description>StarTiger Cloud Zookeeper Demo</description>
 
     <modules>
+        <module>stiger-cloud-zookeeper-config-git-bus</module>
         <module>stiger-cloud-zookeeper-producer</module>
         <module>stiger-cloud-zookeeper-consumer-ribbon</module>
     </modules>

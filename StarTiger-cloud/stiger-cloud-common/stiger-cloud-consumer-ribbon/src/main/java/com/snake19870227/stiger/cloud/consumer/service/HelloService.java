@@ -2,6 +2,7 @@ package com.snake19870227.stiger.cloud.consumer.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.snake19870227.stiger.cloud.consumer.entity.dto.KeyValueRestResponse;
+import com.snake19870227.stiger.cloud.consumer.properties.StarTigerCloudProperties;
 import com.snake19870227.stiger.context.StarTigerContext;
 import com.snake19870227.stiger.http.RestResponseBuilder;
 import org.slf4j.Logger;
@@ -21,15 +22,18 @@ public class HelloService {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloService.class);
 
+    private final StarTigerCloudProperties starTigerCloudProperties;
+
     private final RestTemplate restTemplate;
 
-    public HelloService(RestTemplate restTemplate) {
+    public HelloService(StarTigerCloudProperties starTigerCloudProperties, RestTemplate restTemplate) {
+        this.starTigerCloudProperties = starTigerCloudProperties;
         this.restTemplate = restTemplate;
     }
 
     @HystrixCommand(fallbackMethod = "helloFallback")
     public KeyValueRestResponse hello() throws Throwable {
-        String url = "http://producer-eureka/hello?somebody=" + StarTigerContext.getApplicationId();
+        String url = starTigerCloudProperties.getProducers().get("hello") + "/hello?somebody=" + StarTigerContext.getApplicationId();
         return restTemplate.getForObject(url, KeyValueRestResponse.class);
     }
 

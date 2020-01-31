@@ -1,9 +1,10 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: producer-zookeeper
   cloud:
     config:
-#      uri: http://localhost:9000
       name: config
       profile: dev
       discovery:

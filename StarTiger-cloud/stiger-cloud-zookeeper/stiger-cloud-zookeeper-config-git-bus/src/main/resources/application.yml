@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: 9000
+    include: base
+  application:
+    name: config-server-git
+  cloud:
+    zookeeper:
+      connect-string: localhost:2181
+      discovery:
+        enabled: true
+        register: true
+    bus:
+      enabled: true
+      trace:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456
+server:
+  port: 9000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
