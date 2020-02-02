@@ -33,6 +33,7 @@ public class ProducerController {
 
     @GetMapping(path = "/access")
     public RestResponse.DefaultRestResponse access(@RequestParam(name = "visitor") String visitor) {
+        logger.info("{} 来访.", visitor);
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("master", StarTigerContext.getApplicationName() + " [" + env + "][" + Arrays.toString(StarTigerContext.getActiveProfiles()) + "]");
         dataMap.put("greetings", "Hello " + visitor);

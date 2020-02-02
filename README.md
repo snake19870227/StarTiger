@@ -1,1 +1,2 @@
-# 本项目旨在总结、备忘 Spring 生态下的知识点
+# 本项目旨在备忘 SpringBoot、SpringCloud 生态下的知识点
+

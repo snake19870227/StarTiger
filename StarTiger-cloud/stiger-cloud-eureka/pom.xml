@@ -26,6 +26,12 @@
         <module>stiger-cloud-eureka-consumer</module>
         <module>stiger-cloud-eureka-consumer-ribbon</module>
         <module>stiger-cloud-eureka-consumer-feign</module>
+        <module>stiger-cloud-eureka-zipkin-101</module>
+        <module>stiger-cloud-eureka-zipkin-211</module>
+        <module>stiger-cloud-eureka-zipkin-212</module>
+        <module>stiger-cloud-eureka-zipkin-311</module>
+        <module>stiger-cloud-eureka-zipkin-312</module>
+        <module>stiger-cloud-eureka-zipkin-321</module>
     </modules>
 
 </project>

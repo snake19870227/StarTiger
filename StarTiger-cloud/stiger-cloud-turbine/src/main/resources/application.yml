@@ -6,6 +6,6 @@ spring:
 server:
   port: 50002
 turbine:
-  app-config: consumer-eureka-feign,consumer-eureka-ribbon
+  app-config: consumer-eureka-feign,consumer-eureka-ribbon,zipkin101,zipkin211,zipkin212,zipkin311,zipkin312,zipkin321
   cluster-name-expression: new String("default")
   combine-host-port: true

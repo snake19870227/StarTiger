@@ -7,4 +7,6 @@ stiger-cloud-eureka-producer-bus 包含spring-cloud-bus动态刷新配置
 ## zipkin
 curl -sSL https://zipkin.io/quickstart.sh | bash -s
 java -jar zipkin.jar
-stiger-cloud-eureka-trace-a -> stiger-cloud-eureka-trace-b
+101 -> 211 212
+211 -> 311 312
+212 -> 321

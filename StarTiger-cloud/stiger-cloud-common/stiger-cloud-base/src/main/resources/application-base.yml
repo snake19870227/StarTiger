@@ -1,0 +1,13 @@
+spring:
+  http:
+    encoding:
+      enabled: true
+      charset: utf-8
+      force-response: true
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    parser:
+      ALLOW_UNQUOTED_FIELD_NAMES: true

@@ -1,0 +1,30 @@
+server:
+  port: 60101
+spring:
+  application:
+    name: zipkin101
+  profiles:
+    include: base
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9411/
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:20000/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+stiger:
+  cloud:
+    producers:
+      zipkin211: http://zipkin211/access
+      zipkin212: http://zipkin212/access
+    nextServices: zipkin211,zipkin212
