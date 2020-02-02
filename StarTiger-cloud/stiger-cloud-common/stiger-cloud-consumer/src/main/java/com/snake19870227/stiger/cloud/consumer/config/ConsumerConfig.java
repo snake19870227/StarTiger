@@ -1,7 +1,5 @@
 package com.snake19870227.stiger.cloud.consumer.config;
 
-import com.snake19870227.stiger.cloud.base.properties.StarTigerCloudProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

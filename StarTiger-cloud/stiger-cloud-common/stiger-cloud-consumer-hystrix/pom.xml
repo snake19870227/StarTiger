@@ -11,15 +11,19 @@
         <version>${cloud.version}</version>
     </parent>
 
-    <artifactId>stiger-cloud-consumer-ribbon</artifactId>
+    <artifactId>stiger-cloud-consumer-hystrix</artifactId>
 
-    <name>STigerCloudConsumerRibbon</name>
-    <description>StarTiger Cloud Ribbon Consumer Module</description>
+    <name>STigerCloudConsumerHystrix</name>
+    <description>StarTiger Cloud Consumer Module with Hystrix</description>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>

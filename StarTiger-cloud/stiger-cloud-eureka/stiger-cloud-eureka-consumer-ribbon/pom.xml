@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>stiger-cloud-consumer-ribbon</artifactId>
+            <artifactId>stiger-cloud-consumer-hystrix</artifactId>
             <version>${cloud.version}</version>
         </dependency>
     </dependencies>

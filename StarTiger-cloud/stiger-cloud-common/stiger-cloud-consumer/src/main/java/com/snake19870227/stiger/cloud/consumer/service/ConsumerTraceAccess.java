@@ -3,18 +3,19 @@ package com.snake19870227.stiger.cloud.consumer.service;
 import com.snake19870227.stiger.cloud.base.entity.dto.ListRestResponse;
 import com.snake19870227.stiger.cloud.base.entity.dto.MapRestResponse;
 import com.snake19870227.stiger.cloud.base.properties.StarTigerCloudProperties;
+import com.snake19870227.stiger.cloud.base.service.NextAccessInvoker;
 import com.snake19870227.stiger.cloud.base.service.TraceAccess;
 import com.snake19870227.stiger.http.RestResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Bu HuaYang
  */
 @Component
+@ConditionalOnBean(NextAccessInvoker.class)
 public class ConsumerTraceAccess implements TraceAccess {
 
     private static final Logger logger = LoggerFactory.getLogger(ConsumerTraceAccess.class);
