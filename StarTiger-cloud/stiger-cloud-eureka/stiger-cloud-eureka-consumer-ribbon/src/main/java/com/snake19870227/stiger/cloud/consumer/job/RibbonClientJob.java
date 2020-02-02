@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.cloud.consumer.job;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.cloud.consumer.entity.dto.KeyValueRestResponse;
+import com.snake19870227.stiger.cloud.base.entity.dto.MapRestResponse;
 import com.snake19870227.stiger.cloud.consumer.service.HelloService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class RibbonClientJob {
 
     @Scheduled(cron = "* * * * * ?")
     public void doRequest() throws Throwable {
-        KeyValueRestResponse response = helloService.hello();
+        MapRestResponse response = helloService.hello();
         logger.info(
                 objectMapper.writeValueAsString(
                         Optional.ofNullable(response)

@@ -1,17 +1,13 @@
 package com.snake19870227.stiger.cloud.consumer.job;
 
-import com.snake19870227.stiger.StarTigerConstant;
-import com.snake19870227.stiger.cloud.consumer.http.RestStringMapTypeReference;
+import com.snake19870227.stiger.cloud.base.http.RestStringMapTypeReference;
 import com.snake19870227.stiger.context.StarTigerContext;
 import com.snake19870227.stiger.http.RestResponse;
-import com.snake19870227.stiger.http.RestResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -33,9 +29,9 @@ public class BalancerClientJob {
 
     private final RestTemplate restTemplate;
 
-    public BalancerClientJob(LoadBalancerClient client, RestTemplate restTemplate) {
+    public BalancerClientJob(LoadBalancerClient client) {
         this.client = client;
-        this.restTemplate = restTemplate;
+        this.restTemplate = new RestTemplate();
     }
 
     @Scheduled(cron = "* * * * * ?")

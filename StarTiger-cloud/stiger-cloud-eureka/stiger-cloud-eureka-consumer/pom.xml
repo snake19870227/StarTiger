@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>stiger-cloud-consumer</artifactId>
+            <artifactId>stiger-cloud-base</artifactId>
             <version>${cloud.version}</version>
         </dependency>
     </dependencies>

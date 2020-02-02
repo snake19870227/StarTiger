@@ -7,7 +7,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * @author Bu HuaYang
  */
-@SpringBootApplication
+@SpringBootApplication(
+        scanBasePackages = {
+                "com.snake19870227.stiger.cloud.base",
+                "com.snake19870227.stiger.cloud.consumer"
+        }
+)
 @EnableScheduling
 public class StarTigerCloudEurekaConsumerApplication {
 

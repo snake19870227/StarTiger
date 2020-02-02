@@ -17,6 +17,6 @@ public class HelloServiceImpl implements HelloService {
     @Override
     public String sayHello(String somebody) {
         logger.info("{} 到访.", somebody);
-        return StarTigerContext.getMessage("template.0001", somebody);
+        return StarTigerContext.getMessage("tp.producer.0001", somebody);
     }
 }

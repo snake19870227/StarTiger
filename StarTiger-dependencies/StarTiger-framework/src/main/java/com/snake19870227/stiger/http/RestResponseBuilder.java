@@ -43,18 +43,15 @@ public class RestResponseBuilder {
         return new RestResponse.DefaultRestResponse(respCode, respMessage, data);
     }
 
-    public static <F, M extends RestResponse<F>> M createSuccessRestResp(F data, Class<M> clazz)
-            throws IllegalAccessException, InstantiationException, InvocationTargetException {
+    public static <F, M extends RestResponse<F>> M createSuccessRestResp(F data, Class<M> clazz) {
         return createRestResp(DEFAULT_SUCCESS_RESP_CODE, buildMessage(DEFAULT_SUCCESS_RESP_CODE), data, clazz);
     }
 
-    public static <F, M extends RestResponse<F>> M createFailureRestResp(F data, Class<M> clazz)
-            throws IllegalAccessException, InstantiationException, InvocationTargetException {
+    public static <F, M extends RestResponse<F>> M createFailureRestResp(F data, Class<M> clazz) {
         return createRestResp(DEFAULT_FAILURE_RESP_CODE, buildMessage(DEFAULT_FAILURE_RESP_CODE), data, clazz);
     }
 
-    public static <F, M extends RestResponse<F>> M createRestResp(String respCode, String respMessage, F data, Class<M> clazz)
-            throws IllegalAccessException, InstantiationException, InvocationTargetException {
+    public static <F, M extends RestResponse<F>> M createRestResp(String respCode, String respMessage, F data, Class<M> clazz) {
 
         M restResp;
 
@@ -65,19 +62,24 @@ public class RestResponseBuilder {
 
         Constructor<M> constructor2 = ClassUtils.getConstructorIfAvailable(clazz, String.class, String.class);
 
-        if (constructor1 != null) {
-            restResp = constructor1.newInstance(respCode, respMessage, data);
-        } else if (constructor2 != null) {
-            restResp = constructor2.newInstance(respCode, respMessage);
-            restResp.setData(data);
-        } else {
-            restResp = clazz.newInstance();
-            restResp.setRespCode(respCode);
-            restResp.setRespMessage(respMessage);
-            restResp.setData(data);
+        try {
+            if (constructor1 != null) {
+                restResp = constructor1.newInstance(respCode, respMessage, data);
+            } else if (constructor2 != null) {
+                restResp = constructor2.newInstance(respCode, respMessage);
+                restResp.setData(data);
+            } else {
+                restResp = clazz.newInstance();
+                restResp.setRespCode(respCode);
+                restResp.setRespMessage(respMessage);
+                restResp.setData(data);
+            }
+            return restResp;
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            logger.error("创建RestResponse失败", e);
         }
 
-        return restResp;
+        return null;
     }
 
     private static String buildMessage(String code, Object... args) {

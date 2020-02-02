@@ -1,6 +1,12 @@
+server:
+  port: 9000
 spring:
   profiles:
     active: 9000
     include: base
   application:
     name: config-server-git
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:20000/eureka/

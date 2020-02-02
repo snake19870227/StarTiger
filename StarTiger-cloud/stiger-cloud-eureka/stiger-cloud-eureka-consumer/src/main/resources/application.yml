@@ -5,7 +5,3 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:20000/eureka/
-stiger:
-  cloud:
-    producers:
-      hello: http://producer-eureka

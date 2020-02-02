@@ -1,10 +1,22 @@
 spring:
+  profiles:
+    active: 40010
   application:
     name: consumer-eureka-feign
+  main:
+    allow-bean-definition-overriding: true
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:20000/eureka/
+feign:
+  hystrix:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
 stiger:
   cloud:
     producers:

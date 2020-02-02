@@ -14,9 +14,13 @@
     <artifactId>stiger-cloud-eureka-consumer-feign</artifactId>
 
     <name>STigerCloudEurekaConsumerFeign</name>
-    <description>StarTiger Cloud Feign Consumer By Eureka</description>
+    <description>StarTiger Cloud Feign Consumer by Eureka</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -26,8 +30,12 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>stiger-cloud-consumer-feign</artifactId>
+            <artifactId>stiger-cloud-base</artifactId>
             <version>${cloud.version}</version>
         </dependency>
     </dependencies>

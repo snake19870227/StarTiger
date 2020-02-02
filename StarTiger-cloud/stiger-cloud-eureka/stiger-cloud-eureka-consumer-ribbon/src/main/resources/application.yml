@@ -1,6 +1,10 @@
 spring:
   application:
     name: consumer-eureka-ribbon
+  task:
+    scheduling:
+      pool:
+        size: 2
 server:
   port: 40020
 eureka:
@@ -16,3 +20,5 @@ stiger:
   cloud:
     producers:
       hello: http://producer-eureka
+      trace-a: http://trace-a
+      trace-b: http://trace-b
