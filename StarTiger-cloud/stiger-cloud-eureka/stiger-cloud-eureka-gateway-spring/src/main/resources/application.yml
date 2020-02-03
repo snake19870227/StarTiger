@@ -1,0 +1,25 @@
+server:
+  port: 10001
+spring:
+  application:
+    name: gateway-spring
+  profiles:
+    include: base
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: LowerServerName_ProducerEureka
+          uri: lb://PRODUCER-EUREKA
+          order: 0
+          predicates:
+            - Path=/producer-eureka/**
+          filters:
+            - StripPrefix=1
+            - AddResponseHeader=Gateway-By, Spring Cloud Gateway
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:20000/eureka/
