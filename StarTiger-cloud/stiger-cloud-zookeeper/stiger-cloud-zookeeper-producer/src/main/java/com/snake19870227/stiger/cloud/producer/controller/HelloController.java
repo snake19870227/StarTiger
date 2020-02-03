@@ -1,6 +1,5 @@
 package com.snake19870227.stiger.cloud.producer.controller;
 
-import com.snake19870227.stiger.cloud.producer.common.BaseController;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RefreshScope
-public class HelloController extends BaseController {
+public class HelloController extends HelloController {
 }
