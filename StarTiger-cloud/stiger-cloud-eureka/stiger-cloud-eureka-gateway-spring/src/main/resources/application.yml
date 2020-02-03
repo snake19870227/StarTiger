@@ -10,15 +10,15 @@ spring:
       discovery:
         locator:
           enabled: true
-      routes:
-        - id: LowerServerName_ProducerEureka
-          uri: lb://PRODUCER-EUREKA
-          order: 0
-          predicates:
-            - Path=/producer-eureka/**
-          filters:
-            - StripPrefix=1
-            - AddResponseHeader=Gateway-By, Spring Cloud Gateway
+#      routes:
+#        - id: LowerServerName_ProducerEureka
+#          uri: lb://PRODUCER-EUREKA
+#          order: 0
+#          predicates:
+#            - Path=/producer-eureka/**
+#          filters:
+#            - StripPrefix=1
+#            - AddResponseHeader=Gateway-By, Spring Cloud Gateway
 eureka:
   client:
     service-url:

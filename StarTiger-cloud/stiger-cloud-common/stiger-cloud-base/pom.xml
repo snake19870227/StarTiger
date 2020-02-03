@@ -16,4 +16,11 @@
     <name>STigerCloudBase</name>
     <description>StarTiger Cloud Demo Base Module</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
