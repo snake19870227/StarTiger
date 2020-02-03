@@ -3,3 +3,4 @@ spring:
     name: register-center-eureka
   profiles:
     active: single
+    include: base

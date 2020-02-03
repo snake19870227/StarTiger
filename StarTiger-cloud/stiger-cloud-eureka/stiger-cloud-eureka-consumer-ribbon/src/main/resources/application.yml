@@ -1,6 +1,8 @@
 spring:
   application:
     name: consumer-eureka-ribbon
+  profiles:
+    include: base
   task:
     scheduling:
       pool:
@@ -11,11 +13,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:20000/eureka/
-management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream
 stiger:
   cloud:
     producers:

@@ -11,3 +11,11 @@ spring:
       FAIL_ON_UNKNOWN_PROPERTIES: false
     parser:
       ALLOW_UNQUOTED_FIELD_NAMES: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

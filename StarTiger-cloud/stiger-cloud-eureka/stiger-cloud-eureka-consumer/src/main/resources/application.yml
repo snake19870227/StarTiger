@@ -1,6 +1,8 @@
 spring:
   application:
     name: consumer-eureka
+  profiles:
+    include: base
 eureka:
   client:
     service-url:

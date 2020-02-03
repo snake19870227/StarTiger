@@ -29,6 +29,7 @@
         <module>stiger-cloud-zookeeper</module>
         <module>stiger-cloud-hystrix-dashboard</module>
         <module>stiger-cloud-turbine</module>
+        <module>stiger-cloud-admin</module>
     </modules>
 
     <build>

@@ -18,11 +18,11 @@
     <description>StarTiger Cloud Common Module</description>
 
     <modules>
-        <module>stiger-cloud-producer</module>
+        <module>stiger-cloud-base</module>
         <module>stiger-cloud-config-git</module>
+        <module>stiger-cloud-producer</module>
         <module>stiger-cloud-consumer</module>
         <module>stiger-cloud-consumer-hystrix</module>
-        <module>stiger-cloud-base</module>
     </modules>
 
 </project>

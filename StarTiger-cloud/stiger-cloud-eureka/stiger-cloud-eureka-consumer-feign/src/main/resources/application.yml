@@ -1,6 +1,7 @@
 spring:
   profiles:
     active: 40010
+    include: base
   application:
     name: consumer-eureka-feign
   main:
@@ -12,11 +13,6 @@ eureka:
 feign:
   hystrix:
     enabled: true
-management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream
 stiger:
   cloud:
     producers:

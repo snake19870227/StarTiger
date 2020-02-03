@@ -23,10 +23,3 @@ spring:
     port: 5672
     username: admin
     password: 123456
-management:
-  endpoints:
-    enabled-by-default: true
-    web:
-      base-path: /actuator
-      exposure:
-        include: refresh,bus-refresh

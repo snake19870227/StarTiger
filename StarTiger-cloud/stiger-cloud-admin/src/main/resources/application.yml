@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: admin-server
+  profiles:
+    active: eureka
+  security:
+    user:
+      name: 'stiger'
+      password: '123456'
+server:
+  port: 8000

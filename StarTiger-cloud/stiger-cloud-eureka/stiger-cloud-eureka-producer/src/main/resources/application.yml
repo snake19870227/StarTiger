@@ -4,10 +4,3 @@ spring:
   profiles:
     active: 30000
     include: base
-management:
-  endpoints:
-    enabled-by-default: true
-    web:
-      base-path: /actuator
-      exposure:
-        include: refresh
