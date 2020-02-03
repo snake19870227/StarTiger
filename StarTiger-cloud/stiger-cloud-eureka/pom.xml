@@ -32,6 +32,7 @@
         <module>stiger-cloud-eureka-zipkin-311</module>
         <module>stiger-cloud-eureka-zipkin-312</module>
         <module>stiger-cloud-eureka-zipkin-321</module>
+        <module>stiger-cloud-eureka-gateway-zuul</module>
     </modules>
 
 </project>

@@ -7,31 +7,28 @@
 
     <parent>
         <groupId>com.snake19870227</groupId>
-        <artifactId>StarTiger-cloud</artifactId>
+        <artifactId>stiger-cloud-eureka</artifactId>
         <version>${cloud.version}</version>
     </parent>
 
-    <artifactId>stiger-cloud-admin</artifactId>
+    <artifactId>stiger-cloud-eureka-gateway-zuul</artifactId>
 
-    <name>STigerCloudAdmin</name>
-    <description>StarTiger Cloud Admin Server Module</description>
+    <name>STigerCloudEurekaGatewayZuul</name>
+    <description>StarTiger Cloud Gateway Zuul</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>stiger-cloud-base</artifactId>
+            <version>${cloud.version}</version>
         </dependency>
     </dependencies>
 
