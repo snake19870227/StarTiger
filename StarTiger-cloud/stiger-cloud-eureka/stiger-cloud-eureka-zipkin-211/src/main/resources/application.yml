@@ -2,7 +2,7 @@ spring:
   application:
     name: zipkin211
   profiles:
-    include: base
+    include: base,stream
     active: 60211
   cloud:
     bus:
@@ -13,8 +13,18 @@ spring:
       bindings:
         output:
           destination: input
-        stiger-topic:
+        stiger-topic-input:
           group: zipkin211
+        stiger-retry-topic-input:
+          group: zipkin211
+        stiger-retry-dlq-topic-input:
+          group: zipkin211
+      rabbit:
+        bindings:
+          stiger-retry-dlq-topic-input:
+            consumer:
+              auto-bind-dlq: true
+              dlq-ttl: 10000
   sleuth:
     web:
       client:

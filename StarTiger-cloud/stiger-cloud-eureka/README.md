@@ -10,3 +10,5 @@ java -jar zipkin.jar
 101 -> 211 212
 211 -> 311 312
 212 -> 321
+## stream rabbitmq
+211 212

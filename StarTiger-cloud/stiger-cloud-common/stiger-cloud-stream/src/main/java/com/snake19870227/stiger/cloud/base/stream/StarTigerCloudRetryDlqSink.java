@@ -1,16 +1,15 @@
 package com.snake19870227.stiger.cloud.base.stream;
 
+import com.snake19870227.stiger.cloud.base.StarTigerCloudConstant;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.messaging.SubscribableChannel;
-
-import com.snake19870227.stiger.cloud.base.StarTigerCloudConstant.StreamTopic.DefaultTopic;
 
 /**
  * @author Bu HuaYang
  */
-public interface StarTigerCloudSink {
+public interface StarTigerCloudRetryDlqSink {
 
-    String INPUT = DefaultTopic.INPUT;
+    String INPUT = StarTigerCloudConstant.StreamTopic.RetryDlqTopic.INPUT;
 
     @Input(INPUT)
     SubscribableChannel input();

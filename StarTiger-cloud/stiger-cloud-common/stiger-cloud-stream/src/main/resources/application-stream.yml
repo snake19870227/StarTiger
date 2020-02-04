@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        stiger-topic-input:
+          destination: stiger-topic
+          consumer:
+            max-attempts: 1
+        stiger-topic-output:
+          destination: stiger-topic
+        stiger-retry-topic-input:
+          destination: stiger-retry-topic
+        stiger-retry-topic-output:
+          destination: stiger-retry-topic
+        stiger-retry-dlq-topic-input:
+          destination: stiger-retry-dlq-topic
+        stiger-retry-dlq-topic-output:
+          destination: stiger-retry-dlq-topic
