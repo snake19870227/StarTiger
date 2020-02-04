@@ -30,6 +30,7 @@
         <module>stiger-cloud-hystrix-dashboard</module>
         <module>stiger-cloud-turbine</module>
         <module>stiger-cloud-admin</module>
+        <module>stiger-cloud-nacos</module>
     </modules>
 
     <build>
