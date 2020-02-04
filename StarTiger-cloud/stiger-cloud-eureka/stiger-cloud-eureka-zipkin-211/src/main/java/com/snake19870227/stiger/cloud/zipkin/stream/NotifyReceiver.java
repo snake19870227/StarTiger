@@ -11,6 +11,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.SendTo;
 
 /**
@@ -19,6 +20,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 @EnableBinding({
         Source.class,
         StarTigerCloudSink.class,
+        StarTigerCloudConditionSink.class,
         StarTigerCloudRetrySink.class,
         StarTigerCloudRetryDlqSink.class
 })
@@ -34,13 +36,22 @@ public class NotifyReceiver {
 
     @StreamListener(StarTigerCloudSink.INPUT)
     @SendTo(Source.OUTPUT)
-    public AckPlayload helloReceiver(HelloPlayload playload) {
+    public AckPlayload helloReceiver(HelloPlayload playload, @Header("num") String num) {
         try {
-            logger.info("\n收到 Msg :\n" + objectMapper.writeValueAsString(playload));
+            logger.info("\n收到" + num + " Msg :\n" + objectMapper.writeValueAsString(playload));
         } catch (JsonProcessingException e) {
             logger.error("无法处理收到的消息", e);
         }
         return new AckPlayload(StarTigerContext.getApplicationName(), StarTigerContext.getActiveProfiles(), playload.getDatetime());
+    }
+
+    @StreamListener(target = StarTigerCloudConditionSink.INPUT, condition = "headers['num']==1")
+    public void helloCondition(HelloPlayload playload, @Header("num") String num) {
+        try {
+            logger.info("\n收到 Msg " + num + " :\n" + objectMapper.writeValueAsString(playload));
+        } catch (JsonProcessingException e) {
+            logger.error("无法处理收到的消息", e);
+        }
     }
 
     @StreamListener(StarTigerCloudRetrySink.INPUT)

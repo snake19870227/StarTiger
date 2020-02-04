@@ -45,7 +45,7 @@ public class StreamJob {
 
     @Scheduled(cron = "0/5 * * * * ?")
     public void doAccess() {
-        int num = RandomUtil.randomInt(0, 1);
+        int num = RandomUtil.randomInt(0, 2);
         starTigerCloudSource.output().send(
                 MessageBuilder.withPayload(
                         new HelloPlayload(

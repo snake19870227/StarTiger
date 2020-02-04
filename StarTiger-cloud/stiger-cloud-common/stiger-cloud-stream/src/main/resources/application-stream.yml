@@ -8,6 +8,8 @@ spring:
             max-attempts: 1
         stiger-topic-output:
           destination: stiger-topic
+        stiger-topic-condition-input:
+          destination: stiger-topic
         stiger-retry-topic-input:
           destination: stiger-retry-topic
         stiger-retry-topic-output:

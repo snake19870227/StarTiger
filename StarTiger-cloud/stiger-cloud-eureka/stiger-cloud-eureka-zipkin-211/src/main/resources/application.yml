@@ -15,6 +15,8 @@ spring:
           destination: input
         stiger-topic-input:
           group: zipkin211
+        stiger-topic-condition-input:
+          group: zipkin211
         stiger-retry-topic-input:
           group: zipkin211
         stiger-retry-dlq-topic-input:
@@ -24,7 +26,6 @@ spring:
           stiger-retry-dlq-topic-input:
             consumer:
               auto-bind-dlq: true
-              dlq-ttl: 10000
   sleuth:
     web:
       client:

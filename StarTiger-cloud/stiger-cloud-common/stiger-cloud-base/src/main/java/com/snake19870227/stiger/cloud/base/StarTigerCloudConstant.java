@@ -17,6 +17,10 @@ public class StarTigerCloudConstant {
             public static final String OUTPUT = DEFAULT_TOPIC_PREFIX + OUTPUT_SUFFIX;
         }
 
+        public static class DefaultConditionTopic {
+            public static final String INPUT = DEFAULT_TOPIC_PREFIX + "-condition" + INPUT_SUFFIX;
+        }
+
         public static class RetryTopic {
             public static final String INPUT = "stiger-retry-topic" + INPUT_SUFFIX;
             public static final String OUTPUT = "stiger-retry-topic" + OUTPUT_SUFFIX;
