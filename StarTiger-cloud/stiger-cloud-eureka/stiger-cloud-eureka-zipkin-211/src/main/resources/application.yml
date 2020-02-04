@@ -1,15 +1,18 @@
-server:
-  port: 60211
 spring:
   application:
     name: zipkin211
   profiles:
     include: base
+    active: 60211
   cloud:
     bus:
       enabled: true
       trace:
         enabled: true
+    stream:
+      bindings:
+        output:
+          destination: input
   sleuth:
     web:
       client:

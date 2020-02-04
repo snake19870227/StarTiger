@@ -2,6 +2,7 @@ package com.snake19870227.stiger.cloud.zipkin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author Bu HuaYang
@@ -14,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 "com.snake19870227.stiger.cloud.consumer"
         }
 )
+@EnableScheduling
 public class StarTigerCloudEurekaZipkinApplication {
 
     public static void main(String[] args) {

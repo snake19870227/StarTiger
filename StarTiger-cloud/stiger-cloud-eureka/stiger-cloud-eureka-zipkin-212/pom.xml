@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -44,6 +44,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>stiger-cloud-producer</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>stiger-cloud-stream</artifactId>
             <version>${cloud.version}</version>
         </dependency>
         <dependency>
