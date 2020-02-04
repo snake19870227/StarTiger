@@ -13,6 +13,8 @@ spring:
       bindings:
         output:
           destination: input
+        stiger-topic:
+          group: zipkin211
   sleuth:
     web:
       client:

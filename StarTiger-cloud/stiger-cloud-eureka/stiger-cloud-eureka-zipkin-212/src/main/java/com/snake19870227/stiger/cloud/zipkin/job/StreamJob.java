@@ -10,6 +10,9 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * @author Bu HuaYang
  */
@@ -28,8 +31,13 @@ public class StreamJob {
         this.starTigerCloudSource = starTigerCloudSource;
     }
 
-    @Scheduled(cron = "* * * * * ?")
+    @Scheduled(cron = "0/1 * * * * ?")
     public void doAccess() throws Throwable {
-        starTigerCloudSource.output().send(MessageBuilder.withPayload(StarTigerContext.getApplicationName() + " say 'Hello'.").build());
+        starTigerCloudSource.output().send(
+                MessageBuilder.withPayload(
+                        StarTigerContext.getApplicationName() + " say 'Hello'. "
+                                + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss SSS"))
+                ).build()
+        );
     }
 }
