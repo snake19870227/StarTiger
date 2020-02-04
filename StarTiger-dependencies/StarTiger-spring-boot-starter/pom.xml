@@ -14,7 +14,7 @@
     <artifactId>StarTiger-spring-boot-starter</artifactId>
 
     <name>StarTigerSpringBootStarter</name>
-    <description>StarTiger Framework SpringBoot Starter Module</description>
+    <description>StarTiger Framework 脚手架的 SpringBoot Starter</description>
 
     <dependencies>
         <dependency>

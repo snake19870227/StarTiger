@@ -14,7 +14,7 @@
     <artifactId>StarTiger-spring-boot-autoconfigure</artifactId>
 
     <name>StarTigerSpringBootAutoconfigure</name>
-    <description>StarTiger Framework SpringBoot Autoconfigure Module</description>
+    <description>StarTiger Framework 脚手架的 SpringBoot 自动配置</description>
 
     <build>
         <plugins>

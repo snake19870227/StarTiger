@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
 
     <name>StarTigerDependencies</name>
-    <description>StarTiger Framework Dependencies Module</description>
+    <description>StarTiger工程依赖版本管理</description>
 
     <modules>
         <module>StarTiger-framework</module>

@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <name>StarTiger</name>
-    <description>StarTiger Framework</description>
+    <description>StarTiger工程</description>
 
     <properties>
         <framework.version>1.0</framework.version>

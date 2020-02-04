@@ -14,7 +14,7 @@
     <artifactId>StarTiger-framework</artifactId>
 
     <name>StarTigerFramework</name>
-    <description>StarTiger Framework Project</description>
+    <description>StarTiger Framework 脚手架</description>
 
     <build>
         <plugins>
