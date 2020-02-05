@@ -10,6 +10,6 @@ java -jar zipkin.jar
 101 -> 211 212  
 211 -> 311 312  
 212 -> 321  
-![拓扑图](https://gitee.com/buhy/StarTiger/blob/master/StarTiger-cloud/stiger-cloud-eureka/doc/image/zipkin_router.jpg)
+![拓扑图](https://gitee.com/buhy/StarTiger/raw/master/StarTiger-cloud/stiger-cloud-eureka/doc/image/zipkin_router.jpg)
 ## stream rabbitmq
 211 212
