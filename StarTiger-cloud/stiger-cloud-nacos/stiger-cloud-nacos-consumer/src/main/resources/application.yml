@@ -1,0 +1,15 @@
+server:
+  port: 40120
+spring:
+  application:
+    name: consumer-nacos
+  profiles:
+    include: base
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+stiger:
+  cloud:
+    producers:
+      hello: http://producer-nacos

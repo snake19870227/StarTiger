@@ -30,6 +30,9 @@ public class ProducerController {
     @Value("${stiger.env:noenv}")
     private String env;
 
+    @Value("${stiger.env2:noenv2}")
+    private String env2;
+
     @Autowired(required = false)
     private TraceAccess traceAccess;
 
@@ -37,7 +40,7 @@ public class ProducerController {
     public RestResponse.DefaultRestResponse access(@RequestParam(name = "visitor") String visitor) {
         logger.info("{} 来访.", visitor);
         Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("master", StarTigerContext.getApplicationName() + " [" + env + "][" + Arrays.toString(StarTigerContext.getActiveProfiles()) + "]");
+        dataMap.put("master", StarTigerContext.getApplicationName() + " [" + env + "," + env2 + "][" + Arrays.toString(StarTigerContext.getActiveProfiles()) + "]");
         dataMap.put("greetings", "Hello " + visitor);
         if (traceAccess != null) {
             ListRestResponse listRestResponse = traceAccess.access();

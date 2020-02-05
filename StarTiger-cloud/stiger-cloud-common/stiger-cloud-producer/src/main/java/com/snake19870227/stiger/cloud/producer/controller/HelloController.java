@@ -25,6 +25,9 @@ public class HelloController {
     @Value("${stiger.env:noenv}")
     private String env;
 
+    @Value("${stiger.env2:noenv2}")
+    private String env2;
+
     @Autowired
     private HelloService helloService;
 
@@ -33,6 +36,7 @@ public class HelloController {
         Map<String, String> dataMap = new HashMap<>(3);
         dataMap.put("title", helloService.sayHello(somebody));
         dataMap.put("env", env);
+        dataMap.put("env2", env2);
         dataMap.put("profiles", Arrays.toString(StarTigerContext.getActiveProfiles()));
         return RestResponseBuilder.createSuccessRestResp(dataMap);
     }

@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      name: config
+      name: config,config2
       profile: dev
       discovery:
         enabled: true

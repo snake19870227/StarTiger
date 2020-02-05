@@ -17,25 +17,21 @@ import java.util.Map;
  * @author Bu HuaYang
  */
 @Service
-public class HelloService {
+public class HystrixHelloServiceImpl extends HelloServiceImpl {
 
-    private static final Logger logger = LoggerFactory.getLogger(HelloService.class);
+    private static final Logger logger = LoggerFactory.getLogger(HystrixHelloServiceImpl.class);
 
-    private final StarTigerCloudProperties starTigerCloudProperties;
-
-    private final RestTemplate restTemplate;
-
-    public HelloService(StarTigerCloudProperties starTigerCloudProperties, RestTemplate restTemplate) {
-        this.starTigerCloudProperties = starTigerCloudProperties;
-        this.restTemplate = restTemplate;
+    public HystrixHelloServiceImpl(StarTigerCloudProperties starTigerCloudProperties, RestTemplate restTemplate) {
+        super(starTigerCloudProperties, restTemplate);
     }
 
+    @Override
     @HystrixCommand(fallbackMethod = "helloFallback")
-    public MapRestResponse hello() throws Throwable {
-        String url = starTigerCloudProperties.getProducers().get("hello") + "/hello?somebody=" + StarTigerContext.getApplicationId();
-        return restTemplate.getForObject(url, MapRestResponse.class);
+    public MapRestResponse hello() {
+        return super.hello();
     }
 
+    @Override
     public MapRestResponse helloFallback() {
         Map<String, Object> dataMap = new HashMap<>(1);
         dataMap.put("title", StarTigerContext.getMessage("tp.consumer.0001", StarTigerContext.getApplicationId()));

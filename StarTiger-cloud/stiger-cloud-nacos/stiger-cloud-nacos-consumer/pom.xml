@@ -7,27 +7,27 @@
 
     <parent>
         <groupId>com.snake19870227</groupId>
-        <artifactId>stiger-cloud-common</artifactId>
+        <artifactId>stiger-cloud-nacos</artifactId>
         <version>${cloud.version}</version>
     </parent>
 
-    <artifactId>stiger-cloud-consumer</artifactId>
+    <artifactId>stiger-cloud-nacos-consumer</artifactId>
 
-    <name>STigerCloudConsumer</name>
-    <description>StarTiger Cloud Consumer Base Module</description>
+    <name>STigerCloudNacosConsumer</name>
+    <description>StarTiger Cloud Consumer 模块</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--<dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>stiger-cloud-base</artifactId>
+            <artifactId>stiger-cloud-consumer-hystrix</artifactId>
             <version>${cloud.version}</version>
         </dependency>
     </dependencies>

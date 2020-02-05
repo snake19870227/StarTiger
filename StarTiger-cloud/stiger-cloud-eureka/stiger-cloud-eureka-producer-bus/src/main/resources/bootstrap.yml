@@ -2,7 +2,7 @@ spring:
   cloud:
     config:
 #      uri: http://localhost:9000
-      name: config
+      name: config,config2
       profile: dev
       discovery:
         enabled: true

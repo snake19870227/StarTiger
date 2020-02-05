@@ -14,3 +14,8 @@ spring:
     port: 5672
     username: admin
     password: 123456
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

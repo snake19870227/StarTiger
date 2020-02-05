@@ -2,7 +2,7 @@ package com.snake19870227.stiger.cloud.consumer.job;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.cloud.base.entity.dto.MapRestResponse;
-import com.snake19870227.stiger.cloud.consumer.service.HelloService;
+import com.snake19870227.stiger.cloud.base.service.HelloService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
