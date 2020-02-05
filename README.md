@@ -15,7 +15,8 @@ Spring Boot Admin (SBA)
 ### stiger-cloud-common
 Demo基础模块,同时验证不变动业务的情况下,动态调整Spring Cloud生态下各个套件  
 ### stiger-cloud-eureka
-Eureka作为注册中心
+Eureka作为注册中心  
+[README](https://github.com/snake19870227/StarTiger/blob/master/StarTiger-cloud/stiger-cloud-eureka/README.md)
 ### stiger-cloud-hystrix-dashboard
 Hystrix仪表盘
 ### stiger-cloud-nacos
