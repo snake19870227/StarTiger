@@ -51,6 +51,10 @@ public class RestResponseBuilder {
         return createRestResp(DEFAULT_FAILURE_RESP_CODE, buildMessage(DEFAULT_FAILURE_RESP_CODE), data, clazz);
     }
 
+    public static <F, M extends RestResponse<F>> M createRestResp(String respCode, F data, Class<M> clazz) {
+        return createRestResp(respCode, buildMessage(respCode), data, clazz);
+    }
+
     public static <F, M extends RestResponse<F>> M createRestResp(String respCode, String respMessage, F data, Class<M> clazz) {
 
         M restResp;

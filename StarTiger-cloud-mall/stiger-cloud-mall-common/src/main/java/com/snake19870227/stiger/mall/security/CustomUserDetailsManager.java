@@ -1,14 +1,12 @@
 package com.snake19870227.stiger.mall.security;
 
+import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
 import com.snake19870227.stiger.mall.entity.po.MallAccount;
 import com.snake19870227.stiger.mall.manager.MallAccountMgr;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -56,11 +54,6 @@ public class CustomUserDetailsManager implements UserDetailsManager {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<MallAccount> account = Optional.ofNullable(mallAccountMgr.getAccountByUsername(username));
-        return account.map(
-                mallAccount -> User.withUsername(mallAccount.getAccountName())
-                                   .password(mallAccount.getAccountPassword())
-                                   .authorities(AuthorityUtils.NO_AUTHORITIES)
-                                   .build()
-        ).orElse(null);
+        return account.map(AccountDetail::new).orElse(null);
     }
 }

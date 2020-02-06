@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -26,19 +27,19 @@ import java.io.IOException;
 /**
  * @author Bu HuaYang
  */
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public abstract class BaseJwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String AUTHENTICATION_PREFIX = "Bearer ";
 
     private final JwtSignKey jwtSignKey;
 
-    public JwtAuthenticationFilter(JwtSignKey jwtSignKey) {
+    public BaseJwtAuthenticationFilter(JwtSignKey jwtSignKey) {
         this.jwtSignKey = jwtSignKey;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+            throws ServletException, IOException, AuthenticationException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -55,13 +56,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(jwtToken)) {
                 try {
                     Jws<Claims> jws = Jwts.parser().setSigningKey(jwtSignKey.getSigningKey()).parseClaimsJws(jwtToken);
-                    Claims claims = jws.getBody();
 
-                    UserDetails userDetails = User.withUsername(claims.getSubject())
-                            .authorities(AuthorityUtils.NO_AUTHORITIES)
-                            .build();
+                    UserDetails userDetails = loadUserDetails(jws.getBody(), header);
 
-                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    if (userDetails == null) {
+                        throw new BadCredentialsException("未能获取到账户信息");
+                    }
+
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, AuthorityUtils.NO_AUTHORITIES);
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
@@ -75,4 +77,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
+
+    protected abstract UserDetails loadUserDetails(Claims claims, String bearerJwtToken);
 }

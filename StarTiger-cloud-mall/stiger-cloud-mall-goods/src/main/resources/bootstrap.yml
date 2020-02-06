@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: mall-goods
+  profiles:
+    include: common,mall
+    active: 7110
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848

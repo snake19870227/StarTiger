@@ -13,7 +13,7 @@ public class MybatisPlusGenerator {
 
     public static void main(String[] args) {
 
-        String[] schemas = new String[] {"StigerMallAccount"};
+        String[] schemas = new String[] {"StigerMallAccount","StigerMallGoods"};
 
         for (String schema : schemas) {
 
@@ -31,7 +31,7 @@ public class MybatisPlusGenerator {
             gc.setOutputDir(projectPath + "/StarTiger-cloud-mall/stiger-cloud-mall-common/src/main/java");
             gc.setAuthor("Bu HuaYang");
             gc.setOpen(false);
-            gc.setFileOverride(false);
+            gc.setFileOverride(true);
             gc.setIdType(IdType.ASSIGN_UUID);
             mpg.setGlobalConfig(gc);
 

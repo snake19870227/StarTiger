@@ -1,10 +1,8 @@
 package com.snake19870227.stiger.mall.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.mall.common.StarTigerMallSecurityProperties;
 import com.snake19870227.stiger.mall.manager.MallAccountMgr;
 import com.snake19870227.stiger.mall.security.*;
-import com.snake19870227.stiger.mall.security.LoadUsernameAndPasswordFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -17,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Bu HuaYang
@@ -25,12 +24,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @ConditionalOnWebApplication
 public class SecurityConfig {
 
-    private final StarTigerMallSecurityProperties securityProperties;
-
-    public SecurityConfig(StarTigerMallSecurityProperties securityProperties) {
-        this.securityProperties = securityProperties;
-    }
-
     @Configuration
     @ConditionalOnWebApplication
     static class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
@@ -38,26 +31,14 @@ public class SecurityConfig {
         @Value("${management.endpoints.web.base-path:/actuator}")
         private String actuatorBasePath;
 
-        private final LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter;
-
-        private final LocalJwtAuthenticationFilter jwtAuthenticationFilter;
-
-        private final RestAuthenticationHandler restAuthenticationHandler;
+        private final CloudJwtAuthenticationFilter jwtAuthenticationFilter;
 
         private final RestSecurityExceptionHandler restSecurityExceptionHandler;
 
-        private final StarTigerMallSecurityProperties securityProperties;
-
-        CustomWebSecurityConfigurerAdapter(LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter,
-                                           LocalJwtAuthenticationFilter jwtAuthenticationFilter,
-                                           RestAuthenticationHandler restAuthenticationHandler,
-                                           RestSecurityExceptionHandler restSecurityExceptionHandler,
-                                           StarTigerMallSecurityProperties securityProperties) {
-            this.loadUsernameAndPasswordFilter = loadUsernameAndPasswordFilter;
+        CustomWebSecurityConfigurerAdapter(CloudJwtAuthenticationFilter jwtAuthenticationFilter,
+                                           RestSecurityExceptionHandler restSecurityExceptionHandler) {
             this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-            this.restAuthenticationHandler = restAuthenticationHandler;
             this.restSecurityExceptionHandler = restSecurityExceptionHandler;
-            this.securityProperties = securityProperties;
         }
 
         @Override
@@ -74,13 +55,7 @@ public class SecurityConfig {
 //            urlRegistry.anyRequest().access("@authAssert.canAccess(request, authentication)");
             urlRegistry.anyRequest().authenticated();
 
-            http.formLogin()
-                .loginProcessingUrl(securityProperties.getLoginProcessingUrl())
-                .successHandler(restAuthenticationHandler)
-                .failureHandler(restAuthenticationHandler);
-
-            http.addFilterBefore(loadUsernameAndPasswordFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
             http.exceptionHandling()
                     .authenticationEntryPoint(restSecurityExceptionHandler)
@@ -94,18 +69,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public LoadUsernameAndPasswordFilter loadUsernameAndPasswordFilter(ObjectMapper objectMapper) {
-        return new LoadUsernameAndPasswordFilter(objectMapper, securityProperties);
-    }
-
-    @Bean
-    public LocalJwtAuthenticationFilter jwtAuthenticationFilter(JwtSignKey jwtSignKey) {
-        return new LocalJwtAuthenticationFilter(jwtSignKey);
-    }
-
-    @Bean
-    public RestAuthenticationHandler restAuthenticationHandler(JwtSignKey jwtSignKey, ObjectMapper objectMapper) {
-        return new RestAuthenticationHandler(securityProperties, jwtSignKey, objectMapper);
+    public CloudJwtAuthenticationFilter jwtAuthenticationFilter(JwtSignKey jwtSignKey, RestTemplate cloudRestTemplate) {
+        return new CloudJwtAuthenticationFilter(jwtSignKey, cloudRestTemplate);
     }
 
     @Bean

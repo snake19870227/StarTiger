@@ -5,15 +5,18 @@ import com.snake19870227.stiger.mall.common.StarTigerMallSecurityProperties;
 import com.snake19870227.stiger.mall.security.JwtSignKey;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.client.RestTemplate;
 
 import java.security.Key;
 import java.security.KeyPair;
+import java.time.Duration;
 
 /**
  * @author Bu HuaYang
@@ -30,6 +33,15 @@ public class CommonConfig {
 
     public CommonConfig(StarTigerMallSecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
+    }
+
+    @LoadBalanced
+    @Bean
+    public RestTemplate cloudRestTemplate() {
+        return new RestTemplateBuilder()
+                .setConnectTimeout(Duration.ofSeconds(1L))
+                .setReadTimeout(Duration.ofSeconds(5L))
+                .build();
     }
 
     @Bean

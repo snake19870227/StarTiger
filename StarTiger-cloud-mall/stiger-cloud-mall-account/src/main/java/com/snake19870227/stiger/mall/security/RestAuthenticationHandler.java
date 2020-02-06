@@ -8,6 +8,7 @@ import com.snake19870227.stiger.context.StarTigerContext;
 import com.snake19870227.stiger.http.RestResponse;
 import com.snake19870227.stiger.http.RestResponseBuilder;
 import com.snake19870227.stiger.mall.common.StarTigerMallSecurityProperties;
+import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +59,7 @@ public class RestAuthenticationHandler implements AuthenticationSuccessHandler, 
             return;
         }
 
-        User user = (User) authentication.getPrincipal();
+        AccountDetail accountDetail = (AccountDetail) authentication.getPrincipal();
 
         Instant iat = Instant.now();
         Instant exp = iat.plus(securityProperties.getExpirationTime());
@@ -66,14 +67,14 @@ public class RestAuthenticationHandler implements AuthenticationSuccessHandler, 
         String token = Jwts.builder()
                 .setIssuer(StarTigerContext.getApplicationName())
                 .setIssuedAt(Date.from(iat))
-                .setSubject(user.getUsername())
-                .setAudience(user.getUsername())
+                .setSubject(accountDetail.getUsername())
+                .setAudience(accountDetail.getUsername())
                 .setExpiration(Date.from(exp))
-                .setId(user.getUsername())
+                .setId(accountDetail.getAccount().getAccountId())
                 .signWith(jwtSignKey.getSignKey())
                 .compact();
 
-        logger.info("用户[{}]获取token[{}]", user.getUsername(), token);
+        logger.info("用户[{}]获取token[{}]", accountDetail.getAccount().getAccountId(), token);
 
         Map<Object, Object> resultData;
         resultData = MapUtil.of(new String[][] {
