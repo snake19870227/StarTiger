@@ -12,25 +12,23 @@
         <relativePath>../StarTiger-dependencies/pom.xml</relativePath>
     </parent>
 
-    <artifactId>StarTiger-cloud</artifactId>
-    <version>${cloud.version}</version>
+    <artifactId>StarTiger-cloud-mall</artifactId>
+    <version>${cloud-mall.version}</version>
     <packaging>pom</packaging>
 
-    <name>STigerCloud</name>
-    <description>StarTiger Cloud Demo</description>
+    <name>STigerCloudMall</name>
+    <description>StarTiger Cloud 商城 Demo</description>
 
     <properties>
-        <cloud.version>0.0.1</cloud.version>
+        <cloud-mall.version>0.0.1</cloud-mall.version>
     </properties>
 
     <modules>
-        <module>stiger-cloud-common</module>
-        <module>stiger-cloud-eureka</module>
-        <module>stiger-cloud-zookeeper</module>
-        <module>stiger-cloud-hystrix-dashboard</module>
-        <module>stiger-cloud-turbine</module>
-        <module>stiger-cloud-admin</module>
-        <module>stiger-cloud-nacos</module>
+        <module>stiger-cloud-mall-common</module>
+        <module>stiger-cloud-mall-account</module>
+        <module>stiger-cloud-mall-goods</module>
+        <module>stiger-cloud-mall-order</module>
+        <module>stiger-cloud-mall-service-admin</module>
     </modules>
 
     <build>
@@ -75,21 +73,16 @@
         </plugins>
     </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>StarTiger-spring-boot-starter</artifactId>
-            <version>${framework.version}</version>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

@@ -1,0 +1,14 @@
+server:
+  port: 7900
+spring:
+  application:
+    name: mall-service-admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        register-enabled: false
+  security:
+    user:
+      name: 'stigermall'
+      password: '123456'

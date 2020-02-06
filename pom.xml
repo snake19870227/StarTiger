@@ -21,6 +21,7 @@
         <module>StarTiger-dependencies</module>
         <module>StarTiger-admin</module>
         <module>StarTiger-cloud</module>
+        <module>StarTiger-cloud-mall</module>
     </modules>
 
     <repositories>
