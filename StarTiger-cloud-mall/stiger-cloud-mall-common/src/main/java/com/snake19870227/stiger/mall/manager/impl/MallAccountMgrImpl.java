@@ -20,6 +20,7 @@ public class MallAccountMgrImpl implements MallAccountMgr {
 
     public MallAccountMgrImpl(MallAccountMapper mallAccountMapper) {
         this.mallAccountMapper = mallAccountMapper;
+        logger.debug("创建 {}", this.getClass().getName());
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.snake19870227.stiger.mall.security;
 import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
 import com.snake19870227.stiger.mall.entity.po.MallAccount;
 import com.snake19870227.stiger.mall.manager.MallAccountMgr;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,8 @@ import java.util.Optional;
 @Transactional(rollbackFor = Exception.class)
 public class CustomUserDetailsManager implements UserDetailsManager {
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsManager.class);
+
     private final PasswordEncoder passwordEncoder;
 
     private final MallAccountMgr mallAccountMgr;
@@ -24,6 +28,7 @@ public class CustomUserDetailsManager implements UserDetailsManager {
     public CustomUserDetailsManager(PasswordEncoder passwordEncoder, MallAccountMgr mallAccountMgr) {
         this.passwordEncoder = passwordEncoder;
         this.mallAccountMgr = mallAccountMgr;
+        logger.debug("创建 {}", this.getClass().getName());
     }
 
     @Override

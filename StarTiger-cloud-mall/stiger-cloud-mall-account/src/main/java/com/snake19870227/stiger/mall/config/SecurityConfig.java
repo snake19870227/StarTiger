@@ -5,6 +5,8 @@ import com.snake19870227.stiger.mall.common.StarTigerMallSecurityProperties;
 import com.snake19870227.stiger.mall.manager.MallAccountMgr;
 import com.snake19870227.stiger.mall.security.*;
 import com.snake19870227.stiger.mall.security.LoadUsernameAndPasswordFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -25,10 +27,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @ConditionalOnWebApplication
 public class SecurityConfig {
 
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
     private final StarTigerMallSecurityProperties securityProperties;
 
     public SecurityConfig(StarTigerMallSecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
+        logger.debug("创建 {}", this.getClass().getName());
     }
 
     @Configuration
@@ -58,6 +63,7 @@ public class SecurityConfig {
             this.restAuthenticationHandler = restAuthenticationHandler;
             this.restSecurityExceptionHandler = restSecurityExceptionHandler;
             this.securityProperties = securityProperties;
+            logger.debug("创建 {}", this.getClass().getName());
         }
 
         @Override

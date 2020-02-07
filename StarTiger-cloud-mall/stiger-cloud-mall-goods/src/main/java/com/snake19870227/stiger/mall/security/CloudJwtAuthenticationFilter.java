@@ -31,6 +31,7 @@ public class CloudJwtAuthenticationFilter extends BaseJwtAuthenticationFilter {
     public CloudJwtAuthenticationFilter(JwtSignKey jwtSignKey, RestTemplate cloudRestTemplate) {
         super(jwtSignKey);
         this.cloudRestTemplate = cloudRestTemplate;
+        logger.debug("创建 {}", this.getClass().getName());
     }
 
     @Override

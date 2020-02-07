@@ -26,6 +26,7 @@ public class AccountController {
 
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
+        logger.debug("创建 {}", this.getClass().getName());
     }
 
     @GetMapping(path = "/detail")

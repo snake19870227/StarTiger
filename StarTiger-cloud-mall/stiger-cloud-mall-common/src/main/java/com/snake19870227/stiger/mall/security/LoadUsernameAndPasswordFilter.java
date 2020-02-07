@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.mall.common.StarTigerMallSecurityProperties;
 import com.snake19870227.stiger.servlet.ParameterAttributeHttpServletRequestWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -23,6 +25,8 @@ import java.io.IOException;
  */
 public class LoadUsernameAndPasswordFilter extends GenericFilterBean {
 
+    private static final Logger logger = LoggerFactory.getLogger(LoadUsernameAndPasswordFilter.class);
+
     private final RequestMatcher targetUrlMatcher;
 
     private final ObjectMapper objectMapper;
@@ -35,6 +39,8 @@ public class LoadUsernameAndPasswordFilter extends GenericFilterBean {
         this.securityProperties = securityProperties;
 
         this.targetUrlMatcher = new AntPathRequestMatcher(securityProperties.getLoginProcessingUrl(), HttpMethod.POST.name());
+
+        logger.debug("创建 {}", this.getClass().getName());
     }
 
     @Override

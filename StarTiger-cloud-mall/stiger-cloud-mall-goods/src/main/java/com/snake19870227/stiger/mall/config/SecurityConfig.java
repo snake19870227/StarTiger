@@ -3,6 +3,8 @@ package com.snake19870227.stiger.mall.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.mall.manager.MallAccountMgr;
 import com.snake19870227.stiger.mall.security.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -24,6 +26,12 @@ import org.springframework.web.client.RestTemplate;
 @ConditionalOnWebApplication
 public class SecurityConfig {
 
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
+    public SecurityConfig() {
+        logger.debug("创建 {}", this.getClass().getName());
+    }
+
     @Configuration
     @ConditionalOnWebApplication
     static class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
@@ -39,6 +47,7 @@ public class SecurityConfig {
                                            RestSecurityExceptionHandler restSecurityExceptionHandler) {
             this.jwtAuthenticationFilter = jwtAuthenticationFilter;
             this.restSecurityExceptionHandler = restSecurityExceptionHandler;
+            logger.debug("创建 {}", this.getClass().getName());
         }
 
         @Override

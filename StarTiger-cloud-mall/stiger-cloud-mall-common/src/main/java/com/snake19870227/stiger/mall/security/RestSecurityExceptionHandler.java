@@ -30,6 +30,7 @@ public class RestSecurityExceptionHandler implements AuthenticationEntryPoint, A
 
     public RestSecurityExceptionHandler(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
+        logger.debug("创建 {}", this.getClass().getName());
     }
 
     @Override

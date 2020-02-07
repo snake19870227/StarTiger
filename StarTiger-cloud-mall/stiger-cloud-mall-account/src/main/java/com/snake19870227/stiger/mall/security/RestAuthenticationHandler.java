@@ -48,6 +48,7 @@ public class RestAuthenticationHandler implements AuthenticationSuccessHandler, 
         this.securityProperties = securityProperties;
         this.jwtSignKey = jwtSignKey;
         this.objectMapper = objectMapper;
+        logger.debug("创建 {}", this.getClass().getName());
     }
 
     @Override

@@ -1,9 +1,12 @@
 package com.snake19870227.stiger.mall.config;
 
 import cn.hutool.crypto.asymmetric.RSA;
+import com.snake19870227.stiger.context.GlobalHandlerExceptionResolver;
 import com.snake19870227.stiger.mall.common.StarTigerMallSecurityProperties;
 import com.snake19870227.stiger.mall.security.JwtSignKey;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -29,10 +32,18 @@ import java.time.Duration;
 @EnableConfigurationProperties(StarTigerMallSecurityProperties.class)
 public class CommonConfig {
 
+    private static final Logger logger = LoggerFactory.getLogger(CommonConfig.class);
+
     private final StarTigerMallSecurityProperties securityProperties;
 
     public CommonConfig(StarTigerMallSecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
+        logger.debug("创建 {}", this.getClass().getName());
+    }
+
+    @Bean
+    public GlobalHandlerExceptionResolver mvcHandlerExceptionResolver() {
+        return new GlobalHandlerExceptionResolver();
     }
 
     @LoadBalanced
