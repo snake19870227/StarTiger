@@ -9,11 +9,21 @@ import org.springframework.security.core.userdetails.User;
  */
 public class AccountDetail extends User {
 
+    private String jwtToken;
+
     private MallAccount account;
 
     public AccountDetail(MallAccount account) {
         super(account.getAccountName(), account.getAccountPassword(), AuthorityUtils.NO_AUTHORITIES);
         this.account = account;
+    }
+
+    public String getJwtToken() {
+        return jwtToken;
+    }
+
+    public void setJwtToken(String jwtToken) {
+        this.jwtToken = jwtToken;
     }
 
     public MallAccount getAccount() {

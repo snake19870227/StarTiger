@@ -29,6 +29,7 @@
         <module>stiger-cloud-mall-goods</module>
         <module>stiger-cloud-mall-order</module>
         <module>stiger-cloud-mall-service-admin</module>
+        <module>stiger-cloud-mall-hystrix</module>
     </modules>
 
     <build>

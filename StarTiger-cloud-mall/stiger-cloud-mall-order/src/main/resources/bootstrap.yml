@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: mall-order
+  profiles:
+    include: common,mall
+    active: 7210
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848

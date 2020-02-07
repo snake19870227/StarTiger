@@ -5,6 +5,10 @@ package com.snake19870227.stiger;
  */
 public class StarTigerConstant {
 
+    public static class OAuth20Code {
+        public static final String BEARER_TOKEN_PREFIX = "Bearer ";
+    }
+
     public static class StatusCode {
 
         public static final String PREFIX_CODE = "code.";

@@ -3,6 +3,7 @@ package com.snake19870227.stiger.mall.config;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.snake19870227.stiger.context.GlobalHandlerExceptionResolver;
 import com.snake19870227.stiger.mall.common.StarTigerMallSecurityProperties;
+import com.snake19870227.stiger.mall.common.StarTigerMallServiceProperties;
 import com.snake19870227.stiger.mall.security.JwtSignKey;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
@@ -29,7 +30,10 @@ import java.time.Duration;
         "com.snake19870227.stiger.mall.mapper"
 })
 @EnableTransactionManagement(proxyTargetClass = true)
-@EnableConfigurationProperties(StarTigerMallSecurityProperties.class)
+@EnableConfigurationProperties({
+        StarTigerMallSecurityProperties.class,
+        StarTigerMallServiceProperties.class
+})
 public class CommonConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(CommonConfig.class);

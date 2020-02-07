@@ -1,5 +1,7 @@
 package com.snake19870227.stiger.mall.security;
 
+import com.snake19870227.stiger.StarTigerConstant;
+import com.snake19870227.stiger.exception.BaseRuntimeException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -29,11 +31,9 @@ import java.io.IOException;
  */
 public abstract class BaseJwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private static final String AUTHENTICATION_PREFIX = "Bearer ";
-
     private final JwtSignKey jwtSignKey;
 
-    public BaseJwtAuthenticationFilter(JwtSignKey jwtSignKey) {
+            public BaseJwtAuthenticationFilter(JwtSignKey jwtSignKey) {
         this.jwtSignKey = jwtSignKey;
     }
 
@@ -49,25 +49,21 @@ public abstract class BaseJwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (StringUtils.hasText(header) && header.startsWith(AUTHENTICATION_PREFIX)) {
+        if (StringUtils.hasText(header) && header.startsWith(StarTigerConstant.OAuth20Code.BEARER_TOKEN_PREFIX)) {
 
-            String jwtToken = header.replace(AUTHENTICATION_PREFIX, "");
+            String jwtToken = header.replace(StarTigerConstant.OAuth20Code.BEARER_TOKEN_PREFIX, "");
 
             if (StringUtils.hasText(jwtToken)) {
                 try {
                     Jws<Claims> jws = Jwts.parser().setSigningKey(jwtSignKey.getSigningKey()).parseClaimsJws(jwtToken);
 
-                    UserDetails userDetails = loadUserDetails(jws.getBody(), header);
-
-                    if (userDetails == null) {
-                        throw new BadCredentialsException("未能获取到账户信息");
-                    }
+                    UserDetails userDetails = loadUserDetails(jws.getBody(), jwtToken);
 
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, AuthorityUtils.NO_AUTHORITIES);
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-                } catch (JwtException e) {
+                } catch (Exception e) {
                     throw new BadCredentialsException(e.getMessage(), e);
                 }
             } else {

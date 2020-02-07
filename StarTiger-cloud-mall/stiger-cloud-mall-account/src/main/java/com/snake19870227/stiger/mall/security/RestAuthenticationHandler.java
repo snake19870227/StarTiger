@@ -12,6 +12,7 @@ import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -102,6 +103,8 @@ public class RestAuthenticationHandler implements AuthenticationSuccessHandler, 
         }
 
         RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, "1001", null);
+
+        response.setStatus(HttpStatus.OK.value());
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }

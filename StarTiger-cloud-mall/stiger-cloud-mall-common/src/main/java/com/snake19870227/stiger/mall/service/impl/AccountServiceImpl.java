@@ -2,6 +2,7 @@ package com.snake19870227.stiger.mall.service.impl;
 
 import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
 import com.snake19870227.stiger.mall.entity.po.MallAccount;
+import com.snake19870227.stiger.mall.exception.ServiceException;
 import com.snake19870227.stiger.mall.mapper.MallAccountMapper;
 import com.snake19870227.stiger.mall.service.AccountService;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author Bu HuaYang
@@ -30,12 +32,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public MallAccount loadAccount(String accountId) {
-        return mallAccountMapper.selectById(accountId);
+        return Optional.ofNullable(mallAccountMapper.selectById(accountId))
+                .orElseThrow(() -> new ServiceException("5001"));
     }
 
     @Override
     public AccountDetail loadAccountDetail(String accountId) {
-        Optional<MallAccount> account = Optional.ofNullable(mallAccountMapper.selectById(accountId));
-        return account.map(AccountDetail::new).orElse(null);
+        return Optional.ofNullable(mallAccountMapper.selectById(accountId))
+                .map(AccountDetail::new)
+                .orElseThrow(() -> new ServiceException("5001"));
     }
 }

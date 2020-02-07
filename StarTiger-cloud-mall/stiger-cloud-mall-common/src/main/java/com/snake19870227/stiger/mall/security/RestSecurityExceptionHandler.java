@@ -7,6 +7,7 @@ import com.snake19870227.stiger.http.RestResponse;
 import com.snake19870227.stiger.http.RestResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
@@ -43,6 +44,8 @@ public class RestSecurityExceptionHandler implements AuthenticationEntryPoint, A
 
         RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, "2001", null);
 
+        response.setStatus(HttpStatus.OK.value());
+
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }
 
@@ -55,6 +58,8 @@ public class RestSecurityExceptionHandler implements AuthenticationEntryPoint, A
         }
 
         RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, "2002", null);
+
+        response.setStatus(HttpStatus.OK.value());
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }

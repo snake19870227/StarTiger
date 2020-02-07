@@ -1,3 +1,7 @@
+server:
+  tomcat:
+    remote-ip-header: X-Forwarded-For
+    protocol-header: X-Forwarded-Proto
 spring:
   http:
     encoding:

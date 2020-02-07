@@ -1,20 +1,9 @@
 package com.snake19870227.stiger.http;
 
-import cn.hutool.core.util.ObjectUtil;
-import com.snake19870227.stiger.context.StarTigerContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.ClassUtils;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import static com.snake19870227.stiger.StarTigerConstant.StatusCode;
-
 /**
  * @author Bu HuaYang
  */
-public class RestResponse<T> {
+public abstract class RestResponse<T> {
 
     private String respCode;
 
@@ -34,6 +23,11 @@ public class RestResponse<T> {
         this.respCode = respCode;
         this.respMessage = respMessage;
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + respCode + "]" + respMessage;
     }
 
     public static class DefaultRestResponse extends RestResponse<Object> {
