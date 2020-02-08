@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.mall.mapper;
 
-import com.snake19870227.stiger.mall.entity.po.MallAccount;
+import com.snake19870227.stiger.mall.entity.po.MallOrderGoods;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Bu HuaYang
  * @since 2020-02-08
  */
-public interface MallAccountMapper extends BaseMapper<MallAccount> {
+public interface MallOrderGoodsMapper extends BaseMapper<MallOrderGoods> {
 
 }

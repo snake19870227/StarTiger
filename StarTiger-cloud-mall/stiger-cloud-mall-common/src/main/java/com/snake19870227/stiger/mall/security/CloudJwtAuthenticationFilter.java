@@ -7,7 +7,6 @@ import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author Bu HuaYang
@@ -25,7 +24,7 @@ public class CloudJwtAuthenticationFilter extends BaseJwtAuthenticationFilter {
     }
 
     @Override
-    protected UserDetails loadUserDetails(Claims claims, String jwtToken) {
+    protected AccountDetail loadUserDetails(Claims claims, String jwtToken) {
 
         MallAccount account = cloudRpcMgr.getAccountInfo(claims, jwtToken);
 

@@ -1,7 +1,9 @@
 package com.snake19870227.stiger.context;
 
 import cn.hutool.core.util.ArrayUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.http.RestResponse;
+import com.snake19870227.stiger.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -88,5 +90,17 @@ public class StarTigerContext {
                 System.exit(1);
             }
         }
+    }
+
+    public static ObjectMapper getJsonMapper() {
+        ObjectMapper objectMapper;
+        try {
+            objectMapper = springContext.getBean(ObjectMapper.class);
+        } catch (BeansException e) {
+            logger.warn("系统上下文中未找到[{}]", ObjectMapper.class.getName());
+            objectMapper = JsonUtil.buildJacksonObjectMapper();
+        }
+
+        return objectMapper;
     }
 }

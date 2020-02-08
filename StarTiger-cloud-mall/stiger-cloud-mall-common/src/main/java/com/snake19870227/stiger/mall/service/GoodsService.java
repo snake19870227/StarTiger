@@ -10,4 +10,6 @@ import java.util.List;
 public interface GoodsService {
 
     List<MallGoods> get();
+
+    List<MallGoods> betchGet(List<String> goodsIdList);
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author Bu HuaYang
- * @since 2020-02-06
+ * @since 2020-02-08
  */
 public class MallGoods implements Serializable {
 

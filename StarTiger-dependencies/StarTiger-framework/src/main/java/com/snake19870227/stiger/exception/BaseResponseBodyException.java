@@ -36,22 +36,9 @@ public abstract class BaseResponseBodyException extends BaseMvcException {
 
     @Override
     public ModelAndView buildMvcView() {
-        ObjectMapper objectMapper = loadJacksonObjectMapper();
+        ObjectMapper objectMapper = StarTigerContext.getJsonMapper();
         MappingJackson2JsonView view = new MappingJackson2JsonView(objectMapper);
         return new ModelAndView(view, buildModelMap());
-    }
-
-    protected ObjectMapper loadJacksonObjectMapper() {
-        ObjectMapper objectMapper = null;
-        try {
-            objectMapper = StarTigerContext.getBean(ObjectMapper.class);
-        } catch (BeansException e) {
-            logger.warn("无法从 SpringContext 中获取 Jackson ObjectMapper", e);
-        }
-        if (objectMapper == null) {
-            objectMapper = JsonUtil.buildJacksonObjectMapper();
-        }
-        return objectMapper;
     }
 
     protected abstract Map<String, ?> buildModelMap();

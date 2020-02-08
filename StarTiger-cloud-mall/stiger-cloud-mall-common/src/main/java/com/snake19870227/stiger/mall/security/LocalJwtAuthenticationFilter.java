@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.mall.security;
 
+import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
 import com.snake19870227.stiger.mall.service.AccountService;
 import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class LocalJwtAuthenticationFilter extends BaseJwtAuthenticationFilter {
     }
 
     @Override
-    protected UserDetails loadUserDetails(Claims claims, String bearerJwtToken) {
+    protected AccountDetail loadUserDetails(Claims claims, String bearerJwtToken) {
         return accountService.loadAccountDetail(claims.getId());
     }
 }

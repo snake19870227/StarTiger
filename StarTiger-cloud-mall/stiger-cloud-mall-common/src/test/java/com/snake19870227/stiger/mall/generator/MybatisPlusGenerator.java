@@ -13,7 +13,7 @@ public class MybatisPlusGenerator {
 
     public static void main(String[] args) {
 
-        String[] schemas = new String[] {"StigerMallAccount","StigerMallGoods"};
+        String[] schemas = new String[] {"StigerMallAccount","StigerMallGoods","StigerMallOrder"};
 
         for (String schema : schemas) {
 

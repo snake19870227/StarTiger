@@ -30,4 +30,9 @@ public class GoodsServiceImpl implements GoodsService {
     public List<MallGoods> get() {
         return mallGoodsMapper.selectList(null);
     }
+
+    @Override
+    public List<MallGoods> betchGet(List<String> goodsIdList) {
+        return mallGoodsMapper.selectBatchIds(goodsIdList);
+    }
 }
