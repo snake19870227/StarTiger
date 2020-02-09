@@ -11,3 +11,5 @@ stiger:
           url: 'http://mall-account'
         goods:
           url: 'http://mall-goods'
+        order:
+          url: 'http://mall-order'

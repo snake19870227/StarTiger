@@ -75,5 +75,5 @@ public abstract class BaseJwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    protected abstract AccountDetail loadUserDetails(Claims claims, String bearerJwtToken);
+    protected abstract AccountDetail loadUserDetails(Claims claims, String jwtToken);
 }

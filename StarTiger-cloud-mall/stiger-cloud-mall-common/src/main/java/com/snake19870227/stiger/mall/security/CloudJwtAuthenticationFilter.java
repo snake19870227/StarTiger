@@ -28,6 +28,8 @@ public class CloudJwtAuthenticationFilter extends BaseJwtAuthenticationFilter {
 
         MallAccount account = cloudRpcMgr.getAccountInfo(claims, jwtToken);
 
-        return new AccountDetail(account);
+        AccountDetail accountDetail = new AccountDetail(account);
+        accountDetail.setJwtToken(jwtToken);
+        return accountDetail;
     }
 }

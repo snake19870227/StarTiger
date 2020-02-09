@@ -3,7 +3,7 @@ package com.snake19870227.stiger.mall.security;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.mall.common.StarTigerMallSecurityProperties;
+import com.snake19870227.stiger.mall.config.StarTigerMallSecurityProperties;
 import com.snake19870227.stiger.servlet.ParameterAttributeHttpServletRequestWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

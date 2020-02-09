@@ -1,7 +1,6 @@
 package com.snake19870227.stiger.mall.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.RandomUtil;
 import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
 import com.snake19870227.stiger.mall.entity.bo.OrderDetail;
 import com.snake19870227.stiger.mall.entity.bo.OrderGoodsDetail;
@@ -10,6 +9,8 @@ import com.snake19870227.stiger.mall.entity.po.MallGoods;
 import com.snake19870227.stiger.mall.entity.po.MallOrder;
 import com.snake19870227.stiger.mall.entity.po.MallOrderGoods;
 import com.snake19870227.stiger.mall.manager.CloudRpcMgr;
+import com.snake19870227.stiger.mall.mapper.MallOrderGoodsMapper;
+import com.snake19870227.stiger.mall.mapper.MallOrderMapper;
 import com.snake19870227.stiger.mall.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -38,8 +37,14 @@ public class OrderServiceImpl implements OrderService {
 
     private final CloudRpcMgr cloudRpcMgr;
 
-    public OrderServiceImpl(CloudRpcMgr cloudRpcMgr) {
+    private final MallOrderMapper mallOrderMapper;
+
+    private final MallOrderGoodsMapper mallOrderGoodsMapper;
+
+    public OrderServiceImpl(CloudRpcMgr cloudRpcMgr, MallOrderMapper mallOrderMapper, MallOrderGoodsMapper mallOrderGoodsMapper) {
         this.cloudRpcMgr = cloudRpcMgr;
+        this.mallOrderMapper = mallOrderMapper;
+        this.mallOrderGoodsMapper = mallOrderGoodsMapper;
         logger.debug("创建 {}", this.getClass().getName());
     }
 
@@ -78,10 +83,13 @@ public class OrderServiceImpl implements OrderService {
                 .map(OrderGoodsDetail::new).collect(Collectors.toList());
 
         for (MallOrderGoods orderGoods : orderGoodsDetailList) {
+            mallOrderGoodsMapper.insert(orderGoods);
             totalPrice = totalPrice.add(orderGoods.getPrice());
         }
 
         order.setOrderPrice(totalPrice);
+
+        mallOrderMapper.insert(order);
 
         OrderDetail orderDetail = new OrderDetail(order);
         orderDetail.setGoodsDetailList(orderGoodsDetailList);

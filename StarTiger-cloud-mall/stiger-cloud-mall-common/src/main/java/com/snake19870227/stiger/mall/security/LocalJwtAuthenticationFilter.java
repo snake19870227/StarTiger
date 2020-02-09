@@ -24,7 +24,9 @@ public class LocalJwtAuthenticationFilter extends BaseJwtAuthenticationFilter {
     }
 
     @Override
-    protected AccountDetail loadUserDetails(Claims claims, String bearerJwtToken) {
-        return accountService.loadAccountDetail(claims.getId());
+    protected AccountDetail loadUserDetails(Claims claims, String jwtToken) {
+        AccountDetail accountDetail = accountService.loadAccountDetail(claims.getId());
+        accountDetail.setJwtToken(jwtToken);
+        return accountDetail;
     }
 }

@@ -1,10 +1,16 @@
 package com.snake19870227.stiger.utils;
 
+import com.snake19870227.stiger.StarTigerConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
+import org.springframework.core.type.classreading.MetadataReader;
+import org.springframework.core.type.classreading.MetadataReaderFactory;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.SystemPropertyUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +25,7 @@ public class ClassPathUtil {
     private static final Logger logger = LoggerFactory.getLogger(ClassPathUtil.class);
 
     private static ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
+    private static MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resourcePatternResolver);
 
     public static List<File> getResourceFolderFiles(String patternName, boolean includeJarFiles) {
         List<File> fileList = new ArrayList<>();
@@ -35,5 +42,24 @@ public class ClassPathUtil {
             logger.error("无法获取 'resources' 下 [{}] 文件", patternName, e);
         }
         return fileList;
+    }
+
+    public static List<Class<?>> scanPackageClass(String basePackage) {
+        List<Class<?>> classList = new ArrayList<>();
+        String basePackagePath = ClassUtils.convertClassNameToResourcePath(SystemPropertyUtils.resolvePlaceholders(basePackage));
+        String packageSearchPath = ResourcePatternResolver.CLASSPATH_URL_PREFIX + basePackagePath + '/' + StarTigerConstant.PACKAGE_CLASSES_PATTERN;
+        try {
+            Resource[] resources = resourcePatternResolver.getResources(packageSearchPath);
+            for (Resource resource : resources) {
+                if (resource.isReadable()) {
+                    MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(resource);
+                    Class<?> clazz = Class.forName(metadataReader.getClassMetadata().getClassName());
+                    classList.add(clazz);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("无法获取 '{}' 下 .Class 文件", basePackage, e);
+        }
+        return classList;
     }
 }

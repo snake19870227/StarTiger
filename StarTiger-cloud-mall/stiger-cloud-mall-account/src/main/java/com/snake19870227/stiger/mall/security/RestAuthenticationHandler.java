@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.context.StarTigerContext;
 import com.snake19870227.stiger.http.RestResponse;
 import com.snake19870227.stiger.http.RestResponseBuilder;
-import com.snake19870227.stiger.mall.common.StarTigerMallSecurityProperties;
+import com.snake19870227.stiger.mall.config.StarTigerMallSecurityProperties;
 import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 

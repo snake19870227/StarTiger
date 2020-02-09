@@ -2,10 +2,8 @@ package com.snake19870227.stiger.mall.manager;
 
 import cn.hutool.core.util.StrUtil;
 import com.snake19870227.stiger.StarTigerConstant;
-import com.snake19870227.stiger.context.StarTigerContext;
 import com.snake19870227.stiger.http.RestResponse;
-import com.snake19870227.stiger.mall.common.StarTigerMallServiceProperties;
-import com.snake19870227.stiger.mall.entity.dto.AccountDetailRestResponse;
+import com.snake19870227.stiger.mall.config.StarTigerMallServiceProperties;
 import com.snake19870227.stiger.mall.exception.CloudRpcException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +69,7 @@ public abstract class BaseCloudRpcManager {
         logger.info("\n服务 [{}] 返回\n{}", requestEntity.getUrl(), response);
 
         if (!StrUtil.equals(StarTigerConstant.StatusCode.CODE_0000, response.getRespCode())) {
-            throw new CloudRpcException(response.getRespMessage());
+            throw new CloudRpcException("6999", response.getRespMessage());
         }
 
         return response;

@@ -1,7 +1,6 @@
 package com.snake19870227.stiger.mall.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.mall.common.StarTigerMallSecurityProperties;
 import com.snake19870227.stiger.mall.manager.MallAccountMgr;
 import com.snake19870227.stiger.mall.security.*;
 import com.snake19870227.stiger.mall.security.LoadUsernameAndPasswordFilter;

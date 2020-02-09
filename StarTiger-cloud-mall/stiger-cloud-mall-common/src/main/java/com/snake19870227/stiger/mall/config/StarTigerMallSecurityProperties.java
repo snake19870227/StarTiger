@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.mall.common;
+package com.snake19870227.stiger.mall.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -5,6 +5,8 @@ package com.snake19870227.stiger;
  */
 public class StarTigerConstant {
 
+    public static final String PACKAGE_CLASSES_PATTERN = "**/*.class";
+
     public static class OAuth20Code {
         public static final String BEARER_TOKEN_PREFIX = "Bearer ";
     }
@@ -17,5 +19,8 @@ public class StarTigerConstant {
         public static final String CODE_9999 = "9999";
         public static final String CODE_9998 = "9998";
 
+        public static final String CODE_1001 = "1001";
+        public static final String CODE_2001 = "2001";
+        public static final String CODE_2002 = "2002";
     }
 }
