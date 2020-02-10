@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.mall.service;
 
-import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
+import com.snake19870227.stiger.mall.security.AccountDetail;
 import com.snake19870227.stiger.mall.entity.po.MallAccount;
 
 /**

@@ -25,11 +25,13 @@
 
     <modules>
         <module>stiger-cloud-mall-common</module>
+        <module>stiger-cloud-mall-service</module>
+        <module>stiger-cloud-mall-service-admin</module>
         <module>stiger-cloud-mall-account</module>
         <module>stiger-cloud-mall-goods</module>
         <module>stiger-cloud-mall-order</module>
-        <module>stiger-cloud-mall-service-admin</module>
         <module>stiger-cloud-mall-hystrix</module>
+        <module>stiger-cloud-mall-gateway</module>
     </modules>
 
     <build>
@@ -76,6 +78,20 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--<dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.1.12.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Greenwich.SR5</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>

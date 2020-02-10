@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.mall.entity.bo;
+package com.snake19870227.stiger.mall.security;
 
 import com.snake19870227.stiger.mall.entity.po.MallAccount;
 import org.springframework.security.core.authority.AuthorityUtils;

@@ -1,9 +1,8 @@
 spring:
   application:
-    name: mall-account
+    name: mall-gateway
   profiles:
-    include: common,mall,stream
-    active: 7010
+    include: common
   cloud:
     nacos:
       server-addr: localhost:8848

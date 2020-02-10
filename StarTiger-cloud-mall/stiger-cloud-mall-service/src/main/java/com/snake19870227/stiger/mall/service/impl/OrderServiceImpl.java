@@ -1,21 +1,19 @@
 package com.snake19870227.stiger.mall.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
+import com.snake19870227.stiger.mall.remote.MallCloudRpcService;
+import com.snake19870227.stiger.mall.security.AccountDetail;
 import com.snake19870227.stiger.mall.entity.bo.OrderDetail;
 import com.snake19870227.stiger.mall.entity.bo.OrderGoodsDetail;
 import com.snake19870227.stiger.mall.entity.dto.CreateOrderRestRequest;
 import com.snake19870227.stiger.mall.entity.po.MallGoods;
 import com.snake19870227.stiger.mall.entity.po.MallOrder;
 import com.snake19870227.stiger.mall.entity.po.MallOrderGoods;
-import com.snake19870227.stiger.mall.manager.CloudRpcMgr;
 import com.snake19870227.stiger.mall.mapper.MallOrderGoodsMapper;
 import com.snake19870227.stiger.mall.mapper.MallOrderMapper;
-import com.snake19870227.stiger.mall.message.MallBusSource;
 import com.snake19870227.stiger.mall.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,14 +35,14 @@ public class OrderServiceImpl implements OrderService {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
-    private final CloudRpcMgr cloudRpcMgr;
+    private final MallCloudRpcService mallCloudRpcService;
 
     private final MallOrderMapper mallOrderMapper;
 
     private final MallOrderGoodsMapper mallOrderGoodsMapper;
 
-    public OrderServiceImpl(CloudRpcMgr cloudRpcMgr, MallOrderMapper mallOrderMapper, MallOrderGoodsMapper mallOrderGoodsMapper) {
-        this.cloudRpcMgr = cloudRpcMgr;
+    public OrderServiceImpl(MallCloudRpcService mallCloudRpcService, MallOrderMapper mallOrderMapper, MallOrderGoodsMapper mallOrderGoodsMapper) {
+        this.mallCloudRpcService = mallCloudRpcService;
         this.mallOrderMapper = mallOrderMapper;
         this.mallOrderGoodsMapper = mallOrderGoodsMapper;
         logger.debug("创建 {}", this.getClass().getName());
@@ -58,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
         List<String> goodsIdList = selectGoodsList.stream()
                 .map(CreateOrderRestRequest.SelectGoods::getGoodsId).collect(Collectors.toList());
 
-        List<MallGoods> goodsList = cloudRpcMgr.getGoodsList(goodsIdList, accountDetail.getJwtToken());
+        List<MallGoods> goodsList = mallCloudRpcService.getGoodsList(goodsIdList, accountDetail.getJwtToken());
 
         Map<String, MallGoods> goodsMap = new HashMap<>();
         goodsList.forEach(mallGoods -> goodsMap.put(mallGoods.getGoodsId(), mallGoods));

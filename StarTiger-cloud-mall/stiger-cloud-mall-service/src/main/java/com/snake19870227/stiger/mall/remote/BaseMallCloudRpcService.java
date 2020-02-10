@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.mall.manager;
+package com.snake19870227.stiger.mall.remote;
 
 import cn.hutool.core.util.StrUtil;
 import com.snake19870227.stiger.StarTigerConstant;
@@ -17,15 +17,15 @@ import java.util.Optional;
 /**
  * @author Bu HuaYang
  */
-public abstract class BaseCloudRpcManager {
+public abstract class BaseMallCloudRpcService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseCloudRpcManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseMallCloudRpcService.class);
 
     private final StarTigerMallServiceProperties serviceProperties;
 
     private final RestTemplate cloudRestTemplate;
 
-    protected BaseCloudRpcManager(StarTigerMallServiceProperties serviceProperties, RestTemplate cloudRestTemplate) {
+    protected BaseMallCloudRpcService(StarTigerMallServiceProperties serviceProperties, RestTemplate cloudRestTemplate) {
         this.serviceProperties = serviceProperties;
         this.cloudRestTemplate = cloudRestTemplate;
     }

@@ -4,6 +4,14 @@ spring:
     url: jdbc:mysql://localhost:3306/StigerMallOrder?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
     username: stigermall
     password: 123456
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9411/
   rabbitmq:
     host: localhost
     port: 5672

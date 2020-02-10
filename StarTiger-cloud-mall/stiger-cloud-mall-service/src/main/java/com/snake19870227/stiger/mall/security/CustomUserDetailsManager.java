@@ -1,6 +1,5 @@
 package com.snake19870227.stiger.mall.security;
 
-import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
 import com.snake19870227.stiger.mall.entity.po.MallAccount;
 import com.snake19870227.stiger.mall.manager.MallAccountMgr;
 import org.slf4j.Logger;

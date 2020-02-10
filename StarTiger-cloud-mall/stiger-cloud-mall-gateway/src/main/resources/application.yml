@@ -1,0 +1,34 @@
+server:
+  port: 7800
+spring:
+  cloud:
+    discovery:
+      reactive:
+        enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: service_account
+          uri: lb://mall-account
+          order: 0
+          predicates:
+            - Path=/account/**
+          filters:
+            - StripPrefix=1
+        - id: service_goods
+          uri: lb://mall-goods
+          order: 0
+          predicates:
+            - Path=/goods/**
+          filters:
+            - StripPrefix=1
+        - id: service_order
+          uri: lb://mall-order
+          order: 0
+          predicates:
+            - Path=/order/**
+          filters:
+            - StripPrefix=1

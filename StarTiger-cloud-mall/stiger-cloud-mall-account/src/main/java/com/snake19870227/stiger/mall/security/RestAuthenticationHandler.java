@@ -8,7 +8,6 @@ import com.snake19870227.stiger.context.StarTigerContext;
 import com.snake19870227.stiger.http.RestResponse;
 import com.snake19870227.stiger.http.RestResponseBuilder;
 import com.snake19870227.stiger.mall.config.StarTigerMallSecurityProperties;
-import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,7 +2,7 @@ spring:
   application:
     name: mall-order
   profiles:
-    include: common,mall
+    include: common,mall,stream
     active: 7210
   cloud:
     nacos:

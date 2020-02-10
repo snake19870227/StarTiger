@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.mall.manager.impl;
+package com.snake19870227.stiger.mall.remote;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
@@ -7,13 +7,10 @@ import com.snake19870227.stiger.mall.entity.dto.AccountDetailRestResponse;
 import com.snake19870227.stiger.mall.entity.dto.BetchGetGoodsListRestResponse;
 import com.snake19870227.stiger.mall.entity.po.MallAccount;
 import com.snake19870227.stiger.mall.entity.po.MallGoods;
-import com.snake19870227.stiger.mall.manager.BaseCloudRpcManager;
-import com.snake19870227.stiger.mall.manager.CloudRpcMgr;
 import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.RequestEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -21,17 +18,15 @@ import java.util.List;
 /**
  * @author Bu HuaYang
  */
-@Component
-public class CloudRpcMgrImpl extends BaseCloudRpcManager implements CloudRpcMgr {
+public class MallCloudRpcService extends BaseMallCloudRpcService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CloudRpcMgrImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(MallCloudRpcService.class);
 
-    public CloudRpcMgrImpl(StarTigerMallServiceProperties serviceProperties, RestTemplate cloudRestTemplate) {
+    public MallCloudRpcService(StarTigerMallServiceProperties serviceProperties, RestTemplate cloudRestTemplate) {
         super(serviceProperties, cloudRestTemplate);
         logger.debug("创建 {}", this.getClass().getName());
     }
 
-    @Override
     public MallAccount getAccountInfo(Claims claims, String jwtToken) {
 
         RequestEntity<Object> requestEntity
@@ -42,7 +37,6 @@ public class CloudRpcMgrImpl extends BaseCloudRpcManager implements CloudRpcMgr 
         return restResponse.getData();
     }
 
-    @Override
     public List<MallGoods> getGoodsList(List<String> goodsIdList, String jwtToken) {
 
         RequestEntity<Object> requestEntity

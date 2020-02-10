@@ -1,16 +1,3 @@
-spring:
-  cloud:
-    stream:
-      bindings:
-        mall-bus-input:
-          destination: mall-bus
-        mall-bus-output:
-          destination: mall-bus
-      rabbit:
-        bindings:
-          mall-bus-input:
-            consumer:
-              auto-bind-dlq: true
 stiger:
   mall:
     security:

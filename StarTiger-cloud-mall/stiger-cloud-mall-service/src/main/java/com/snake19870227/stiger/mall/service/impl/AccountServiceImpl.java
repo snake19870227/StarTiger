@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.mall.service.impl;
 
-import com.snake19870227.stiger.mall.entity.bo.AccountDetail;
+import com.snake19870227.stiger.mall.security.AccountDetail;
 import com.snake19870227.stiger.mall.entity.po.MallAccount;
 import com.snake19870227.stiger.mall.exception.ServiceException;
 import com.snake19870227.stiger.mall.mapper.MallAccountMapper;
@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * @author Bu HuaYang

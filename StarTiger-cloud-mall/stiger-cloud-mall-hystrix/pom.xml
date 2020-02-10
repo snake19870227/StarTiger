@@ -13,5 +13,7 @@
 
     <artifactId>stiger-cloud-mall-hystrix</artifactId>
 
+    <name>STigerCloudMallHystrix</name>
+    <description>StarTiger Cloud 商城 Demo Hystrix 监控台</description>
 
 </project>

@@ -7,6 +7,8 @@ import com.snake19870227.stiger.mall.exception.BusMessageReceiverException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 /**
  * @author Bu HuaYang
  */
@@ -25,7 +27,7 @@ public abstract class BaseBusMessageHandler<T> implements BusMessageHandler<T> {
 
             doHandler(busMessage, bizInfo);
 
-        } catch (JsonProcessingException e) {
+        } catch (IOException e) {
             throw new BusMessageReceiverException(e);
         }
     }
