@@ -16,6 +16,6 @@ public class StarTigerMallConstant {
 
     public static class BusMessageBusiness {
 
-        public static final String EVENT_ORDER_CREATED = "EventOrderCreated";
+        public static final String EVENT_ORDER_CREATED = "eventOrderCreated";
     }
 }

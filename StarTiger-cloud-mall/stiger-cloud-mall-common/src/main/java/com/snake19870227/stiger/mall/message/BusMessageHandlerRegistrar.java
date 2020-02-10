@@ -1,8 +1,6 @@
-package com.snake19870227.stiger.mall.config;
+package com.snake19870227.stiger.mall.message;
 
-import cn.hutool.core.util.ReflectUtil;
-import com.snake19870227.stiger.mall.message.BusMessageHandler;
-import com.snake19870227.stiger.mall.message.BusMessageHandlerScan;
+import cn.hutool.core.util.StrUtil;
 import com.snake19870227.stiger.utils.ClassPathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +24,9 @@ public class BusMessageHandlerRegistrar implements ImportBeanDefinitionRegistrar
 
     private static final Logger logger = LoggerFactory.getLogger(BusMessageHandlerRegistrar.class);
 
-    private BeanNameGenerator beanNameGenerator = new DefaultBeanNameGenerator();
+    public BusMessageHandlerRegistrar() {
+        logger.debug("创建 {}", this.getClass().getName());
+    }
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
@@ -45,7 +45,7 @@ public class BusMessageHandlerRegistrar implements ImportBeanDefinitionRegistrar
                 for (Class<?> iface : ifaces) {
                     if (iface == BusMessageHandler.class) {
                         BeanDefinition busMsgHandlerBeanDefinition = BeanDefinitionBuilder.genericBeanDefinition(handlerClass).getBeanDefinition();
-                        String beanName = this.beanNameGenerator.generateBeanName(busMsgHandlerBeanDefinition, registry);
+                        String beanName = StrUtil.lowerFirst(handlerClass.getSimpleName());
                         logger.debug("注入Bean [{}]", beanName);
                         registry.registerBeanDefinition(beanName, busMsgHandlerBeanDefinition);
                         break;

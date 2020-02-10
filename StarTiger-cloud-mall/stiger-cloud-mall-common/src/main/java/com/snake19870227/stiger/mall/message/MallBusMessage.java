@@ -22,31 +22,35 @@ public class MallBusMessage {
         return sourceService;
     }
 
-    public void setSourceService(String sourceService) {
+    public MallBusMessage setSourceService(String sourceService) {
         this.sourceService = sourceService;
+        return this;
     }
 
     public String getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(String datetime) {
+    public MallBusMessage setDatetime(String datetime) {
         this.datetime = datetime;
+        return this;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public MallBusMessage setType(String type) {
         this.type = type;
+        return this;
     }
 
     public String getBizInfo() {
         return bizInfo;
     }
 
-    public void setBizInfo(String bizInfo) {
+    public MallBusMessage setBizInfo(String bizInfo) {
         this.bizInfo = bizInfo;
+        return this;
     }
 }

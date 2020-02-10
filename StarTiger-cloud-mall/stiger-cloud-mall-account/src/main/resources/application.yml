@@ -13,5 +13,4 @@ spring:
     stream:
       bindings:
         mall-bus-input:
-          destination: mall-bus
           group: ${spring.application.name}

@@ -13,8 +13,16 @@ public class MallBusReceiver {
 
     private static final Logger logger = LoggerFactory.getLogger(MallBusReceiver.class);
 
+    public MallBusReceiver() {
+        logger.debug("创建 {}", this.getClass().getName());
+    }
+
     @StreamListener(MallBusSink.INPUT)
     public void receive(MallBusMessage busMessage) {
-        logger.info(busMessage.toString());
+        logger.info("收到总线消息\n{}", busMessage.toString());
+        BusMessageHandler<?> handler = BusMessageHandlerFactory.getBusMessageHandler(busMessage);
+        if (handler != null) {
+            handler.handler(busMessage);
+        }
     }
 }

@@ -72,6 +72,10 @@ public class StarTigerContext {
         return springContext.getBean(beanClass);
     }
 
+    public static <T> T getBean(String beanName, Class<? extends T> beanClass) throws BeansException {
+        return springContext.getBean(beanName, beanClass);
+    }
+
     public static void setApplicationName(String applicationName) {
         StarTigerContext.applicationName = applicationName;
     }

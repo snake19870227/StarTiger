@@ -7,6 +7,13 @@ public class BusMsgEventOrderCreated {
 
     private String orderId;
 
+    public BusMsgEventOrderCreated() {
+    }
+
+    public BusMsgEventOrderCreated(String orderId) {
+        this.orderId = orderId;
+    }
+
     public String getOrderId() {
         return orderId;
     }
