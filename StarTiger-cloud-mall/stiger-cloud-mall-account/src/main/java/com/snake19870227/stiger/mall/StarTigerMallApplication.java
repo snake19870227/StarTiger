@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Bu HuaYang
  */
 @SpringBootApplication
-public class StarTigerMallOrderApplication {
+public class StarTigerMallApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(StarTigerMallOrderApplication.class, args);
+        SpringApplication.run(StarTigerMallApplication.class, args);
     }
 }

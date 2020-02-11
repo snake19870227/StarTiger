@@ -18,6 +18,12 @@ spring:
     username: admin
     password: 123456
   cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    sentinel:
+      transport:
+        dashboard: localhost:8849
     stream:
       bindings:
         mall-bus-input:

@@ -17,3 +17,7 @@ spring:
     port: 5672
     username: admin
     password: 123456
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8849

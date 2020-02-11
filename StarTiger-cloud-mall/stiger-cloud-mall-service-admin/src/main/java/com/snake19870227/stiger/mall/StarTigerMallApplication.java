@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableAdminServer
-public class StarTigerMallServiceAdminApplication {
+public class StarTigerMallApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(StarTigerMallServiceAdminApplication.class, args);
+        SpringApplication.run(StarTigerMallApplication.class, args);
     }
 }

@@ -1,9 +1,7 @@
 package com.snake19870227.stiger.mall.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.mall.manager.MallAccountMgr;
 import com.snake19870227.stiger.mall.security.CloudJwtAuthenticationFilter;
-import com.snake19870227.stiger.mall.security.CustomUserDetailsManager;
 import com.snake19870227.stiger.mall.security.JwtSignKey;
 import com.snake19870227.stiger.mall.security.RestSecurityExceptionHandler;
 import org.slf4j.Logger;
@@ -17,8 +15,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
 
