@@ -2,6 +2,7 @@ package com.snake19870227.stiger.mall.config;
 
 import com.snake19870227.stiger.context.GlobalHandlerExceptionResolver;
 import com.snake19870227.stiger.mall.remote.MallCloudRpcService;
+import com.spring4all.swagger.EnableSwagger2Doc;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import java.time.Duration;
  * @author Bu HuaYang
  */
 @Configuration
+@EnableSwagger2Doc
 @MapperScan(basePackages = {
         "com.snake19870227.stiger.mall.mapper"
 })

@@ -2,7 +2,7 @@ spring:
   application:
     name: mall-goods
   profiles:
-    include: common,mall,stream
+    include: common,mall,stream,doc
     active: 7110
   cloud:
     nacos:

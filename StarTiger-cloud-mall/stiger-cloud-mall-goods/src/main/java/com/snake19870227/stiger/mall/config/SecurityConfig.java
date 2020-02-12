@@ -19,6 +19,11 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.snake19870227.stiger.mall.common.StarTigerMallConstant.SWAGGER2_LOCATIONS;
+
 /**
  * @author Bu HuaYang
  */
@@ -60,7 +65,14 @@ public class SecurityConfig {
 
             ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry urlRegistry = http.authorizeRequests();
             urlRegistry.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
-            urlRegistry.antMatchers(actuatorBasePath + "/**").permitAll();
+
+            List<String> permitAntMatchers = new ArrayList<>();
+            permitAntMatchers.add(actuatorBasePath + "/**");
+            permitAntMatchers.addAll(SWAGGER2_LOCATIONS);
+
+            urlRegistry
+                    .antMatchers(permitAntMatchers.toArray(new String[0]))
+                    .permitAll();
 //            urlRegistry.anyRequest().access("@authAssert.canAccess(request, authentication)");
             urlRegistry.anyRequest().authenticated();
 

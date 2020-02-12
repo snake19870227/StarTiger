@@ -1,0 +1,14 @@
+swagger:
+  title: StarTiger Mall Account API
+  description: StarTiger 商城 用户模块
+  version: ${project.version}
+  license: GNU General Public License, Version 3
+  licenseUrl: http://www.gnu.org/licenses/gpl-3.0-standalone.html
+  termsOfServiceUrl: https://github.com/snake19870227/StarTiger.git
+  contact:
+    name: snake
+    url: https://github.com/snake19870227
+    email: snake19870227@vip.qq.com
+  base-package: com.snake19870227.stiger.mall.controller
+  authorization:
+    key-name: Authorization
