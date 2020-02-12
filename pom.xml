@@ -22,6 +22,7 @@
         <module>StarTiger-admin</module>
         <module>StarTiger-cloud</module>
         <module>StarTiger-cloud-mall</module>
+        <module>StarTiger-webflux</module>
     </modules>
 
     <repositories>
