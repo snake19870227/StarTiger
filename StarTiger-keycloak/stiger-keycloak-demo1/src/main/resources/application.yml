@@ -1,0 +1,21 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: keycloak-demo1
+  thymeleaf:
+    cache: false
+keycloak:
+  enabled: true
+  realm: demo
+  auth-server-url: http://localhost:8847/auth/
+  ssl-required: external
+  resource: stiger-keycloak-demo1
+  public-client: true
+  credentials:
+    secret: secret
+  security-constraints:
+    - authRoles: user-role
+    - securityCollections:
+        - name: demo1
+          patterns: /demo1/*
