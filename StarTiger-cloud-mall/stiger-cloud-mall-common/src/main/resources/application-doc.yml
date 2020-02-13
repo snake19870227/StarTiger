@@ -12,3 +12,6 @@ swagger:
   base-package: com.snake19870227.stiger.mall.controller
   authorization:
     key-name: Authorization
+  ui-config:
+    api-sorter: alpha
+    operations-sorter: method

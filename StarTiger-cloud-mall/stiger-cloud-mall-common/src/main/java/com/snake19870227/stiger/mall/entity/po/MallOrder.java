@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -11,26 +13,21 @@ import java.io.Serializable;
  * </p>
  *
  * @author Bu HuaYang
- * @since 2020-02-08
+ * @since 2020-02-13
  */
+@ApiModel(value="MallOrder对象", description="")
 public class MallOrder implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 订单id
-     */
+    @ApiModelProperty(value = "订单id")
     @TableId(value = "order_id", type = IdType.ASSIGN_UUID)
     private String orderId;
 
-    /**
-     * 下单订单时间
-     */
+    @ApiModelProperty(value = "下单订单时间")
     private String orderDatetime;
 
-    /**
-     * 订单总价
-     */
+    @ApiModelProperty(value = "订单总价")
     private BigDecimal orderPrice;
 
 

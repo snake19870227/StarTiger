@@ -3,6 +3,8 @@ package com.snake19870227.stiger.mall.entity.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -10,26 +12,21 @@ import java.io.Serializable;
  * </p>
  *
  * @author Bu HuaYang
- * @since 2020-02-08
+ * @since 2020-02-13
  */
+@ApiModel(value="MallAccount对象", description="")
 public class MallAccount implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 账户id
-     */
+    @ApiModelProperty(value = "账户id")
     @TableId(value = "account_id", type = IdType.ASSIGN_UUID)
     private String accountId;
 
-    /**
-     * 账户登录名
-     */
+    @ApiModelProperty(value = "账户登录名")
     private String accountName;
 
-    /**
-     * 账户登录密码
-     */
+    @ApiModelProperty(value = "账户登录密码")
     private String accountPassword;
 
 

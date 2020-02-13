@@ -7,6 +7,9 @@ import com.snake19870227.stiger.mall.entity.po.MallOrderGoods;
  */
 public class OrderGoodsDetail extends MallOrderGoods {
 
+    public OrderGoodsDetail() {
+    }
+
     public OrderGoodsDetail(MallOrderGoods orderGoods) {
         this.setOrderGoodsId(orderGoods.getOrderGoodsId())
                 .setOrderId(orderGoods.getOrderId())

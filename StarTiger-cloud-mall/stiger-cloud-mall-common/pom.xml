@@ -79,6 +79,11 @@
             <artifactId>StarTiger-spring-boot-starter</artifactId>
             <version>${framework.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.spring4all</groupId>
+            <artifactId>swagger-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

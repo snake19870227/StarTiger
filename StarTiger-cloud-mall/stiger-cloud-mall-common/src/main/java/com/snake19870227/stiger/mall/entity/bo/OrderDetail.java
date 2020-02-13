@@ -11,6 +11,9 @@ public class OrderDetail extends MallOrder {
 
     private List<OrderGoodsDetail> goodsDetailList;
 
+    public OrderDetail() {
+    }
+
     public OrderDetail(MallOrder order) {
         this.setOrderId(order.getOrderId())
                 .setOrderDatetime(order.getOrderDatetime())
@@ -21,7 +24,8 @@ public class OrderDetail extends MallOrder {
         return goodsDetailList;
     }
 
-    public void setGoodsDetailList(List<OrderGoodsDetail> goodsDetailList) {
+    public OrderDetail setGoodsDetailList(List<OrderGoodsDetail> goodsDetailList) {
         this.goodsDetailList = goodsDetailList;
+        return this;
     }
 }
