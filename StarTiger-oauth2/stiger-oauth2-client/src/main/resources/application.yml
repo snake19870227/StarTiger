@@ -1,0 +1,37 @@
+server:
+  port: 8881
+  servlet:
+    context-path: /oauthClient
+logging:
+  level:
+    org.springframework.security: DEBUG
+spring:
+  application:
+    name: oauth2-client
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: fc6bdfe20592c3cc3e21
+            client-secret: dac853bb50ef2497eed110d67fb95bb1bbbefbed
+          gitee:
+            provider: gitee-provider
+            clientId: 99b417c143cc4e29f10b4417debb53b313a778d25edad42a667db2ff261605a9
+            clientSecret: b880a42bba1351f52231d670499678be3e752965fd36ac4f13807841a2b556ff
+            clientAuthenticationMethod: basic
+            authorizationGrantType: authorization_code
+            redirectUri: http://localhost:8881/oauthClient/login/oauth2/code/gitee
+            scope: user
+#            clientName:
+        provider:
+          gitee-provider:
+            authorization-uri: https://gitee.com/oauth/authorize
+            token-uri: https://gitee.com/oauth/token
+#            user-info-uri: https://gitee.com/api/v5/user
+#            user-info-authentication-method: header
+#            jwk-set-uri: https://my-auth-server/token_keys
+#            user-name-attribute: name
+          weibo-provider:
+            authorization-uri: https://open.weibo.com/wiki/Oauth2/authorize
+            token-uri: https://open.weibo.com/wiki/index.php

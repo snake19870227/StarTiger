@@ -24,6 +24,7 @@
         <module>StarTiger-cloud-mall</module>
         <module>StarTiger-webflux</module>
         <module>StarTiger-keycloak</module>
+        <module>StarTiger-oauth2</module>
     </modules>
 
     <repositories>
