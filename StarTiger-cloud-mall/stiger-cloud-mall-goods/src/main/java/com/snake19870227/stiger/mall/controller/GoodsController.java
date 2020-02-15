@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.snake19870227.stiger.http.RestResponseBuilder;
 import com.snake19870227.stiger.mall.entity.dto.BetchGetGoodsListRestResponse;
 import com.snake19870227.stiger.mall.entity.dto.GoodsListRestResponse;
+import com.snake19870227.stiger.mall.entity.dto.GoodsRestResponse;
 import com.snake19870227.stiger.mall.entity.po.MallGoods;
 import com.snake19870227.stiger.mall.service.GoodsService;
 import org.slf4j.Logger;
@@ -32,14 +33,20 @@ public class GoodsController {
         logger.debug("创建 {}", this.getClass().getName());
     }
 
-    @GetMapping(path = "/list")
+    @GetMapping(path = "")
     public GoodsListRestResponse list() {
         List<MallGoods> goodsList = goodsService.get();
         return RestResponseBuilder.createSuccessRestResp(goodsList, GoodsListRestResponse.class);
     }
 
-    @PostMapping(path = "/select")
-    public BetchGetGoodsListRestResponse select(@RequestBody List<String> goodsIdList) {
+    @GetMapping(path = "/{goodsId}")
+    public GoodsRestResponse selectByGoodsId(@PathVariable(name = "goodsId") String goodsId) {
+        MallGoods goods = goodsService.get(goodsId);
+        return RestResponseBuilder.createSuccessRestResp(goods, GoodsRestResponse.class);
+    }
+
+    @PostMapping(path = "")
+    public BetchGetGoodsListRestResponse selectByGoodsIds(@RequestBody List<String> goodsIdList) {
         List<MallGoods> goodsList = goodsService.betchGet(goodsIdList);
         List<String> foundIdList = goodsList.stream()
                 .map(MallGoods::getGoodsId).collect(Collectors.toList());

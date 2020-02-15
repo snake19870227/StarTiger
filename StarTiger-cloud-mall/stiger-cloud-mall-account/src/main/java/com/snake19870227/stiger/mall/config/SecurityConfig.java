@@ -90,6 +90,7 @@ public class SecurityConfig {
                     .permitAll();
 //            urlRegistry.anyRequest().access("@authAssert.canAccess(request, authentication)");
             urlRegistry.anyRequest().authenticated();
+//            urlRegistry.anyRequest().permitAll();
 
             http.formLogin()
                 .loginProcessingUrl(securityProperties.getLoginProcessingUrl())

@@ -27,6 +27,11 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public MallGoods get(String goodsId) {
+        return mallGoodsMapper.selectById(goodsId);
+    }
+
+    @Override
     public List<MallGoods> get() {
         return mallGoodsMapper.selectList(null);
     }

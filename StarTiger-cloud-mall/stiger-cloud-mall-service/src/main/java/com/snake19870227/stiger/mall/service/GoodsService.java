@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface GoodsService {
 
+    MallGoods get(String goodsId);
+
     List<MallGoods> get();
 
     List<MallGoods> betchGet(List<String> goodsIdList);
