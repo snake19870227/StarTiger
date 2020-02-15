@@ -13,6 +13,8 @@ spring:
         locator:
           enabled: true
           lowerCaseServiceId: true
+      default-filters:
+        - Elapsed=true
       routes:
         - id: service_account
           uri: lb://mall-account
