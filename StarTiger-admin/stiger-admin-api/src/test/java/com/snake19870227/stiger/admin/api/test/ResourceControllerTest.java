@@ -2,7 +2,8 @@ package com.snake19870227.stiger.admin.api.test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.admin.entity.dto.RestResponse;
+import com.snake19870227.stiger.http.RestResponse;
+import com.snake19870227.stiger.http.RestResponseBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +59,7 @@ public class ResourceControllerTest {
     public void testRes1() throws Exception {
         Assert.assertNotNull(authorization);
 
-        RestResponse.DefaultRestResponse defaultSuccessRestResponse = RestResponse.createSuccessRestResp("res1");
+        RestResponse.DefaultRestResponse defaultSuccessRestResponse = RestResponseBuilder.createSuccessRestResp("res1");
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/res1")
@@ -81,7 +82,7 @@ public class ResourceControllerTest {
     public void testRes3() throws Exception {
         Assert.assertNotNull(authorization);
 
-        RestResponse.DefaultRestResponse defaultSuccessRestResponse = RestResponse.createSuccessRestResp("res3");
+        RestResponse.DefaultRestResponse defaultSuccessRestResponse = RestResponseBuilder.createSuccessRestResp("res3");
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/res3")

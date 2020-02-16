@@ -1,7 +1,8 @@
 package com.snake19870227.stiger.admin.web.controller;
 
-import com.snake19870227.stiger.admin.entity.dto.RestResponse;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
+import com.snake19870227.stiger.http.RestResponse;
+import com.snake19870227.stiger.http.RestResponseBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,13 +36,13 @@ public class MainController {
     @GetMapping(path = "/res1")
     @ResponseBody
     public RestResponse<Object> res1() {
-        return RestResponse.createSuccessRestResp("res1");
+        return RestResponseBuilder.createSuccessRestResp("res1");
     }
 
     @GetMapping(path = "/res2")
     @ResponseBody
     public RestResponse<Object> res2() {
-        return RestResponse.createSuccessRestResp("res2");
+        return RestResponseBuilder.createSuccessRestResp("res2");
     }
 
     @GetMapping(path = "/res3")

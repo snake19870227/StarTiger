@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.admin.web.exception;
 
-import com.snake19870227.stiger.admin.exception.BaseResponseBodyException;
+import com.snake19870227.stiger.exception.BaseResponseBodyException;
 
 import java.util.HashMap;
 import java.util.Map;

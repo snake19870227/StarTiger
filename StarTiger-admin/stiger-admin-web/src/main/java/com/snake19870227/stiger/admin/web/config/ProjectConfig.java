@@ -14,11 +14,4 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @Configuration
 @EnableCaching
 public class ProjectConfig {
-
-    @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("base-messages", "proj-messages");
-        return messageSource;
-    }
 }

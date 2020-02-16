@@ -4,8 +4,9 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.ContentType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.admin.entity.dto.RestResponse;
 import com.snake19870227.stiger.admin.security.JwtSignKey;
+import com.snake19870227.stiger.http.RestResponse;
+import com.snake19870227.stiger.http.RestResponseBuilder;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,7 +89,7 @@ public class RestAuthenticationHandler implements AuthenticationSuccessHandler, 
                 }
         });
 
-        RestResponse.DefaultRestResponse restResponse = RestResponse.createSuccessRestResp(resultData);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createSuccessRestResp(resultData);
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }
@@ -100,7 +101,7 @@ public class RestAuthenticationHandler implements AuthenticationSuccessHandler, 
             return;
         }
 
-        RestResponse.DefaultRestResponse restResponse = RestResponse.createRestResp(false, "1001", null);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, "1001", null);
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }

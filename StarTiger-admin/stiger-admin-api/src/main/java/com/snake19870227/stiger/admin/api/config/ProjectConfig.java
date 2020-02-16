@@ -16,13 +16,6 @@ import org.springframework.security.provisioning.UserDetailsManager;
 public class ProjectConfig {
 
     @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("base-messages", "proj-messages");
-        return messageSource;
-    }
-
-    @Bean
     public UserDetailsManager userDetailsManager() {
         return new CustomUserDetailsManager();
     }
