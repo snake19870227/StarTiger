@@ -25,6 +25,7 @@
         <module>StarTiger-webflux</module>
         <module>StarTiger-keycloak</module>
         <module>StarTiger-oauth2</module>
+        <module>StarTiger-elasticsearch</module>
     </modules>
 
     <repositories>

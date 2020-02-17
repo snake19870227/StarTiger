@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: elastic-study
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
