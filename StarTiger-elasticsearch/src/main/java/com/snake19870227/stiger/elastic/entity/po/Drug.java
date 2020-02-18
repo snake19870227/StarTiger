@@ -3,6 +3,8 @@ package com.snake19870227.stiger.elastic.entity.po;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.util.List;
+
 /**
  * @author Bu HuaYang
  */
@@ -16,6 +18,10 @@ public class Drug {
     private String factory;
     private String content;
 
+    private String approvalNo;
+
+    private List<String> disease;
+
     @Override
     public String toString() {
         return "Drug{" +
@@ -23,6 +29,8 @@ public class Drug {
                 ", name='" + name + '\'' +
                 ", factory='" + factory + '\'' +
                 ", content='" + content + '\'' +
+                ", approvalNo='" + approvalNo + '\'' +
+                ", disease=" + disease +
                 '}';
     }
 
@@ -56,5 +64,21 @@ public class Drug {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getApprovalNo() {
+        return approvalNo;
+    }
+
+    public void setApprovalNo(String approvalNo) {
+        this.approvalNo = approvalNo;
+    }
+
+    public List<String> getDisease() {
+        return disease;
+    }
+
+    public void setDisease(List<String> disease) {
+        this.disease = disease;
     }
 }
