@@ -3,6 +3,7 @@ package com.snake19870227.stiger.elastic.entity.po;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ public class Drug {
     private String factory;
     private String content;
 
+    private BigDecimal price;
+
     private String approvalNo;
 
     private List<String> disease;
@@ -29,6 +32,7 @@ public class Drug {
                 ", name='" + name + '\'' +
                 ", factory='" + factory + '\'' +
                 ", content='" + content + '\'' +
+                ", price=" + price +
                 ", approvalNo='" + approvalNo + '\'' +
                 ", disease=" + disease +
                 '}';
@@ -64,6 +68,14 @@ public class Drug {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getApprovalNo() {
