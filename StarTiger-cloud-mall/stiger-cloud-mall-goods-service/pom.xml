@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.snake19870227</groupId>
+        <artifactId>StarTiger-cloud-mall</artifactId>
+        <version>${cloud-mall.version}</version>
+    </parent>
+
+    <artifactId>stiger-cloud-mall-goods-service</artifactId>
+
+    <name>STigerCloudMallGoodsService</name>
+    <description>StarTiger Cloud 商城 Demo 商品公共模块</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>stiger-cloud-mall-service</artifactId>
+            <version>${cloud-mall.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

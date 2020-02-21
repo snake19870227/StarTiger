@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
  * @author Bu HuaYang
  */
 @Component
-public class TimerTigger {
+public class TimerTrigger {
 
-    private static final Logger logger = LoggerFactory.getLogger(TimerTigger.class);
+    private static final Logger logger = LoggerFactory.getLogger(TimerTrigger.class);
 
     @Autowired
     private HelloService helloService;

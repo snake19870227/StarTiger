@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author Bu HuaYang
- * @since 2020-02-13
+ * @since 2020-02-20
  */
 @ApiModel(value="MallOrder对象", description="")
 public class MallOrder implements Serializable {
