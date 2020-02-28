@@ -5,6 +5,9 @@ package com.snake19870227.stiger;
  */
 public class StarTigerConstant {
 
+    public static final String FLAG_Y = "Y";
+    public static final String FLAG_N = "N";
+
     public static final String PACKAGE_CLASSES_PATTERN = "**/*.class";
 
     public static class OAuth20Code {

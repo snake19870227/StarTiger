@@ -28,32 +28,28 @@ public class SearchGoodsExecuter {
 
     private static final String urlPrefix = "http://yao.xywy.com";
 
-    private static final Integer minPage = 1;
-
-    private static final Integer maxPage = 100;
-
     private final ElasticGoodsRepository elasticGoodsRepository;
 
     public SearchGoodsExecuter(ElasticGoodsRepository elasticGoodsRepository) {
         this.elasticGoodsRepository = elasticGoodsRepository;
     }
 
-    public void execute() {
+    public void execute(String typeId, Integer minPage, Integer maxPage) {
         for (int page = minPage; page <= maxPage; page++) {
-            if (!pageDrugs(page)) {
+            if (!pageDrugs(typeId, page)) {
                 break;
             }
         }
     }
 
-    private boolean pageDrugs(int page) {
+    private boolean pageDrugs(String typeId, int page) {
         try {
-            Document doc = Jsoup.connect(urlPrefix + "/class/164-0-0-1-0-" + page + ".htm").get();
-            Element total = doc.selectFirst("#flip > span > span.span1");
-            int totalPage = Integer.parseInt(StrUtil.subBetween(total.text(), "共", "页"));
-            if (page > totalPage) {
-                return false;
-            }
+            Document doc = Jsoup.connect(urlPrefix + "/class/" + typeId + "-0-0-1-0-" + page + ".htm").get();
+//            Element total = doc.selectFirst("#flip > span.flipJump > span.span1");
+//            int totalPage = Integer.parseInt(StrUtil.subBetween(total.text(), "共", "页"));
+//            if (page > totalPage) {
+//                return false;
+//            }
             Elements items = doc.select(".h-drugs-item");
             for (Element item : items) {
                 ElasticGoods goods = new ElasticGoods();

@@ -25,7 +25,7 @@ public class GlobalHandlerExceptionResolver extends AbstractHandlerExceptionReso
                                               HttpServletResponse response,
                                               Object handler,
                                               Exception ex) {
-
+        logger.error(ex.getLocalizedMessage(), ex);
         if (ex instanceof RestHttpException) {
             RestHttpException rhe = (RestHttpException) ex;
             return rhe.buildMvcView();

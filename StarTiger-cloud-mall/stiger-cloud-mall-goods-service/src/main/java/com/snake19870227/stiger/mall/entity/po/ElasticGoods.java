@@ -2,6 +2,8 @@ package com.snake19870227.stiger.mall.entity.po;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,20 +11,27 @@ import java.util.List;
 /**
  * @author Bu HuaYang
  */
-@Document(indexName = "mallgoods", type = "_doc")
+@Document(indexName = ElasticGoods.GOODS_INDEX_NAME, type = "_doc", createIndex = false)
 public class ElasticGoods {
+
+    public static final String GOODS_INDEX_NAME = "mallgoods";
 
     @Id
     private String goodsId;
 
+    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String goodsName;
 
+    @Field(type = FieldType.Keyword)
     private String goodsFactory;
 
+    @Field(type = FieldType.Text, analyzer = "ik_max_word", searchAnalyzer = "ik_smart")
     private String goodsContent;
 
+    @Field(type = FieldType.Keyword)
     private List<String> goodsKeywords;
 
+    @Field(type = FieldType.Float)
     private BigDecimal goodsPrice;
 
     @Override

@@ -1,3 +1,30 @@
+server:
+  port: 7120
 spring:
   application:
-    name: mall-job
+    name: mall-goods-job
+  profiles:
+    include: common,mall,doc
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/StigerMallGoods?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
+    username: stigermall
+    password: 123456
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: admin
+#    password: 123456
+#  cloud:
+#    sentinel:
+#      transport:
+#        dashboard: localhost:8849
+#    stream:
+#      bindings:
+#        mall-bus-input:
+#          group: ${spring.application.name}
+stiger:
+  mall:
+    goods:
+      job:
+        switch: N

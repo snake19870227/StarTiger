@@ -41,7 +41,7 @@ public class DrugMain {
 
     private static final Integer minPage = 1;
 
-    private static final Integer maxPage = 100;
+    private static final Integer maxPage = 84;
 
     @Autowired
     private DrugRepository drugRepository;
@@ -94,7 +94,7 @@ public class DrugMain {
 
     private void pageDrugs(int page) {
         try {
-            Document doc = Jsoup.connect(urlPrefix + "/class/129-0-0-1-0-" + page + ".htm").get();
+            Document doc = Jsoup.connect(urlPrefix + "/class/412-0-0-1-0-" + page + ".htm").get();
             Elements drugs = doc.select(".h-drugs-item");
             for (Element drug : drugs) {
                 Drug d = new Drug();

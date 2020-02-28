@@ -21,6 +21,14 @@ public class RestResponseBuilder {
 
     public static final String DEFAULT_FAILURE_RESP_CODE = StarTigerConstant.StatusCode.CODE_9999;
 
+    public static RestResponse.DefaultRestResponse createSuccessRestResp() {
+        return createRestResp(true, DEFAULT_SUCCESS_RESP_CODE, null);
+    }
+
+    public static RestResponse.DefaultRestResponse createFailureRestResp() {
+        return createRestResp(false, DEFAULT_FAILURE_RESP_CODE, null);
+    }
+
     public static RestResponse.DefaultRestResponse createSuccessRestResp(Object data) {
         return createRestResp(true, DEFAULT_SUCCESS_RESP_CODE, data);
     }
