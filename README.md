@@ -2,16 +2,18 @@
 ## 本项目旨在备忘 SpringBoot、SpringCloud 生态下的知识点
 Github: [https://github.com/snake19870227/StarTiger.git](https://github.com/snake19870227/StarTiger.git)  
 Gitee: [https://gitee.com/buhy/StarTiger.git](https://gitee.com/buhy/StarTiger.git)  
-**特别感谢 [Jetbrains](https://www.jetbrains.com/?from=StarTiger) 提供的License**
-# 模块
+## **特别感谢 [Jetbrains](https://www.jetbrains.com/?from=StarTiger) 提供的License**
+---
 ## StarTiger-dependencies
 版本依赖定义
 - StarTiger-framework
 框架
 - StarTiger-spring-boot-autoconfigure、StarTiger-spring-boot-starter
 框架配套的springboot starter
+---
 ## StarTiger-admin
 构建简单权限模型, 验证 Spring Boot + Spring Security 组合  
+---
 ## StarTiger-cloud
 Spring Cloud 技术点备忘
 - stiger-cloud-admin  
@@ -36,13 +38,13 @@ Eureka作为注册中心
   注册中心
   - stiger-cloud-eureka-config-git  
   git配置中心
-  - stiger-cloud-eureka-config-git-bus
+  - stiger-cloud-eureka-config-git-bus  
   git配置中心，启用动态刷新功能
   - stiger-cloud-eureka-consumer  
   消费服务，使用`LoadBalancerClient`
-  - stiger-cloud-eureka-consumer-feign
+  - stiger-cloud-eureka-consumer-feign  
   消费服务，使用**Feign**
-  - stiger-cloud-eureka-consumer-ribbon
+  - stiger-cloud-eureka-consumer-ribbon  
   消费服务，使用`@LoadBalanced`标注`RestTemplate`
   - stiger-cloud-eureka-gateway-spring  
   网关，使用**spring-cloud-gateway**
@@ -65,6 +67,7 @@ Nacos作为注册中心、配置中心
 Turbine聚合Hystrix集群数据  (对接Eureka注册中心)
 - stiger-cloud-zookeeper  
 Zookeeper作为注册中心
+---
 ## StarTiger-cloud-mall
 一个简单的销售模型
 1. 整合**StarTiger-cloud**中所验证的技术点  
@@ -82,12 +85,17 @@ Zookeeper作为注册中心
 全文检索：elasticsearch  
 接口文档：swagger  
 数据库：mysql  
-orm：mybatis、mybatis-plus  
+orm：mybatis、mybatis-plus
+---
 ## StarTiger-elasticsearch
 springboot整合elasticsearch
+---
 ## StarTiger-keycloak（暂停）
 springboot整合keycloak
+---
 ## StarTiger-oauth2
 springboot整合oauth2
+---
 ## StarTiger-webflux
 spring5 webflux
+---
