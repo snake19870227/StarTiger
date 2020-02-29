@@ -6,9 +6,13 @@ import org.elasticsearch.action.get.MultiGetResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Request;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.common.document.DocumentField;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -20,6 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.EntityMapper;
+import org.springframework.data.elasticsearch.core.ResultsExtractor;
 import org.springframework.data.elasticsearch.core.ResultsMapper;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
@@ -28,6 +33,7 @@ import org.springframework.data.querydsl.QuerydslUtils;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -77,5 +83,23 @@ public class GoodsElasticsearchTest {
         searchQuery.setMinScore(4.6f);
         Page<ElasticGoods> elasticGoodsList = elasticsearchTemplate.queryForPage(searchQuery, ElasticGoods.class);
         elasticGoodsList.forEach(elasticGoods -> logger.info(elasticGoods.getGoodsName()));
+    }
+
+    @Test
+    public void termSearch4() {
+        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("goodsName", "滴");
+        HighlightBuilder.Field goodsNameField = new HighlightBuilder.Field("goodsName");
+        NativeSearchQuery searchQuery = new NativeSearchQuery(termQueryBuilder, null, null, new HighlightBuilder.Field[] {goodsNameField});
+        List<ElasticGoods> elasticGoodsList
+                = elasticsearchTemplate.query(searchQuery, new ResultsExtractor<List<ElasticGoods>>() {
+            @Override
+            public List<ElasticGoods> extract(SearchResponse response) {
+                for (SearchHit searchHit : response.getHits()) {
+                    Map<String, HighlightField> highlightFieldMap = searchHit.getHighlightFields();
+                    logger.info(highlightFieldMap.toString());
+                }
+                return null;
+            }
+        });
     }
 }
