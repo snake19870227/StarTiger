@@ -89,13 +89,9 @@ orm：mybatis、mybatis-plus
 ---
 ## StarTiger-elasticsearch
 springboot整合elasticsearch
----
 ## StarTiger-keycloak（暂停）
 springboot整合keycloak
----
 ## StarTiger-oauth2
 springboot整合oauth2
----
 ## StarTiger-webflux
 spring5 webflux
----
