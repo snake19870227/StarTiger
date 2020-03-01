@@ -2,7 +2,7 @@
 ## 本项目旨在备忘 SpringBoot、SpringCloud 生态下的知识点
 Github: [https://github.com/snake19870227/StarTiger.git](https://github.com/snake19870227/StarTiger.git)  
 Gitee: [https://gitee.com/buhy/StarTiger.git](https://gitee.com/buhy/StarTiger.git)  
-## **特别感谢 [Jetbrains](https://www.jetbrains.com/?from=StarTiger) 提供的License**
+**特别感谢 [Jetbrains](https://www.jetbrains.com/?from=StarTiger) 提供的License**
 ---
 ## StarTiger-dependencies
 版本依赖定义
@@ -13,7 +13,6 @@ Gitee: [https://gitee.com/buhy/StarTiger.git](https://gitee.com/buhy/StarTiger.g
 ---
 ## StarTiger-admin
 构建简单权限模型, 验证 Spring Boot + Spring Security 组合  
----
 ## StarTiger-cloud
 Spring Cloud 技术点备忘
 - stiger-cloud-admin  

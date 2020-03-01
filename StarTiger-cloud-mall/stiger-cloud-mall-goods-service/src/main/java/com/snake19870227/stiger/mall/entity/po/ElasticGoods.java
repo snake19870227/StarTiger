@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.mall.entity.po;
 
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -7,6 +8,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Bu HuaYang
@@ -34,6 +36,8 @@ public class ElasticGoods {
     @Field(type = FieldType.Float)
     private BigDecimal goodsPrice;
 
+    private Map<String, HighlightField> highlightFieldMap;
+
     @Override
     public String toString() {
         return "ElasticGoods{" +
@@ -43,6 +47,7 @@ public class ElasticGoods {
                 ", goodsContent='" + goodsContent + '\'' +
                 ", goodsKeywords=" + goodsKeywords +
                 ", goodsPrice=" + goodsPrice +
+                ", highlightFieldMap=" + highlightFieldMap +
                 '}';
     }
 
@@ -92,5 +97,13 @@ public class ElasticGoods {
 
     public void setGoodsPrice(BigDecimal goodsPrice) {
         this.goodsPrice = goodsPrice;
+    }
+
+    public Map<String, HighlightField> getHighlightFieldMap() {
+        return highlightFieldMap;
+    }
+
+    public void setHighlightFieldMap(Map<String, HighlightField> highlightFieldMap) {
+        this.highlightFieldMap = highlightFieldMap;
     }
 }

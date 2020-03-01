@@ -1,5 +1,7 @@
 package com.snake19870227.stiger.mall;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.mall.entity.po.ElasticGoods;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.get.MultiGetResponse;
@@ -32,6 +34,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.data.querydsl.QuerydslUtils;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -47,6 +50,9 @@ public class GoodsElasticsearchTest {
 
     @Autowired
     private ElasticsearchRestTemplate elasticsearchTemplate;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     public void createOrUpdateIndex() {
@@ -89,17 +95,24 @@ public class GoodsElasticsearchTest {
     public void termSearch4() {
         TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("goodsName", "滴");
         HighlightBuilder.Field goodsNameField = new HighlightBuilder.Field("goodsName");
-        NativeSearchQuery searchQuery = new NativeSearchQuery(termQueryBuilder, null, null, new HighlightBuilder.Field[] {goodsNameField});
+        HighlightBuilder.Field goodsContentField = new HighlightBuilder.Field("goodsContent");
+        NativeSearchQuery searchQuery
+                = new NativeSearchQuery(termQueryBuilder, null, null, new HighlightBuilder.Field[] {goodsNameField, goodsContentField});
         List<ElasticGoods> elasticGoodsList
-                = elasticsearchTemplate.query(searchQuery, new ResultsExtractor<List<ElasticGoods>>() {
-            @Override
-            public List<ElasticGoods> extract(SearchResponse response) {
-                for (SearchHit searchHit : response.getHits()) {
-                    Map<String, HighlightField> highlightFieldMap = searchHit.getHighlightFields();
-                    logger.info(highlightFieldMap.toString());
-                }
-                return null;
-            }
-        });
+                = elasticsearchTemplate.query(searchQuery, response -> {
+                    List<ElasticGoods> elasticGoodsList1 = new ArrayList<>();
+                    for (SearchHit searchHit : response.getHits()) {
+                        Map<String, HighlightField> highlightFieldMap = searchHit.getHighlightFields();
+                        try {
+                            ElasticGoods elasticGoods = objectMapper.readValue(searchHit.getSourceAsString(), ElasticGoods.class);
+                            elasticGoods.setHighlightFieldMap(highlightFieldMap);
+                            elasticGoodsList1.add(elasticGoods);
+                        } catch (JsonProcessingException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    return elasticGoodsList1;
+                });
+        elasticGoodsList.forEach(elasticGoods -> logger.info(elasticGoods.toString()));
     }
 }
