@@ -36,8 +36,6 @@ public class ElasticGoods {
     @Field(type = FieldType.Float)
     private BigDecimal goodsPrice;
 
-    private Map<String, HighlightField> highlightFieldMap;
-
     @Override
     public String toString() {
         return "ElasticGoods{" +
@@ -47,7 +45,6 @@ public class ElasticGoods {
                 ", goodsContent='" + goodsContent + '\'' +
                 ", goodsKeywords=" + goodsKeywords +
                 ", goodsPrice=" + goodsPrice +
-                ", highlightFieldMap=" + highlightFieldMap +
                 '}';
     }
 
@@ -97,13 +94,5 @@ public class ElasticGoods {
 
     public void setGoodsPrice(BigDecimal goodsPrice) {
         this.goodsPrice = goodsPrice;
-    }
-
-    public Map<String, HighlightField> getHighlightFieldMap() {
-        return highlightFieldMap;
-    }
-
-    public void setHighlightFieldMap(Map<String, HighlightField> highlightFieldMap) {
-        this.highlightFieldMap = highlightFieldMap;
     }
 }
