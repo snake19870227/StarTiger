@@ -3,6 +3,9 @@ package com.snake19870227.stiger.mall.executer;
 import cn.hutool.core.util.StrUtil;
 import com.snake19870227.stiger.mall.dao.ElasticGoodsRepository;
 import com.snake19870227.stiger.mall.entity.po.ElasticGoods;
+import com.snake19870227.stiger.mall.entity.po.MallGoods;
+import com.snake19870227.stiger.mall.mapper.MallGoodsMapper;
+import com.snake19870227.stiger.mall.mapping.GoodsMapping;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.function.Consumer;
 
 /**
  * @author Bu HuaYang
@@ -30,8 +32,14 @@ public class SearchGoodsExecuter {
 
     private final ElasticGoodsRepository elasticGoodsRepository;
 
-    public SearchGoodsExecuter(ElasticGoodsRepository elasticGoodsRepository) {
+    private final MallGoodsMapper mallGoodsMapper;
+
+    private final GoodsMapping goodsMapping;
+
+    public SearchGoodsExecuter(ElasticGoodsRepository elasticGoodsRepository, MallGoodsMapper mallGoodsMapper, GoodsMapping goodsMapping) {
         this.elasticGoodsRepository = elasticGoodsRepository;
+        this.mallGoodsMapper = mallGoodsMapper;
+        this.goodsMapping = goodsMapping;
     }
 
     public void execute(String typeId, Integer minPage, Integer maxPage) {
@@ -77,6 +85,14 @@ public class SearchGoodsExecuter {
                 logger.info(goods.toString());
 
                 elasticGoodsRepository.save(goods);
+
+                MallGoods newGoods = goodsMapping.toDatabaseGoods(goods);
+                MallGoods existsGoods = mallGoodsMapper.selectById(goods.getGoodsId());
+                if (existsGoods == null) {
+                    mallGoodsMapper.insert(newGoods);
+                } else {
+                    mallGoodsMapper.updateById(newGoods);
+                }
             }
             return true;
         } catch (IOException e) {
