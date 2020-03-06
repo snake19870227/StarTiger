@@ -1,6 +1,6 @@
-package com.snake19870227.stiger.utils;
+package com.snake19870227.stiger.core.utils;
 
-import com.snake19870227.stiger.StarTigerConstant;
+import com.snake19870227.stiger.core.StarTigerConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;

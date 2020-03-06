@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.mall.remote;
 
 import cn.hutool.core.util.StrUtil;
-import com.snake19870227.stiger.StarTigerConstant;
+import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.http.RestResponse;
 import com.snake19870227.stiger.mall.config.StarTigerMallServiceProperties;
 import com.snake19870227.stiger.mall.exception.CloudRpcException;

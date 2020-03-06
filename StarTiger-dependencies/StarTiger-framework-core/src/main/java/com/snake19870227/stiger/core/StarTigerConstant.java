@@ -1,4 +1,4 @@
-package com.snake19870227.stiger;
+package com.snake19870227.stiger.core;
 
 /**
  * @author Bu HuaYang

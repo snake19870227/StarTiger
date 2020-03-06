@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.http;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.snake19870227.stiger.StarTigerConstant;
+import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.context.StarTigerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

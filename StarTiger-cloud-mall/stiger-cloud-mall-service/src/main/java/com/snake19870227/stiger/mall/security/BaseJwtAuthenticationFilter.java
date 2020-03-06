@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.mall.security;
 
-import com.snake19870227.stiger.StarTigerConstant;
+import com.snake19870227.stiger.core.StarTigerConstant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

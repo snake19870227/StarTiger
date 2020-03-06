@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.utils;
+package com.snake19870227.stiger.core.utils;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;

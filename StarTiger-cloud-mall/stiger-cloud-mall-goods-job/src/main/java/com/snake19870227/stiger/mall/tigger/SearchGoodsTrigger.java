@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.mall.tigger;
 
 import cn.hutool.core.util.StrUtil;
-import com.snake19870227.stiger.StarTigerConstant;
+import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.mall.executer.SearchGoodsExecuter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

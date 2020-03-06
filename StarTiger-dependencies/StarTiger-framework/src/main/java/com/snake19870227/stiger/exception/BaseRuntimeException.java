@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.exception;
 
 import cn.hutool.core.util.StrUtil;
-import com.snake19870227.stiger.StarTigerConstant;
+import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.context.StarTigerContext;
 
 /**

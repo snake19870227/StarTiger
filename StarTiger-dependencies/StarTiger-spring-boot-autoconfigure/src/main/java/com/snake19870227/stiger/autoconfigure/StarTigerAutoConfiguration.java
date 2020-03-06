@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.autoconfigure;
 
 import cn.hutool.core.util.StrUtil;
-import com.snake19870227.stiger.utils.ClassPathUtil;
+import com.snake19870227.stiger.core.utils.ClassPathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -12,7 +12,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Function;
 
 /**
  * @author Bu HuaYang

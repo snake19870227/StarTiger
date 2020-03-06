@@ -1,8 +1,10 @@
-package com.snake19870227.stiger.context;
+package com.snake19870227.stiger.exception;
 
-import com.snake19870227.stiger.exception.RestHttpException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 
@@ -29,7 +31,11 @@ public class GlobalHandlerExceptionResolver extends AbstractHandlerExceptionReso
         if (ex instanceof RestHttpException) {
             RestHttpException rhe = (RestHttpException) ex;
             return rhe.buildMvcView();
+        } else if (ex instanceof MethodArgumentNotValidException || ex instanceof BindException) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return new RestHttpException(ex).buildMvcView();
         } else {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             return new RestHttpException(ex).buildMvcView();
         }
     }
