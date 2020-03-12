@@ -68,7 +68,7 @@ Turbine聚合Hystrix集群数据  (对接Eureka注册中心)
 Zookeeper作为注册中心
 ---
 ## StarTiger-cloud-mall
-一个简单的销售模型
+一个简单的销售模型 [README](./StarTiger-cloud-mall/README.md)
 1. 整合**StarTiger-cloud**中所验证的技术点  
 2. 整合**spring**、**spring-boot**使用技术点
 当前技术栈  
