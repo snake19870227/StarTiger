@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.cloud.base.entity.dto;
 
-import com.snake19870227.stiger.http.RestResponse;
+import com.snake19870227.stiger.core.restful.RestResponse;
 
 import java.util.ArrayList;
 import java.util.List;

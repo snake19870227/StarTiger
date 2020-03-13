@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.servlet;
+package com.snake19870227.stiger.web.servlet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;

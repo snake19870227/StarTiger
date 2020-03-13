@@ -5,7 +5,7 @@ import com.snake19870227.stiger.cloud.base.entity.dto.MapRestResponse;
 import com.snake19870227.stiger.cloud.base.properties.StarTigerCloudProperties;
 import com.snake19870227.stiger.cloud.base.service.NextAccessInvoker;
 import com.snake19870227.stiger.cloud.base.service.TraceAccess;
-import com.snake19870227.stiger.http.RestResponseBuilder;
+import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

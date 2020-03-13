@@ -3,7 +3,7 @@ package com.snake19870227.stiger.admin.api.security;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.servlet.ParameterAttributeHttpServletRequestWrapper;
+import com.snake19870227.stiger.web.servlet.ParameterAttributeHttpServletRequestWrapper;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;

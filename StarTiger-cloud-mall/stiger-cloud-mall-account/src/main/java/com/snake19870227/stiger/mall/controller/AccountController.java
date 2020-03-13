@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.mall.controller;
 
-import com.snake19870227.stiger.http.RestResponseBuilder;
+import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 import com.snake19870227.stiger.mall.entity.dto.AccountDetailRestResponse;
 import com.snake19870227.stiger.mall.entity.po.MallAccount;
 import com.snake19870227.stiger.mall.service.AccountService;

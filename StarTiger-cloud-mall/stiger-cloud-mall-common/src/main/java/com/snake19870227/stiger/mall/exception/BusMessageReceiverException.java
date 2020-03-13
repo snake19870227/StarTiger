@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.mall.exception;
 
-import com.snake19870227.stiger.exception.BaseRuntimeException;
+import com.snake19870227.stiger.core.exception.BaseRuntimeException;
 
 /**
  * @author Bu HuaYang

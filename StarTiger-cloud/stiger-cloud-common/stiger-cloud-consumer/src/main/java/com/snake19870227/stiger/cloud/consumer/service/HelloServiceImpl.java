@@ -3,10 +3,9 @@ package com.snake19870227.stiger.cloud.consumer.service;
 import com.snake19870227.stiger.cloud.base.entity.dto.MapRestResponse;
 import com.snake19870227.stiger.cloud.base.properties.StarTigerCloudProperties;
 import com.snake19870227.stiger.cloud.base.service.HelloService;
-import com.snake19870227.stiger.context.StarTigerContext;
+import com.snake19870227.stiger.core.StarTigerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**

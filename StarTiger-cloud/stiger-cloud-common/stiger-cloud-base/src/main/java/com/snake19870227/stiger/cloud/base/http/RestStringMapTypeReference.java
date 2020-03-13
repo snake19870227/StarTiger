@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.cloud.base.http;
 
-import com.snake19870227.stiger.http.AbstractRestResponseTypeReference;
+import com.snake19870227.stiger.core.restful.AbstractRestResponseTypeReference;
 
 import java.util.Map;
 

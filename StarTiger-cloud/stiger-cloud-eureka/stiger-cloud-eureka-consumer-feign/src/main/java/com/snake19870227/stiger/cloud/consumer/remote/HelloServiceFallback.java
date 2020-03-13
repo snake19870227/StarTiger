@@ -1,8 +1,8 @@
 package com.snake19870227.stiger.cloud.consumer.remote;
 
 import com.snake19870227.stiger.cloud.base.entity.dto.MapRestResponse;
-import com.snake19870227.stiger.context.StarTigerContext;
-import com.snake19870227.stiger.http.RestResponseBuilder;
+import com.snake19870227.stiger.core.StarTigerContext;
+import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

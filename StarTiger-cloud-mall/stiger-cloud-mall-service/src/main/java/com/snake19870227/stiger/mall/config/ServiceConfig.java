@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.mall.config;
 
-import com.snake19870227.stiger.exception.GlobalHandlerExceptionResolver;
+import com.snake19870227.stiger.web.exception.GlobalHandlerExceptionResolver;
 import com.snake19870227.stiger.mall.remote.MallCloudRpcService;
 import com.spring4all.swagger.EnableSwagger2Doc;
 import org.mybatis.spring.annotation.MapperScan;

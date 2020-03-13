@@ -1,6 +1,7 @@
-package com.snake19870227.stiger.exception;
+package com.snake19870227.stiger.web.exception;
 
 import org.springframework.web.servlet.ModelAndView;
+import com.snake19870227.stiger.core.exception.BaseRuntimeException;
 
 /**
  * @author Bu HuaYang

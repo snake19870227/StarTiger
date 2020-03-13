@@ -1,6 +1,5 @@
-package com.snake19870227.stiger.autoconfigure;
+package com.snake19870227.stiger.core;
 
-import com.snake19870227.stiger.context.StarTigerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

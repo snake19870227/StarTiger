@@ -17,34 +17,15 @@
     <description>StarTiger Framework 脚手架</description>
 
     <dependencies>
-        <!--javaEE-->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!--spring-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!--tool-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-        </dependency>
-
         <!--StarTiger-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>StarTiger-framework-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>StarTiger-framework-web</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

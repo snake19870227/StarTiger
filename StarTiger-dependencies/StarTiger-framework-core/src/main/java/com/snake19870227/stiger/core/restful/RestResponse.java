@@ -1,14 +1,19 @@
-package com.snake19870227.stiger.http;
+package com.snake19870227.stiger.core.restful;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * @author Bu HuaYang
  */
-public abstract class RestResponse<T> {
+public class RestResponse<T> {
 
+    @ApiModelProperty(value = "结果状态码")
     private String respCode;
 
+    @ApiModelProperty(value = "结果状态说明")
     private String respMessage;
 
+    @ApiModelProperty(value = "结果业务对象")
     private T data;
 
     public RestResponse() {

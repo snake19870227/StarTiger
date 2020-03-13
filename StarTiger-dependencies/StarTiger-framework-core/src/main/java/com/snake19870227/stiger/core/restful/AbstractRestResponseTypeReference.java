@@ -1,6 +1,5 @@
-package com.snake19870227.stiger.http;
+package com.snake19870227.stiger.core.restful;
 
-import com.snake19870227.stiger.http.RestResponse;
 import org.springframework.core.ParameterizedTypeReference;
 
 /**

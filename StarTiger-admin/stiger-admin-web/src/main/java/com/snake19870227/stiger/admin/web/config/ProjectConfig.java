@@ -1,12 +1,9 @@
 package com.snake19870227.stiger.admin.web.config;
 
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import com.snake19870227.stiger.web.exception.GlobalHandlerExceptionResolver;
 
 /**
  * @author Bu HuaYang
@@ -14,4 +11,9 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @Configuration
 @EnableCaching
 public class ProjectConfig {
+
+    @Bean
+    public GlobalHandlerExceptionResolver exceptionResolver() {
+        return new GlobalHandlerExceptionResolver();
+    }
 }

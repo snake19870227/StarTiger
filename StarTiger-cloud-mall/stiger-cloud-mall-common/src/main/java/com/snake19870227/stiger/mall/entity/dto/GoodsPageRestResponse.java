@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.mall.entity.dto;
 
-import com.snake19870227.stiger.http.PageRestResponse;
+import com.snake19870227.stiger.core.restful.PageRestResponse;
 import com.snake19870227.stiger.mall.entity.po.MallGoods;
 import io.swagger.annotations.ApiModel;
 

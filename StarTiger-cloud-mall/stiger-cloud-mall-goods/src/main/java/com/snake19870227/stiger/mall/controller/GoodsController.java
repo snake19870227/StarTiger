@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.mall.controller;
 
 import cn.hutool.core.collection.CollUtil;
-import com.snake19870227.stiger.http.RestResponseBuilder;
+import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 import com.snake19870227.stiger.mall.dao.ElasticGoodsRepository;
 import com.snake19870227.stiger.mall.entity.dto.BetchGetGoodsListRestResponse;
 import com.snake19870227.stiger.mall.entity.dto.GoodsListRestResponse;
@@ -20,7 +20,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**

@@ -18,10 +18,11 @@
     <description>StarTiger工程依赖版本管理</description>
 
     <modules>
+        <module>StarTiger-framework-core</module>
+        <module>StarTiger-framework-web</module>
         <module>StarTiger-framework</module>
         <module>StarTiger-spring-boot-autoconfigure</module>
         <module>StarTiger-spring-boot-starter</module>
-        <module>StarTiger-framework-core</module>
     </modules>
 
     <properties>
@@ -185,19 +186,6 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>${maven-jar-plugin.version}</version>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Implementation-Title>${project.description}</Implementation-Title>
-                            <Implementation-Version>${project.version}</Implementation-Version>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
@@ -213,6 +201,19 @@
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <includeEmptyDirs>true</includeEmptyDirs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Implementation-Title>${project.description}</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>

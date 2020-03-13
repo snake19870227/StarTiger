@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.mall.exception;
 
-import com.snake19870227.stiger.exception.RestHttpException;
+import com.snake19870227.stiger.web.exception.RestHttpException;
 
 /**
  * @author Bu HuaYang

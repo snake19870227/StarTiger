@@ -1,17 +1,21 @@
 package com.snake19870227.stiger.autoconfigure;
 
 import cn.hutool.core.util.StrUtil;
-import com.snake19870227.stiger.core.utils.ClassPathUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
 
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import com.snake19870227.stiger.web.context.StarTigerWebContextLoader;
+import com.snake19870227.stiger.core.StarTigerContextLoader;
+import com.snake19870227.stiger.core.utils.ClassPathUtil;
 
 /**
  * @author Bu HuaYang
@@ -24,6 +28,12 @@ public class StarTigerAutoConfiguration {
     @Bean
     public StarTigerContextLoader starTigerContextLoader() {
         return new StarTigerContextLoader();
+    }
+
+    @Bean
+    @ConditionalOnWebApplication
+    public StarTigerWebContextLoader starTigerWebContextLoader() {
+        return new StarTigerWebContextLoader();
     }
 
     @Bean

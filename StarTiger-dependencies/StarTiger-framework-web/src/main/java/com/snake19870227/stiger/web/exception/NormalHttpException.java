@@ -1,10 +1,9 @@
-package com.snake19870227.stiger.admin.web.exception;
-
-import com.snake19870227.stiger.exception.BaseMvcException;
-import org.springframework.web.servlet.ModelAndView;
+package com.snake19870227.stiger.web.exception;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Bu HuaYang

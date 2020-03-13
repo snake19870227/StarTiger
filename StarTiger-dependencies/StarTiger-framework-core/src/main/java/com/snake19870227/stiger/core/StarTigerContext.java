@@ -1,20 +1,16 @@
-package com.snake19870227.stiger.context;
+package com.snake19870227.stiger.core;
 
 import cn.hutool.core.util.ArrayUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.core.utils.JsonUtil;
+
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
-import org.springframework.web.context.WebApplicationContext;
-
-import javax.servlet.ServletContext;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.function.Supplier;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.snake19870227.stiger.core.utils.JsonUtil;
 
 /**
  * @author Bu HuaYang
@@ -28,11 +24,7 @@ public class StarTigerContext {
 
     private static ApplicationContext springContext;
 
-    private static ServletContext servletContext;
-
-    private static ServerProperties serverProperties;
-
-    private static ApplicationContext getSpringContext() {
+    protected static ApplicationContext getSpringContext() {
         return springContext;
     }
 
@@ -82,17 +74,6 @@ public class StarTigerContext {
     public static void setSpringContext(ApplicationContext springContext) {
         StarTigerContext.springContext = springContext;
         StarTigerContext.activeProfiles = springContext.getEnvironment().getActiveProfiles();
-        if (springContext instanceof WebApplicationContext) {
-            StarTigerContext.serverProperties = springContext.getBean(ServerProperties.class);
-            try {
-                Optional<ServletContext> scObj = Optional.ofNullable(((WebApplicationContext) springContext).getServletContext());
-                StarTigerContext.servletContext = scObj.orElseThrow((Supplier<Throwable>) () -> new NullPointerException("SpringContext 中未包含 ServletContext..."));
-                StarTigerContext.servletContext.setAttribute("activeProfiles", activeProfiles);
-            } catch (Throwable e) {
-                logger.error("未能获取到 ServletContext ! 终止程序...");
-                System.exit(1);
-            }
-        }
     }
 
     public static ObjectMapper getJsonMapper() {

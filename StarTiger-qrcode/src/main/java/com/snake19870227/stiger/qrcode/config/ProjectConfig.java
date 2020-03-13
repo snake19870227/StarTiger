@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.qrcode.config;
 
-import com.snake19870227.stiger.exception.GlobalHandlerExceptionResolver;
+import com.snake19870227.stiger.web.exception.GlobalHandlerExceptionResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

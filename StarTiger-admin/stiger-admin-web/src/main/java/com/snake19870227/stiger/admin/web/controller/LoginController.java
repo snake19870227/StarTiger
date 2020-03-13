@@ -2,7 +2,7 @@ package com.snake19870227.stiger.admin.web.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
-import com.snake19870227.stiger.context.StarTigerContext;
+import com.snake19870227.stiger.core.StarTigerContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

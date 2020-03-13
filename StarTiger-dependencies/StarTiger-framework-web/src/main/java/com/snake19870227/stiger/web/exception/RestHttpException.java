@@ -1,6 +1,4 @@
-package com.snake19870227.stiger.admin.web.exception;
-
-import com.snake19870227.stiger.exception.BaseResponseBodyException;
+package com.snake19870227.stiger.web.exception;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,21 +6,21 @@ import java.util.Map;
 /**
  * @author Bu HuaYang
  */
-public class AjaxHttpException extends BaseResponseBodyException {
+public class RestHttpException extends BaseResponseBodyException {
 
-    public AjaxHttpException(String errorCode, Object... args) {
+    public RestHttpException(String errorCode, Object... args) {
         super(errorCode, args);
     }
 
-    public AjaxHttpException(String errorCode, Throwable cause, Object... args) {
+    public RestHttpException(String errorCode, Throwable cause, Object... args) {
         super(errorCode, cause, args);
     }
 
-    public AjaxHttpException(String message) {
+    public RestHttpException(String message) {
         super(message);
     }
 
-    public AjaxHttpException(Throwable cause) {
+    public RestHttpException(Throwable cause) {
         super(cause);
     }
 

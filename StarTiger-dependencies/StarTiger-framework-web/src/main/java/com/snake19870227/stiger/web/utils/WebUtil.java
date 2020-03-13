@@ -1,11 +1,10 @@
-package com.snake19870227.stiger.admin.utils;
+package com.snake19870227.stiger.web.utils;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 /**
  * @author Bu HuaYang

@@ -20,7 +20,7 @@
         <!--spring-->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
+            <artifactId>spring-context-support</artifactId>
         </dependency>
         <!--springboot-->
         <dependency>
@@ -33,6 +33,10 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
         <!--tool-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>

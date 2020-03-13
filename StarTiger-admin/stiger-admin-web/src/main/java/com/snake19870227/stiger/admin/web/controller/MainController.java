@@ -1,8 +1,8 @@
 package com.snake19870227.stiger.admin.web.controller;
 
 import com.snake19870227.stiger.admin.web.ProjectConstant;
-import com.snake19870227.stiger.http.RestResponse;
-import com.snake19870227.stiger.http.RestResponseBuilder;
+import com.snake19870227.stiger.core.restful.RestResponse;
+import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
