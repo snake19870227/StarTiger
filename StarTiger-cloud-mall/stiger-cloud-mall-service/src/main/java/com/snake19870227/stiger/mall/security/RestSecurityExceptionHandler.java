@@ -42,7 +42,7 @@ public class RestSecurityExceptionHandler implements AuthenticationEntryPoint, A
             return;
         }
 
-        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, "2001", null);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createDefaultRestResp(false, "2001", null);
 
         response.setStatus(HttpStatus.OK.value());
 
@@ -57,7 +57,7 @@ public class RestSecurityExceptionHandler implements AuthenticationEntryPoint, A
             return;
         }
 
-        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, "2002", null);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createDefaultRestResp(false, "2002", null);
 
         response.setStatus(HttpStatus.OK.value());
 

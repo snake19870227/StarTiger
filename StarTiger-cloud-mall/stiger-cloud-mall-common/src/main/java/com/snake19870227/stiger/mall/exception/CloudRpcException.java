@@ -1,11 +1,11 @@
 package com.snake19870227.stiger.mall.exception;
 
-import com.snake19870227.stiger.web.exception.RestHttpException;
+import com.snake19870227.stiger.web.exception.RestRequestException;
 
 /**
  * @author Bu HuaYang
  */
-public class CloudRpcException extends RestHttpException {
+public class CloudRpcException extends RestRequestException {
 
     public CloudRpcException(String errorCode, Object... args) {
         super(errorCode, args);

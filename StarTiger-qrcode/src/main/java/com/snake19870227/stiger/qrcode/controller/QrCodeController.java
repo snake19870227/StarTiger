@@ -3,24 +3,6 @@ package com.snake19870227.stiger.qrcode.controller;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
-import com.google.zxing.*;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.snake19870227.stiger.web.exception.RestHttpException;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
-import com.snake19870227.stiger.qrcode.entity.bo.QrCodeBo;
-import com.snake19870227.stiger.qrcode.entity.dto.CreateQrCodeResponse;
-import com.snake19870227.stiger.qrcode.entity.dto.ReadQrCodeResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +13,37 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Result;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.qrcode.entity.bo.QrCodeBo;
+import com.snake19870227.stiger.qrcode.entity.dto.CreateQrCodeResponse;
+import com.snake19870227.stiger.qrcode.entity.dto.ReadQrCodeResponse;
+import com.snake19870227.stiger.web.exception.RestRequestException;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -60,7 +73,7 @@ public class QrCodeController {
             QrCodeBo qrCodeBo = createQrCodeBo(content, errorLevel, imageType, imageWidth, imageHeight, imageBytes);
             return RestResponseBuilder.createSuccessRestResp(qrCodeBo, CreateQrCodeResponse.class);
         } catch (WriterException | IOException e) {
-            throw new RestHttpException("1001", e);
+            throw new RestRequestException("1001", e);
         }
     }
 
@@ -75,7 +88,7 @@ public class QrCodeController {
             byte[] imageBytes = createImageBytes(content, errorLevel, imageType, imageWidth, imageHeight);
             ServletUtil.write(response, new ByteArrayInputStream(imageBytes), "image/" + imageType);
         } catch (WriterException | IOException e) {
-            throw new RestHttpException("1001", e);
+            throw new RestRequestException("1001", e);
         }
     }
 
@@ -86,7 +99,7 @@ public class QrCodeController {
             String content = readQrCode(file);
             return RestResponseBuilder.createSuccessRestResp(content, ReadQrCodeResponse.class);
         } catch (IOException | NotFoundException | ChecksumException | FormatException e) {
-            throw new RestHttpException("1002", e);
+            throw new RestRequestException("1002", e);
         }
     }
 
@@ -102,7 +115,7 @@ public class QrCodeController {
                 ServletUtil.write(response, content, MediaType.TEXT_PLAIN_VALUE + ";charset=UTF-8");
             }
         } catch (IOException | NotFoundException | ChecksumException | FormatException e) {
-            throw new RestHttpException("1002", e);
+            throw new RestRequestException("1002", e);
         }
     }
 

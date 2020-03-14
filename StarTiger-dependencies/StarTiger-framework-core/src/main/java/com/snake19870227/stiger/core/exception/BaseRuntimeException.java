@@ -40,4 +40,8 @@ public abstract class BaseRuntimeException extends RuntimeException {
             return super.getLocalizedMessage();
         }
     }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
 }

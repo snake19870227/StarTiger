@@ -59,7 +59,7 @@ public class ResourceControllerTest {
     public void testRes1() throws Exception {
         Assert.assertNotNull(authorization);
 
-        RestResponse.DefaultRestResponse defaultSuccessRestResponse = RestResponseBuilder.createSuccessRestResp("res1");
+        RestResponse.DefaultRestResponse defaultSuccessRestResponse = RestResponseBuilder.createSuccessDefaultRestResp("res1");
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/res1")
@@ -82,7 +82,7 @@ public class ResourceControllerTest {
     public void testRes3() throws Exception {
         Assert.assertNotNull(authorization);
 
-        RestResponse.DefaultRestResponse defaultSuccessRestResponse = RestResponseBuilder.createSuccessRestResp("res3");
+        RestResponse.DefaultRestResponse defaultSuccessRestResponse = RestResponseBuilder.createSuccessDefaultRestResp("res3");
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/res3")

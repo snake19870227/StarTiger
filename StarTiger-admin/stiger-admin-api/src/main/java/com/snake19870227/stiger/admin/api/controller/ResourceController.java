@@ -14,17 +14,17 @@ public class ResourceController {
 
     @GetMapping(path = "/res1")
     public RestResponse<Object> res1() {
-        return RestResponseBuilder.createSuccessRestResp("res1");
+        return RestResponseBuilder.createSuccessDefaultRestResp("res1");
     }
 
     @GetMapping(path = "/res2")
     public RestResponse<Object> res2() {
-        return RestResponseBuilder.createSuccessRestResp("res2");
+        return RestResponseBuilder.createSuccessDefaultRestResp("res2");
     }
 
     @PostMapping(path = "/res3")
     public RestResponse<Object> res3() {
-        return RestResponseBuilder.createSuccessRestResp("res3");
+        return RestResponseBuilder.createSuccessDefaultRestResp("res3");
     }
 
     @GetMapping(path = "/resError1")

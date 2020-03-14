@@ -65,7 +65,7 @@ public class WebSecurityExceptionHandler implements AuthenticationEntryPoint, Ac
 
     private void responseIfAjax(String respCode, HttpServletResponse response) throws JsonProcessingException {
 
-        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, respCode, null);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createDefaultRestResp(false, respCode, null);
 
         ServletUtil.write(
                 response,

@@ -1,11 +1,11 @@
 package com.snake19870227.stiger.mall.exception;
 
-import com.snake19870227.stiger.web.exception.RestHttpException;
+import com.snake19870227.stiger.web.exception.RestRequestException;
 
 /**
  * @author Bu HuaYang
  */
-public class ServiceException extends RestHttpException {
+public class ServiceException extends RestRequestException {
 
     public ServiceException(String errorCode, Object... args) {
         super(errorCode, args);

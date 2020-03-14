@@ -3,21 +3,7 @@ package com.snake19870227.stiger.admin.api.security;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.ContentType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.admin.security.JwtSignKey;
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 import io.jsonwebtoken.Jwts;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +17,21 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.snake19870227.stiger.admin.security.JwtSignKey;
+import com.snake19870227.stiger.core.restful.RestResponse;
+import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 
 /**
  * @author Bu HuaYang
@@ -89,7 +90,7 @@ public class RestAuthenticationHandler implements AuthenticationSuccessHandler, 
                 }
         });
 
-        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createSuccessRestResp(resultData);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createSuccessDefaultRestResp(resultData);
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }
@@ -101,7 +102,7 @@ public class RestAuthenticationHandler implements AuthenticationSuccessHandler, 
             return;
         }
 
-        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, "1001", null);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createDefaultRestResp(false, "1001", null);
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }

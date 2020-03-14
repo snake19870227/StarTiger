@@ -88,7 +88,7 @@ public class RestAuthenticationHandler implements AuthenticationSuccessHandler, 
                 }
         });
 
-        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createSuccessRestResp(resultData);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createSuccessDefaultRestResp(resultData);
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }
@@ -100,7 +100,7 @@ public class RestAuthenticationHandler implements AuthenticationSuccessHandler, 
             return;
         }
 
-        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, "1001", null);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createDefaultRestResp(false, "1001", null);
 
         response.setStatus(HttpStatus.OK.value());
 

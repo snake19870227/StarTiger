@@ -22,6 +22,6 @@ public class DrugSearchController {
     public RestResponse.DefaultRestResponse search(@RequestBody String searchStr) {
         MultiMatchQueryBuilder builder = new MultiMatchQueryBuilder(searchStr);
 //        builder.
-        return RestResponseBuilder.createSuccessRestResp(null);
+        return RestResponseBuilder.createSuccessDefaultRestResp(null);
     }
 }

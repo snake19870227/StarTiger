@@ -48,6 +48,6 @@ public class ProducerController {
                 dataMap.put("next", listRestResponse.getData());
             }
         }
-        return RestResponseBuilder.createSuccessRestResp(dataMap);
+        return RestResponseBuilder.createSuccessDefaultRestResp(dataMap);
     }
 }

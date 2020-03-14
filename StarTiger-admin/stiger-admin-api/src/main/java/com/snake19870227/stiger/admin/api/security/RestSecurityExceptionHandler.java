@@ -38,7 +38,7 @@ public class RestSecurityExceptionHandler implements AuthenticationEntryPoint, A
             return;
         }
 
-        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, "2001", null);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createDefaultRestResp(false, "2001", null);
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }
@@ -51,7 +51,7 @@ public class RestSecurityExceptionHandler implements AuthenticationEntryPoint, A
             return;
         }
 
-        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createRestResp(false, "2002", null);
+        RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createDefaultRestResp(false, "2002", null);
 
         ServletUtil.write(response, objectMapper.writeValueAsString(restResponse), ContentType.build(MediaType.APPLICATION_JSON_VALUE, StandardCharsets.UTF_8));
     }

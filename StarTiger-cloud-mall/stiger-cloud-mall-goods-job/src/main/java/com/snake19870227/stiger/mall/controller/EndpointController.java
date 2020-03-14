@@ -28,6 +28,6 @@ public class EndpointController {
                                                        @PathVariable(name = "minPage") Integer minPage,
                                                        @PathVariable(name = "maxPage") Integer maxPage) {
         searchGoodsExecuter.execute(typeId, minPage, maxPage);
-        return RestResponseBuilder.createSuccessRestResp();
+        return RestResponseBuilder.createSuccessDefaultRestResp();
     }
 }

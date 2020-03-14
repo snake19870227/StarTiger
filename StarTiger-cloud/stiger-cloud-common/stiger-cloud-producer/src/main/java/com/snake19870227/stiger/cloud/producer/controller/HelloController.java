@@ -38,6 +38,6 @@ public class HelloController {
         dataMap.put("env", env);
         dataMap.put("env2", env2);
         dataMap.put("profiles", Arrays.toString(StarTigerContext.getActiveProfiles()));
-        return RestResponseBuilder.createSuccessRestResp(dataMap);
+        return RestResponseBuilder.createSuccessDefaultRestResp(dataMap);
     }
 }

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.ClassUtils;
 import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.core.StarTigerContext;
+import com.snake19870227.stiger.core.exception.BaseRuntimeException;
 
 /**
  * @author Bu HuaYang
@@ -22,23 +23,34 @@ public class RestResponseBuilder {
 
     public static final String DEFAULT_FAILURE_RESP_CODE = StarTigerConstant.StatusCode.CODE_9999;
 
-    public static RestResponse.DefaultRestResponse createSuccessRestResp() {
-        return createRestResp(true, DEFAULT_SUCCESS_RESP_CODE, null);
+    public static final String DEFAULT_EXCEPTION_RESP_CODE = StarTigerConstant.StatusCode.CODE_9998;
+
+    public static RestResponse.DefaultRestResponse createSuccessDefaultRestResp() {
+        return createDefaultRestResp(true, DEFAULT_SUCCESS_RESP_CODE, null);
     }
 
-    public static RestResponse.DefaultRestResponse createFailureRestResp() {
-        return createRestResp(false, DEFAULT_FAILURE_RESP_CODE, null);
+    public static RestResponse.DefaultRestResponse createFailureDefaultRestResp() {
+        return createDefaultRestResp(false, DEFAULT_FAILURE_RESP_CODE, null);
     }
 
-    public static RestResponse.DefaultRestResponse createSuccessRestResp(Object data) {
-        return createRestResp(true, DEFAULT_SUCCESS_RESP_CODE, data);
+    public static RestResponse.DefaultRestResponse createSuccessDefaultRestResp(Object data) {
+        return createDefaultRestResp(true, DEFAULT_SUCCESS_RESP_CODE, data);
     }
 
-    public static RestResponse.DefaultRestResponse createFailureRestResp(Object data) {
-        return createRestResp(false, DEFAULT_FAILURE_RESP_CODE, data);
+    public static RestResponse.DefaultRestResponse createFailureDefaultRestResp(Object data) {
+        return createDefaultRestResp(false, DEFAULT_FAILURE_RESP_CODE, data);
     }
 
-    public static RestResponse.DefaultRestResponse createRestResp(boolean isSuccess, String respCode, Object data) {
+    public static <N extends Throwable> RestResponse.DefaultRestResponse createFailureDefaultRestResp(N ex, Object data) {
+        if (ex instanceof BaseRuntimeException) {
+            BaseRuntimeException exception = (BaseRuntimeException) ex;
+            return new RestResponse.DefaultRestResponse(exception.getErrorCode(), exception.getLocalizedMessage(), data);
+        } else {
+            return new RestResponse.DefaultRestResponse(DEFAULT_EXCEPTION_RESP_CODE, buildMessage(DEFAULT_EXCEPTION_RESP_CODE, ex.getLocalizedMessage()), data);
+        }
+    }
+
+    public static RestResponse.DefaultRestResponse createDefaultRestResp(boolean isSuccess, String respCode, Object data) {
 
         String respMessage = null;
         try {
@@ -58,6 +70,15 @@ public class RestResponseBuilder {
 
     public static <F, M extends RestResponse<F>> M createFailureRestResp(F data, Class<M> clazz) {
         return createRestResp(DEFAULT_FAILURE_RESP_CODE, buildMessage(DEFAULT_FAILURE_RESP_CODE), data, clazz);
+    }
+
+    public static <F, M extends RestResponse<F>, N extends Throwable> M createFailureRestResp(N ex, F data, Class<M> clazz) {
+        if (ex instanceof BaseRuntimeException) {
+            BaseRuntimeException exception = (BaseRuntimeException) ex;
+            return createRestResp(exception.getErrorCode(), exception.getLocalizedMessage(), data, clazz);
+        } else {
+            return createRestResp(DEFAULT_EXCEPTION_RESP_CODE, buildMessage(DEFAULT_EXCEPTION_RESP_CODE, ex.getLocalizedMessage()), data, clazz);
+        }
     }
 
     public static <F, M extends RestResponse<F>> M createRestResp(String respCode, F data, Class<M> clazz) {

@@ -36,13 +36,13 @@ public class MainController {
     @GetMapping(path = "/res1")
     @ResponseBody
     public RestResponse<Object> res1() {
-        return RestResponseBuilder.createSuccessRestResp("res1");
+        return RestResponseBuilder.createSuccessDefaultRestResp("res1");
     }
 
     @GetMapping(path = "/res2")
     @ResponseBody
     public RestResponse<Object> res2() {
-        return RestResponseBuilder.createSuccessRestResp("res2");
+        return RestResponseBuilder.createSuccessDefaultRestResp("res2");
     }
 
     @GetMapping(path = "/res3")
