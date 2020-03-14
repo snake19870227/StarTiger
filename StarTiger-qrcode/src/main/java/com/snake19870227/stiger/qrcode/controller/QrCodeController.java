@@ -1,6 +1,5 @@
 package com.snake19870227.stiger.qrcode.controller;
 
-import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 
@@ -30,9 +29,9 @@ import com.google.zxing.ChecksumException;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.FormatException;
 import com.google.zxing.NotFoundException;
-import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
@@ -64,13 +63,13 @@ public class QrCodeController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public CreateQrCodeResponse create(@RequestParam(name = "content") String content,
-                                       @RequestParam(name = "errorLevel", defaultValue = "L") String errorLevel,
+                                       @RequestParam(name = "errorLevel", defaultValue = "M") String errorLevel,
                                        @RequestParam(name = "imageType", defaultValue = "png") String imageType,
-                                       @RequestParam(name = "imageWidth", defaultValue = "200") int imageWidth,
-                                       @RequestParam(name = "imageHeight", defaultValue = "200") int imageHeight) {
+                                       @RequestParam(name = "imageWidth", defaultValue = "300") int imageWidth,
+                                       @RequestParam(name = "imageHeight", defaultValue = "300") int imageHeight) {
         try {
             byte[] imageBytes = createImageBytes(content, errorLevel, imageType, imageWidth, imageHeight);
-            QrCodeBo qrCodeBo = createQrCodeBo(content, errorLevel, imageType, imageWidth, imageHeight, imageBytes);
+            QrCodeBo qrCodeBo = new QrCodeBo(content, errorLevel, imageType, imageWidth, imageHeight, imageBytes);
             return RestResponseBuilder.createSuccessRestResp(qrCodeBo, CreateQrCodeResponse.class);
         } catch (WriterException | IOException e) {
             throw new RestRequestException("1001", e);
@@ -79,10 +78,10 @@ public class QrCodeController {
 
     @GetMapping
     public void create(@RequestParam(name = "content") String content,
-                       @RequestParam(name = "errorLevel", defaultValue = "L") String errorLevel,
+                       @RequestParam(name = "errorLevel", defaultValue = "M") String errorLevel,
                        @RequestParam(name = "imageType", defaultValue = "png") String imageType,
-                       @RequestParam(name = "imageWidth", defaultValue = "200") int imageWidth,
-                       @RequestParam(name = "imageHeight", defaultValue = "200") int imageHeight,
+                       @RequestParam(name = "imageWidth", defaultValue = "300") int imageWidth,
+                       @RequestParam(name = "imageHeight", defaultValue = "300") int imageHeight,
                        HttpServletResponse response) {
         try {
             byte[] imageBytes = createImageBytes(content, errorLevel, imageType, imageWidth, imageHeight);
@@ -105,7 +104,7 @@ public class QrCodeController {
 
     @PostMapping
     public void read(@RequestParam(name = "file") MultipartFile file,
-                                   HttpServletResponse response) {
+                     HttpServletResponse response) {
         try {
             String content = readQrCode(file);
             if (StrUtil.startWithIgnoreCase(content, "http://")
@@ -123,27 +122,17 @@ public class QrCodeController {
         Map<EncodeHintType, Object> hints = new HashMap<>(2);
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.valueOf(errorLevel));
         hints.put(EncodeHintType.CHARACTER_SET, StandardCharsets.UTF_8);
+        hints.put(EncodeHintType.MARGIN, 1);
         BitMatrix bitMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, imageWidth, imageHeight, hints);
         ByteArrayOutputStream imageOutputStream = new ByteArrayOutputStream();
         MatrixToImageWriter.writeToStream(bitMatrix, imageType, imageOutputStream);
         return imageOutputStream.toByteArray();
     }
 
-    private QrCodeBo createQrCodeBo(String content, String errorLevel, String imageType, int imageWidth, int imageHeight, byte[] imageBytes) {
-        QrCodeBo qrCodeBo = new QrCodeBo();
-        qrCodeBo.setContent(content);
-        qrCodeBo.setErrorLevel(errorLevel);
-        qrCodeBo.setImageType(imageType);
-        qrCodeBo.setWidth(imageWidth);
-        qrCodeBo.setHeight(imageHeight);
-        qrCodeBo.setBase64Image(Base64.encode(imageBytes));
-        return qrCodeBo;
-    }
-
     private String readQrCode(MultipartFile file) throws FormatException, ChecksumException, NotFoundException, IOException {
         BufferedImage image = ImageIO.read(file.getInputStream());
-        int[] pixels = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());
-        RGBLuminanceSource source = new RGBLuminanceSource(image.getWidth(), image.getHeight(), pixels);
+//        int[] pixels = image.getRGB(0, 0, image.getWidth(), image.getHeight(), null, 0, image.getWidth());
+        BufferedImageLuminanceSource source = new BufferedImageLuminanceSource(image);
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
         QRCodeReader reader = new QRCodeReader();
         Result result = reader.decode(bitmap);
