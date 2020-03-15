@@ -3,4 +3,4 @@ spring:
     active: ${proj.profile.id}
     include: base
   application:
-    name: ${project.artifactId}-${proj.profile.id}
+    name: ${project.name}-${proj.profile.id}

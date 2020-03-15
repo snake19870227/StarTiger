@@ -1,29 +1,25 @@
-insert into sys_user (user_id, username, encode_password)
-values ('snake', 'snake', '{noop}123456');
-insert into sys_user (user_id, username, encode_password)
-values ('admin', 'admin', '{noop}123456');
+drop procedure if exists stigeradmin.init;
+create procedure stigeradmin.init()
+begin
+    set @root_flow='00000000000000000000000000000000';
+    set @super_role_flow='00000000000000000000000000000000';
+    set @super_resource_flow='00000000000000000000000000000000';
 
-insert into sys_user_role (user_role_id, user_id, role_id, role_code)
-values ('UR1', 'admin', 'Admin', 'ROLE_Admin');
-insert into sys_user_role (user_role_id, user_id, role_id, role_code)
-values ('UR2', 'snake', 'Admin', 'ROLE_Admin');
-insert into sys_user_role (user_role_id, user_id, role_id, role_code)
-values ('UR3', 'admin', 'Admin2', 'ROLE_Admin2');
+    truncate table sys_resource;
+    truncate table sys_role;
+    truncate table sys_role_resource;
+    truncate table sys_user;
+    truncate table sys_user_role;
 
-insert into sys_resource (res_id, res_code, res_name, res_path)
-values ('sayHello', 'sayHello', '打招呼', '/sayHello');
-insert into sys_resource (res_id, res_code, res_name, res_path)
-values ('RS1', 'RS1', '资源1', '/res1');
-insert into sys_resource (res_id, res_code, res_name, res_path)
-values ('RS2', 'RS2', '资源2', '/res2');
-insert into sys_resource (res_id, res_code, res_name, res_path)
-values ('RS3', 'RS3', '资源3', '/res3');
-
-insert into sys_role_resource (role_res_id, role_id, role_code, res_id, res_code)
-values ('RR6', 'Admin', 'ROLE_Admin', 'sayHello', 'sayHello');
-insert into sys_role_resource (role_res_id, role_id, role_code, res_id, res_code)
-values ('RR1', 'Admin', 'ROLE_Admin', 'RS1', 'RS1');
-insert into sys_role_resource (role_res_id, role_id, role_code, res_id, res_code)
-values ('RR2', 'Admin2', 'ROLE_Admin2', 'RS1', 'RS1');
-insert into sys_role_resource (role_res_id, role_id, role_code, res_id, res_code)
-values ('RR3', 'Admin2', 'ROLE_Admin2', 'RS2', 'RS2');
+    insert into sys_resource (res_flow, res_name, res_path)
+     values (@super_resource_flow, 'ALL', '/**');
+    insert into sys_role (role_flow, role_code, role_name)
+     values (@super_role_flow, 'super_admin', '超级管理员');
+    insert into sys_role_resource (role_res_flow, role_flow, res_flow)
+     values (replace(uuid(),'-',''), @super_role_flow, @super_resource_flow);
+    insert into sys_user (user_flow, username, encode_password)
+     values (@root_flow, 'root', '{noop}123456');
+    insert into sys_user_role (user_role_flow, user_flow, role_flow)
+     values (replace(uuid(),'-',''), @root_flow, @super_role_flow);
+end;
+call stigeradmin.init();

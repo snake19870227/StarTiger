@@ -10,77 +10,62 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-01-15
+ * @since 2020-03-16
  */
 public class SysRoleResource implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "role_res_id", type = IdType.ASSIGN_UUID)
-    private String roleResId;
+    /**
+     * 角色资源信息流水号
+     */
+    @TableId(value = "role_res_flow", type = IdType.ASSIGN_UUID)
+    private String roleResFlow;
 
-    private String roleId;
+    /**
+     * 角色流水号
+     */
+    private String roleFlow;
 
-    private String roleCode;
+    /**
+     * 资源流水号
+     */
+    private String resFlow;
 
-    private String resId;
 
-    private String resCode;
-
-
-    public String getRoleResId() {
-        return roleResId;
+    public String getRoleResFlow() {
+        return roleResFlow;
     }
 
-    public SysRoleResource setRoleResId(String roleResId) {
-        this.roleResId = roleResId;
+    public SysRoleResource setRoleResFlow(String roleResFlow) {
+        this.roleResFlow = roleResFlow;
         return this;
     }
 
-    public String getRoleId() {
-        return roleId;
+    public String getRoleFlow() {
+        return roleFlow;
     }
 
-    public SysRoleResource setRoleId(String roleId) {
-        this.roleId = roleId;
+    public SysRoleResource setRoleFlow(String roleFlow) {
+        this.roleFlow = roleFlow;
         return this;
     }
 
-    public String getRoleCode() {
-        return roleCode;
+    public String getResFlow() {
+        return resFlow;
     }
 
-    public SysRoleResource setRoleCode(String roleCode) {
-        this.roleCode = roleCode;
-        return this;
-    }
-
-    public String getResId() {
-        return resId;
-    }
-
-    public SysRoleResource setResId(String resId) {
-        this.resId = resId;
-        return this;
-    }
-
-    public String getResCode() {
-        return resCode;
-    }
-
-    public SysRoleResource setResCode(String resCode) {
-        this.resCode = resCode;
+    public SysRoleResource setResFlow(String resFlow) {
+        this.resFlow = resFlow;
         return this;
     }
 
     @Override
     public String toString() {
         return "SysRoleResource{" +
-        "roleResId=" + roleResId +
-        ", roleId=" + roleId +
-        ", roleCode=" + roleCode +
-        ", resId=" + resId +
-        ", resCode=" + resCode +
+        "roleResFlow=" + roleResFlow +
+        ", roleFlow=" + roleFlow +
+        ", resFlow=" + resFlow +
         "}";
     }
 }

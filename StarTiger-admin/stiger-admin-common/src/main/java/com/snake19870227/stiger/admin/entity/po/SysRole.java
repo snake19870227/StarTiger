@@ -10,26 +10,35 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-01-15
+ * @since 2020-03-16
  */
 public class SysRole implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "role_id", type = IdType.ASSIGN_UUID)
-    private String roleId;
+    /**
+     * 角色流水号
+     */
+    @TableId(value = "role_flow", type = IdType.ASSIGN_UUID)
+    private String roleFlow;
 
+    /**
+     * 角色代码
+     */
     private String roleCode;
 
+    /**
+     * 角色名称
+     */
     private String roleName;
 
 
-    public String getRoleId() {
-        return roleId;
+    public String getRoleFlow() {
+        return roleFlow;
     }
 
-    public SysRole setRoleId(String roleId) {
-        this.roleId = roleId;
+    public SysRole setRoleFlow(String roleFlow) {
+        this.roleFlow = roleFlow;
         return this;
     }
 
@@ -54,7 +63,7 @@ public class SysRole implements Serializable {
     @Override
     public String toString() {
         return "SysRole{" +
-        "roleId=" + roleId +
+        "roleFlow=" + roleFlow +
         ", roleCode=" + roleCode +
         ", roleName=" + roleName +
         "}";

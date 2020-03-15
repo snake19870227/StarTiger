@@ -15,7 +15,7 @@ public class MybatisPlusGenerator {
         AutoGenerator mpg = new AutoGenerator();
 
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/stiger?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:13306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8");
         dsc.setDriverName(Driver.class.getName());
         dsc.setUsername("root");
         dsc.setPassword("123456");

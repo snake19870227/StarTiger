@@ -1,21 +1,19 @@
 package com.snake19870227.stiger.admin.dao.mapper;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.snake19870227.stiger.admin.entity.po.SysUserRole;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * @author Bu HuaYang
  */
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
-    default List<SysUserRole> queryByUserId(String userId) {
+    default List<SysUserRole> queryByUserFlow(String userFlow) {
         QueryWrapper<SysUserRole> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id", userId);
+        wrapper.eq("user_flow", userFlow);
         return this.selectList(wrapper);
     }
 }

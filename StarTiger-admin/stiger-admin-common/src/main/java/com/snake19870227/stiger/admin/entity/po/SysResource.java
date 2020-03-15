@@ -1,8 +1,9 @@
 package com.snake19870227.stiger.admin.entity.po;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -10,37 +11,35 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-01-15
+ * @since 2020-03-16
  */
 public class SysResource implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "res_id", type = IdType.ASSIGN_UUID)
-    private String resId;
+    /**
+     * 资源流水号
+     */
+    @TableId(value = "res_flow", type = IdType.ASSIGN_UUID)
+    private String resFlow;
 
-    private String resCode;
-
+    /**
+     * 资源名称
+     */
     private String resName;
 
+    /**
+     * 资源路径
+     */
     private String resPath;
 
 
-    public String getResId() {
-        return resId;
+    public String getResFlow() {
+        return resFlow;
     }
 
-    public SysResource setResId(String resId) {
-        this.resId = resId;
-        return this;
-    }
-
-    public String getResCode() {
-        return resCode;
-    }
-
-    public SysResource setResCode(String resCode) {
-        this.resCode = resCode;
+    public SysResource setResFlow(String resFlow) {
+        this.resFlow = resFlow;
         return this;
     }
 
@@ -65,8 +64,7 @@ public class SysResource implements Serializable {
     @Override
     public String toString() {
         return "SysResource{" +
-        "resId=" + resId +
-        ", resCode=" + resCode +
+        "resFlow=" + resFlow +
         ", resName=" + resName +
         ", resPath=" + resPath +
         "}";

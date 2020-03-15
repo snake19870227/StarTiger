@@ -10,48 +10,49 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-01-15
+ * @since 2020-03-16
  */
 public class SysDept implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "dept_id", type = IdType.ASSIGN_UUID)
-    private String deptId;
+    /**
+     * 部门流水号
+     */
+    @TableId(value = "dept_flow", type = IdType.ASSIGN_UUID)
+    private String deptFlow;
 
-    private String orgId;
+    /**
+     * 机构流水号
+     */
+    private String orgFlow;
 
-    private String orgCode;
-
+    /**
+     * 部门代码
+     */
     private String deptCode;
 
+    /**
+     * 部门名称
+     */
     private String deptName;
 
 
-    public String getDeptId() {
-        return deptId;
+    public String getDeptFlow() {
+        return deptFlow;
     }
 
-    public SysDept setDeptId(String deptId) {
-        this.deptId = deptId;
+    public SysDept setDeptFlow(String deptFlow) {
+        this.deptFlow = deptFlow;
         return this;
     }
 
-    public String getOrgId() {
-        return orgId;
+    public String getOrgFlow() {
+        return orgFlow;
     }
 
-    public SysDept setOrgId(String orgId) {
-        this.orgId = orgId;
-        return this;
-    }
-
-    public String getOrgCode() {
-        return orgCode;
-    }
-
-    public SysDept setOrgCode(String orgCode) {
-        this.orgCode = orgCode;
+    public SysDept setOrgFlow(String orgFlow) {
+        this.orgFlow = orgFlow;
         return this;
     }
 
@@ -76,9 +77,8 @@ public class SysDept implements Serializable {
     @Override
     public String toString() {
         return "SysDept{" +
-        "deptId=" + deptId +
-        ", orgId=" + orgId +
-        ", orgCode=" + orgCode +
+        "deptFlow=" + deptFlow +
+        ", orgFlow=" + orgFlow +
         ", deptCode=" + deptCode +
         ", deptName=" + deptName +
         "}";

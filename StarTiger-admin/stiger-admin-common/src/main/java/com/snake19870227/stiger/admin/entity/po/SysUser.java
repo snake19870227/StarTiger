@@ -10,26 +10,35 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-01-15
+ * @since 2020-03-16
  */
 public class SysUser implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "user_id", type = IdType.ASSIGN_UUID)
-    private String userId;
+    /**
+     * 用户流水号
+     */
+    @TableId(value = "user_flow", type = IdType.ASSIGN_UUID)
+    private String userFlow;
 
+    /**
+     * 用户登录名
+     */
     private String username;
 
+    /**
+     * 用户登录密码
+     */
     private String encodePassword;
 
 
-    public String getUserId() {
-        return userId;
+    public String getUserFlow() {
+        return userFlow;
     }
 
-    public SysUser setUserId(String userId) {
-        this.userId = userId;
+    public SysUser setUserFlow(String userFlow) {
+        this.userFlow = userFlow;
         return this;
     }
 
@@ -54,7 +63,7 @@ public class SysUser implements Serializable {
     @Override
     public String toString() {
         return "SysUser{" +
-        "userId=" + userId +
+        "userFlow=" + userFlow +
         ", username=" + username +
         ", encodePassword=" + encodePassword +
         "}";

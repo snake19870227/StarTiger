@@ -10,65 +10,62 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-01-15
+ * @since 2020-03-16
  */
 public class SysUserRole implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "user_role_id", type = IdType.ASSIGN_UUID)
-    private String userRoleId;
+    /**
+     * 用户角色信息流水号
+     */
+    @TableId(value = "user_role_flow", type = IdType.ASSIGN_UUID)
+    private String userRoleFlow;
 
-    private String userId;
+    /**
+     * 用户流水号
+     */
+    private String userFlow;
 
-    private String roleId;
+    /**
+     * 角色流水号
+     */
+    private String roleFlow;
 
-    private String roleCode;
 
-
-    public String getUserRoleId() {
-        return userRoleId;
+    public String getUserRoleFlow() {
+        return userRoleFlow;
     }
 
-    public SysUserRole setUserRoleId(String userRoleId) {
-        this.userRoleId = userRoleId;
+    public SysUserRole setUserRoleFlow(String userRoleFlow) {
+        this.userRoleFlow = userRoleFlow;
         return this;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserFlow() {
+        return userFlow;
     }
 
-    public SysUserRole setUserId(String userId) {
-        this.userId = userId;
+    public SysUserRole setUserFlow(String userFlow) {
+        this.userFlow = userFlow;
         return this;
     }
 
-    public String getRoleId() {
-        return roleId;
+    public String getRoleFlow() {
+        return roleFlow;
     }
 
-    public SysUserRole setRoleId(String roleId) {
-        this.roleId = roleId;
-        return this;
-    }
-
-    public String getRoleCode() {
-        return roleCode;
-    }
-
-    public SysUserRole setRoleCode(String roleCode) {
-        this.roleCode = roleCode;
+    public SysUserRole setRoleFlow(String roleFlow) {
+        this.roleFlow = roleFlow;
         return this;
     }
 
     @Override
     public String toString() {
         return "SysUserRole{" +
-        "userRoleId=" + userRoleId +
-        ", userId=" + userId +
-        ", roleId=" + roleId +
-        ", roleCode=" + roleCode +
+        "userRoleFlow=" + userRoleFlow +
+        ", userFlow=" + userFlow +
+        ", roleFlow=" + roleFlow +
         "}";
     }
 }

@@ -10,15 +10,21 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-01-15
+ * @since 2020-03-16
  */
 public class SysCfg implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    /**
+     * 配置代码
+     */
     @TableId(value = "cfg_code", type = IdType.ASSIGN_UUID)
     private String cfgCode;
 
+    /**
+     * 配置内容
+     */
     private String cfgValue;
 
 

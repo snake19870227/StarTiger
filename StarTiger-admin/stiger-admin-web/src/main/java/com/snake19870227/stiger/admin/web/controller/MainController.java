@@ -1,14 +1,14 @@
 package com.snake19870227.stiger.admin.web.controller;
 
-import com.snake19870227.stiger.admin.web.ProjectConstant;
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.snake19870227.stiger.admin.web.ProjectConstant;
+import com.snake19870227.stiger.core.restful.RestResponse;
+import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 
 /**
  * @author Bu HuaYang
@@ -18,10 +18,10 @@ public class MainController {
 
     @GetMapping(path = {ProjectConstant.UrlPath.ROOT, ProjectConstant.UrlPath.INDEX})
     public String index() {
-        return "index";
+        return "redirect:" + ProjectConstant.UrlPath.LOGIN;
     }
 
-    @GetMapping(path = "/main")
+    @GetMapping(path = ProjectConstant.UrlPath.MAIN)
     public String toMain() {
         return "main";
     }
@@ -30,7 +30,7 @@ public class MainController {
     public String sayHello(@RequestParam(name = "name") String name,
                            Model model) {
         model.addAttribute("sayHello", "hello, " + name);
-        return "main";
+        return "main1";
     }
 
     @GetMapping(path = "/res1")

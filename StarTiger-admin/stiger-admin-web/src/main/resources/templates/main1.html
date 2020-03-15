@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<span th:text="${sayHello}"></span>
+<form th:action="@{/sayHello}" method="post">
+    <input type="text" name="name"/>
+    <button type="submit">hello</button>
+</form>
+<a th:href="@{/resError1}">/resError1</a>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">退出</button>
+</form>
+
+<button type="button" onclick="req('/res1')">/res1</button><br/>
+<button type="button" onclick="req('/res2')">/res2</button><br/>
+<button type="button" onclick="load('/res3')">/res3</button><br/>
+<button type="button" onclick="req('/resError1')">/resError1</button><br/>
+
+<textarea id="txt" cols="100" rows="25"></textarea>
+<div id="area">
+
+</div>
+
+<th:block th:replace="global :: frame"/>
+<th:block th:replace="global :: stiger"/>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

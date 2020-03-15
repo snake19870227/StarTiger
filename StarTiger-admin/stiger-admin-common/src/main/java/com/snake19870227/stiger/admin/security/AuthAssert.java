@@ -1,10 +1,9 @@
 package com.snake19870227.stiger.admin.security;
 
-import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
-import com.snake19870227.stiger.admin.dao.mapper.SysRoleResourceMapper;
-import com.snake19870227.stiger.admin.entity.po.SysResource;
-import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
-import com.snake19870227.stiger.admin.opt.SysResourceOpt;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.access.vote.RoleVoter;
@@ -12,10 +11,11 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import com.snake19870227.stiger.admin.dao.mapper.SysRoleResourceMapper;
+import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
+import com.snake19870227.stiger.admin.entity.po.SysResource;
+import com.snake19870227.stiger.admin.entity.po.SysRole;
+import com.snake19870227.stiger.admin.opt.SysResourceOpt;
 
 /**
  * @author Bu HuaYang
@@ -25,9 +25,9 @@ public class AuthAssert {
 
     private RoleVoter roleVoter = new RoleVoter();
 
-    private SysResourceOpt sysResourceOpt;
+    private final SysResourceOpt sysResourceOpt;
 
-    private SysRoleResourceMapper sysRoleResourceMapper;
+    private final SysRoleResourceMapper sysRoleResourceMapper;
 
     public AuthAssert(SysResourceOpt sysResourceOpt,
                       SysRoleResourceMapper sysRoleResourceMapper) {
@@ -43,12 +43,19 @@ public class AuthAssert {
 
         List<SysResource> allResourceList = sysResourceOpt.getAll();
 
-        List<SysRoleResource> matchedRoleResourceList = new ArrayList<>();
+        List<SysRole> matchedRoleList = new ArrayList<>();
         allResourceList.stream()
                 .filter(resource -> new AntPathRequestMatcher(resource.getResPath()).matches(request))
-                .forEach(resource -> matchedRoleResourceList.addAll(sysRoleResourceMapper.queryByResourceId(resource.getResId())));
+                .forEach(resource -> {
+                    ResourceInfo resourceInfo = sysResourceOpt.loadResourceInfo(resource.getResFlow());
+                    if (resourceInfo.getRoles() != null) {
+                        matchedRoleList.addAll(resourceInfo.getRoles());
+                    }
+                });
 
-        String[] roles = matchedRoleResourceList.stream().map(SysRoleResource::getRoleCode).toArray(String[]::new);
+        String[] roles = matchedRoleList.stream()
+                .map(SysRole::getRoleCode)
+                .toArray(String[]::new);
 
         int result = roleVoter.vote(authentication, null, SecurityConfig.createList(roles));
 

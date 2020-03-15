@@ -18,11 +18,13 @@ public class ProjectConstant {
         public static final String ROOT = "/";
         public static final String INDEX = "/index";
         public static final String LOGIN = "/login";
+        public static final String MAIN = "/main";
         public static final String ACCESS_DENIED = "/accessDenied";
+        public static final String ADMINLTE = "/adminlte/**";
 
         public static String[] anonymousPaths() {
             return new String[] {
-                    ROOT, INDEX, LOGIN, ACCESS_DENIED
+                    ROOT, INDEX, LOGIN, ACCESS_DENIED, ADMINLTE
             };
         }
     }

@@ -1,8 +1,9 @@
 package com.snake19870227.stiger.admin.opt;
 
-import com.snake19870227.stiger.admin.entity.po.SysResource;
-
 import java.util.List;
+
+import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
+import com.snake19870227.stiger.admin.entity.po.SysResource;
 
 /**
  * @author Bu HuaYang
@@ -10,4 +11,6 @@ import java.util.List;
 public interface SysResourceOpt {
 
     List<SysResource> getAll();
+
+    ResourceInfo loadResourceInfo(String resourceFlow);
 }

@@ -1,21 +1,25 @@
 package com.snake19870227.stiger.admin.dao.mapper;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * @author Bu HuaYang
  */
 public interface SysRoleResourceMapper extends BaseMapper<SysRoleResource> {
 
-    default List<SysRoleResource> queryByResourceId(String resId) {
+    default List<SysRoleResource> queryByResourceFlow(String resourceFlow) {
         QueryWrapper<SysRoleResource> wrapper = new QueryWrapper<>();
-        wrapper.eq("res_id", resId);
+        wrapper.eq("res_flow", resourceFlow);
+        return this.selectList(wrapper);
+    }
+
+    default List<SysRoleResource> queryByRoleFlow(String roleFlow) {
+        QueryWrapper<SysRoleResource> wrapper = new QueryWrapper<>();
+        wrapper.eq("role_flow", roleFlow);
         return this.selectList(wrapper);
     }
 }

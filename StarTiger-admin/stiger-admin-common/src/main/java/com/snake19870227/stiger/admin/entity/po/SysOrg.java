@@ -10,26 +10,35 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-01-15
+ * @since 2020-03-16
  */
 public class SysOrg implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "org_id", type = IdType.ASSIGN_UUID)
-    private String orgId;
+    /**
+     * 机构流水号
+     */
+    @TableId(value = "org_flow", type = IdType.ASSIGN_UUID)
+    private String orgFlow;
 
+    /**
+     * 机构代码
+     */
     private String orgCode;
 
+    /**
+     * 机构名称
+     */
     private String orgName;
 
 
-    public String getOrgId() {
-        return orgId;
+    public String getOrgFlow() {
+        return orgFlow;
     }
 
-    public SysOrg setOrgId(String orgId) {
-        this.orgId = orgId;
+    public SysOrg setOrgFlow(String orgFlow) {
+        this.orgFlow = orgFlow;
         return this;
     }
 
@@ -54,7 +63,7 @@ public class SysOrg implements Serializable {
     @Override
     public String toString() {
         return "SysOrg{" +
-        "orgId=" + orgId +
+        "orgFlow=" + orgFlow +
         ", orgCode=" + orgCode +
         ", orgName=" + orgName +
         "}";

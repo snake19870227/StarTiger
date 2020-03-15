@@ -1,9 +1,9 @@
 package com.snake19870227.stiger.admin.security;
 
-import com.snake19870227.stiger.admin.dao.mapper.SysUserMapper;
-import com.snake19870227.stiger.admin.dao.mapper.SysUserRoleMapper;
-import com.snake19870227.stiger.admin.entity.po.SysUser;
-import com.snake19870227.stiger.admin.entity.po.SysUserRole;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -13,12 +13,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import com.snake19870227.stiger.admin.dao.mapper.SysUserMapper;
+import com.snake19870227.stiger.admin.dao.mapper.SysUserRoleMapper;
+import com.snake19870227.stiger.admin.entity.bo.UserInfo;
+import com.snake19870227.stiger.admin.entity.po.SysUser;
+import com.snake19870227.stiger.admin.opt.UserInfoOpt;
 
 /**
  * @author Bu HuaYang
@@ -30,6 +29,8 @@ public class CustomUserDetailsManager implements UserDetailsManager {
     private SysUserMapper sysUserMapper;
     @Autowired
     private SysUserRoleMapper sysUserRoleMapper;
+    @Autowired
+    private UserInfoOpt userInfoOpt;
 
     @Override
     public void createUser(UserDetails user) {
@@ -59,10 +60,11 @@ public class CustomUserDetailsManager implements UserDetailsManager {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<SysUser> sysUserObj = sysUserMapper.queryByUsername(username);
-        Optional<UserDetails> userDetailsObj = sysUserObj.map(sysUser -> {
-            List<SysUserRole> sysUserRoleList = sysUserRoleMapper.queryByUserId(sysUser.getUserId());
-            List<GrantedAuthority> roleCodeList = sysUserRoleList.stream()
-                    .map(sysUserRole -> new SimpleGrantedAuthority(sysUserRole.getRoleCode()))
+        Optional<UserDetails> userDetailsObj
+                = sysUserObj.map(sysUser -> {
+            UserInfo userInfo = userInfoOpt.loadUserInfo(sysUser.getUserFlow());
+            List<GrantedAuthority> roleCodeList = userInfo.getRoles().stream()
+                    .map(role -> new SimpleGrantedAuthority(role.getRoleCode()))
                     .collect(Collectors.toList());
             return User.withUsername(sysUser.getUsername())
                     .password(sysUser.getEncodePassword())
