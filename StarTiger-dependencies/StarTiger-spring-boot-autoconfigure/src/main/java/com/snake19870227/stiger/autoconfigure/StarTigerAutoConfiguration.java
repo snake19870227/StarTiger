@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import com.snake19870227.stiger.web.context.StarTigerWebContextLoader;
-import com.snake19870227.stiger.core.StarTigerContextLoader;
+import com.snake19870227.stiger.core.context.StarTigerContextLoader;
 import com.snake19870227.stiger.core.utils.ClassPathUtil;
 
 /**

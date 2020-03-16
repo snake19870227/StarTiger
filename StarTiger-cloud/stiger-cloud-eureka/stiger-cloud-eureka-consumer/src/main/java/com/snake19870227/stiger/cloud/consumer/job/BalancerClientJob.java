@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.cloud.consumer.job;
 
 import com.snake19870227.stiger.cloud.base.http.RestStringMapTypeReference;
-import com.snake19870227.stiger.core.StarTigerContext;
+import com.snake19870227.stiger.core.context.StarTigerContext;
 import com.snake19870227.stiger.core.restful.RestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

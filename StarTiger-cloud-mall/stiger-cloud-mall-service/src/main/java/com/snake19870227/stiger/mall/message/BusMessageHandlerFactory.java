@@ -1,6 +1,6 @@
 package com.snake19870227.stiger.mall.message;
 
-import com.snake19870227.stiger.core.StarTigerContext;
+import com.snake19870227.stiger.core.context.StarTigerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

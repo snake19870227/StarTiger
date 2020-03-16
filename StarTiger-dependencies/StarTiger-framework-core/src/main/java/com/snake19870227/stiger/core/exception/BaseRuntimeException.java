@@ -3,7 +3,7 @@ package com.snake19870227.stiger.core.exception;
 import cn.hutool.core.util.StrUtil;
 
 import com.snake19870227.stiger.core.StarTigerConstant;
-import com.snake19870227.stiger.core.StarTigerContext;
+import com.snake19870227.stiger.core.context.StarTigerContext;
 
 /**
  * @author Bu HuaYang

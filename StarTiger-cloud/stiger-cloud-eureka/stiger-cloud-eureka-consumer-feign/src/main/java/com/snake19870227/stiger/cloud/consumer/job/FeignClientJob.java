@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.cloud.base.entity.dto.MapRestResponse;
 import com.snake19870227.stiger.cloud.consumer.remote.HelloService;
-import com.snake19870227.stiger.core.StarTigerContext;
+import com.snake19870227.stiger.core.context.StarTigerContext;
 
 /**
  * @author Bu HuaYang

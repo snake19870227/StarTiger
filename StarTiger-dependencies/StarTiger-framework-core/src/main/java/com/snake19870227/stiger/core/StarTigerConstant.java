@@ -21,5 +21,6 @@ public class StarTigerConstant {
         public static final String CODE_0000 = "0000";
         public static final String CODE_9999 = "9999";
         public static final String CODE_9998 = "9998";
+        public static final String CODE_9997 = "9997";
     }
 }

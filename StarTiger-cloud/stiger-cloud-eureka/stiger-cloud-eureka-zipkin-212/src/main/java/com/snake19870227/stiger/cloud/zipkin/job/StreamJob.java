@@ -5,7 +5,7 @@ import com.snake19870227.stiger.cloud.base.stream.HelloPlayload;
 import com.snake19870227.stiger.cloud.base.stream.StarTigerCloudRetryDlqSource;
 import com.snake19870227.stiger.cloud.base.stream.StarTigerCloudRetrySource;
 import com.snake19870227.stiger.cloud.base.stream.StarTigerCloudSource;
-import com.snake19870227.stiger.core.StarTigerContext;
+import com.snake19870227.stiger.core.context.StarTigerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.EnableBinding;
