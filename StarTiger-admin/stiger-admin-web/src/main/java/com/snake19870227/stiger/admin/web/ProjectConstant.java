@@ -10,22 +10,31 @@ public class ProjectConstant {
         public static final String LOGIN_EXPIRE = "expire";
     }
 
-    public static class ViewAttrNames {
-        public static final String LOGIN_ERROR_MESSAGE = "errorMessage";
-    }
-
     public static class UrlPath {
         public static final String ROOT = "/";
         public static final String INDEX = "/index";
         public static final String LOGIN = "/login";
+        public static final String LOGOUT = "/logout";
         public static final String MAIN = "/main";
         public static final String ACCESS_DENIED = "/accessDenied";
-        public static final String ADMINLTE = "/adminlte/**";
+        public static final String ADMINLTE = "/adminlte";
+        public static final String MENU_ROUTING = "/routing";
 
         public static String[] anonymousPaths() {
             return new String[] {
-                    ROOT, INDEX, LOGIN, ACCESS_DENIED, ADMINLTE
+                    ROOT, INDEX, LOGIN, ACCESS_DENIED, ADMINLTE + "/**"
             };
         }
+
+        public static String[] authenticatedPaths() {
+            return new String[] {
+                    MENU_ROUTING
+            };
+        }
+    }
+
+    public static class WebAttrKey {
+        public static final String USER_SIDEBAR = "userSidebar";
+        public static final String REMEMBER_ME = "rememberMe";
     }
 }

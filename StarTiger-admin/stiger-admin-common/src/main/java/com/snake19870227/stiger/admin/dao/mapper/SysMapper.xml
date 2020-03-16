@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.snake19870227.stiger.admin.dao.mapper.SysMapper">
+    <resultMap id="sys_resource_resultMap" type="com.snake19870227.stiger.admin.entity.po.SysResource">
+        <id property="resFlow" column="res_flow"/>
+        <result property="resName" column="res_name"/>
+        <result property="resPath" column="res_path"/>
+    </resultMap>
+    <select id="selectResourceByRoleFlow" resultMap="sys_resource_resultMap">
+        select res_flow, res_name, res_path
+        from sys_resource
+        where exists(
+                      select null
+                      from sys_role_resource
+                      where sys_resource.res_flow = sys_role_resource.res_flow
+                        and sys_role_resource.role_flow = #{roleFlow}
+                  )
+    </select>
+</mapper>

@@ -33,7 +33,9 @@ public class UserInfoOptImpl implements UserInfoOpt {
     private final SysResourceMapper sysResourceMapper;
     private final SysRoleResourceMapper sysRoleResourceMapper;
 
-    public UserInfoOptImpl(SysUserMapper sysUserMapper, SysRoleMapper sysRoleMapper, SysUserRoleMapper sysUserRoleMapper, SysResourceMapper sysResourceMapper, SysRoleResourceMapper sysRoleResourceMapper) {
+    public UserInfoOptImpl(SysUserMapper sysUserMapper, SysRoleMapper sysRoleMapper,
+                           SysUserRoleMapper sysUserRoleMapper, SysResourceMapper sysResourceMapper,
+                           SysRoleResourceMapper sysRoleResourceMapper) {
         this.sysUserMapper = sysUserMapper;
         this.sysRoleMapper = sysRoleMapper;
         this.sysUserRoleMapper = sysUserRoleMapper;
@@ -45,10 +47,21 @@ public class UserInfoOptImpl implements UserInfoOpt {
     @Cacheable(cacheNames = "UserInfo", key = "#userFlow")
     public UserInfo loadUserInfo(String userFlow) {
         SysUser user = sysUserMapper.selectById(userFlow);
+        List<SysRole> roles = getRoles(user.getUserFlow());
+        return new UserInfo(user, roles);
+    }
+
+    @Override
+    @Cacheable(cacheNames = "UserInfo", key = "#user.userFlow")
+    public UserInfo loadUserInfo(SysUser user) {
+        List<SysRole> roles = getRoles(user.getUserFlow());
+        return new UserInfo(user, roles);
+    }
+
+    private List<SysRole> getRoles(String userFlow) {
         List<SysUserRole> userRoles = sysUserRoleMapper.queryByUserFlow(userFlow);
-        List<SysRole> roles = userRoles.stream()
+        return userRoles.stream()
                 .map(sysUserRole -> sysRoleMapper.selectById(sysUserRole.getRoleFlow()))
                 .collect(Collectors.toList());
-        return new UserInfo(user, roles);
     }
 }

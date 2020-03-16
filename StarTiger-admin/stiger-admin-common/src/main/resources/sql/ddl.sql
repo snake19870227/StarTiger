@@ -90,6 +90,8 @@ create table stigeradmin.sys_menu
     menu_level       int comment '菜单层级',
     menu_code        varchar(50) comment '菜单代码',
     menu_name        varchar(50) comment '菜单名称',
+    menu_path        varchar(500) comment '菜单地址',
+    menu_order       int comment '排序码',
     primary key (menu_flow)
 );
 

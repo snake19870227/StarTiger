@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="global::style('主页')"/>
+    <th:block th:replace="global::style('资源管理')"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
     <th:block th:replace="global::ui-header"/>
 
-    <th:block th:replace="global::ui-user-sidebar(true)"/>
+    <th:block th:replace="global::ui-user-sidebar(false)"/>
 
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>主页</h1>
+                        <h1>资源管理</h1>
                     </div>
                     <!--<div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">

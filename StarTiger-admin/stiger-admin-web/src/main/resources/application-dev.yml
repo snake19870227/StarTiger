@@ -14,15 +14,13 @@ spring:
     url: jdbc:mysql://localhost:13306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
     username: root
     password: 123456
-  h2:
-    console:
-      enabled: true
-      settings:
-        trace: true
-        web-allow-others: true
-      path: ${stiger.h2.console.root-path}/console
 server:
   port: 9999
   servlet:
     session:
       timeout: 30M
+stiger:
+  admin:
+    web:
+      security:
+        remember-me-key: snake1987

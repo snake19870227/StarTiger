@@ -1,10 +1,10 @@
 package com.snake19870227.stiger.admin.security;
 
+import cn.hutool.core.util.StrUtil;
+
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,25 +12,19 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.transaction.annotation.Transactional;
-import com.snake19870227.stiger.admin.dao.mapper.SysUserMapper;
-import com.snake19870227.stiger.admin.dao.mapper.SysUserRoleMapper;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
-import com.snake19870227.stiger.admin.entity.po.SysUser;
-import com.snake19870227.stiger.admin.opt.UserInfoOpt;
+import com.snake19870227.stiger.admin.service.SysService;
 
 /**
  * @author Bu HuaYang
  */
-@Transactional(rollbackFor = Exception.class)
 public class CustomUserDetailsManager implements UserDetailsManager {
 
-    @Autowired
-    private SysUserMapper sysUserMapper;
-    @Autowired
-    private SysUserRoleMapper sysUserRoleMapper;
-    @Autowired
-    private UserInfoOpt userInfoOpt;
+    private final SysService sysService;
+
+    public CustomUserDetailsManager(SysService sysService) {
+        this.sysService = sysService;
+    }
 
     @Override
     public void createUser(UserDetails user) {
@@ -54,22 +48,22 @@ public class CustomUserDetailsManager implements UserDetailsManager {
 
     @Override
     public boolean userExists(String username) {
-        return sysUserMapper.queryByUsername(username).isPresent();
+        return sysService.getUserByUsername(username).isPresent();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<SysUser> sysUserObj = sysUserMapper.queryByUsername(username);
-        Optional<UserDetails> userDetailsObj
-                = sysUserObj.map(sysUser -> {
-            UserInfo userInfo = userInfoOpt.loadUserInfo(sysUser.getUserFlow());
-            List<GrantedAuthority> roleCodeList = userInfo.getRoles().stream()
-                    .map(role -> new SimpleGrantedAuthority(role.getRoleCode()))
-                    .collect(Collectors.toList());
-            return User.withUsername(sysUser.getUsername())
-                    .password(sysUser.getEncodePassword())
-                    .authorities(roleCodeList.isEmpty() ? AuthorityUtils.NO_AUTHORITIES : roleCodeList).build();
-        });
-        return userDetailsObj.orElse(null);
+        UserInfo userInfo = sysService.loadUserInfoByUsername(username);
+
+        if (userInfo == null) {
+            throw new UsernameNotFoundException(StrUtil.format("未找到用户名[{}]对应的账户", username));
+        }
+
+        List<GrantedAuthority> roleCodeList = userInfo.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleCode()))
+                .collect(Collectors.toList());
+        return User.withUsername(userInfo.getUser().getUsername())
+                .password(userInfo.getUser().getEncodePassword())
+                .authorities(roleCodeList.isEmpty() ? AuthorityUtils.NO_AUTHORITIES : roleCodeList).build();
     }
 }

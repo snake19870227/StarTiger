@@ -17,7 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
-import com.snake19870227.stiger.core.StarTigerContext;
+import com.snake19870227.stiger.core.context.StarTigerContext;
+import com.snake19870227.stiger.web.StarTigerWebConstant;
 
 /**
  * @author Bu HuaYang
@@ -33,10 +34,10 @@ public class LoginController {
         while (paramNames.hasMoreElements()) {
             String paramName = paramNames.nextElement();
             if (StrUtil.equals(ProjectConstant.UrlParamNames.LOGIN_ERROR, paramName)) {
-                model.addAttribute(ProjectConstant.ViewAttrNames.LOGIN_ERROR_MESSAGE, StarTigerContext.getMessage("code.1001"));
+                model.addAttribute(StarTigerWebConstant.ViewAttrKey.ERROR_MESSAGE, StarTigerContext.getMessage("code.1001"));
             }
             if (StrUtil.equals(ProjectConstant.UrlParamNames.LOGIN_EXPIRE, paramName)) {
-                model.addAttribute(ProjectConstant.ViewAttrNames.LOGIN_ERROR_MESSAGE, StarTigerContext.getMessage("code.2003"));
+                model.addAttribute(StarTigerWebConstant.ViewAttrKey.ERROR_MESSAGE, StarTigerContext.getMessage("code.2003"));
             }
         }
     }

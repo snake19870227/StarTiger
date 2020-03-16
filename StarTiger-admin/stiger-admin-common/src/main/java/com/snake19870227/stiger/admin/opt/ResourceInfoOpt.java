@@ -8,7 +8,9 @@ import com.snake19870227.stiger.admin.entity.po.SysResource;
 /**
  * @author Bu HuaYang
  */
-public interface SysResourceOpt {
+public interface ResourceInfoOpt {
+
+    List<SysResource> getByRoleCode(String roleCode);
 
     List<SysResource> getAll();
 
