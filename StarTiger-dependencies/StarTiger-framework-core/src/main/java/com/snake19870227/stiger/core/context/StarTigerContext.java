@@ -21,6 +21,7 @@ public class StarTigerContext {
 
     private static String[] activeProfiles;
     private static String applicationName;
+    private static String applicationVersion;
 
     private static ApplicationContext springContext;
 
@@ -69,6 +70,10 @@ public class StarTigerContext {
 
     public static void setApplicationName(String applicationName) {
         StarTigerContext.applicationName = applicationName;
+    }
+
+    public static void setApplicationVersion(String applicationVersion) {
+        StarTigerContext.applicationVersion = applicationVersion;
     }
 
     public static void setSpringContext(ApplicationContext springContext) {

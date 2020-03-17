@@ -6,6 +6,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 
 /**
@@ -25,7 +26,9 @@ public class StarTigerContextLoader implements ApplicationContextAware {
             logger.error("Property 'spring.application.name' is empty.");
             System.exit(0);
         }
+        Environment env = applicationContext.getEnvironment();
         StarTigerContext.setApplicationName(applicationName);
+        StarTigerContext.setApplicationVersion(env.getProperty("stiger.admin.web.version"));
         StarTigerContext.setSpringContext(applicationContext);
         logger.info("SpringContext is loaded.");
     }

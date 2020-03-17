@@ -12,4 +12,9 @@ public class StarTigerWebConstant {
     public static class ViewAttrKey {
         public static final String ERROR_MESSAGE = "errorMessage";
     }
+
+    public static class WebAttrKey {
+        public static final String ACTIVE_PROFILES = "activeProfiles";
+        public static final String PROJECT_VERSION = "projectVersion";
+    }
 }
