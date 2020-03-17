@@ -1,15 +1,22 @@
 package com.snake19870227.stiger.admin.dao.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.snake19870227.stiger.admin.entity.po.SysResource;
-import org.apache.ibatis.annotations.Param;
+import cn.hutool.core.util.StrUtil;
 
-import java.util.List;
-import java.util.Optional;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.snake19870227.stiger.admin.entity.bo.RecordPage;
+import com.snake19870227.stiger.admin.entity.po.SysResource;
 
 /**
  * @author Bu HuaYang
  */
 public interface SysResourceMapper extends BaseMapper<SysResource> {
+
+    default RecordPage<SysResource> get(RecordPage<SysResource> page, String resName) {
+        QueryWrapper<SysResource> queryWrapper = new QueryWrapper<>();
+        if (StrUtil.isNotBlank(resName)) {
+            queryWrapper.like("res_name", StrUtil.trim(resName));
+        }
+        return this.selectPage(page, queryWrapper);
+    }
 }

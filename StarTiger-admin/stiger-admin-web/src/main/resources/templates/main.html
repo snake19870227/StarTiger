@@ -3,7 +3,7 @@
 <head>
     <th:block th:replace="global::style('主页')"/>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
 
     <th:block th:replace="global::ui-header"/>
@@ -11,6 +11,7 @@
     <th:block th:replace="global::ui-user-sidebar(true)"/>
 
     <div class="content-wrapper">
+
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -19,12 +20,14 @@
                     </div>
                     <!--<div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item active">主页</li>
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Simple Tables</li>
                         </ol>
                     </div>-->
                 </div>
             </div>
         </section>
+
         <section class="content">
         </section>
     </div>

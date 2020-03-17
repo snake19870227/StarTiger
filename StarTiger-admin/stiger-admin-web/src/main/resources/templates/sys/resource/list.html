@@ -1,0 +1,7 @@
+<tr xmlns:th="http://www.thymeleaf.org" th:each="resource : ${sysResources}">
+    <td th:text="${resourceStat.count} + '.'">1.</td>
+    <td th:text="${resource.resFlow}">资源流水号</td>
+    <td th:text="${resource.resName}">资源名称</td>
+    <td th:text="${resource.resPath}">资源Path</td>
+    <td></td>
+</tr>

@@ -32,14 +32,10 @@ var RespCode = function () {
 }();
 var HttpUtil = function () {
     return {
-        contextPath: function contextPath() {
-            var path = window.location.pathname;
-            return path.substring(0, path.substr(1).indexOf('/') + 1);
-        },
         ajaxReq: function (obj) {
             $.ajax({
                 type: obj.type || "get",
-                url: this.contextPath() + obj.url,
+                url: Proj.getContextPath() + obj.url,
                 data: obj.data,
                 cache: obj.cache || false,
                 contentType: obj.contentType || "application/json",

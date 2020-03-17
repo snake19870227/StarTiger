@@ -42,27 +42,22 @@ begin
     truncate table sys_menu_resource;
 
     insert into sys_menu (menu_flow, parent_menu_flow, menu_level, menu_code, menu_name, menu_order)
-    values (@menu_flow_xtgl, null, 1, 'xtgl', '系统管理', @menu_order);
-
-    set @menu_order = @menu_order + 1;
-
-    insert into sys_menu (menu_flow, parent_menu_flow, menu_level, menu_code, menu_name, menu_order)
     values (@menu_flow_zzjg, null, 1, 'zzjg', '组织架构', @menu_order);
 
     set @menu_order = @menu_order + 1;
 
     insert into sys_menu (menu_flow, parent_menu_flow, menu_level, menu_code, menu_name, menu_path, menu_order)
-    values (@menu_flow_zzjg_jggl, @menu_flow_zzjg, 2, 'zzjg-jggl', '机构管理', '/org/main', @menu_order);
+    values (@menu_flow_zzjg_jggl, @menu_flow_zzjg, 2, 'zzjg-jggl', '机构管理', '/sys/org/main', @menu_order);
 
     set @menu_order = @menu_order + 1;
 
     insert into sys_menu (menu_flow, parent_menu_flow, menu_level, menu_code, menu_name, menu_path, menu_order)
-    values (@menu_flow_zzjg_bmgl, @menu_flow_zzjg, 2, 'zzjg-bmgl', '部门管理', '/dept/main', @menu_order);
+    values (@menu_flow_zzjg_bmgl, @menu_flow_zzjg, 2, 'zzjg-bmgl', '部门管理', '/sys/dept/main', @menu_order);
 
     set @menu_order = @menu_order + 1;
 
     insert into sys_menu (menu_flow, parent_menu_flow, menu_level, menu_code, menu_name, menu_path, menu_order)
-    values (@menu_flow_zzjg_yhgl, @menu_flow_zzjg, 2, 'zzjg-yhgl', '用户管理', '/user/main', @menu_order);
+    values (@menu_flow_zzjg_yhgl, @menu_flow_zzjg, 2, 'zzjg-yhgl', '用户管理', '/sys/user/main', @menu_order);
 
     set @menu_order = @menu_order + 1;
 
@@ -72,12 +67,12 @@ begin
     set @menu_order = @menu_order + 1;
 
     insert into sys_menu (menu_flow, parent_menu_flow, menu_level, menu_code, menu_name, menu_path, menu_order)
-    values (@menu_flow_qxgl_zygl, @menu_flow_qxgl, 2, 'qxgl-zygl', '资源管理', '/resource/main', @menu_order);
+    values (@menu_flow_qxgl_zygl, @menu_flow_qxgl, 2, 'qxgl-zygl', '资源管理', '/sys/resource/main', @menu_order);
 
     set @menu_order = @menu_order + 1;
 
     insert into sys_menu (menu_flow, parent_menu_flow, menu_level, menu_code, menu_name, menu_path, menu_order)
-    values (@menu_flow_qxgl_jsgl, @menu_flow_qxgl, 2, 'qxgl-jsgl', '角色管理', '/role/main', @menu_order);
+    values (@menu_flow_qxgl_jsgl, @menu_flow_qxgl, 2, 'qxgl-jsgl', '角色管理', '/sys/role/main', @menu_order);
 
     set @menu_order = @menu_order + 1;
 
@@ -87,7 +82,12 @@ begin
     set @menu_order = @menu_order + 1;
 
     insert into sys_menu (menu_flow, parent_menu_flow, menu_level, menu_code, menu_name, menu_path, menu_order)
-    values (@menu_flow_gngl_cdgl, @menu_flow_gngl, 2, 'gngl-cdgl', '菜单管理', '/menu/main', @menu_order);
+    values (@menu_flow_gngl_cdgl, @menu_flow_gngl, 2, 'gngl-cdgl', '菜单管理', '/sys/menu/main', @menu_order);
+
+    set @menu_order = @menu_order + 1;
+
+    insert into sys_menu (menu_flow, parent_menu_flow, menu_level, menu_code, menu_name, menu_order)
+    values (@menu_flow_xtgl, null, 1, 'xtgl', '系统管理', @menu_order);
 
     set @menu_order = @menu_order + 1;
 

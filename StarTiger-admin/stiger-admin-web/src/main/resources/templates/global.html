@@ -71,28 +71,48 @@
     </aside>
 </th:block>
 
+<th:block th:fragment="ui-content-header(headerName)">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 th:text="${headerName}">主页</h1>
+                </div>
+                <!--<div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item active">主页</li>
+                    </ol>
+                </div>-->
+            </div>
+        </div>
+    </section>
+</th:block>
+
 <th:block th:fragment="ui-footer">
-    <footer class="main-footer">
+    <footer class="main-footer text-sm">
         <div class="float-right d-none d-sm-block">
             <b>Version</b> 3.0.2
         </div>
-        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">STiger Admin</a>.</strong> All rights reserved.
     </footer>
 </th:block>
 
 <th:block th:if="${#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" th:fragment="script-frame">
     <input type="hidden" th:if="${#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" id="runningMode" value="dev" />
     <script th:src="@{/adminlte/plugins/jquery/jquery.js}"></script>
+    <script th:src="@{/adminlte/plugins-ext/jquery-form/jquery.form.js}"></script>
     <script th:src="@{/adminlte/plugins/bootstrap/js/bootstrap.bundle.js}"></script>
     <script th:src="@{/adminlte/dist/js/adminlte.js}"></script>
 </th:block>
 <th:block th:if="${!#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" th:fragment="script-frame">
     <input type="hidden" th:if="${!#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" id="runningMode" value="notdev" />
     <script th:src="@{/adminlte/plugins/jquery/jquery.min.js}"></script>
+    <script th:src="@{/adminlte/plugins-ext/jquery-form/jquery.form.min.js}"></script>
     <script th:src="@{/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/adminlte/dist/js/adminlte.min.js}"></script>
 </th:block>
 <th:block th:fragment="script-stiger">
+    <input type="hidden" id="context-path" th:value="${#servletContext.contextPath}">
     <script th:src="@{/js/Proj.js}"></script>
     <script th:src="@{/js/HttpUtil.js}"></script>
 </th:block>

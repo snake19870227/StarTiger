@@ -10,21 +10,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
-import com.snake19870227.stiger.admin.web.entity.vo.Sidebar;
 import com.snake19870227.stiger.admin.web.service.RouterService;
-import com.snake19870227.stiger.core.StarTigerConstant;
-import com.snake19870227.stiger.core.context.StarTigerContext;
 import com.snake19870227.stiger.core.restful.RestResponse;
 import com.snake19870227.stiger.core.restful.RestResponseBuilder;
-import com.snake19870227.stiger.web.exception.MvcException;
 
 /**
  * @author Bu HuaYang
  */
 @Controller
-public class MainController {
+public class MainController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -41,24 +38,17 @@ public class MainController {
 
     @GetMapping(path = ProjectConstant.UrlPath.MAIN)
     public String toMain(HttpServletRequest request) {
-        Sidebar userSidebar = (Sidebar) request.getSession().getAttribute(ProjectConstant.WebAttrKey.USER_SIDEBAR);
-        if (userSidebar == null) {
-            throw new MvcException(StarTigerContext.getMessage(StarTigerConstant.StatusCode.PREFIX_CODE + "2010"));
-        }
-        userSidebar.closeAll();
+        closeAllMenu(request);
         return "main";
     }
 
     @GetMapping(path = ProjectConstant.UrlPath.MENU_ROUTING)
     public String menuRouting(@RequestParam(name = "menuCode") String menuCode,
-                              HttpServletRequest request) {
-        Sidebar userSidebar = (Sidebar) request.getSession().getAttribute(ProjectConstant.WebAttrKey.USER_SIDEBAR);
-        if (userSidebar == null) {
-            throw new MvcException(StarTigerContext.getMessage(StarTigerConstant.StatusCode.PREFIX_CODE + "2010"));
-        }
-        userSidebar.open(menuCode);
+                              RedirectAttributes redirectAttributes) {
 
         SysMenu menu = routerService.getRouterMenu(menuCode);
+
+        redirectAttributes.addAttribute("menuCode", menuCode);
 
         return "redirect:" + menu.getMenuPath();
     }

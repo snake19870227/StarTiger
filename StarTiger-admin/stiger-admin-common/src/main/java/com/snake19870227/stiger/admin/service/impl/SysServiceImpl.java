@@ -8,8 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.snake19870227.stiger.admin.dao.mapper.SysMenuMapper;
+import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysUserMapper;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
+import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
@@ -31,6 +33,8 @@ public class SysServiceImpl implements SysService {
 
     private final SysUserMapper sysUserMapper;
 
+    private final SysResourceMapper sysResourceMapper;
+
     private final SysMenuMapper sysMenuMapper;
 
     private final ResourceInfoOpt resourceInfoOpt;
@@ -39,10 +43,12 @@ public class SysServiceImpl implements SysService {
 
     private final MenuInfoOpt menuInfoOpt;
 
-    public SysServiceImpl(SysUserMapper sysUserMapper, SysMenuMapper sysMenuMapper,
+    public SysServiceImpl(SysUserMapper sysUserMapper,
+                          SysResourceMapper sysResourceMapper, SysMenuMapper sysMenuMapper,
                           ResourceInfoOpt resourceInfoOpt, UserInfoOpt userInfoOpt,
                           MenuInfoOpt menuInfoOpt) {
         this.sysUserMapper = sysUserMapper;
+        this.sysResourceMapper = sysResourceMapper;
         this.sysMenuMapper = sysMenuMapper;
         this.resourceInfoOpt = resourceInfoOpt;
         this.userInfoOpt = userInfoOpt;
@@ -64,6 +70,12 @@ public class SysServiceImpl implements SysService {
     @Override
     public List<SysResource> getResourceByRoleCode(String roleCode) {
         return resourceInfoOpt.getByRoleCode(roleCode);
+    }
+
+    @Override
+    public List<SysResource> getResource(String resName, long page, long pageSize) {
+        RecordPage<SysResource> pager = new RecordPage<>(page, pageSize);
+        return sysResourceMapper.get(pager, resName);
     }
 
     /* ====================< User >==================== */

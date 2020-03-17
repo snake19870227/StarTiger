@@ -14,6 +14,8 @@ spring:
     url: jdbc:mysql://localhost:13306/stigeradmin?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
     username: root
     password: 123456
+  thymeleaf:
+    cache: false
 server:
   port: 9999
   servlet:

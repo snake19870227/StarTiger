@@ -24,6 +24,8 @@ public interface SysService {
 
     List<SysResource> getResourceByRoleCode(String roleCode);
 
+    List<SysResource> getResource(String resName, long page, long pageSize);
+
     /* ====================< User >==================== */
 
     Optional<SysUser> getUserByUsername(String username);

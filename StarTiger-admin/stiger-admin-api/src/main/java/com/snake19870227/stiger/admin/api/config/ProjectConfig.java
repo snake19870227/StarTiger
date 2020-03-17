@@ -6,6 +6,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
 import com.snake19870227.stiger.admin.security.JwtRsaSignKey;
 import com.snake19870227.stiger.admin.security.JwtSignKey;
+import com.snake19870227.stiger.admin.service.SysService;
 import com.snake19870227.stiger.web.exception.GlobalHandlerExceptionResolver;
 
 /**
@@ -20,8 +21,8 @@ public class ProjectConfig {
     }
 
     @Bean
-    public UserDetailsManager userDetailsManager() {
-        return new CustomUserDetailsManager();
+    public UserDetailsManager userDetailsManager(SysService sysService) {
+        return new CustomUserDetailsManager(sysService);
     }
 
     @Bean
