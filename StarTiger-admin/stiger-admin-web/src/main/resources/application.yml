@@ -4,3 +4,9 @@ spring:
     include: base
   application:
     name: ${project.name}-${proj.profile.id}
+stiger:
+  admin:
+    web:
+      version: ${project.version}
+      security:
+        remember-me-cookie-name: RememberMe

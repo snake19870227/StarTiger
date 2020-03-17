@@ -26,6 +26,12 @@ public interface SysService {
 
     List<SysResource> getResource(String resName, long page, long pageSize);
 
+    SysResource createResource(SysResource resource);
+
+    SysResource modifyResource(SysResource resource);
+
+    boolean deleteResource(String resFlow);
+
     /* ====================< User >==================== */
 
     Optional<SysUser> getUserByUsername(String username);

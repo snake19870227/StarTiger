@@ -4,6 +4,8 @@
     <th:block th:fragment="style(title)">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <title th:text="'STiger | ' + ${title}">STiger | Admin</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" th:href="@{/adminlte/plugins/fontawesome-free/css/all.min.css}">
@@ -34,7 +36,7 @@
 <th:block th:fragment="ui-user-sidebar(isMain)">
     <aside class="main-sidebar elevation-4 sidebar-dark-primary">
         <a href="javascript:void(0);" class="brand-link">
-            <img th:src="@{/img/logo.jpg}" alt="AdminLTE Logo"
+            <img th:src="@{/images/logo.jpg}" alt="AdminLTE Logo"
                  class="brand-image img-circle elevation-3" style="opacity:.8">
             <span class="brand-text font-weight-light">STiger Admin</span>
         </a>
@@ -91,9 +93,9 @@
 <th:block th:fragment="ui-footer">
     <footer class="main-footer text-sm">
         <div class="float-right d-none d-sm-block">
-            <b>Version</b> 3.0.2
+            <b>Version</b> [[${#servletContext.getAttribute('projectVersion')}]]
         </div>
-        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">STiger Admin</a>.</strong> All rights reserved.
+        <strong>源码: <a href="https://github.com/snake19870227/StarTiger">STiger Admin</a>.</strong>
     </footer>
 </th:block>
 

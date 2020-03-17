@@ -27,6 +27,9 @@ public class SecurityConfig {
     @Value("${stiger.admin.web.security.remember-me-key}")
     private String rememberMeKey;
 
+    @Value("${stiger.admin.web.security.remember-me-cookie-name}")
+    private String rememberMeCookieName;
+
     @Configuration
     public static class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
@@ -113,6 +116,7 @@ public class SecurityConfig {
     public RememberMeServices rememberMeServices(UserDetailsManager userDetailsManager) {
         TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(rememberMeKey, userDetailsManager);
         rememberMeServices.setParameter(ProjectConstant.WebAttrKey.REMEMBER_ME);
+        rememberMeServices.setCookieName(rememberMeCookieName);
         return rememberMeServices;
     }
 }

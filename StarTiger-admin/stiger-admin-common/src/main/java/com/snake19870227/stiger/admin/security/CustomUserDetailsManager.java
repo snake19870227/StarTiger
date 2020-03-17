@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.service.SysService;
+import com.snake19870227.stiger.core.StarTigerConstant;
 
 /**
  * @author Bu HuaYang
@@ -60,7 +61,7 @@ public class CustomUserDetailsManager implements UserDetailsManager {
         }
 
         List<GrantedAuthority> roleCodeList = userInfo.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRoleCode()))
+                .map(role -> new SimpleGrantedAuthority(StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX + role.getRoleCode()))
                 .collect(Collectors.toList());
         return User.withUsername(userInfo.getUser().getUsername())
                 .password(userInfo.getUser().getEncodePassword())

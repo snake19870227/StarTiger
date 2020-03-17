@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.web.controller;
+package com.snake19870227.stiger.admin.web.controller.sys;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -10,11 +10,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.service.SysService;
+import com.snake19870227.stiger.admin.web.controller.BaseController;
+import com.snake19870227.stiger.core.restful.RestResponse;
+import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -55,5 +63,19 @@ public class SysResourceController extends BaseController {
         List<SysResource> resources = sysService.getResource(searchName, page, pageSize);
         model.addAttribute("sysResources", resources);
         return "sys/resource/list";
+    }
+
+    @PostMapping
+    @ResponseBody
+    public RestResponse.DefaultRestResponse create(@ModelAttribute SysResource resource) {
+        sysService.createResource(resource);
+        return RestResponseBuilder.createSuccessDefaultRestResp(resource);
+    }
+
+    @DeleteMapping(path = "/{resFlow}")
+    @ResponseBody
+    public RestResponse.DefaultRestResponse delete(@PathVariable(name = "resFlow") String resFlow) {
+        sysService.deleteResource(resFlow);
+        return RestResponseBuilder.createSuccessDefaultRestResp();
     }
 }

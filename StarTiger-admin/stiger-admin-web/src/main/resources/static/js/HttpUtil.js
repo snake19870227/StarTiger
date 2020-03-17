@@ -31,16 +31,24 @@ var RespCode = function () {
     }
 }();
 var HttpUtil = function () {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
     return {
         ajaxReq: function (obj) {
+            var headers = {};
+            headers[header] = token;
+            if (obj.headers) {
+                $.extend(headers, obj.headers);
+            }
             $.ajax({
                 type: obj.type || "get",
                 url: Proj.getContextPath() + obj.url,
                 data: obj.data,
                 cache: obj.cache || false,
-                contentType: obj.contentType || "application/json",
+                contentType: obj.contentType || "application/x-www-form-urlencoded",
                 dataType: obj.dataType || "text",
                 async: obj.async || true,
+                headers: headers,
                 beforeSend: function (XMLHttpRequest) {
                     if (obj.beforeSend && $.type(obj.beforeSend) === "function") {
                         obj.beforeSend(XMLHttpRequest);

@@ -28,7 +28,7 @@ public class ProjectConstant {
 
         public static String[] authenticatedPaths() {
             return new String[] {
-                    MENU_ROUTING
+                    MAIN, MENU_ROUTING
             };
         }
     }

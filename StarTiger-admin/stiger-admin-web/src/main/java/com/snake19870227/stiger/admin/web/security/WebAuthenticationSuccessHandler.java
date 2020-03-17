@@ -26,6 +26,7 @@ import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.service.SysService;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.entity.vo.Sidebar;
+import com.snake19870227.stiger.core.StarTigerConstant;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -68,7 +69,8 @@ public class WebAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
                     List<SysMenu> childMenus = menuInfo.getChildMenus().stream().filter(
                             sysMenu -> {
                                 for (GrantedAuthority authority : user.getAuthorities()) {
-                                    List<SysResource> roleResources = sysService.getResourceByRoleCode(authority.getAuthority());
+                                    String roleCode = StrUtil.replace(authority.getAuthority(), StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX, "");
+                                    List<SysResource> roleResources = sysService.getResourceByRoleCode(roleCode);
                                     if (CollUtil.isNotEmpty(roleResources)) {
                                         for (SysResource resource : roleResources) {
                                             AntPathMatcher matcher = new AntPathMatcher();

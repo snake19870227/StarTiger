@@ -1,7 +1,9 @@
 <tr xmlns:th="http://www.thymeleaf.org" th:each="resource : ${sysResources}">
     <td th:text="${resourceStat.count} + '.'">1.</td>
-    <td th:text="${resource.resFlow}">资源流水号</td>
     <td th:text="${resource.resName}">资源名称</td>
     <td th:text="${resource.resPath}">资源Path</td>
-    <td></td>
+    <td th:attr="data-res-flow=${resource.resFlow},data-res-name=${resource.resName}">
+        <button type="button" class="btn btn-primary modify-resource-btn">修改</button>
+        <button type="button" class="btn btn-danger delete-resource-btn">删除</button>
+    </td>
 </tr>

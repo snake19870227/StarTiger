@@ -12,7 +12,19 @@ begin
     truncate table sys_user_role;
 
     insert into sys_resource (res_flow, res_name, res_path)
-    values (@super_resource_flow, 'ALL', '/**');
+    values (@super_resource_flow, '所有资源', '/**');
+    insert into sys_resource (res_flow, res_name, res_path)
+    values (replace(uuid(), '-', ''), '系统管理', '/sys/**');
+    insert into sys_resource (res_flow, res_name, res_path)
+    values (replace(uuid(), '-', ''), '机构管理', '/sys/org/**');
+    insert into sys_resource (res_flow, res_name, res_path)
+    values (replace(uuid(), '-', ''), '部门管理', '/sys/dept/**');
+    insert into sys_resource (res_flow, res_name, res_path)
+    values (replace(uuid(), '-', ''), '用户管理', '/sys/user/**');
+    insert into sys_resource (res_flow, res_name, res_path)
+    values (replace(uuid(), '-', ''), '资源管理', '/sys/resource/**');
+    insert into sys_resource (res_flow, res_name, res_path)
+    values (replace(uuid(), '-', ''), '角色管理', '/sys/role/**');
 
     insert into sys_role (role_flow, role_code, role_name)
     values (@super_role_flow, 'super_admin', '超级管理员');

@@ -21,6 +21,7 @@ import com.snake19870227.stiger.admin.opt.MenuInfoOpt;
 import com.snake19870227.stiger.admin.opt.ResourceInfoOpt;
 import com.snake19870227.stiger.admin.opt.UserInfoOpt;
 import com.snake19870227.stiger.admin.service.SysService;
+import com.snake19870227.stiger.core.exception.ServiceException;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -76,6 +77,27 @@ public class SysServiceImpl implements SysService {
     public List<SysResource> getResource(String resName, long page, long pageSize) {
         RecordPage<SysResource> pager = new RecordPage<>(page, pageSize);
         return sysResourceMapper.get(pager, resName);
+    }
+
+    @Override
+    public SysResource createResource(SysResource resource) {
+        if (sysResourceMapper.insert(resource) != 1) {
+            throw new ServiceException("新增资源失败");
+        }
+        return resource;
+    }
+
+    @Override
+    public SysResource modifyResource(SysResource resource) {
+        if (sysResourceMapper.updateById(resource) != 1) {
+            throw new ServiceException("修改资源失败");
+        }
+        return resource;
+    }
+
+    @Override
+    public boolean deleteResource(String resFlow) {
+        return sysResourceMapper.deleteById(resFlow) == 1;
     }
 
     /* ====================< User >==================== */
