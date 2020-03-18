@@ -74,6 +74,7 @@ var SysRes = function () {
                 }
                 searchResources(1);
                 $deleteResourceConfirmModal.modal("hide");
+                Proj.showToasts("success", "删除成功");
             }
         };
         HttpUtil.ajaxReq(options);

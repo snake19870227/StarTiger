@@ -12,13 +12,14 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.util.AntPathMatcher;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
@@ -27,6 +28,7 @@ import com.snake19870227.stiger.admin.service.SysService;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.entity.vo.Sidebar;
 import com.snake19870227.stiger.core.StarTigerConstant;
+import com.snake19870227.stiger.web.utils.WebUtil;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -36,7 +38,7 @@ public class WebAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 
     private static final Logger logger = LoggerFactory.getLogger(WebAuthenticationSuccessHandler.class);
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     private final SysService sysService;
 
@@ -50,15 +52,13 @@ public class WebAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 
         loadUserSidebar(request, authentication);
 
-        saveRequest(request, response);
+        if (authentication instanceof RememberMeAuthenticationToken) {
+            redirectStrategy.sendRedirect(request, response, WebUtil.getPath(request, false, true));
+            clearAuthenticationAttributes(request);
+            return;
+        }
 
         super.onAuthenticationSuccess(request, response, authentication);
-    }
-
-    private void saveRequest(HttpServletRequest request, HttpServletResponse response) {
-        if (!StrUtil.equals(request.getServletPath(), ProjectConstant.UrlPath.LOGIN)) {
-            requestCache.saveRequest(request, response);
-        }
     }
 
     private void loadUserSidebar(HttpServletRequest request, Authentication authentication) {

@@ -3,7 +3,6 @@ package com.snake19870227.stiger.admin.web.controller.sys;
 import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.service.SysService;
 import com.snake19870227.stiger.admin.web.controller.BaseController;
@@ -62,6 +62,10 @@ public class SysResourceController extends BaseController {
                        @RequestParam(name = "pageSize", defaultValue = "10") long pageSize,
                        Model model) {
         List<SysResource> resources = sysService.getResource(searchName, page, pageSize);
+        if (resources instanceof RecordPage) {
+            RecordPage<SysResource> recordPage = (RecordPage<SysResource>) resources;
+            logger.info("");
+        }
         model.addAttribute("sysResources", resources);
         return "sys/resource/list";
     }

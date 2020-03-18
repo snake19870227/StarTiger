@@ -23,12 +23,13 @@
                                 <div class="form-group row col-sm-5 col-md-4">
                                     <label for="search-name" class="col-sm-2 col-form-label">资源名:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" id="search-name" name="searchName" class="form-control" placeholder="资源名"/>
+                                        <input type="text" id="search-name" name="searchName" class="form-control"
+                                               placeholder="资源名"/>
                                     </div>
                                 </div>
                                 <div class="col-auto">
                                     <button type="button" class="btn btn-primary search-button">查询</button>
-                                    <button type="button" class="btn btn-primary create-button">新增</button>
+                                    <button type="button" class="btn btn-success create-button">新增</button>
                                 </div>
                             </div>
                         </form>
@@ -49,12 +50,23 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-md-12">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
 
-<!--    <th:block th:replace="global::ui-footer"/>-->
+    <!--    <th:block th:replace="global::ui-footer"/>-->
 
     <div class="modal fade" id="delete-resource-confirm-modal">
         <div class="modal-dialog" role="document">

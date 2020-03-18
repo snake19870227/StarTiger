@@ -14,6 +14,7 @@ var RespCode = function () {
     };
     var defError = function (resp, func, options) {
         def(resp, options);
+        Proj.showToasts("danger", "[" + resp.respCode + "]" + resp.respMessage);
     };
     return {
         code0000: defSuccess,
@@ -23,6 +24,7 @@ var RespCode = function () {
         code1001: defError,
         code2001: function (resp, func, options) {
             def(resp, options);
+            Proj.showToasts("warning", "[" + resp.respCode + "]" + resp.respMessage);
             setTimeout(function () {
                 window.location.href = HttpUtil.contextPath() + "/login?expire";
             }, 1000);

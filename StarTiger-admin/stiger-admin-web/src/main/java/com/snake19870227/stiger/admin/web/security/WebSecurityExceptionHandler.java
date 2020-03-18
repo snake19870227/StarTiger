@@ -12,20 +12,18 @@ import java.nio.charset.StandardCharsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.security.web.savedrequest.RequestCache;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
+import com.snake19870227.stiger.core.StarTigerConstant;
+import com.snake19870227.stiger.core.context.StarTigerContext;
 import com.snake19870227.stiger.core.restful.RestResponse;
 import com.snake19870227.stiger.core.restful.RestResponseBuilder;
-import com.snake19870227.stiger.web.context.StarTigerWebContext;
 import com.snake19870227.stiger.web.utils.WebUtil;
 
 /**
@@ -35,21 +33,13 @@ public class WebSecurityExceptionHandler implements AuthenticationEntryPoint, Ac
 
     private static final Logger logger = LoggerFactory.getLogger(WebSecurityExceptionHandler.class);
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
-
-    @Value("${stiger.admin.web.security.remember-me-cookie-name}")
-    private String rememberMeCookieName;
-
     @Autowired
     private ObjectMapper objectMapper;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 
-        logger.error("账户认证失败", authException);
-
-        StarTigerWebContext.removeCookie(response, rememberMeCookieName);
-        requestCache.removeRequest(request, response);
+        logger.error(StarTigerContext.getMessage(StarTigerConstant.StatusCode.PREFIX_CODE + "2001"), authException);
 
         if (response.isCommitted()) {
             logger.warn("请求响应已被提交");
@@ -67,9 +57,6 @@ public class WebSecurityExceptionHandler implements AuthenticationEntryPoint, Ac
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
         logger.error("鉴权失败", accessDeniedException);
-
-        StarTigerWebContext.removeCookie(response, rememberMeCookieName);
-        requestCache.removeRequest(request, response);
 
         if (response.isCommitted()) {
             logger.warn("请求响应已被提交");
