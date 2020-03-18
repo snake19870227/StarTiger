@@ -7,18 +7,18 @@ var resourceDetailModal = function () {
     var $resNameInput = $form.find("input[name='resName']");
     var $resPathInput = $form.find("input[name='resPath']");
     return {
-        loadDetail: function (sysResource) {
-            $resFlowInput.val(sysResource.resFlow);
-            $resNameInput.val(sysResource.resName);
-            $resPathInput.val(sysResource.resPath);
-        },
         isCreate: function () {
             return !$resFlowInput.val() || $resFlowInput.val() === "";
         },
         isModify: function () {
             return $resFlowInput.val() && $resFlowInput.val() !== "";
         },
-        show: function () {
+        show: function (sysResource) {
+            if (sysResource) {
+                $resFlowInput.val(sysResource.resFlow);
+                $resNameInput.val(sysResource.resName);
+                $resPathInput.val(sysResource.resPath);
+            }
             $modal.modal("show");
         },
         hide: function () {
@@ -59,13 +59,9 @@ var resourceDetailModal = function () {
     }
 }();
 
-var SysRes = function () {
-
-    var $resourceSearchForm = $("#resource-search-form");
-    var $resourcesContainer = $("#resources-container");
-    var $deleteResourceConfirmModal = $("#delete-resource-confirm-modal");
-
-    var deleteResource = function (resFlow) {
+var resourceDeleteConfirmModal = function () {
+    var $modal = $("#delete-resource-confirm-modal");
+    function deleteResource(resFlow) {
         var options = {
             type: "delete",
             url: "/sys/resource/" + resFlow,
@@ -73,21 +69,40 @@ var SysRes = function () {
                 if (Proj.isDev()) {
                     console.log(data);
                 }
-                searchResources(1);
-                $deleteResourceConfirmModal.modal("hide");
+                SysRes.searchResources(1);
+                $modal.modal("hide");
                 Proj.showToasts("success", "删除成功");
             }
         };
         HttpUtil.ajaxReq(options);
-    };
+    }
+    return {
+        show: function (resName, resFlow) {
+            $modal.find(".modal-body strong").html(resName);
+            $modal.find(".confirm-delete-resource-confirm-modal").one("click", function () {
+                deleteResource(resFlow);
+            });
+            $modal.modal("show");
+        },
+        hide: function () {
+            $modal.modal("hide");
+        },
+        init: function () {
+            var _this = this;
+            $modal.on("hide.bs.modal", function () {
+                $modal.find(".confirm-delete-resource-confirm-modal").off();
+            });
+            $modal.find(".close-delete-resource-confirm-modal").on("click", function () {
+                $modal.modal("hide");
+            });
+        }
+    }
+}();
 
-    var readyToDeleteResource = function (resFlow, resName) {
-        $deleteResourceConfirmModal.find(".modal-body strong").html(resName);
-        $deleteResourceConfirmModal.find(".confirm-delete-resource-confirm-modal").one("click", function () {
-            deleteResource(resFlow);
-        });
-        $deleteResourceConfirmModal.modal("show");
-    };
+var SysRes = function () {
+
+    var $resourceSearchForm = $("#resource-search-form");
+    var $resourcesContainer = $("#resources-container");
 
     var bindRecordEvents = function () {
         $resourcesContainer.find(".modify-resource-btn").on("click", function () {
@@ -97,8 +112,7 @@ var SysRes = function () {
                 type: "get",
                 url: "/sys/resource/" + resFlow,
                 callbackFunc: function (resp) {
-                    resourceDetailModal.loadDetail(resp.data);
-                    resourceDetailModal.show();
+                    resourceDetailModal.show(resp.data);
                 }
             };
             HttpUtil.ajaxReq(options);
@@ -107,7 +121,7 @@ var SysRes = function () {
             var $this = $(this);
             var resFlow = $this.parent("td").data("resFlow");
             var resName = $this.parent("td").data("resName");
-            readyToDeleteResource(resFlow, resName);
+            resourceDeleteConfirmModal.show(resName, resFlow);
         });
     };
 
@@ -120,7 +134,7 @@ var SysRes = function () {
             url: url,
             contentType: "text/html",
             callbackFunc: function (data) {
-                $resourcesContainer.find("tbody").html(data);
+                $resourcesContainer.html(data);
                 bindRecordEvents();
             }
         };
@@ -140,25 +154,17 @@ var SysRes = function () {
         $resourceSearchForm.find(".create-button").on("click", function () {
             resourceDetailModal.show();
         });
-        /* ========================< modify >======================== */
-        /* ========================< delete >======================== */
-        $deleteResourceConfirmModal.find(".close-delete-resource-confirm-modal").on("click", function () {
-            $deleteResourceConfirmModal.modal("hide");
-        });
-        $deleteResourceConfirmModal.on("hide.bs.modal", function () {
-            $deleteResourceConfirmModal.find(".confirm-delete-resource-confirm-modal").off();
-        });
     };
 
     return {
         init: function () {
             bindEvent();
-            resourceDetailModal.init();
             searchResources(1);
         },
         searchResources: searchResources
     }
 }();
 $(function () {
+    resourceDetailModal.init();
     SysRes.init();
 });

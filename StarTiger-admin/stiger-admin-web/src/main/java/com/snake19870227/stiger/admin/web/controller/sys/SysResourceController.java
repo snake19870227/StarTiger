@@ -64,7 +64,7 @@ public class SysResourceController extends BaseController {
         List<SysResource> resources = sysService.getResource(searchName, page, pageSize);
         if (resources instanceof RecordPage) {
             RecordPage<SysResource> recordPage = (RecordPage<SysResource>) resources;
-            logger.info("");
+            logger.debug("共{}页,共{}条记录,当前第{}页", recordPage.getPages(), recordPage.getTotal(), recordPage.getCurrent());
         }
         model.addAttribute("sysResources", resources);
         return "sys/resource/list";

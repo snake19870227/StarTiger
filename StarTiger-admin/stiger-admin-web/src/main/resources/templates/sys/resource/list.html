@@ -1,9 +1,45 @@
-<tr xmlns:th="http://www.thymeleaf.org" th:each="resource : ${sysResources}">
-    <td th:text="${resourceStat.count} + '.'">1.</td>
-    <td th:text="${resource.resName}">资源名称</td>
-    <td th:text="${resource.resPath}">资源Path</td>
-    <td th:attr="data-res-flow=${resource.resFlow},data-res-name=${resource.resName}">
-        <button type="button" class="btn btn-primary modify-resource-btn">修改</button>
-        <button type="button" class="btn btn-danger delete-resource-btn">删除</button>
-    </td>
-</tr>
+<div xmlns:th="http://www.thymeleaf.org" class="col-md-12">
+    <table class="table table-bordered table-hover" style="width:100%;">
+        <thead>
+        <tr>
+            <th style="width:10px">#</th>
+            <th style="width:300px">资源名称</th>
+            <th style="width:500px">资源Path</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="resource : ${sysResources}">
+            <td th:text="${resourceStat.count} + '.'">1.</td>
+            <td th:text="${resource.resName}">资源名称</td>
+            <td th:text="${resource.resPath}">资源Path</td>
+            <td th:attr="data-res-flow=${resource.resFlow},data-res-name=${resource.resName}">
+                <button type="button" class="btn btn-primary modify-resource-btn">修改</button>
+                <button type="button" class="btn btn-danger delete-resource-btn">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div xmlns:th="http://www.thymeleaf.org" class="col-md-12">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li th:class="'page-item' + (${sysResources.current == 1} ? ' disabled' : '')">
+                <a class="page-link" href="javascript:void(0);" onclick="SysRes.searchResources(1)">首页</a>
+            </li>
+            <li th:if="${sysResources.current != 1}" class="page-item">
+                <a class="page-link" href="javascript:void(0);" th:onclick="'SysRes.searchResources(' + ${sysResources.current - 1} + ')'">上一页</a>
+            </li>
+            <li th:each="item : ${sysResources.rainbow}"
+                th:class="'page-item' + (${sysResources.current == item} ? ' active disabled' : '')">
+                <a class="page-link" href="javascript:void(0);" th:onclick="'SysRes.searchResources(' + ${item} + ')'" th:text="${item}">1</a>
+            </li>
+            <li th:if="${sysResources.current != sysResources.totalPage}" class="page-item">
+                <a class="page-link" href="javascript:void(0);" th:onclick="'SysRes.searchResources(' + ${sysResources.current + 1} + ')'">下一页</a>
+            </li>
+            <li th:class="'page-item' + (${sysResources.current == sysResources.totalPage} ? ' disabled' : '')">
+                <a class="page-link" href="javascript:void(0);" th:onclick="'SysRes.searchResources(' + ${sysResources.totalPage} + ')'">末页</a>
+            </li>
+        </ul>
+    </nav>
+</div>
