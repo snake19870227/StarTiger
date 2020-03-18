@@ -17,6 +17,7 @@ public interface SysResourceMapper extends BaseMapper<SysResource> {
         if (StrUtil.isNotBlank(resName)) {
             queryWrapper.like("res_name", StrUtil.trim(resName));
         }
+        queryWrapper.orderByAsc("res_path");
         return this.selectPage(page, queryWrapper);
     }
 }

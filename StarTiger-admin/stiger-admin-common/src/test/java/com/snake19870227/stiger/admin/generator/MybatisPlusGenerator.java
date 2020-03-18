@@ -28,6 +28,7 @@ public class MybatisPlusGenerator {
         gc.setOpen(false);
         gc.setFileOverride(true);
         gc.setIdType(IdType.ASSIGN_UUID);
+        gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
 
         PackageConfig pc = new PackageConfig();

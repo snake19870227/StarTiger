@@ -1,5 +1,8 @@
 package com.snake19870227.stiger.admin.security;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ArrayUtil;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,7 @@ import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.service.SysService;
 import com.snake19870227.stiger.core.StarTigerConstant;
+import com.snake19870227.stiger.web.utils.WebUtil;
 
 /**
  * @author Bu HuaYang
@@ -48,6 +52,10 @@ public class AuthAssert {
 
         List<SysResource> allResourceList = sysService.getAllResource();
 
+        if (CollUtil.isEmpty(allResourceList)) {
+            return false;
+        }
+
         List<SysRole> matchedRoleList = new ArrayList<>();
         allResourceList.stream()
                 .filter(resource -> new AntPathRequestMatcher(resource.getResPath()).matches(request))
@@ -62,10 +70,15 @@ public class AuthAssert {
                 .map(sysRole -> StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX + sysRole.getRoleCode())
                 .toArray(String[]::new);
 
+        if (ArrayUtil.isEmpty(roles)) {
+            logger.error("未找到访问[{}]所需的角色", WebUtil.getPath(request, false, false));
+            return false;
+        }
+
         int result = roleVoter.vote(authentication, null, SecurityConfig.createList(roles));
 
         logger.debug("验证[{}]是否可访问[{}],结果:{}", user.getUsername(), request.getServletPath(), result);
 
-        return AccessDecisionVoter.ACCESS_GRANTED == result;
+        return AccessDecisionVoter.ACCESS_DENIED != result;
     }
 }
