@@ -17,4 +17,16 @@ public class WebUtil {
     public static boolean isAjaxRequest(HttpServletRequest request) {
         return StrUtil.equals(AJAX_HEADER_VALUE, ServletUtil.getHeader(request, AJAX_HEADER_NAME, StandardCharsets.UTF_8));
     }
+
+    public static String getPath(HttpServletRequest request, boolean withContextPath, boolean withUrlParams) {
+        StringBuilder path = new StringBuilder();
+        if (withContextPath) {
+            path.append(request.getContextPath());
+        }
+        path.append(request.getServletPath());
+        if (withUrlParams) {
+            path.append("?").append(request.getQueryString());
+        }
+        return path.toString();
+    }
 }

@@ -19,6 +19,28 @@ public class PageRestResponse<T> extends RestResponse<T> {
     @ApiModelProperty(value = "总页数")
     private long totalPage;
 
+    @ApiModelProperty(value = "彩虹分页数组")
+    private int[] rainbow;
+
+    public PageRestResponse(String respCode, String respMessage) {
+        super(respCode, respMessage);
+    }
+
+    public PageRestResponse(String respCode, String respMessage, T data) {
+        super(respCode, respMessage, data);
+    }
+
+    public static class DefaultPageRestResponse extends PageRestResponse<Object> {
+
+        public DefaultPageRestResponse(String respCode, String respMessage) {
+            super(respCode, respMessage);
+        }
+
+        public DefaultPageRestResponse(String respCode, String respMessage, Object data) {
+            super(respCode, respMessage, data);
+        }
+    }
+
     public int getPage() {
         return page;
     }
@@ -49,5 +71,13 @@ public class PageRestResponse<T> extends RestResponse<T> {
 
     public void setTotalPage(long totalPage) {
         this.totalPage = totalPage;
+    }
+
+    public int[] getRainbow() {
+        return rainbow;
+    }
+
+    public void setRainbow(int[] rainbow) {
+        this.rainbow = rainbow;
     }
 }
