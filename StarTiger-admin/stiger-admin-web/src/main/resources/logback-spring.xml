@@ -9,7 +9,7 @@
             <appender-ref ref="CONSOLE"/>
         </root>
         <logger name="com.snake19870227.stiger" level="debug"/>
-        <logger name="com.snake19870227.stiger.admin.dao" level="error"/>
+<!--        <logger name="com.snake19870227.stiger.admin.dao" level="error"/>-->
     </springProfile>
 
     <springProfile name="prod">

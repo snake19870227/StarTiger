@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:fragment="style(title)">
         <meta charset="utf-8">
@@ -24,6 +25,11 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown user-menu">
+                <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <span class="d-none d-md-inline">欢迎，<strong sec:authentication="name">用户</strong></span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/logout}">
                     <i class="fas fa-sign-out-alt"></i>
@@ -35,7 +41,7 @@
 
 <th:block th:fragment="ui-user-sidebar(isMain)">
     <aside class="main-sidebar elevation-4 sidebar-dark-primary">
-        <a href="javascript:void(0);" class="brand-link">
+        <a href="https://github.com/snake19870227/StarTiger/tree/master/StarTiger-admin" class="brand-link" target="_blank">
             <img th:src="@{/images/logo.jpg}" alt="AdminLTE Logo"
                  class="brand-image img-circle elevation-3" style="opacity:.8">
             <span class="brand-text font-weight-light">STiger Admin</span>
@@ -73,25 +79,30 @@
     </aside>
 </th:block>
 
-<th:block th:fragment="ui-content-header(headerName)">
+<th:block th:fragment="ui-content-header(showHeader, headerName, showPath)" th:object="${session.userSidebar}">
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 th:text="${headerName}">主页</h1>
+                <div th:if="${showHeader}" class="col-sm-6">
+                    <h1 th:if="${not #strings.isEmpty(headerName)}"
+                        th:text="${headerName}">主页</h1>
+                    <h1 th:if="${#strings.isEmpty(headerName)}"
+                        th:text="*{currentMenuPathQueue.get(currentMenuPathQueue.size()-1).menu.menuName}">主页</h1>
                 </div>
-                <!--<div class="col-sm-6">
+                <div th:if="${showPath}" class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">主页</li>
+                        <li th:each="menuItem,row : *{currentMenuPathQueue}"
+                            th:text="${menuItem.menu.menuName}"
+                            th:class="'breadcrumb-item' + (*{currentMenuPathQueue.size()} == ${row.count} ? ' active' : '')"></li>
                     </ol>
-                </div>-->
+                </div>
             </div>
         </div>
     </section>
 </th:block>
 
 <th:block th:fragment="ui-footer">
-    <footer class="main-footer text-sm">
+    <footer class="main-footer">
         <div class="float-right d-none d-sm-block">
             <b>Version</b> [[${#servletContext.getAttribute('projectVersion')}]]
         </div>

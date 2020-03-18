@@ -1,26 +1,68 @@
+var resourceDetailModal = function () {
+    var $modal = $("#resource-detail-modal");
+    var $form = $modal.find("#resource-detail-form");
+    var $saveBtn = $form.find(".save-resource-detail-modal");
+    var $closeBtn = $form.find(".close-resource-detail-modal");
+    var $resFlowInput = $form.find("input[name='resFlow']");
+    var $resNameInput = $form.find("input[name='resName']");
+    var $resPathInput = $form.find("input[name='resPath']");
+    return {
+        loadDetail: function (sysResource) {
+            $resFlowInput.val(sysResource.resFlow);
+            $resNameInput.val(sysResource.resName);
+            $resPathInput.val(sysResource.resPath);
+        },
+        isCreate: function () {
+            return !$resFlowInput.val() || $resFlowInput.val() === "";
+        },
+        isModify: function () {
+            return $resFlowInput.val() && $resFlowInput.val() !== "";
+        },
+        show: function () {
+            $modal.modal("show");
+        },
+        hide: function () {
+            $modal.modal("hide");
+        },
+        init: function () {
+            try {
+                var _this = this;
+                $modal.off("hide.bs.modal");
+                $modal.on("hide.bs.modal", function () {
+                    $form.clearForm();
+                    $resFlowInput.val("");
+                });
+                $saveBtn.on("click", function () {
+                    var methodType = _this.isCreate() ? "post" : "put";
+                    var options = {
+                        type: methodType,
+                        url: "/sys/resource",
+                        data: $form.formSerialize(),
+                        callbackFunc: function (data) {
+                            if (Proj.isDev()) {
+                                console.log(data);
+                            }
+                            SysRes.searchResources(1);
+                            _this.hide();
+                        }
+                    };
+                    HttpUtil.ajaxReq(options);
+                });
+                $closeBtn.on("click", function () {
+                    _this.hide();
+                });
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    }
+}();
+
 var SysRes = function () {
 
     var $resourceSearchForm = $("#resource-search-form");
     var $resourcesContainer = $("#resources-container");
-    var $createResourceModal = $("#create-resource-modal");
-    var $createResourceForm = $createResourceModal.find("#create-resource-form");
     var $deleteResourceConfirmModal = $("#delete-resource-confirm-modal");
-
-    var createResource = function () {
-        var options = {
-            type: "post",
-            url: "/sys/resource",
-            data: $createResourceForm.formSerialize(),
-            callbackFunc: function (data) {
-                if (Proj.isDev()) {
-                    console.log(data);
-                }
-                searchResources(1);
-                $createResourceModal.modal("hide");
-            }
-        };
-        HttpUtil.ajaxReq(options);
-    };
 
     var deleteResource = function (resFlow) {
         var options = {
@@ -47,7 +89,17 @@ var SysRes = function () {
 
     var bindRecordEvents = function () {
         $resourcesContainer.find(".modify-resource-btn").on("click", function () {
-
+            var $this = $(this);
+            var resFlow = $this.parent("td").data("resFlow");
+            var options = {
+                type: "get",
+                url: "/sys/resource/" + resFlow,
+                callbackFunc: function (resp) {
+                    resourceDetailModal.loadDetail(resp.data);
+                    resourceDetailModal.show();
+                }
+            };
+            HttpUtil.ajaxReq(options);
         });
         $resourcesContainer.find(".delete-resource-btn").on("click", function () {
             var $this = $(this);
@@ -82,18 +134,9 @@ var SysRes = function () {
         $resourceSearchForm.find(".search-button").on("click", function () {
             searchResources(1);
         });
-        $resourceSearchForm.find(".create-button").on("click", function () {
-            $createResourceModal.modal("show");
-        });
         /* ========================< create >======================== */
-        $createResourceModal.on("hide.bs.modal", function () {
-            $createResourceForm.clearForm();
-        });
-        $createResourceForm.find(".save-create-resource-modal").on("click", function () {
-            createResource();
-        });
-        $createResourceForm.find(".close-create-resource-modal").on("click", function () {
-            $createResourceModal.modal("hide");
+        $resourceSearchForm.find(".create-button").on("click", function () {
+            resourceDetailModal.show();
         });
         /* ========================< modify >======================== */
         /* ========================< delete >======================== */
@@ -108,8 +151,10 @@ var SysRes = function () {
     return {
         init: function () {
             bindEvent();
+            resourceDetailModal.init();
             searchResources(1);
-        }
+        },
+        searchResources: searchResources
     }
 }();
 $(function () {

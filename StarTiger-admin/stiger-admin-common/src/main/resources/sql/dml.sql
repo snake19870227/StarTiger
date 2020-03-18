@@ -103,5 +103,7 @@ begin
 
     set @menu_order = @menu_order + 1;
 
+    commit ;
+
 end;
 call stigeradmin.init();

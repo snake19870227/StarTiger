@@ -6,7 +6,12 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.snake19870227.stiger.admin.dao.mapper.SysMenuMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysUserMapper;
@@ -80,6 +85,17 @@ public class SysServiceImpl implements SysService {
     }
 
     @Override
+    @Cacheable(cacheNames = "SysResource", key = "#resFlow")
+    public SysResource readResource(String resFlow) {
+        return sysResourceMapper.selectById(resFlow);
+    }
+
+    @Override
+    @Caching(
+            evict = @CacheEvict(cacheNames = "SysResource", key = "'all'"),
+            put = @CachePut(cacheNames = "SysResource", key = "#resource.resFlow")
+    )
+    @Transactional(rollbackFor = Exception.class)
     public SysResource createResource(SysResource resource) {
         if (sysResourceMapper.insert(resource) != 1) {
             throw new ServiceException("新增资源失败");
@@ -88,6 +104,11 @@ public class SysServiceImpl implements SysService {
     }
 
     @Override
+    @Caching(
+            evict = @CacheEvict(cacheNames = "SysResource", key = "'all'"),
+            put = @CachePut(cacheNames = "SysResource", key = "#resource.resFlow")
+    )
+    @Transactional(rollbackFor = Exception.class)
     public SysResource modifyResource(SysResource resource) {
         if (sysResourceMapper.updateById(resource) != 1) {
             throw new ServiceException("修改资源失败");
@@ -96,6 +117,13 @@ public class SysServiceImpl implements SysService {
     }
 
     @Override
+    @Caching(
+            evict = {
+                    @CacheEvict(cacheNames = "SysResource", key = "'all'"),
+                    @CacheEvict(cacheNames = "SysResource", key = "#resFlow")
+            }
+    )
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteResource(String resFlow) {
         return sysResourceMapper.deleteById(resFlow) == 1;
     }

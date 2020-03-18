@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -65,10 +66,24 @@ public class SysResourceController extends BaseController {
         return "sys/resource/list";
     }
 
+    @GetMapping(path = "/{resFlow}")
+    @ResponseBody
+    public RestResponse.DefaultRestResponse read(@PathVariable(name = "resFlow") String resFlow) {
+        SysResource resource = sysService.readResource(resFlow);
+        return RestResponseBuilder.createSuccessDefaultRestResp(resource);
+    }
+
     @PostMapping
     @ResponseBody
     public RestResponse.DefaultRestResponse create(@ModelAttribute SysResource resource) {
         sysService.createResource(resource);
+        return RestResponseBuilder.createSuccessDefaultRestResp(resource);
+    }
+
+    @PutMapping
+    @ResponseBody
+    public RestResponse.DefaultRestResponse modify(@ModelAttribute SysResource resource) {
+        sysService.modifyResource(resource);
         return RestResponseBuilder.createSuccessDefaultRestResp(resource);
     }
 

@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>未授权</title>
+    <th:block th:replace="global::style('未授权')"/>
 </head>
-<body>
-<h1>未授权访问</h1>
-<a th:href="@{/}">回首页</a>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<div class="wrapper">
+
+    <th:block th:replace="global::ui-header"/>
+
+    <th:block th:replace="global::ui-user-sidebar(true)"/>
+
+    <div class="content-wrapper">
+
+        <th:block th:replace="global::ui-content-header(false, '', false)"/>
+
+        <section class="content">
+            <div class="error-page">
+                <h2 class="headline text-warning">未授权</h2>
+                <div class="error-content">
+                    <h3><i class="fas fa-exclamation-triangle text-warning"></i> 抱歉! 您的账户未被授权访问该地址.</h3>
+                    <p>您可以联系管理员找解决途径.<a th:href="@{/main}">返回主页</a></p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+<!--    <th:block th:replace="global::ui-footer"/>-->
+
+</div>
+
+<th:block th:replace="global :: script-frame"/>
+<th:block th:replace="global :: script-stiger"/>
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>

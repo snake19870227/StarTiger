@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,8 @@ import com.snake19870227.stiger.admin.entity.po.SysMenu;
  */
 public class Sidebar {
 
+    private List<MenuItem> currentMenuPathQueue;
+
     private List<MenuItem> items;
 
     public Sidebar(List<MenuInfo> infos) {
@@ -23,6 +26,7 @@ public class Sidebar {
     }
 
     public Sidebar(String currentMenuCode, List<MenuInfo> infos) {
+        this.currentMenuPathQueue = new ArrayList<>();
         this.items = new ArrayList<>();
         this.items.addAll(
                 infos.stream().map(menuInfo -> {
@@ -43,15 +47,17 @@ public class Sidebar {
     }
 
     public void open(String menuCode) {
-        this.items.forEach(menuItem -> {
-            if (menuItem.getChildItems() != null) {
-                menuItem.setActive(false);
-                menuItem.getChildItems().forEach(menuItem1 -> {
-                    if (StrUtil.equals(menuCode, menuItem1.getMenu().getMenuCode())) {
-                        menuItem.setActive(true);
-                        menuItem1.setActive(true);
+        this.currentMenuPathQueue.clear();
+        this.items.forEach(parentMenu -> {
+            if (parentMenu.getChildItems() != null) {
+                parentMenu.setActive(false);
+                parentMenu.getChildItems().forEach(childMenu -> {
+                    if (StrUtil.equals(menuCode, childMenu.getMenu().getMenuCode())) {
+                        parentMenu.setActive(true);
+                        childMenu.setActive(true);
+                        this.currentMenuPathQueue.addAll(Arrays.asList(parentMenu, childMenu));
                     } else {
-                        menuItem1.setActive(false);
+                        childMenu.setActive(false);
                     }
                 });
             }
@@ -59,12 +65,17 @@ public class Sidebar {
     }
 
     public void closeAll() {
+        this.currentMenuPathQueue.clear();
         this.items.forEach(menuItem -> {
             menuItem.setActive(false);
             if (menuItem.getChildItems() != null) {
                 menuItem.getChildItems().forEach(menuItem1 -> menuItem1.setActive(false));
             }
         });
+    }
+
+    public List<MenuItem> getCurrentMenuPathQueue() {
+        return currentMenuPathQueue;
     }
 
     public List<MenuItem> getItems() {

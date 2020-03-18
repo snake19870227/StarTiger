@@ -26,6 +26,8 @@ public interface SysService {
 
     List<SysResource> getResource(String resName, long page, long pageSize);
 
+    SysResource readResource(String resFlow);
+
     SysResource createResource(SysResource resource);
 
     SysResource modifyResource(SysResource resource);

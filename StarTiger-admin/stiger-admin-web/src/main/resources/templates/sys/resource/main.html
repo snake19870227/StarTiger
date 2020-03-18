@@ -3,7 +3,7 @@
 <head>
     <th:block th:replace="global::style('资源管理')"/>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
 
     <th:block th:replace="global::ui-header"/>
@@ -12,21 +12,7 @@
 
     <div class="content-wrapper">
 
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>资源管理</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">权限管理</li>
-                            <li class="breadcrumb-item active">资源管理</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <th:block th:replace="global::ui-content-header(true, '', true)"/>
 
         <section class="content">
             <div class="container-fluid">
@@ -50,7 +36,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <table id="resources-container" class="table table-bordered">
+                        <table id="resources-container" class="table table-bordered table-hover" style="width:100%;">
                             <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
@@ -68,7 +54,7 @@
         </section>
     </div>
 
-    <th:block th:replace="global::ui-footer"/>
+<!--    <th:block th:replace="global::ui-footer"/>-->
 
     <div class="modal fade" id="delete-resource-confirm-modal">
         <div class="modal-dialog" role="document">
@@ -85,26 +71,27 @@
         </div>
     </div>
 
-    <div class="modal fade" id="create-resource-modal" data-backdrop="static">
+    <div class="modal fade" id="resource-detail-modal" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="create-resource-form">
+                <form id="resource-detail-form">
                     <div class="modal-header">
-                        <h4 class="modal-title">新增</h4>
+                        <h4 class="modal-title">资源详情</h4>
                     </div>
                     <div class="modal-body">
-                            <div class="form-group">
-                                <label for="res-name">资源名称</label>
-                                <input type="text" name="resName" class="form-control" id="res-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="res-path">资源路径</label>
-                                <input type="text" name="resPath" class="form-control" id="res-path">
-                            </div>
+                        <input type="hidden" name="resFlow"/>
+                        <div class="form-group">
+                            <label for="res-name">资源名称</label>
+                            <input type="text" name="resName" class="form-control" id="res-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="res-path">资源路径</label>
+                            <input type="text" name="resPath" class="form-control" id="res-path">
+                        </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default close-create-resource-modal">取消</button>
-                        <button type="button" class="btn btn-primary save-create-resource-modal">保存</button>
+                        <button type="button" class="btn btn-default close-resource-detail-modal">取消</button>
+                        <button type="button" class="btn btn-primary save-resource-detail-modal">保存</button>
                     </div>
                 </form>
             </div>
