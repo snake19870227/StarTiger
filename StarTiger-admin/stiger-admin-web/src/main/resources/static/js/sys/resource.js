@@ -44,6 +44,7 @@ var resourceDetailModal = function () {
                             }
                             SysRes.searchResources(1);
                             _this.hide();
+                            Proj.showToasts("success", "保存成功");
                         }
                     };
                     HttpUtil.ajaxReq(options);

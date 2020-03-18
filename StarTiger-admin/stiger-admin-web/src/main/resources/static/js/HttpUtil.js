@@ -26,8 +26,8 @@ var RespCode = function () {
             def(resp, options);
             Proj.showToasts("warning", "[" + resp.respCode + "]" + resp.respMessage);
             setTimeout(function () {
-                window.location.href = HttpUtil.contextPath() + "/login?expire";
-            }, 1000);
+                window.location.href = Proj.getContextPath() + "/login?expire";
+            }, 3000);
         },
         code2002: defError
     }
