@@ -118,21 +118,49 @@
     </footer>
 </th:block>
 
+<th:block th:fragment="ui-page(pageObj, searchMethod)">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center" th:attr="data-page-method=${searchMethod}">
+            <li th:class="'page-item' + (${pageObj.current == 1} ? ' disabled' : '')">
+                <a class="page-link" href="javascript:void(0);"
+                   onclick="Proj.toPage(this, 1)">首页</a>
+            </li>
+            <li th:if="${pageObj.current != 1}" class="page-item">
+                <a class="page-link" href="javascript:void(0);"
+                   th:onclick="'Proj.toPage(this, ' + ${pageObj.current - 1} + ')'">上一页</a>
+            </li>
+            <li th:each="item : ${pageObj.rainbow}"
+                th:class="'page-item' + (${pageObj.current == item} ? ' active disabled' : '')">
+                <a class="page-link" href="javascript:void(0);"
+                   th:onclick="'Proj.toPage(this, ' + ${item} + ')'" th:text="${item}">1</a>
+            </li>
+            <li th:if="${pageObj.current != pageObj.totalPage}" class="page-item">
+                <a class="page-link" href="javascript:void(0);"
+                   th:onclick="'Proj.toPage(this, ' + ${pageObj.current + 1} + ')'">下一页</a>
+            </li>
+            <li th:class="'page-item' + (${pageObj.current == pageObj.totalPage} ? ' disabled' : '')">
+                <a class="page-link" href="javascript:void(0);"
+                   th:onclick="'Proj.toPage(this, ' + ${pageObj.totalPage} + ')'">末页</a>
+            </li>
+        </ul>
+    </nav>
+</th:block>
+
 <th:block th:if="${#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" th:fragment="script-frame">
-    <input type="hidden" th:if="${#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" id="runningMode" value="dev" />
     <script th:src="@{/adminlte/plugins/jquery/jquery.js}"></script>
     <script th:src="@{/adminlte/plugins-ext/jquery-form/jquery.form.js}"></script>
     <script th:src="@{/adminlte/plugins/bootstrap/js/bootstrap.bundle.js}"></script>
     <script th:src="@{/adminlte/dist/js/adminlte.js}"></script>
 </th:block>
 <th:block th:if="${!#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" th:fragment="script-frame">
-    <input type="hidden" th:if="${!#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" id="runningMode" value="notdev" />
     <script th:src="@{/adminlte/plugins/jquery/jquery.min.js}"></script>
     <script th:src="@{/adminlte/plugins-ext/jquery-form/jquery.form.min.js}"></script>
     <script th:src="@{/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/adminlte/dist/js/adminlte.min.js}"></script>
 </th:block>
 <th:block th:fragment="script-stiger">
+    <input type="hidden" id="runningMode"
+           th:value="${#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')} ? 'dev' : 'notdev'" />
     <input type="hidden" id="context-path" th:value="${#servletContext.contextPath}">
     <script th:src="@{/js/Proj.js}"></script>
     <script th:src="@{/js/HttpUtil.js}"></script>

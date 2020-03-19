@@ -45,6 +45,14 @@ var Proj = function () {
                 options.icon = "fas fa-lg " + toastIcons[index];
             }
             $(document).Toasts('create', options);
+        },
+        toPage: function (dom, page) {
+            var pageMethod = $(dom).parents("ul").data("pageMethod");
+            var methodPaths = pageMethod.split(".");
+            var modal = window[methodPaths[0]];
+            if (modal) {
+                modal[methodPaths[1]](page);
+            }
         }
     }
 }();
