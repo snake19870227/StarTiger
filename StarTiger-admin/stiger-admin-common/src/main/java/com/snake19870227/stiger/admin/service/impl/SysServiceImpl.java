@@ -12,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.snake19870227.stiger.admin.dao.mapper.SysMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysMenuMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysUserMapper;
@@ -21,6 +22,7 @@ import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
+import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.opt.MenuInfoOpt;
 import com.snake19870227.stiger.admin.opt.ResourceInfoOpt;
@@ -43,6 +45,8 @@ public class SysServiceImpl implements SysService {
 
     private final SysMenuMapper sysMenuMapper;
 
+    private final SysMapper sysMapper;
+
     private final ResourceInfoOpt resourceInfoOpt;
 
     private final UserInfoOpt userInfoOpt;
@@ -51,11 +55,12 @@ public class SysServiceImpl implements SysService {
 
     public SysServiceImpl(SysUserMapper sysUserMapper,
                           SysResourceMapper sysResourceMapper, SysMenuMapper sysMenuMapper,
-                          ResourceInfoOpt resourceInfoOpt, UserInfoOpt userInfoOpt,
-                          MenuInfoOpt menuInfoOpt) {
+                          SysMapper sysMapper, ResourceInfoOpt resourceInfoOpt,
+                          UserInfoOpt userInfoOpt, MenuInfoOpt menuInfoOpt) {
         this.sysUserMapper = sysUserMapper;
         this.sysResourceMapper = sysResourceMapper;
         this.sysMenuMapper = sysMenuMapper;
+        this.sysMapper = sysMapper;
         this.resourceInfoOpt = resourceInfoOpt;
         this.userInfoOpt = userInfoOpt;
         this.menuInfoOpt = menuInfoOpt;
@@ -79,7 +84,7 @@ public class SysServiceImpl implements SysService {
     }
 
     @Override
-    public List<SysResource> getResource(String resName, long page, long pageSize) {
+    public List<SysResource> getResources(String resName, long page, long pageSize) {
         RecordPage<SysResource> pager = new RecordPage<>(page, pageSize);
         return sysResourceMapper.get(pager, resName);
     }
@@ -105,7 +110,10 @@ public class SysServiceImpl implements SysService {
 
     @Override
     @Caching(
-            evict = @CacheEvict(cacheNames = "SysResource", key = "'all'"),
+            evict = {
+                    @CacheEvict(cacheNames = "SysResource", key = "'all'"),
+                    @CacheEvict(cacheNames = "ResourceInfo", key = "#resFlow")
+            },
             put = @CachePut(cacheNames = "SysResource", key = "#resource.resFlow")
     )
     @Transactional(rollbackFor = Exception.class)
@@ -120,12 +128,21 @@ public class SysServiceImpl implements SysService {
     @Caching(
             evict = {
                     @CacheEvict(cacheNames = "SysResource", key = "'all'"),
-                    @CacheEvict(cacheNames = "SysResource", key = "#resFlow")
+                    @CacheEvict(cacheNames = "SysResource", key = "#resFlow"),
+                    @CacheEvict(cacheNames = "ResourceInfo", key = "#resFlow")
             }
     )
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteResource(String resFlow) {
         return sysResourceMapper.deleteById(resFlow) == 1;
+    }
+
+    /* ====================< Role >==================== */
+
+    @Override
+    public List<SysRole> getRoles(String searchCode, String searchName, String searchResName, long page, long pageSize) {
+        RecordPage<SysRole> pager = new RecordPage<>(page, pageSize);
+        return sysMapper.selectRoles(pager, searchCode, searchName, searchResName);
     }
 
     /* ====================< User >==================== */

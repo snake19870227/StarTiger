@@ -26,61 +26,6 @@ begin
     insert into sys_resource (res_flow, res_name, res_path)
     values (replace(uuid(), '-', ''), '角色管理', '/sys/role/**');
 
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo1', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo2', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo3', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo4', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo5', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo6', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo7', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo8', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo9', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo10', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo11', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo12', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo13', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo14', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo15', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo16', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo17', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo18', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo19', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo20', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo21', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo22', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo23', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo24', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo25', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo26', '/demo/**');
-    insert into sys_resource (res_flow, res_name, res_path)
-    values (replace(uuid(), '-', ''), 'demo27', '/demo/**');
-
     insert into sys_role (role_flow, role_code, role_name)
     values (@super_role_flow, 'super_admin', '超级管理员');
 

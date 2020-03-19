@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.snake19870227.stiger.admin.dao.mapper.SysMapper">
+
     <resultMap id="sys_resource_resultMap" type="com.snake19870227.stiger.admin.entity.po.SysResource">
         <id property="resFlow" column="res_flow"/>
         <result property="resName" column="res_name"/>
@@ -16,4 +17,32 @@
                         and sys_role_resource.role_flow = #{roleFlow}
                   )
     </select>
+
+    <resultMap id="sys_role_resultMap" type="com.snake19870227.stiger.admin.entity.po.SysRole">
+        <id property="roleFlow" column="role_flow"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+    <select id="selectRoles" resultMap="sys_role_resultMap">
+        select role_flow, role_code, role_name
+        from sys_role
+        <where>
+            <if test="searchCode != null and searchCode != ''">
+                role_code = #{searchCode}
+            </if>
+            <if test="searchName != null and searchName != ''">
+                and role_name like concat(concat('%', #{searchName}), '%')
+            </if>
+            <if test="searchResName != null and searchResName != ''">
+                and exists (
+                    select null from sys_resorce, sys_role_resource
+                    where sys_resorce.res_name like concat(concat('%', #{searchResName}), '%')
+                    and sys_resorce.res_flow = sys_role_resource.res_flow
+                    and sys_role.role_flow = sys_role_resource.role_flow
+                )
+            </if>
+        </where>
+        order by role_code
+    </select>
+
 </mapper>

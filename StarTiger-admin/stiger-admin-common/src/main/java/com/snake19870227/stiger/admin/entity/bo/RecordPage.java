@@ -53,7 +53,7 @@ public class RecordPage<T> extends ArrayList<T> implements IPage<T> {
     public IPage<T> setTotal(long total) {
         this.total = total;
         this.totalPage = this.getPages();
-        this.rainbow = PageUtil.rainbow(Long.valueOf(current).intValue(), Long.valueOf(totalPage).intValue(), 7);
+        this.rainbow = PageUtil.rainbow(Long.valueOf(current).intValue(), Long.valueOf(totalPage).intValue(), 11);
         return this;
     }
 

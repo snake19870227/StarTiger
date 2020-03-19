@@ -8,6 +8,7 @@ import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
+import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 
 /**
@@ -24,7 +25,7 @@ public interface SysService {
 
     List<SysResource> getResourceByRoleCode(String roleCode);
 
-    List<SysResource> getResource(String resName, long page, long pageSize);
+    List<SysResource> getResources(String resName, long page, long pageSize);
 
     SysResource readResource(String resFlow);
 
@@ -33,6 +34,10 @@ public interface SysService {
     SysResource modifyResource(SysResource resource);
 
     boolean deleteResource(String resFlow);
+
+    /* ====================< Role >==================== */
+
+    List<SysRole> getRoles(String searchCode, String searchName, String searchResName, long page, long pageSize);
 
     /* ====================< User >==================== */
 

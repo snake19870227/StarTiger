@@ -5,17 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.service.RouterService;
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
 
 /**
  * @author Bu HuaYang
@@ -51,35 +46,5 @@ public class MainController extends BaseController {
         redirectAttributes.addAttribute("menuCode", menuCode);
 
         return "redirect:" + menu.getMenuPath();
-    }
-
-    @PostMapping(path = "/sayHello")
-    public String sayHello(@RequestParam(name = "name") String name,
-                           Model model) {
-        model.addAttribute("sayHello", "hello, " + name);
-        return "main1";
-    }
-
-    @GetMapping(path = "/res1")
-    @ResponseBody
-    public RestResponse<Object> res1() {
-        return RestResponseBuilder.createSuccessDefaultRestResp("res1");
-    }
-
-    @GetMapping(path = "/res2")
-    @ResponseBody
-    public RestResponse<Object> res2() {
-        return RestResponseBuilder.createSuccessDefaultRestResp("res2");
-    }
-
-    @GetMapping(path = "/res3")
-    public String res3() {
-        return "demo/res3";
-    }
-
-    @GetMapping(path = "/resError1")
-    public String resError1() {
-        int i = 1 / 0;
-        return null;
     }
 }

@@ -2,16 +2,16 @@
     <table class="table table-bordered table-hover" style="width:100%;">
         <thead>
         <tr>
-            <th style="width:300px">资源名称</th>
-            <th style="width:500px">资源Path</th>
+            <th style="width:300px">角色代码</th>
+            <th style="width:500px">角色名称</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="resource : ${sysResources}">
-            <td th:text="${resource.resName}">资源名称</td>
-            <td th:text="${resource.resPath}">资源Path</td>
-            <td th:attr="data-res-flow=${resource.resFlow},data-res-name=${resource.resName}">
+        <tr th:each="sysRole : ${sysRoles}">
+            <td th:text="${sysRole.roleCode}">角色代码</td>
+            <td th:text="${sysRole.roleName}">角色名称</td>
+            <td th:attr="data-role-flow=${sysRole.roleFlow},data-role-code=${sysRole.roleCode},data-role-name=${sysRole.roleName}">
                 <button type="button" class="btn btn-primary modify-resource-btn">修改</button>
                 <button type="button" class="btn btn-danger delete-resource-btn">删除</button>
             </td>
@@ -20,5 +20,5 @@
     </table>
 </div>
 <div xmlns:th="http://www.thymeleaf.org" class="col-md-12">
-    <th:block th:replace="global::ui-page(${sysResources},'SysRes.searchResources')"/>
+    <th:block th:replace="global::ui-page(${sysRoles},'SysRole.searchRoles')"/>
 </div>

@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <th:block th:fragment="style(title)">
+    <th:block th:fragment="style(title)" th:object="${session.userSidebar}">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-        <title th:text="'STiger | ' + ${title}">STiger | Admin</title>
+        <title th:text="'STiger | ' + (${#strings.isEmpty(title)} ? *{currentMenuPathQueue.get(currentMenuPathQueue.size()-1).menu.menuName} : ${title})">STiger | Admin</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" th:href="@{/adminlte/plugins/fontawesome-free/css/all.min.css}">
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">

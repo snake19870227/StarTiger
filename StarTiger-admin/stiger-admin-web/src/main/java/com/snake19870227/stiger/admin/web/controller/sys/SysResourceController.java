@@ -49,10 +49,6 @@ public class SysResourceController extends BaseController {
             openMenu(menuCode, request);
         }
 
-        List<SysResource> resources = sysService.getResource(null, 1, 10);
-
-        model.addAttribute("resources", resources);
-
         return "sys/resource/main";
     }
 
@@ -61,8 +57,8 @@ public class SysResourceController extends BaseController {
                        @RequestParam(name = "page", defaultValue = "1") long page,
                        @RequestParam(name = "pageSize", defaultValue = "10") long pageSize,
                        Model model) {
-        List<SysResource> resources = sysService.getResource(searchName, page, pageSize);
-        if (resources instanceof RecordPage) {
+        List<SysResource> resources = sysService.getResources(searchName, page, pageSize);
+        if (logger.isDebugEnabled() && resources instanceof RecordPage) {
             RecordPage<SysResource> recordPage = (RecordPage<SysResource>) resources;
             logger.debug("共{}页,共{}条记录,当前第{}页", recordPage.getPages(), recordPage.getTotal(), recordPage.getCurrent());
         }
