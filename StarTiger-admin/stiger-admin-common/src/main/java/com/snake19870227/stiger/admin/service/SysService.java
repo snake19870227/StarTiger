@@ -3,8 +3,11 @@ package com.snake19870227.stiger.admin.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
+import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
+import com.snake19870227.stiger.admin.entity.bo.RoleInfo;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
@@ -25,7 +28,7 @@ public interface SysService {
 
     List<SysResource> getResourceByRoleCode(String roleCode);
 
-    List<SysResource> getResources(String resName, long page, long pageSize);
+    RecordPage<SysResource> getResources(String resName, long page, long pageSize);
 
     SysResource readResource(String resFlow);
 
@@ -37,7 +40,13 @@ public interface SysService {
 
     /* ====================< Role >==================== */
 
-    List<SysRole> getRoles(String searchCode, String searchName, String searchResName, long page, long pageSize);
+    IPage<SysRole> getRoles(String searchCode, String searchName, String searchResName, long page, long pageSize);
+
+    RoleInfo readRoleInfo(String roleFlow);
+
+    SysRole createRole(SysRole role, String[] resFlows);
+
+    SysRole modifyRole(SysRole role, String[] resFlows);
 
     /* ====================< User >==================== */
 

@@ -22,4 +22,10 @@ public interface SysRoleResourceMapper extends BaseMapper<SysRoleResource> {
         wrapper.eq("role_flow", roleFlow);
         return this.selectList(wrapper);
     }
+
+    default void deleteByRoleFlow(String roleFlow) {
+        QueryWrapper<SysRoleResource> wrapper = new QueryWrapper<>();
+        wrapper.eq("role_flow", roleFlow);
+        this.delete(wrapper);
+    }
 }

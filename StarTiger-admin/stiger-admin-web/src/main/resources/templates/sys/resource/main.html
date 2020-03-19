@@ -17,20 +17,24 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
-                        <form id="resource-search-form">
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="search-name">资源名:</label>
-                                    <input type="text" id="search-name" name="searchName" class="form-control"
-                                           placeholder="资源名"/>
+                    <div class="col-md-8">
+                        <form id="role-search-form">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="search-name" class="col-md-3 col-form-label text-right">资源名:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="search-name" name="searchName" class="form-control"
+                                                   placeholder="资源名"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-primary search-button">查询</button>
-                        <button type="button" class="btn btn-success create-button">新增</button>
+                        <button type="button" id="search-button" class="btn btn-primary">查询</button>
+                        <button type="button" id="create-button" class="btn btn-success">新增</button>
                     </div>
                 </div>
                 <div class="row" id="resources-container">

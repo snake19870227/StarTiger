@@ -12,20 +12,26 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.snake19870227.stiger.admin.dao.mapper.SysMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysMenuMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
+import com.snake19870227.stiger.admin.dao.mapper.SysRoleMapper;
+import com.snake19870227.stiger.admin.dao.mapper.SysRoleResourceMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysUserMapper;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
+import com.snake19870227.stiger.admin.entity.bo.RoleInfo;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
+import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.opt.MenuInfoOpt;
 import com.snake19870227.stiger.admin.opt.ResourceInfoOpt;
+import com.snake19870227.stiger.admin.opt.RoleInfoOpt;
 import com.snake19870227.stiger.admin.opt.UserInfoOpt;
 import com.snake19870227.stiger.admin.service.SysService;
 import com.snake19870227.stiger.core.exception.ServiceException;
@@ -43,6 +49,10 @@ public class SysServiceImpl implements SysService {
 
     private final SysResourceMapper sysResourceMapper;
 
+    private final SysRoleMapper sysRoleMapper;
+
+    private final SysRoleResourceMapper sysRoleResourceMapper;
+
     private final SysMenuMapper sysMenuMapper;
 
     private final SysMapper sysMapper;
@@ -53,17 +63,23 @@ public class SysServiceImpl implements SysService {
 
     private final MenuInfoOpt menuInfoOpt;
 
-    public SysServiceImpl(SysUserMapper sysUserMapper,
-                          SysResourceMapper sysResourceMapper, SysMenuMapper sysMenuMapper,
+    private final RoleInfoOpt roleInfoOpt;
+
+    public SysServiceImpl(SysUserMapper sysUserMapper, SysResourceMapper sysResourceMapper,
+                          SysRoleMapper sysRoleMapper, SysRoleResourceMapper sysRoleResourceMapper,
+                          SysMenuMapper sysMenuMapper,
                           SysMapper sysMapper, ResourceInfoOpt resourceInfoOpt,
-                          UserInfoOpt userInfoOpt, MenuInfoOpt menuInfoOpt) {
+                          UserInfoOpt userInfoOpt, MenuInfoOpt menuInfoOpt, RoleInfoOpt roleInfoOpt) {
         this.sysUserMapper = sysUserMapper;
         this.sysResourceMapper = sysResourceMapper;
+        this.sysRoleMapper = sysRoleMapper;
+        this.sysRoleResourceMapper = sysRoleResourceMapper;
         this.sysMenuMapper = sysMenuMapper;
         this.sysMapper = sysMapper;
         this.resourceInfoOpt = resourceInfoOpt;
         this.userInfoOpt = userInfoOpt;
         this.menuInfoOpt = menuInfoOpt;
+        this.roleInfoOpt = roleInfoOpt;
     }
 
     /* ====================< Resource >==================== */
@@ -84,7 +100,7 @@ public class SysServiceImpl implements SysService {
     }
 
     @Override
-    public List<SysResource> getResources(String resName, long page, long pageSize) {
+    public RecordPage<SysResource> getResources(String resName, long page, long pageSize) {
         RecordPage<SysResource> pager = new RecordPage<>(page, pageSize);
         return sysResourceMapper.get(pager, resName);
     }
@@ -140,9 +156,47 @@ public class SysServiceImpl implements SysService {
     /* ====================< Role >==================== */
 
     @Override
-    public List<SysRole> getRoles(String searchCode, String searchName, String searchResName, long page, long pageSize) {
+    public IPage<SysRole> getRoles(String searchCode, String searchName, String searchResName, long page, long pageSize) {
         RecordPage<SysRole> pager = new RecordPage<>(page, pageSize);
         return sysMapper.selectRoles(pager, searchCode, searchName, searchResName);
+    }
+
+    @Override
+    public RoleInfo readRoleInfo(String roleFlow) {
+        return roleInfoOpt.readRoleInfo(roleFlow);
+    }
+
+    private void createRoleResources(SysRole role, String[] resFlows) {
+        for (String resFlow : resFlows) {
+            SysRoleResource roleResource = new SysRoleResource();
+            roleResource.setRoleFlow(role.getRoleFlow())
+                    .setResFlow(resFlow);
+            sysRoleResourceMapper.insert(roleResource);
+        }
+    }
+
+    @Override
+    @Caching(
+            put = @CachePut(cacheNames = "SysRole", key = "#role.roleFlow")
+    )
+    @Transactional(rollbackFor = Exception.class)
+    public SysRole createRole(SysRole role, String[] resFlows) {
+        sysRoleMapper.insert(role);
+        createRoleResources(role, resFlows);
+        return role;
+    }
+
+    @Override
+    @Caching(
+            evict = @CacheEvict(cacheNames = "RoleInfo", key = "#role.roleFlow"),
+            put = @CachePut(cacheNames = "SysRole", key = "#role.roleFlow")
+    )
+    @Transactional(rollbackFor = Exception.class)
+    public SysRole modifyRole(SysRole role, String[] resFlows) {
+        sysRoleMapper.updateById(role);
+        sysRoleResourceMapper.deleteByRoleFlow(role.getRoleFlow());
+        createRoleResources(role, resFlows);
+        return role;
     }
 
     /* ====================< User >==================== */

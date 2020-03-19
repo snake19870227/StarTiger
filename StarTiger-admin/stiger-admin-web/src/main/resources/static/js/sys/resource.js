@@ -147,11 +147,11 @@ var SysRes = function () {
 
     var bindEvent = function () {
         /* ========================< search >======================== */
-        $resourceSearchForm.find(".search-button").on("click", function () {
+        $("#search-button").on("click", function () {
             searchResources(1);
         });
         /* ========================< create >======================== */
-        $resourceSearchForm.find(".create-button").on("click", function () {
+        $("#create-button").on("click", function () {
             resourceDetailModal.show();
         });
     };

@@ -3,6 +3,7 @@ package com.snake19870227.stiger.admin.web.controller.sys;
 import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -57,13 +58,19 @@ public class SysResourceController extends BaseController {
                        @RequestParam(name = "page", defaultValue = "1") long page,
                        @RequestParam(name = "pageSize", defaultValue = "10") long pageSize,
                        Model model) {
-        List<SysResource> resources = sysService.getResources(searchName, page, pageSize);
-        if (logger.isDebugEnabled() && resources instanceof RecordPage) {
-            RecordPage<SysResource> recordPage = (RecordPage<SysResource>) resources;
-            logger.debug("共{}页,共{}条记录,当前第{}页", recordPage.getPages(), recordPage.getTotal(), recordPage.getCurrent());
+        RecordPage<SysResource> resources = sysService.getResources(searchName, page, pageSize);
+        if (logger.isDebugEnabled()) {
+            logger.debug("共{}页,共{}条记录,当前第{}页", resources.getPages(), resources.getTotal(), resources.getCurrent());
         }
         model.addAttribute("sysResources", resources);
         return "sys/resource/list";
+    }
+
+    @GetMapping(path = "/all")
+    @ResponseBody
+    public RestResponse.DefaultRestResponse all() {
+        List<SysResource> resources = sysService.getAllResource();
+        return RestResponseBuilder.createSuccessDefaultRestResp(resources);
     }
 
     @GetMapping(path = "/{resFlow}")

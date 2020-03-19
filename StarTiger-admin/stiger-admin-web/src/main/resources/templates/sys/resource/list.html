@@ -8,7 +8,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="resource : ${sysResources}">
+        <tr th:each="resource : ${sysResources.records}">
             <td th:text="${resource.resName}">资源名称</td>
             <td th:text="${resource.resPath}">资源Path</td>
             <td th:attr="data-res-flow=${resource.resFlow},data-res-name=${resource.resName}">

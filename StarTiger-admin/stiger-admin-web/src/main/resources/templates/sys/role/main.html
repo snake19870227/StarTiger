@@ -19,34 +19,109 @@
                 <div class="row">
                     <div class="col-md-8">
                         <form id="role-search-form">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="search-code">角色代码:</label>
-                                    <input type="text" id="search-code" name="searchCode" class="form-control"
-                                           placeholder="角色代码"/>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="search-code" class="col-md-3 col-form-label text-right">角色码:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="search-code" name="searchCode" class="form-control"
+                                                   placeholder="角色代码"/>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="search-name">角色名:</label>
-                                    <input type="text" id="search-name" name="searchName" class="form-control"
-                                           placeholder="角色名"/>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="search-name" class="col-md-3 col-form-label text-right">角色名:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="search-name" name="searchName" class="form-control"
+                                                   placeholder="角色名"/>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="search-res-name">资源名:</label>
-                                    <input type="text" id="search-res-name" name="searchResName" class="form-control"
-                                           placeholder="资源名"/>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="search-res-name" class="col-md-3 col-form-label text-right">资源名:</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="search-res-name" name="searchResName" class="form-control"
+                                                   placeholder="资源名"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-primary search-button">查询</button>
-                        <button type="button" class="btn btn-success create-button">新增</button>
+                        <button type="button" id="search-button" class="btn btn-primary">查询</button>
+                        <button type="button" id="create-button" class="btn btn-success">新增</button>
                     </div>
                 </div>
                 <div class="row" id="roles-container">
                 </div>
             </div>
         </section>
+    </div>
+
+    <div class="modal fade" id="role-detail-modal" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="role-detail-form">
+                    <div class="modal-header">
+                        <h4 class="modal-title">角色详情</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" class="simple-fields" name="roleFlow"/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="role-code">角色代码</label>
+                                    <input type="text" name="roleCode" class="form-control simple-fields"
+                                           id="role-code" placeholder="输入角色代码">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="role-name">角色名称</label>
+                                    <input type="text" name="roleName" class="form-control simple-fields"
+                                           id="role-name" placeholder="输入角色名称">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="all-role-resource">所有资源</label>
+                                    <select name="allResFlows" multiple class="form-control" id="all-role-resource"
+                                            style="height:300px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-center align-self-center">
+                                <button type="button" class="btn btn-success add-resources">
+                                    <i class="fas fa-caret-right"></i>
+                                    添加
+                                </button>
+                                <button type="button" class="btn btn-secondary remove-resources">
+                                    <i class="fas fa-caret-left"></i>
+                                    移除
+                                </button>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="selected-role-resource">已选资源</label>
+                                    <select name="resFlows" multiple class="form-control" id="selected-role-resource"
+                                            style="height:300px;">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default close-detail-modal-btn">取消</button>
+                        <button type="button" class="btn btn-primary save-detail-btn">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
 </div>

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysRoleMapper;
@@ -47,7 +48,9 @@ public class ResourceInfoOptImpl implements ResourceInfoOpt {
     @Override
     @Cacheable(cacheNames = "SysResource", key = "'all'")
     public List<SysResource> getAll() {
-        return sysResourceMapper.selectList(null);
+        QueryWrapper<SysResource> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByAsc("res_name");
+        return sysResourceMapper.selectList(queryWrapper);
     }
 
     @Override
