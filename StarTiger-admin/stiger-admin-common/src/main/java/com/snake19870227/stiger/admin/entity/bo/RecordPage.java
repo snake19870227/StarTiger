@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  */
 public class RecordPage<T> extends Page<T> implements IPage<T> {
 
+    private static final long serialVersionUID = -2424719265604032004L;
+
     private int[] rainbow;
 
     public RecordPage() {

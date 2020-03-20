@@ -145,11 +145,13 @@ public class SysServiceImpl implements SysService {
             evict = {
                     @CacheEvict(cacheNames = "SysResource", key = "'all'"),
                     @CacheEvict(cacheNames = "SysResource", key = "#resFlow"),
-                    @CacheEvict(cacheNames = "ResourceInfo", key = "#resFlow")
+                    @CacheEvict(cacheNames = "ResourceInfo", key = "#resFlow"),
+                    @CacheEvict(cacheNames = "RoleInfo", allEntries = true)
             }
     )
     @Transactional(rollbackFor = Exception.class)
     public boolean deleteResource(String resFlow) {
+        sysRoleResourceMapper.deleteByResFlow(resFlow);
         return sysResourceMapper.deleteById(resFlow) == 1;
     }
 
@@ -164,6 +166,21 @@ public class SysServiceImpl implements SysService {
     @Override
     public RoleInfo readRoleInfo(String roleFlow) {
         return roleInfoOpt.readRoleInfo(roleFlow);
+    }
+
+    @Override
+    @Caching(
+            evict = {
+                    @CacheEvict(cacheNames = "SysRole", key = "'all'"),
+                    @CacheEvict(cacheNames = "SysRole", key = "#roleFlow"),
+                    @CacheEvict(cacheNames = "RoleInfo", key = "#roleFlow"),
+                    @CacheEvict(cacheNames = "ResourceInfo", allEntries = true)
+            }
+    )
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteRole(String roleFlow) {
+        sysRoleResourceMapper.deleteByRoleFlow(roleFlow);
+        return sysRoleMapper.deleteById(roleFlow) == 1;
     }
 
     private void createRoleResources(SysRole role, String[] resFlows) {

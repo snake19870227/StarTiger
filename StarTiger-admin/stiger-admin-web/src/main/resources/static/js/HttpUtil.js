@@ -93,6 +93,17 @@ var HttpUtil = function () {
                     if (obj.complete && $.type(obj.complete) === "function") {
                         obj.complete(XMLHttpRequest, textStatus);
                     }
+                },
+                statusCode: {
+                    400: function () {
+                        Proj.showToasts("danger", "无效的请求");
+                    },
+                    404: function () {
+                        Proj.showToasts("danger", "未找到本次请求的页面或功能");
+                    },
+                    500: function () {
+                        Proj.showToasts("danger", "服务器处理失败[" + this.url + "]");
+                    }
                 }
             });
         }

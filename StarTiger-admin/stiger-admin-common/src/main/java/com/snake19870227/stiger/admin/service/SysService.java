@@ -44,6 +44,8 @@ public interface SysService {
 
     RoleInfo readRoleInfo(String roleFlow);
 
+    boolean deleteRole(String roleFlow);
+
     SysRole createRole(SysRole role, String[] resFlows);
 
     SysRole modifyRole(SysRole role, String[] resFlows);

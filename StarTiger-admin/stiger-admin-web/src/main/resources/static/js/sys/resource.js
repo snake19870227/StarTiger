@@ -59,46 +59,6 @@ var resourceDetailModal = function () {
     }
 }();
 
-var resourceDeleteConfirmModal = function () {
-    var $modal = $("#delete-resource-confirm-modal");
-    function deleteResource(resFlow) {
-        var options = {
-            type: "delete",
-            url: "/sys/resource/" + resFlow,
-            callbackFunc: function (data) {
-                if (Proj.isDev()) {
-                    console.log(data);
-                }
-                SysRes.searchResources(1);
-                $modal.modal("hide");
-                Proj.showToasts("success", "删除成功");
-            }
-        };
-        HttpUtil.ajaxReq(options);
-    }
-    return {
-        show: function (resName, resFlow) {
-            $modal.find(".modal-body strong").html(resName);
-            $modal.find(".confirm-delete-resource-confirm-modal").one("click", function () {
-                deleteResource(resFlow);
-            });
-            $modal.modal("show");
-        },
-        hide: function () {
-            $modal.modal("hide");
-        },
-        init: function () {
-            var _this = this;
-            $modal.on("hide.bs.modal", function () {
-                $modal.find(".confirm-delete-resource-confirm-modal").off();
-            });
-            $modal.find(".close-delete-resource-confirm-modal").on("click", function () {
-                $modal.modal("hide");
-            });
-        }
-    }
-}();
-
 var SysRes = function () {
 
     var $resourceSearchForm = $("#resource-search-form");
@@ -121,7 +81,21 @@ var SysRes = function () {
             var $this = $(this);
             var resFlow = $this.parent("td").data("resFlow");
             var resName = $this.parent("td").data("resName");
-            resourceDeleteConfirmModal.show(resName, resFlow);
+            DeleteConfirmModal.create({
+                showRecordInfo: resName,
+                onConfirm: function () {
+                    var options = {
+                        type: "delete",
+                        url: "/sys/resource/" + resFlow,
+                        callbackFunc: function (data) {
+                            console.log(data);
+                            searchResources(1);
+                            Proj.showToasts("success", "删除成功");
+                        }
+                    };
+                    HttpUtil.ajaxReq(options);
+                }
+            });
         });
     };
 

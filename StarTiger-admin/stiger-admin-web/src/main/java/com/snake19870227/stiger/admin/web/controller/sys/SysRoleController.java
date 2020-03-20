@@ -91,6 +91,7 @@ public class SysRoleController extends BaseController {
     @DeleteMapping(path = "/{roleFlow}")
     @ResponseBody
     public RestResponse.DefaultRestResponse delete(@PathVariable(name = "roleFlow") String roleFlow) {
+        sysService.deleteRole(roleFlow);
         return RestResponseBuilder.createSuccessDefaultRestResp();
     }
 }

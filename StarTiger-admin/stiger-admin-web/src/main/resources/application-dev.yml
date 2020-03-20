@@ -16,6 +16,10 @@ spring:
     password: 123456
   thymeleaf:
     cache: false
+  cache:
+    type: redis
+    redis:
+      time-to-live: 1m
 server:
   port: 9999
   servlet:
@@ -25,4 +29,4 @@ stiger:
   admin:
     web:
       security:
-        remember-me-key: snake1987
+        remember-me-key: stiger-admin

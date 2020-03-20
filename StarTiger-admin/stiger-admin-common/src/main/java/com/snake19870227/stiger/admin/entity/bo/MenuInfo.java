@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.entity.bo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
@@ -8,7 +9,9 @@ import com.snake19870227.stiger.admin.entity.po.SysMenu;
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
  * @date 2020/03/16
  */
-public class MenuInfo {
+public class MenuInfo implements Serializable {
+
+    private static final long serialVersionUID = 5906174533642162280L;
 
     private SysMenu menu;
 

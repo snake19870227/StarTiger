@@ -123,6 +123,27 @@ var SysRole = function () {
             var roleFlow = $this.parent("td").data("roleFlow");
             RoleDetailModal.show(roleFlow);
         });
+        $roleContainer.find(".delete-resource-btn").on("click", function () {
+            let $this = $(this);
+            let roleFlow = $this.parent("td").data("roleFlow");
+            let roleCode = $this.parent("td").data("roleCode");
+            let roleName = $this.parent("td").data("roleName");
+            DeleteConfirmModal.create({
+                showRecordInfo: roleCode + "-" + roleName,
+                onConfirm: function () {
+                    var options = {
+                        type: "delete",
+                        url: "/sys/role/" + roleFlow,
+                        callbackFunc: function (data) {
+                            console.log(data);
+                            searchRoles(1);
+                            Proj.showToasts("success", "删除成功");
+                        }
+                    };
+                    HttpUtil.ajaxReq(options);
+                }
+            });
+        });
     }
 
     function searchRoles(page) {

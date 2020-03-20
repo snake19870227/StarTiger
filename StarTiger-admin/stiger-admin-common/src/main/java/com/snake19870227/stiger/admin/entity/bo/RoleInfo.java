@@ -1,5 +1,6 @@
 package com.snake19870227.stiger.admin.entity.bo;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.snake19870227.stiger.admin.entity.po.SysResource;
@@ -9,7 +10,9 @@ import com.snake19870227.stiger.admin.entity.po.SysRole;
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
  * @date 2020/03/16
  */
-public class RoleInfo {
+public class RoleInfo implements Serializable {
+
+    private static final long serialVersionUID = 8313164172229230061L;
 
     private SysRole role;
 
