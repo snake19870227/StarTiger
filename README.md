@@ -1,19 +1,32 @@
 # StarTiger
+
 ## 本项目旨在备忘 SpringBoot、SpringCloud 生态下的知识点
+
 Github: [https://github.com/snake19870227/StarTiger.git](https://github.com/snake19870227/StarTiger.git)  
+
 Gitee: [https://gitee.com/buhy/StarTiger.git](https://gitee.com/buhy/StarTiger.git)  
-**特别感谢 [Jetbrains](https://www.jetbrains.com/?from=StarTiger) 提供的License**
+
+**特别感谢 [Jetbrains](https://www.jetbrains.com/?from=StarTiger) 提供的License**  
+
 ---
+
 ## StarTiger-dependencies
+
 版本依赖定义
 - StarTiger-framework
 框架
 - StarTiger-spring-boot-autoconfigure、StarTiger-spring-boot-starter
 框架配套的springboot starter
+
 ---
+
 ## StarTiger-admin
+
 构建简单权限模型, 验证 Spring Boot + Spring Security 组合  
+整合 AdminLTE 前端框架，非前后端分离方式
+
 ## StarTiger-cloud
+
 Spring Cloud 技术点备忘
 - stiger-cloud-admin  
 Spring Boot Admin (SBA)
