@@ -113,8 +113,12 @@ public class SysServiceImpl implements SysService {
 
     @Override
     @Caching(
-            evict = @CacheEvict(cacheNames = "SysResource", key = "'all'", beforeInvocation = true),
-            put = @CachePut(cacheNames = "SysResource", key = "#resource.resFlow")
+            evict = {
+                    @CacheEvict(cacheNames = "SysResource", key = "'all'", beforeInvocation = true)
+            },
+            put = {
+                    @CachePut(cacheNames = "SysResource", key = "#resource.resFlow")
+            }
     )
     @Transactional(rollbackFor = Exception.class)
     public SysResource createResource(SysResource resource) {
@@ -130,7 +134,9 @@ public class SysServiceImpl implements SysService {
                     @CacheEvict(cacheNames = "SysResource", key = "'all'", beforeInvocation = true),
                     @CacheEvict(cacheNames = "ResourceInfo", key = "#resource.resFlow", beforeInvocation = true)
             },
-            put = @CachePut(cacheNames = "SysResource", key = "#resource.resFlow")
+            put = {
+                    @CachePut(cacheNames = "SysResource", key = "#resource.resFlow")
+            }
     )
     @Transactional(rollbackFor = Exception.class)
     public SysResource modifyResource(SysResource resource) {
@@ -194,7 +200,12 @@ public class SysServiceImpl implements SysService {
 
     @Override
     @Caching(
-            put = @CachePut(cacheNames = "SysRole", key = "#role.roleFlow")
+            evict = {
+                    @CacheEvict(cacheNames = "ResourceInfo", allEntries = true, beforeInvocation = true)
+            },
+            put = {
+                    @CachePut(cacheNames = "SysRole", key = "#role.roleFlow")
+            }
     )
     @Transactional(rollbackFor = Exception.class)
     public SysRole createRole(SysRole role, String[] resFlows) {
@@ -205,8 +216,13 @@ public class SysServiceImpl implements SysService {
 
     @Override
     @Caching(
-            evict = @CacheEvict(cacheNames = "RoleInfo", key = "#role.roleFlow", beforeInvocation = true),
-            put = @CachePut(cacheNames = "SysRole", key = "#role.roleFlow")
+            evict = {
+                    @CacheEvict(cacheNames = "RoleInfo", key = "#role.roleFlow", beforeInvocation = true),
+                    @CacheEvict(cacheNames = "ResourceInfo", allEntries = true, beforeInvocation = true)
+            },
+            put = {
+                    @CachePut(cacheNames = "SysRole", key = "#role.roleFlow")
+            }
     )
     @Transactional(rollbackFor = Exception.class)
     public SysRole modifyRole(SysRole role, String[] resFlows) {
