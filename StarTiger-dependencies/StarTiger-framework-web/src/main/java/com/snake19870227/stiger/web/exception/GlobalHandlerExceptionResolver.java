@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
@@ -27,7 +28,10 @@ public class GlobalHandlerExceptionResolver extends AbstractHandlerExceptionReso
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalHandlerExceptionResolver.class);
 
-    public GlobalHandlerExceptionResolver() {
+    private PostWebErrorHandler postWebErrorHandler;
+
+    public GlobalHandlerExceptionResolver(ObjectProvider<PostWebErrorHandler> postExceptionHandlerProvider) {
+        this.postWebErrorHandler = postExceptionHandlerProvider.getIfAvailable();
         logger.debug("创建全局异常处理器");
     }
 
@@ -51,9 +55,10 @@ public class GlobalHandlerExceptionResolver extends AbstractHandlerExceptionReso
             }
         }
 
+        ModelAndView mv = null;
         if (WebUtil.isAjaxRequest(request) || isResponseBody) {
             RestResponse.DefaultRestResponse restResponse = RestResponseBuilder.createFailureDefaultRestResp(ex, null);
-            return ModelAndViewBuilder.buildToJsonResponseBody(restResponse);
+            mv = ModelAndViewBuilder.buildToJsonResponseBody(restResponse);
         } else {
             Map<String, Object> modelMap = new HashMap<>(1);
             String errorMessage;
@@ -63,7 +68,13 @@ public class GlobalHandlerExceptionResolver extends AbstractHandlerExceptionReso
                 errorMessage = "[" + StarTigerConstant.StatusCode.CODE_9998 + "]" + ex.getLocalizedMessage();
             }
             modelMap.put(StarTigerWebConstant.ViewAttrKey.ERROR_MESSAGE, errorMessage);
-            return new ModelAndView(StarTigerWebConstant.ViewName.ERROR, modelMap);
+            mv = new ModelAndView(StarTigerWebConstant.ViewName.ERROR_500, modelMap);
         }
+
+        if (postWebErrorHandler != null) {
+            postWebErrorHandler.exceptionHandler(request, response, handler, ex, mv);
+        }
+
+        return mv;
     }
 }

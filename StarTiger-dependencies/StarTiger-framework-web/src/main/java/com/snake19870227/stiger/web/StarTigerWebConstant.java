@@ -6,11 +6,15 @@ package com.snake19870227.stiger.web;
 public class StarTigerWebConstant {
 
     public static class ViewName {
-        public static final String ERROR = "error";
+        public static final String ERROR_500 = "error/500";
+        public static final String ERROR_404 = "error/404";
+        public static final String ERROR_400 = "error/400";
+        public static final String ERROR_403 = "error/403";
     }
 
     public static class ViewAttrKey {
         public static final String ERROR_MESSAGE = "errorMessage";
+        public static final String ACCESS_DENIED_URL = "accessDeniedUrl";
     }
 
     public static class WebAttrKey {

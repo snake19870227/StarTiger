@@ -6,14 +6,6 @@ package com.snake19870227.stiger.core.exception;
  */
 public class ServiceException extends BaseRuntimeException {
 
-    public ServiceException(String errorCode, Object... args) {
-        super(errorCode, args);
-    }
-
-    public ServiceException(String errorCode, Throwable cause, Object... args) {
-        super(errorCode, cause, args);
-    }
-
     public ServiceException(String message) {
         super(message);
     }
