@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
+import com.snake19870227.stiger.web.exception.MvcException;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -62,6 +63,9 @@ public class Sidebar {
                 });
             }
         });
+        if (currentMenuPathQueue.isEmpty()) {
+            throw new MvcException("未找到该功能[menuCode=" + menuCode + "]");
+        }
     }
 
     public void closeAll() {

@@ -3,7 +3,6 @@ package com.snake19870227.stiger.admin.web.controller;
 import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 
 import org.slf4j.Logger;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.core.context.StarTigerContext;
 import com.snake19870227.stiger.web.StarTigerWebConstant;
@@ -56,7 +56,9 @@ public class LoginController {
     }
 
     @GetMapping(path = ProjectConstant.UrlPath.ACCESS_DENIED)
-    public String accessDenied(HttpServletResponse response) {
-        return "403";
+    public String accessDenied(@RequestAttribute(name =StarTigerWebConstant.ViewAttrKey.ACCESS_DENIED_URL) String accessDeniedUrl,
+                               Model model) {
+        model.addAttribute(StarTigerWebConstant.ViewAttrKey.ERROR_MESSAGE, accessDeniedUrl);
+        return StarTigerWebConstant.ViewName.ERROR_403;
     }
 }

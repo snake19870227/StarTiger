@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.service.RouterService;
+import com.snake19870227.stiger.web.exception.MvcException;
 
 /**
  * @author Bu HuaYang
@@ -42,6 +43,10 @@ public class MainController extends BaseController {
                               RedirectAttributes redirectAttributes) {
 
         SysMenu menu = routerService.getRouterMenu(menuCode);
+
+        if (menu == null) {
+            throw new MvcException("未找到该功能[menuCode=" + menuCode + "]");
+        }
 
         redirectAttributes.addAttribute("menuCode", menuCode);
 

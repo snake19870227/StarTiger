@@ -24,6 +24,7 @@ import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.core.context.StarTigerContext;
 import com.snake19870227.stiger.core.restful.RestResponse;
 import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.StarTigerWebConstant;
 import com.snake19870227.stiger.web.utils.WebUtil;
 
 /**
@@ -66,7 +67,9 @@ public class WebSecurityExceptionHandler implements AuthenticationEntryPoint, Ac
         if (WebUtil.isAjaxRequest(request)) {
             responseIfAjax("2002", response);
         } else {
-            response.sendRedirect(ProjectConstant.UrlPath.ACCESS_DENIED);
+            request.setAttribute(StarTigerWebConstant.ViewAttrKey.ACCESS_DENIED_URL, request.getServletPath());
+            request.getRequestDispatcher(ProjectConstant.UrlPath.ACCESS_DENIED)
+                    .forward(request, response);
         }
     }
 

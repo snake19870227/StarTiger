@@ -2,10 +2,8 @@ package com.snake19870227.stiger.admin.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.entity.vo.Sidebar;
-import com.snake19870227.stiger.core.StarTigerConstant;
-import com.snake19870227.stiger.core.context.StarTigerContext;
+import com.snake19870227.stiger.admin.web.utils.AdminUiUtil;
 import com.snake19870227.stiger.web.exception.MvcException;
 
 /**
@@ -23,9 +21,9 @@ public class BaseController {
     }
 
     protected Sidebar getUserSidebar(HttpServletRequest request) {
-        Sidebar userSidebar = (Sidebar) request.getSession().getAttribute(ProjectConstant.WebAttrKey.USER_SIDEBAR);
+        Sidebar userSidebar = AdminUiUtil.getSidebar(request);
         if (userSidebar == null) {
-            throw new MvcException(StarTigerContext.getMessage(StarTigerConstant.StatusCode.PREFIX_CODE + "2010"));
+            throw new MvcException("无法加载菜单栏");
         }
         return userSidebar;
     }
