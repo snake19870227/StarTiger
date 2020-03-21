@@ -128,8 +128,8 @@ var SysRole = function () {
             let roleFlow = $this.parent("td").data("roleFlow");
             let roleCode = $this.parent("td").data("roleCode");
             let roleName = $this.parent("td").data("roleName");
-            DeleteConfirmModal.create({
-                showRecordInfo: roleCode + "-" + roleName,
+            ConfirmModal.create({
+                showRecordInfo: "删除&nbsp;" + roleCode + "-" + roleName,
                 onConfirm: function () {
                     var options = {
                         type: "delete",

@@ -81,8 +81,8 @@ var SysRes = function () {
             var $this = $(this);
             var resFlow = $this.parent("td").data("resFlow");
             var resName = $this.parent("td").data("resName");
-            DeleteConfirmModal.create({
-                showRecordInfo: resName,
+            ConfirmModal.create({
+                bodyHtml: "删除&nbsp;" + resName,
                 onConfirm: function () {
                     var options = {
                         type: "delete",

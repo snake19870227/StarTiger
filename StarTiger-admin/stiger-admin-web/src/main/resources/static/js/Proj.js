@@ -1,6 +1,7 @@
-var DeleteConfirmModal = function () {
+var ConfirmModal = function () {
 
     const DEFAULT_OPTIONS = {
+        title: "请确认",
         bodyHtml: null,
         showRecordInfo: null,
         autoremove: true,
@@ -9,7 +10,7 @@ var DeleteConfirmModal = function () {
         onClose: undefined
     };
 
-    const DEFAULT_BODY_HTML = "<div class='modal-body'>是否确认删除数据？</div>";
+    const DEFAULT_BODY_HTML = "<div class='modal-body'>是否继续操作？</div>";
 
     return {
         create: function (config) {
@@ -20,7 +21,7 @@ var DeleteConfirmModal = function () {
             let $modalContent = $("<div class='modal-content'/>");
             let $modalHeader = $(
                 "<div class='modal-header'>" +
-                "           <h5 class='modal-title'>删除确认</h5>" +
+                "           <h5 class='modal-title'>" + options.title + "</h5>" +
                 "           <button type='button' class='close' data-dismiss='modal' aria-label='Close'>" +
                 "               <span aria-hidden='true'>&times;</span>" +
                 "           </button>" +
