@@ -77,7 +77,7 @@ public class AuthAssert {
 
         int result = roleVoter.vote(authentication, null, SecurityConfig.createList(roles));
 
-        logger.debug("验证[{}]是否可访问[{}],结果:{}", user.getUsername(), request.getServletPath(), result);
+        logger.debug("验证[{}]是否可访问[{} {}],结果:{}", user.getUsername(), request.getMethod(), request.getServletPath(), result);
 
         return AccessDecisionVoter.ACCESS_DENIED != result;
     }

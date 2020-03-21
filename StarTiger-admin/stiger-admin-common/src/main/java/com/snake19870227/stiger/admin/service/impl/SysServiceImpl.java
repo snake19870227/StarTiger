@@ -113,7 +113,7 @@ public class SysServiceImpl implements SysService {
 
     @Override
     @Caching(
-            evict = @CacheEvict(cacheNames = "SysResource", key = "'all'"),
+            evict = @CacheEvict(cacheNames = "SysResource", key = "'all'", beforeInvocation = true),
             put = @CachePut(cacheNames = "SysResource", key = "#resource.resFlow")
     )
     @Transactional(rollbackFor = Exception.class)
@@ -127,8 +127,8 @@ public class SysServiceImpl implements SysService {
     @Override
     @Caching(
             evict = {
-                    @CacheEvict(cacheNames = "SysResource", key = "'all'"),
-                    @CacheEvict(cacheNames = "ResourceInfo", key = "#resFlow")
+                    @CacheEvict(cacheNames = "SysResource", key = "'all'", beforeInvocation = true),
+                    @CacheEvict(cacheNames = "ResourceInfo", key = "#resource.resFlow", beforeInvocation = true)
             },
             put = @CachePut(cacheNames = "SysResource", key = "#resource.resFlow")
     )
@@ -143,10 +143,10 @@ public class SysServiceImpl implements SysService {
     @Override
     @Caching(
             evict = {
-                    @CacheEvict(cacheNames = "SysResource", key = "'all'"),
-                    @CacheEvict(cacheNames = "SysResource", key = "#resFlow"),
-                    @CacheEvict(cacheNames = "ResourceInfo", key = "#resFlow"),
-                    @CacheEvict(cacheNames = "RoleInfo", allEntries = true)
+                    @CacheEvict(cacheNames = "SysResource", key = "'all'", beforeInvocation = true),
+                    @CacheEvict(cacheNames = "SysResource", key = "#resFlow", beforeInvocation = true),
+                    @CacheEvict(cacheNames = "ResourceInfo", key = "#resFlow", beforeInvocation = true),
+                    @CacheEvict(cacheNames = "RoleInfo", allEntries = true, beforeInvocation = true)
             }
     )
     @Transactional(rollbackFor = Exception.class)
@@ -171,10 +171,10 @@ public class SysServiceImpl implements SysService {
     @Override
     @Caching(
             evict = {
-                    @CacheEvict(cacheNames = "SysRole", key = "'all'"),
-                    @CacheEvict(cacheNames = "SysRole", key = "#roleFlow"),
-                    @CacheEvict(cacheNames = "RoleInfo", key = "#roleFlow"),
-                    @CacheEvict(cacheNames = "ResourceInfo", allEntries = true)
+                    @CacheEvict(cacheNames = "SysRole", key = "'all'", beforeInvocation = true),
+                    @CacheEvict(cacheNames = "SysRole", key = "#roleFlow", beforeInvocation = true),
+                    @CacheEvict(cacheNames = "RoleInfo", key = "#roleFlow", beforeInvocation = true),
+                    @CacheEvict(cacheNames = "ResourceInfo", allEntries = true, beforeInvocation = true)
             }
     )
     @Transactional(rollbackFor = Exception.class)
@@ -205,7 +205,7 @@ public class SysServiceImpl implements SysService {
 
     @Override
     @Caching(
-            evict = @CacheEvict(cacheNames = "RoleInfo", key = "#role.roleFlow"),
+            evict = @CacheEvict(cacheNames = "RoleInfo", key = "#role.roleFlow", beforeInvocation = true),
             put = @CachePut(cacheNames = "SysRole", key = "#role.roleFlow")
     )
     @Transactional(rollbackFor = Exception.class)
