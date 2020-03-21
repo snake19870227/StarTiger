@@ -64,7 +64,7 @@ public class Sidebar {
             }
         });
         if (currentMenuPathQueue.isEmpty()) {
-            throw new MvcException("未找到该功能[menuCode=" + menuCode + "]");
+            throw new MvcException("未找到或未被授权访问该功能[menuCode=" + menuCode + "]");
         }
     }
 
