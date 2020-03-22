@@ -3,6 +3,8 @@ package com.snake19870227.stiger.admin.entity.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -10,26 +12,21 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-16
+ * @since 2020-03-22
  */
+@ApiModel(value="SysOrg对象", description="")
 public class SysOrg implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 机构流水号
-     */
+    @ApiModelProperty(value = "机构流水号")
     @TableId(value = "org_flow", type = IdType.ASSIGN_UUID)
     private String orgFlow;
 
-    /**
-     * 机构代码
-     */
+    @ApiModelProperty(value = "机构代码")
     private String orgCode;
 
-    /**
-     * 机构名称
-     */
+    @ApiModelProperty(value = "机构名称")
     private String orgName;
 
 

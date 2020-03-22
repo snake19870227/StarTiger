@@ -106,7 +106,9 @@ var SysRes = function () {
         }
         var options = {
             url: url,
-            contentType: "text/html",
+            headers: {
+                Accept: "application/json"
+            },
             callbackFunc: function (data) {
                 $resourcesContainer.html(data);
                 bindRecordEvents();

@@ -45,4 +45,38 @@
         order by role_code
     </select>
 
+    <resultMap id="sys_user_resultMap" type="com.snake19870227.stiger.admin.entity.po.SysUser">
+        <id property="userFlow" column="user_flow"/>
+        <result property="username" column="username"/>
+        <result property="encodePassword" column="encode_password"/>
+        <result property="shortName" column="short_name"/>
+        <result property="locked" column="locked"/>
+    </resultMap>
+    <select id="selectUsers" resultMap="sys_user_resultMap">
+        select user_flow, username, encode_password, short_name, locked
+        from sys_user
+        <where>
+            <if test="searcher.searchUsername != null and searcher.searchUsername != ''">
+                username = #{searcher.searchUsername}
+            </if>
+            <if test="searcher.searchShortName != null and searcher.searchShortName != ''">
+                and short_name like concat(concat('%', #{searcher.searchShortName}), '%')
+            </if>
+            <if test="searcher.locked != null and searcher.locked != ''">
+                and locked = #{searcher.locked}
+            </if>
+            <if test="searcher.searchUserRoleFlows != null and searcher.searchUserRoleFlows.length gt 0">
+                and exists (
+                    select null from sys_user_role
+                    where sys_user.user_flow = sys_user_role.user_flow
+                    <foreach item="item" index="index" collection="searcher.searchUserRoleFlows"
+                             open=" and (" separator=" or " close=")">
+                        sys_user_role.role_flow = #{item}
+                    </foreach>
+                )
+            </if>
+        </where>
+        order by short_name
+    </select>
+
 </mapper>

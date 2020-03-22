@@ -60,7 +60,7 @@ public class SysRoleController extends BaseController {
                        @RequestParam(name = "page", defaultValue = "1") long page,
                        @RequestParam(name = "pageSize", defaultValue = "10") long pageSize,
                        Model model) {
-        IPage<SysRole> roles = sysService.getRoles(searchCode, searchName, searchResName, page, pageSize);
+        IPage<SysRole> roles = sysService.searchRoles(searchCode, searchName, searchResName, page, pageSize);
         model.addAttribute("sysRoles", roles);
         return "sys/role/list";
     }

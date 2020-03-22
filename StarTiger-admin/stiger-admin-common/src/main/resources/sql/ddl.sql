@@ -31,8 +31,10 @@ drop table if exists stigeradmin.sys_user;
 create table stigeradmin.sys_user
 (
     user_flow       varchar(32) not null comment '用户流水号',
-    username        varchar(50) comment '用户登录名',
+    username        varchar(50) not null comment '用户登录名',
     encode_password varchar(500) comment '用户登录密码',
+    short_name      varchar(50) comment '短名称(用于显示)',
+    locked          varchar(2) default 'N' comment '是否锁定',
     primary key (user_flow)
 );
 

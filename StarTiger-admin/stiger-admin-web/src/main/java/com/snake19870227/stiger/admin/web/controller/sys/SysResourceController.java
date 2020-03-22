@@ -58,7 +58,7 @@ public class SysResourceController extends BaseController {
                        @RequestParam(name = "page", defaultValue = "1") long page,
                        @RequestParam(name = "pageSize", defaultValue = "10") long pageSize,
                        Model model) {
-        RecordPage<SysResource> resources = sysService.getResources(searchName, page, pageSize);
+        RecordPage<SysResource> resources = sysService.searchResources(searchName, page, pageSize);
         if (logger.isDebugEnabled()) {
             logger.debug("共{}页,共{}条记录,当前第{}页", resources.getPages(), resources.getTotal(), resources.getCurrent());
         }

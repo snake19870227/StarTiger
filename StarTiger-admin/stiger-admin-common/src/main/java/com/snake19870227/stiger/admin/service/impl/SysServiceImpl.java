@@ -12,7 +12,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.snake19870227.stiger.admin.dao.mapper.SysMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysMenuMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
@@ -24,6 +23,7 @@ import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
 import com.snake19870227.stiger.admin.entity.bo.RoleInfo;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
+import com.snake19870227.stiger.admin.entity.dto.SysUserSearcher;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
@@ -34,6 +34,7 @@ import com.snake19870227.stiger.admin.opt.ResourceInfoOpt;
 import com.snake19870227.stiger.admin.opt.RoleInfoOpt;
 import com.snake19870227.stiger.admin.opt.UserInfoOpt;
 import com.snake19870227.stiger.admin.service.SysService;
+import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.core.exception.ServiceException;
 
 /**
@@ -100,7 +101,7 @@ public class SysServiceImpl implements SysService {
     }
 
     @Override
-    public RecordPage<SysResource> getResources(String resName, long page, long pageSize) {
+    public RecordPage<SysResource> searchResources(String resName, long page, long pageSize) {
         RecordPage<SysResource> pager = new RecordPage<>(page, pageSize);
         return sysResourceMapper.get(pager, resName);
     }
@@ -164,7 +165,12 @@ public class SysServiceImpl implements SysService {
     /* ====================< Role >==================== */
 
     @Override
-    public IPage<SysRole> getRoles(String searchCode, String searchName, String searchResName, long page, long pageSize) {
+    public List<SysRole> getAllRoles() {
+        return roleInfoOpt.getAll();
+    }
+
+    @Override
+    public RecordPage<SysRole> searchRoles(String searchCode, String searchName, String searchResName, long page, long pageSize) {
         RecordPage<SysRole> pager = new RecordPage<>(page, pageSize);
         return sysMapper.selectRoles(pager, searchCode, searchName, searchResName);
     }
@@ -201,6 +207,7 @@ public class SysServiceImpl implements SysService {
     @Override
     @Caching(
             evict = {
+                    @CacheEvict(cacheNames = "SysRole", key = "'all'", beforeInvocation = true),
                     @CacheEvict(cacheNames = "ResourceInfo", allEntries = true, beforeInvocation = true)
             },
             put = {
@@ -217,6 +224,7 @@ public class SysServiceImpl implements SysService {
     @Override
     @Caching(
             evict = {
+                    @CacheEvict(cacheNames = "SysRole", key = "'all'", beforeInvocation = true),
                     @CacheEvict(cacheNames = "RoleInfo", key = "#role.roleFlow", beforeInvocation = true),
                     @CacheEvict(cacheNames = "ResourceInfo", allEntries = true, beforeInvocation = true)
             },
@@ -248,6 +256,17 @@ public class SysServiceImpl implements SysService {
     public UserInfo loadUserInfoByUsername(String username) {
         Optional<SysUser> userObj = getUserByUsername(username);
         return userObj.map(userInfoOpt::loadUserInfo).orElse(null);
+    }
+
+    @Override
+    public RecordPage<SysUser> searchUsers(SysUserSearcher searcher, long page, long pageSize) {
+        RecordPage<SysUser> pager = new RecordPage<>(page, pageSize);
+        return sysMapper.selectUsers(pager, searcher);
+    }
+
+    @Override
+    public boolean changeUserLockState(String userFlow, boolean unlocked) {
+        return sysUserMapper.changeLockState(userFlow, unlocked ? StarTigerConstant.FLAG_N : StarTigerConstant.FLAG_Y) == 1;
     }
 
     /* ====================< Menu >==================== */

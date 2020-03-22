@@ -114,7 +114,6 @@ var RoleDetailModal = function () {
 var SysRole = function () {
 
     var $roleSearchForm = $("#role-search-form");
-    var $roleSearchForm = $("#role-search-form");
     var $roleContainer = $("#roles-container");
 
     function bindRecordEvents() {
@@ -153,7 +152,9 @@ var SysRole = function () {
         }
         var options = {
             url: url,
-            contentType: "text/html",
+            headers: {
+                Accept: "application/json"
+            },
             callbackFunc: function (data) {
                 $roleContainer.html(data);
                 bindRecordEvents();

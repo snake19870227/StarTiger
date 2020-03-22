@@ -3,12 +3,12 @@ package com.snake19870227.stiger.admin.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
 import com.snake19870227.stiger.admin.entity.bo.RoleInfo;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
+import com.snake19870227.stiger.admin.entity.dto.SysUserSearcher;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
@@ -28,7 +28,7 @@ public interface SysService {
 
     List<SysResource> getResourceByRoleCode(String roleCode);
 
-    RecordPage<SysResource> getResources(String resName, long page, long pageSize);
+    RecordPage<SysResource> searchResources(String resName, long page, long pageSize);
 
     SysResource readResource(String resFlow);
 
@@ -40,7 +40,9 @@ public interface SysService {
 
     /* ====================< Role >==================== */
 
-    IPage<SysRole> getRoles(String searchCode, String searchName, String searchResName, long page, long pageSize);
+    List<SysRole> getAllRoles();
+
+    RecordPage<SysRole> searchRoles(String searchCode, String searchName, String searchResName, long page, long pageSize);
 
     RoleInfo readRoleInfo(String roleFlow);
 
@@ -57,6 +59,10 @@ public interface SysService {
     UserInfo loadUserInfo(String userFlow);
 
     UserInfo loadUserInfoByUsername(String username);
+
+    RecordPage<SysUser> searchUsers(SysUserSearcher searcher, long page, long pageSize);
+
+    boolean changeUserLockState(String userFlow, boolean unlocked);
 
     /* ====================< Menu >==================== */
 

@@ -3,6 +3,8 @@ package com.snake19870227.stiger.admin.entity.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -10,31 +12,24 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-16
+ * @since 2020-03-22
  */
+@ApiModel(value="SysUserSubject对象", description="")
 public class SysUserSubject implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 用户隶属信息流水号
-     */
+    @ApiModelProperty(value = "用户隶属信息流水号")
     @TableId(value = "subject_flow", type = IdType.ASSIGN_UUID)
     private String subjectFlow;
 
-    /**
-     * 机构流水号
-     */
+    @ApiModelProperty(value = "机构流水号")
     private String orgFlow;
 
-    /**
-     * 部门流水号
-     */
+    @ApiModelProperty(value = "部门流水号")
     private String deptFlow;
 
-    /**
-     * 用户流水号
-     */
+    @ApiModelProperty(value = "用户流水号")
     private String userFlow;
 
 

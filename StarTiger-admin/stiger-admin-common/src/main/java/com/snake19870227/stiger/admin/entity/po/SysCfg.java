@@ -3,6 +3,8 @@ package com.snake19870227.stiger.admin.entity.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -10,21 +12,18 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-16
+ * @since 2020-03-22
  */
+@ApiModel(value="SysCfg对象", description="")
 public class SysCfg implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 配置代码
-     */
+    @ApiModelProperty(value = "配置代码")
     @TableId(value = "cfg_code", type = IdType.ASSIGN_UUID)
     private String cfgCode;
 
-    /**
-     * 配置内容
-     */
+    @ApiModelProperty(value = "配置内容")
     private String cfgValue;
 
 

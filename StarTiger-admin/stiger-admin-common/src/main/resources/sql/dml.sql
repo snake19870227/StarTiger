@@ -32,8 +32,8 @@ begin
     insert into sys_role_resource (role_res_flow, role_flow, res_flow)
     values (replace(uuid(), '-', ''), @super_role_flow, @super_resource_flow);
 
-    insert into sys_user (user_flow, username, encode_password)
-    values (@root_flow, 'root', '{noop}123456');
+    insert into sys_user (user_flow, username, encode_password, short_name)
+    values (@root_flow, 'root', '{noop}123456', '超级管理员');
 
     insert into sys_user_role (user_role_flow, user_flow, role_flow)
     values (replace(uuid(), '-', ''), @root_flow, @super_role_flow);

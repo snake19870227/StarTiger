@@ -1,9 +1,10 @@
 package com.snake19870227.stiger.admin.entity.po;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -11,46 +12,33 @@ import com.baomidou.mybatisplus.annotation.TableId;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-16
+ * @since 2020-03-22
  */
+@ApiModel(value="SysMenu对象", description="")
 public class SysMenu implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 菜单流水号
-     */
+    @ApiModelProperty(value = "菜单流水号")
     @TableId(value = "menu_flow", type = IdType.ASSIGN_UUID)
     private String menuFlow;
 
-    /**
-     * 父级菜单流水号
-     */
+    @ApiModelProperty(value = "父级菜单流水号")
     private String parentMenuFlow;
 
-    /**
-     * 菜单层级
-     */
+    @ApiModelProperty(value = "菜单层级")
     private Integer menuLevel;
 
-    /**
-     * 菜单代码
-     */
+    @ApiModelProperty(value = "菜单代码")
     private String menuCode;
 
-    /**
-     * 菜单名称
-     */
+    @ApiModelProperty(value = "菜单名称")
     private String menuName;
 
-    /**
-     * 菜单地址
-     */
+    @ApiModelProperty(value = "菜单地址")
     private String menuPath;
 
-    /**
-     * 排序码
-     */
+    @ApiModelProperty(value = "排序码")
     private Integer menuOrder;
 
 

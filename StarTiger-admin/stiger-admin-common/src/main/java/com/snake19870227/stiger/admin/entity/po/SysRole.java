@@ -3,6 +3,8 @@ package com.snake19870227.stiger.admin.entity.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -10,26 +12,21 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-16
+ * @since 2020-03-22
  */
+@ApiModel(value="SysRole对象", description="")
 public class SysRole implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 角色流水号
-     */
+    @ApiModelProperty(value = "角色流水号")
     @TableId(value = "role_flow", type = IdType.ASSIGN_UUID)
     private String roleFlow;
 
-    /**
-     * 角色代码
-     */
+    @ApiModelProperty(value = "角色代码")
     private String roleCode;
 
-    /**
-     * 角色名称
-     */
+    @ApiModelProperty(value = "角色名称")
     private String roleName;
 
 

@@ -1,11 +1,10 @@
 package com.snake19870227.stiger.admin.dao.mapper;
 
+import java.util.Optional;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
-
-import java.util.Optional;
 
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
@@ -13,5 +12,11 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username);
         return Optional.ofNullable(this.selectOne(wrapper));
+    }
+
+    default int changeLockState(String userFlow, String locked) {
+        SysUser updater = new SysUser();
+        updater.setUserFlow(userFlow).setLocked(locked);
+        return this.updateById(updater);
     }
 }

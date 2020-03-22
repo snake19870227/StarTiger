@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysRoleMapper;
@@ -32,6 +33,14 @@ public class RoleInfoOptImpl implements RoleInfoOpt {
         this.sysResourceMapper = sysResourceMapper;
         this.sysRoleMapper = sysRoleMapper;
         this.sysMapper = sysMapper;
+    }
+
+    @Override
+    @Cacheable(cacheNames = "SysRole", key = "'all'")
+    public List<SysRole> getAll() {
+        QueryWrapper<SysRole> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByAsc("role_name");
+        return sysRoleMapper.selectList(queryWrapper);
     }
 
     @Override

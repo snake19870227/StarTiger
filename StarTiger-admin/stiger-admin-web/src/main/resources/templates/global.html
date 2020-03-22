@@ -20,6 +20,9 @@
                 top: 0;
                 z-index: 2040;
             }
+            .table td {
+                vertical-align: middle;
+            }
         </style>
     </th:block>
 </head>
@@ -146,13 +149,7 @@
     </nav>
 </th:block>
 
-<th:block th:if="${#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" th:fragment="script-frame">
-    <script th:src="@{/adminlte/plugins/jquery/jquery.js}"></script>
-    <script th:src="@{/adminlte/plugins-ext/jquery-form/jquery.form.js}"></script>
-    <script th:src="@{/adminlte/plugins/bootstrap/js/bootstrap.bundle.js}"></script>
-    <script th:src="@{/adminlte/dist/js/adminlte.js}"></script>
-</th:block>
-<th:block th:if="${!#arrays.contains(#servletContext.getAttribute('activeProfiles'), 'dev')}" th:fragment="script-frame">
+<th:block th:fragment="script-frame">
     <script th:src="@{/adminlte/plugins/jquery/jquery.min.js}"></script>
     <script th:src="@{/adminlte/plugins-ext/jquery-form/jquery.form.min.js}"></script>
     <script th:src="@{/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>

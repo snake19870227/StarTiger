@@ -3,6 +3,8 @@ package com.snake19870227.stiger.admin.entity.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -10,26 +12,21 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-16
+ * @since 2020-03-22
  */
+@ApiModel(value="SysMenuResource对象", description="")
 public class SysMenuResource implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 菜单资源信息流水号
-     */
+    @ApiModelProperty(value = "菜单资源信息流水号")
     @TableId(value = "menu_res_flow", type = IdType.ASSIGN_UUID)
     private String menuResFlow;
 
-    /**
-     * 菜单流水号
-     */
+    @ApiModelProperty(value = "菜单流水号")
     private String menuFlow;
 
-    /**
-     * 资源流水号
-     */
+    @ApiModelProperty(value = "资源流水号")
     private String resFlow;
 
 

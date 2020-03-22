@@ -1,8 +1,12 @@
 package com.snake19870227.stiger.admin.entity.po;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -10,31 +14,24 @@ import java.io.Serializable;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-16
+ * @since 2020-03-22
  */
+@ApiModel(value="SysDept对象", description="")
 public class SysDept implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 部门流水号
-     */
+    @ApiModelProperty(value = "部门流水号")
     @TableId(value = "dept_flow", type = IdType.ASSIGN_UUID)
     private String deptFlow;
 
-    /**
-     * 机构流水号
-     */
+    @ApiModelProperty(value = "机构流水号")
     private String orgFlow;
 
-    /**
-     * 部门代码
-     */
+    @ApiModelProperty(value = "部门代码")
     private String deptCode;
 
-    /**
-     * 部门名称
-     */
+    @ApiModelProperty(value = "部门名称")
     private String deptName;
 
 

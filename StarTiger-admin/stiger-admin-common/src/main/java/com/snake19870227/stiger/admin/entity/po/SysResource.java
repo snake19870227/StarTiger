@@ -1,9 +1,10 @@
 package com.snake19870227.stiger.admin.entity.po;
 
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -11,26 +12,21 @@ import com.baomidou.mybatisplus.annotation.TableId;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-16
+ * @since 2020-03-22
  */
+@ApiModel(value="SysResource对象", description="")
 public class SysResource implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    /**
-     * 资源流水号
-     */
+    @ApiModelProperty(value = "资源流水号")
     @TableId(value = "res_flow", type = IdType.ASSIGN_UUID)
     private String resFlow;
 
-    /**
-     * 资源名称
-     */
+    @ApiModelProperty(value = "资源名称")
     private String resName;
 
-    /**
-     * 资源路径
-     */
+    @ApiModelProperty(value = "资源路径")
     private String resPath;
 
 

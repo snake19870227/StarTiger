@@ -1,20 +1,23 @@
-var RespCode = function () {
-    var def = function (resp, options) {
+let RespCode = function () {
+    let def = function (resp, options) {
         if (Proj.isDev()) {
             console.group(options.url);
             console.dir(resp);
             console.groupEnd();
         }
     };
-    var defSuccess = function (resp, func, options) {
+    let defSuccess = function (resp, options) {
         def(resp, options);
-        if (func && $.type(func) === "function") {
-            func(resp);
+        if (options.callbackFunc && $.type(options.callbackFunc) === "function") {
+            options.callbackFunc(resp);
         }
     };
-    var defError = function (resp, func, options) {
+    let defError = function (resp, options) {
         def(resp, options);
         Proj.showToasts("danger", "[" + resp.respCode + "]" + resp.respMessage);
+        if (options.onError && $.type(options.onError) === "function") {
+            options.onError(resp);
+        }
     };
     return {
         code0000: defSuccess,
@@ -22,7 +25,7 @@ var RespCode = function () {
         code9998: defError,
         code9997: defError,
         code1001: defError,
-        code2001: function (resp, func, options) {
+        code2001: function (resp, options) {
             def(resp, options);
             Proj.showToasts("warning", "[" + resp.respCode + "]" + resp.respMessage);
             setTimeout(function () {
@@ -32,15 +35,22 @@ var RespCode = function () {
         code2002: defError
     }
 }();
-var HttpUtil = function () {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
+let HttpUtil = function () {
+    let token = $("meta[name='_csrf']").attr("content");
+    let header = $("meta[name='_csrf_header']").attr("content");
     return {
         ajaxReq: function (obj) {
-            var headers = {};
+            let headers = {
+                Accept: "text/html,text/plain,application/json"
+            };
             headers[header] = token;
+
             if (obj.headers) {
                 $.extend(headers, obj.headers);
+            }
+
+            if (!obj.callbackFuncOnError) {
+                obj.callbackFuncOnError = false;
             }
             $.ajax({
                 type: obj.type || "get",
@@ -74,9 +84,9 @@ var HttpUtil = function () {
                         }
                     }
                     if (isJsonObject) {
-                        var codeFunc = RespCode["code" + dataObj.respCode];
+                        let codeFunc = RespCode["code" + dataObj.respCode];
                         if (codeFunc && $.type(codeFunc) === "function") {
-                            codeFunc(dataObj, obj.callbackFunc, this);
+                            codeFunc(dataObj, obj);
                         }
                     } else {
                         if (obj.callbackFunc && $.type(obj.callbackFunc) === "function") {
@@ -85,6 +95,7 @@ var HttpUtil = function () {
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    Proj.showToasts("danger", "请求失败[" + XMLHttpRequest.status + "]");
                     if (obj.error && $.type(obj.error) === "function") {
                         obj.error(XMLHttpRequest, textStatus, errorThrown);
                     }
@@ -100,9 +111,6 @@ var HttpUtil = function () {
                     },
                     404: function () {
                         Proj.showToasts("danger", "未找到本次请求的页面或功能");
-                    },
-                    500: function () {
-                        Proj.showToasts("danger", "服务器处理失败[" + this.url + "]");
                     }
                 }
             });
