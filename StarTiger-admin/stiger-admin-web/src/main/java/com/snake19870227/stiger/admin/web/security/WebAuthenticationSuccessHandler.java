@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,28 +65,30 @@ public class WebAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
     private void loadUserSidebar(HttpServletRequest request, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         List<MenuInfo> menuInfos = sysService.allMenuTree();
-        List<MenuInfo> userMenuInfos = menuInfos.stream().filter(
-                menuInfo -> {
-                    List<SysMenu> childMenus = menuInfo.getChildMenus().stream().filter(
-                            sysMenu -> {
-                                for (GrantedAuthority authority : user.getAuthorities()) {
-                                    String roleCode = StrUtil.replace(authority.getAuthority(), StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX, "");
-                                    List<SysResource> roleResources = sysService.getResourceByRoleCode(roleCode);
-                                    if (CollUtil.isNotEmpty(roleResources)) {
-                                        for (SysResource resource : roleResources) {
-                                            AntPathMatcher matcher = new AntPathMatcher();
-                                            if (matcher.match(resource.getResPath(), sysMenu.getMenuPath())) {
-                                                return true;
-                                            }
-                                        }
+        List<MenuInfo> userMenuInfos = new ArrayList<>();
+        for (MenuInfo level1 : menuInfos) {
+            List<SysMenu> childMenus = level1.getChildMenus().stream().filter(
+                    sysMenu -> {
+                        for (GrantedAuthority authority : user.getAuthorities()) {
+                            String roleCode = StrUtil.replace(authority.getAuthority(), StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX, "");
+                            List<SysResource> roleResources = sysService.getResourceByRoleCode(roleCode);
+                            if (CollUtil.isNotEmpty(roleResources)) {
+                                for (SysResource resource : roleResources) {
+                                    AntPathMatcher matcher = new AntPathMatcher();
+                                    if (matcher.match(resource.getResPath(), sysMenu.getMenuPath())) {
+                                        return true;
                                     }
                                 }
-                                return false;
                             }
-                    ).collect(Collectors.toList());
-                    return CollUtil.isNotEmpty(childMenus);
-                }
-        ).collect(Collectors.toList());
+                        }
+                        return false;
+                    }
+            ).collect(Collectors.toList());
+            if (CollUtil.isNotEmpty(childMenus)) {
+                MenuInfo userLevel1 = new MenuInfo(level1.getMenu(), childMenus);
+                userMenuInfos.add(userLevel1);
+            }
+        }
         request.getSession().setAttribute(ProjectConstant.WebAttrKey.USER_SIDEBAR, new Sidebar(userMenuInfos));
     }
 }
