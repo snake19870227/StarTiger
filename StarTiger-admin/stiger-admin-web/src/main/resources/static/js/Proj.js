@@ -1,4 +1,4 @@
-var ConfirmModal = function () {
+let ConfirmModal = function () {
 
     const DEFAULT_OPTIONS = {
         title: "请确认",
@@ -73,7 +73,77 @@ var ConfirmModal = function () {
         }
     }
 }();
-var Proj = function () {
+
+let DualListbox = function () {
+    let default_options = {
+        filterTextClear: "清除筛选",
+        filterPlaceHolder: "筛选",
+        moveAllLabel: "添加所有",
+        removeAllLabel: "移除所有",
+        selectedListLabel: "已选择",
+        nonSelectedListLabel: "待选择",
+        selectorMinimalHeight: 300,
+        infoText: "共 {0}",
+        infoTextFiltered: "<span class='label label-warning'>筛选后</span> {0} 共 {1}",
+        infoTextEmpty: "空"
+    };
+
+    function render() {
+        let _this = this;
+        _this.$dom.bootstrapDualListbox(_this.options);
+    }
+
+    function dualListbox(selecter, params) {
+
+        this.options = $.extend({}, default_options, params);
+        if (selecter instanceof jQuery) {
+            this.$dom = selecter;
+        } else {
+            this.$dom = $(selecter);
+        }
+
+        this.clear = function () {
+            this.$dom.find("option").prop("selected", false);
+            this.$dom.bootstrapDualListbox("refresh");
+        };
+
+        this.setOptions = function (options) {
+            let _this = this;
+            _this.$dom.empty();
+            $.each(options, function (index, option) {
+                _this.addOption(option.value, option.text, option.selected);
+            });
+        };
+
+        this.addOption = function (_value, _text, _selected) {
+            let $optionDom = $("<option/>");
+            $optionDom.val(_value);
+            $optionDom.html(_text);
+            $optionDom.prop("selected", _selected);
+            this.$dom.append($optionDom);
+            this.$dom.bootstrapDualListbox("refresh");
+        };
+
+        this.removeOption = function (_value) {
+            this.$dom.find("option[value='" + _value + "']").remove();
+            this.$dom.bootstrapDualListbox("refresh");
+        };
+
+        this.select = function (_value) {
+            this.$dom.find("option[value='" + _value + "']").prop("selected", true);
+            this.$dom.bootstrapDualListbox("refresh");
+        };
+
+        render.call(this);
+    };
+    return {
+        create: function (selecter, options) {
+            return new dualListbox(selecter, options);
+        }
+    }
+}();
+
+let Proj = function () {
 
     let toastTypes = ["info", "success", "warning", "danger"];
     let toastTitle = ["提示", "成功", "警告", "错误"];

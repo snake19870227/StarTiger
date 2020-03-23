@@ -7,20 +7,23 @@ let UserDetailModal = function () {
     let $shortName = $form.find("[name='shortName']");
     let $roleFlows = $form.find("[name='roleFlows']");
 
+    let roleFlowsBox = DualListbox.create($roleFlows);
+
     function loadAllRoles() {
         let options = {
             type: "get",
             url: Proj.getContextPath() + "/sys/role/all",
             dataType: "json",
             _success: function (resp, _options) {
-                $roleFlows.empty();
+                let options = [];
                 $.each(resp.data, function (index, role) {
-                    let $dom = $("<option/>");
-                    $dom.val(role.roleFlow);
-                    $dom.html("[" + role.roleCode + "]" + role.roleName);
-                    $roleFlows.append($dom);
-                    $roleFlows.bootstrapDualListbox("refresh");
+                    options.push({
+                        value: role.roleFlow,
+                        text: "[" + role.roleCode + "]" + role.roleName,
+                        selected: false
+                    });
                 });
+                roleFlowsBox.setOptions(options);
             }
         };
         return HttpUtil.ajaxReq(options);
@@ -37,37 +40,17 @@ let UserDetailModal = function () {
                 $username.val(userInfo.user.username);
                 $shortName.val(userInfo.user.shortName);
                 $.each(userInfo.roles, function (index, userRole) {
-                    let selectOption = $roleFlows.find("option[value='" + userRole.roleFlow + "']");
-                    if (selectOption.length === 1) {
-                        selectOption.prop("selected", true);
-                    }
+                    roleFlowsBox.select(userRole.roleFlow);
                 });
-                $roleFlows.bootstrapDualListbox("refresh");
             }
         };
         return HttpUtil.ajaxReq(options);
     }
 
-    function renderRoleFlowsSelect() {
-        $roleFlows.bootstrapDualListbox({
-            filterTextClear: "清除筛选",
-            filterPlaceHolder: "筛选",
-            moveAllLabel: "添加所有",
-            removeAllLabel: "移除所有",
-            selectedListLabel: "已获得角色",
-            nonSelectedListLabel: "未获得角色",
-            selectorMinimalHeight: 300,
-            infoText: "共 {0}",
-            infoTextFiltered: "<span class='label label-warning'>筛选后</span> {0} 共 {1}",
-            infoTextEmpty: "空"
-        });
-    }
-
     function clearForm() {
         $username.val("");
         $shortName.val("");
-        $roleFlows.find("option").prop("selected", false);
-        $roleFlows.bootstrapDualListbox("refresh");
+        roleFlowsBox.clear();
     }
 
     function showModal() {
@@ -94,7 +77,6 @@ let UserDetailModal = function () {
 
     return {
         init: function () {
-            renderRoleFlowsSelect();
             $modal.on("hide.bs.modal", function () {
                 clearForm();
             });
