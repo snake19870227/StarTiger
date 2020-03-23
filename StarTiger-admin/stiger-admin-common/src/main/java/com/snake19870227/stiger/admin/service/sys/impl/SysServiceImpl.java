@@ -1,7 +1,6 @@
-package com.snake19870227.stiger.admin.service.impl;
+package com.snake19870227.stiger.admin.service.sys.impl;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -17,24 +16,18 @@ import com.snake19870227.stiger.admin.dao.mapper.SysMenuMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysResourceMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysRoleMapper;
 import com.snake19870227.stiger.admin.dao.mapper.SysRoleResourceMapper;
-import com.snake19870227.stiger.admin.dao.mapper.SysUserMapper;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
 import com.snake19870227.stiger.admin.entity.bo.RoleInfo;
-import com.snake19870227.stiger.admin.entity.bo.UserInfo;
-import com.snake19870227.stiger.admin.entity.dto.SysUserSearcher;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysRoleResource;
-import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.opt.MenuInfoOpt;
 import com.snake19870227.stiger.admin.opt.ResourceInfoOpt;
 import com.snake19870227.stiger.admin.opt.RoleInfoOpt;
-import com.snake19870227.stiger.admin.opt.UserInfoOpt;
-import com.snake19870227.stiger.admin.service.SysService;
-import com.snake19870227.stiger.core.StarTigerConstant;
+import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.core.exception.ServiceException;
 
 /**
@@ -46,39 +39,26 @@ public class SysServiceImpl implements SysService {
 
     private static final Logger logger = LoggerFactory.getLogger(SysServiceImpl.class);
 
-    private final SysUserMapper sysUserMapper;
-
     private final SysResourceMapper sysResourceMapper;
-
     private final SysRoleMapper sysRoleMapper;
-
     private final SysRoleResourceMapper sysRoleResourceMapper;
-
     private final SysMenuMapper sysMenuMapper;
-
     private final SysMapper sysMapper;
 
     private final ResourceInfoOpt resourceInfoOpt;
-
-    private final UserInfoOpt userInfoOpt;
-
     private final MenuInfoOpt menuInfoOpt;
-
     private final RoleInfoOpt roleInfoOpt;
 
-    public SysServiceImpl(SysUserMapper sysUserMapper, SysResourceMapper sysResourceMapper,
-                          SysRoleMapper sysRoleMapper, SysRoleResourceMapper sysRoleResourceMapper,
-                          SysMenuMapper sysMenuMapper,
-                          SysMapper sysMapper, ResourceInfoOpt resourceInfoOpt,
-                          UserInfoOpt userInfoOpt, MenuInfoOpt menuInfoOpt, RoleInfoOpt roleInfoOpt) {
-        this.sysUserMapper = sysUserMapper;
+    public SysServiceImpl(SysResourceMapper sysResourceMapper, SysRoleMapper sysRoleMapper,
+                          SysRoleResourceMapper sysRoleResourceMapper, SysMenuMapper sysMenuMapper,
+                          SysMapper sysMapper, ResourceInfoOpt resourceInfoOpt, MenuInfoOpt menuInfoOpt,
+                          RoleInfoOpt roleInfoOpt) {
         this.sysResourceMapper = sysResourceMapper;
         this.sysRoleMapper = sysRoleMapper;
         this.sysRoleResourceMapper = sysRoleResourceMapper;
         this.sysMenuMapper = sysMenuMapper;
         this.sysMapper = sysMapper;
         this.resourceInfoOpt = resourceInfoOpt;
-        this.userInfoOpt = userInfoOpt;
         this.menuInfoOpt = menuInfoOpt;
         this.roleInfoOpt = roleInfoOpt;
     }
@@ -241,33 +221,6 @@ public class SysServiceImpl implements SysService {
     }
 
     /* ====================< User >==================== */
-
-    @Override
-    public Optional<SysUser> getUserByUsername(String username) {
-        return sysUserMapper.queryByUsername(username);
-    }
-
-    @Override
-    public UserInfo loadUserInfo(String userFlow) {
-        return userInfoOpt.loadUserInfo(userFlow);
-    }
-
-    @Override
-    public UserInfo loadUserInfoByUsername(String username) {
-        Optional<SysUser> userObj = getUserByUsername(username);
-        return userObj.map(userInfoOpt::loadUserInfo).orElse(null);
-    }
-
-    @Override
-    public RecordPage<SysUser> searchUsers(SysUserSearcher searcher, long page, long pageSize) {
-        RecordPage<SysUser> pager = new RecordPage<>(page, pageSize);
-        return sysMapper.selectUsers(pager, searcher);
-    }
-
-    @Override
-    public boolean changeUserLockState(String userFlow, boolean unlocked) {
-        return sysUserMapper.changeLockState(userFlow, unlocked ? StarTigerConstant.FLAG_N : StarTigerConstant.FLAG_Y) == 1;
-    }
 
     /* ====================< Menu >==================== */
 

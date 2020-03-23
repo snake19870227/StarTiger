@@ -38,7 +38,8 @@ var resourceDetailModal = function () {
                         type: methodType,
                         url: "/sys/resource",
                         data: $form.formSerialize(),
-                        callbackFunc: function (data) {
+                        dataType: "json",
+                        _success: function (data) {
                             if (Proj.isDev()) {
                                 console.log(data);
                             }
@@ -71,7 +72,8 @@ var SysRes = function () {
             var options = {
                 type: "get",
                 url: "/sys/resource/" + resFlow,
-                callbackFunc: function (resp) {
+                dataType: "json",
+                _success: function (resp) {
                     resourceDetailModal.show(resp.data);
                 }
             };
@@ -87,7 +89,8 @@ var SysRes = function () {
                     var options = {
                         type: "delete",
                         url: "/sys/resource/" + resFlow,
-                        callbackFunc: function (data) {
+                        dataType: "json",
+                        _success: function (data) {
                             console.log(data);
                             searchResources(1);
                             Proj.showToasts("success", "删除成功");
@@ -106,10 +109,8 @@ var SysRes = function () {
         }
         var options = {
             url: url,
-            headers: {
-                Accept: "application/json"
-            },
-            callbackFunc: function (data) {
+            dataType: "html",
+            _success: function (data) {
                 $resourcesContainer.html(data);
                 bindRecordEvents();
             }

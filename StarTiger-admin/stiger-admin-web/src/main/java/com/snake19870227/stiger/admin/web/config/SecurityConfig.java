@@ -12,7 +12,8 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
-import com.snake19870227.stiger.admin.service.SysService;
+import com.snake19870227.stiger.admin.service.sys.SysService;
+import com.snake19870227.stiger.admin.service.sys.SysUserService;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.security.WebAuthenticationFailureHandler;
 import com.snake19870227.stiger.admin.web.security.WebAuthenticationSuccessHandler;
@@ -109,8 +110,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsManager userDetailsManager(SysService sysService) {
-        return new CustomUserDetailsManager(sysService);
+    public UserDetailsManager userDetailsManager(SysUserService sysUserService) {
+        return new CustomUserDetailsManager(sysUserService);
     }
 
     @Bean

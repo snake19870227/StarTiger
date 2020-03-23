@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
-import com.snake19870227.stiger.admin.service.SysService;
+import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.web.utils.WebUtil;
 

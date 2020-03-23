@@ -24,7 +24,7 @@ import org.springframework.util.AntPathMatcher;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
-import com.snake19870227.stiger.admin.service.SysService;
+import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.entity.vo.Sidebar;
 import com.snake19870227.stiger.core.StarTigerConstant;

@@ -16,4 +16,10 @@ public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
         wrapper.eq("user_flow", userFlow);
         return this.selectList(wrapper);
     }
+
+    default int deleteByUserFlow(String userFlow) {
+        QueryWrapper<SysUserRole> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_flow", userFlow);
+        return this.delete(wrapper);
+    }
 }

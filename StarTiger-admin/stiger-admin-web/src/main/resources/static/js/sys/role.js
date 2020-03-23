@@ -45,12 +45,14 @@ var RoleDetailModal = function () {
         var options = {
             type: "get",
             url: "/sys/resource/all",
-            callbackFunc: function (resp) {
+            dataType: "json",
+            _success: function (resp) {
                 if (roleFlow && roleFlow !== "") {
                     HttpUtil.ajaxReq({
                         type: "get",
                         url: "/sys/role/" + roleFlow,
-                        callbackFunc: function (roleInfoResp) {
+                        dataType: "json",
+                        _success: function (roleInfoResp) {
                             loadDetail(resp.data, roleInfoResp.data);
                             $modal.modal("show");
                         }
@@ -81,7 +83,8 @@ var RoleDetailModal = function () {
                     type: methodType,
                     url: "/sys/role",
                     data: dataStr,
-                    callbackFunc: function (data) {
+                    dataType: "json",
+                    _success: function (data) {
                         if (Proj.isDev()) {
                             console.log(data);
                         }
@@ -133,7 +136,8 @@ var SysRole = function () {
                     var options = {
                         type: "delete",
                         url: "/sys/role/" + roleFlow,
-                        callbackFunc: function (data) {
+                        dataType: "json",
+                        _success: function (data) {
                             console.log(data);
                             searchRoles(1);
                             Proj.showToasts("success", "删除成功");
@@ -152,10 +156,8 @@ var SysRole = function () {
         }
         var options = {
             url: url,
-            headers: {
-                Accept: "application/json"
-            },
-            callbackFunc: function (data) {
+            dataType: "html",
+            _success: function (data) {
                 $roleContainer.html(data);
                 bindRecordEvents();
             }

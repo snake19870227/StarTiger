@@ -4,6 +4,8 @@ import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.snake19870227.stiger.admin.entity.bo.RoleInfo;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
-import com.snake19870227.stiger.admin.service.SysService;
+import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.admin.web.controller.BaseController;
 import com.snake19870227.stiger.core.restful.RestResponse;
 import com.snake19870227.stiger.core.restful.RestResponseBuilder;
@@ -51,6 +53,13 @@ public class SysRoleController extends BaseController {
 
         return "sys/role/main";
 
+    }
+
+    @GetMapping(path = "/all")
+    @ResponseBody
+    public RestResponse.DefaultRestResponse all() {
+        List<SysRole> allRoles = sysService.getAllRoles();
+        return RestResponseBuilder.createSuccessDefaultRestResp(allRoles);
     }
 
     @GetMapping(path = "/list")

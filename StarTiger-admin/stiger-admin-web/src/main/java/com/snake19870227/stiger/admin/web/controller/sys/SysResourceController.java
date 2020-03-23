@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.snake19870227.stiger.admin.entity.bo.RecordPage;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
-import com.snake19870227.stiger.admin.service.SysService;
+import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.admin.web.controller.BaseController;
 import com.snake19870227.stiger.core.restful.RestResponse;
 import com.snake19870227.stiger.core.restful.RestResponseBuilder;

@@ -5,6 +5,8 @@ import cn.hutool.core.util.StrUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
-import com.snake19870227.stiger.admin.service.SysService;
+import com.snake19870227.stiger.admin.service.sys.SysUserService;
 import com.snake19870227.stiger.core.StarTigerConstant;
 
 /**
@@ -21,10 +23,12 @@ import com.snake19870227.stiger.core.StarTigerConstant;
  */
 public class CustomUserDetailsManager implements UserDetailsManager {
 
-    private final SysService sysService;
+    private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsManager.class);
 
-    public CustomUserDetailsManager(SysService sysService) {
-        this.sysService = sysService;
+    private final SysUserService sysUserService;
+
+    public CustomUserDetailsManager(SysUserService sysUserService) {
+        this.sysUserService = sysUserService;
     }
 
     @Override
@@ -49,12 +53,12 @@ public class CustomUserDetailsManager implements UserDetailsManager {
 
     @Override
     public boolean userExists(String username) {
-        return sysService.getUserByUsername(username).isPresent();
+        return sysUserService.getUserByUsername(username).isPresent();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserInfo userInfo = sysService.loadUserInfoByUsername(username);
+        UserInfo userInfo = sysUserService.loadUserInfoByUsername(username);
 
         if (userInfo == null) {
             throw new UsernameNotFoundException(StrUtil.format("未找到用户名[{}]对应的账户", username));

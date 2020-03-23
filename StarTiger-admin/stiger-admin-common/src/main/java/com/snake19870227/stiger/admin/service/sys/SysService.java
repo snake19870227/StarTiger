@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.admin.service;
+package com.snake19870227.stiger.admin.service.sys;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,16 +53,6 @@ public interface SysService {
     SysRole modifyRole(SysRole role, String[] resFlows);
 
     /* ====================< User >==================== */
-
-    Optional<SysUser> getUserByUsername(String username);
-
-    UserInfo loadUserInfo(String userFlow);
-
-    UserInfo loadUserInfoByUsername(String username);
-
-    RecordPage<SysUser> searchUsers(SysUserSearcher searcher, long page, long pageSize);
-
-    boolean changeUserLockState(String userFlow, boolean unlocked);
 
     /* ====================< Menu >==================== */
 
