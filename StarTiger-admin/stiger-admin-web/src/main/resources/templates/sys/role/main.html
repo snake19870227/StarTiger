@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="global::style('')"/>
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed-md">
 <div class="wrapper">
@@ -67,56 +68,36 @@
                 <form id="role-detail-form">
                     <div class="modal-header">
                         <h4 class="modal-title">角色详情</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" class="simple-fields" name="roleFlow"/>
+                        <input type="hidden" name="roleFlow"/>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="role-code">角色代码</label>
-                                    <input type="text" name="roleCode" class="form-control simple-fields"
+                                    <input type="text" name="roleCode" class="form-control"
                                            id="role-code" placeholder="输入角色代码">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="role-name">角色名称</label>
-                                    <input type="text" name="roleName" class="form-control simple-fields"
+                                    <input type="text" name="roleName" class="form-control"
                                            id="role-name" placeholder="输入角色名称">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="all-role-resource">所有资源</label>
-                                    <select name="allResFlows" multiple class="form-control" id="all-role-resource"
-                                            style="height:300px;">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center align-self-center">
-                                <button type="button" class="btn btn-success add-resources">
-                                    <i class="fas fa-caret-right"></i>
-                                    添加
-                                </button>
-                                <button type="button" class="btn btn-secondary remove-resources">
-                                    <i class="fas fa-caret-left"></i>
-                                    移除
-                                </button>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="selected-role-resource">已选资源</label>
-                                    <select name="resFlows" multiple class="form-control" id="selected-role-resource"
-                                            style="height:300px;">
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <select class="duallistbox" name="resFlows" multiple="multiple"></select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default close-detail-modal-btn">取消</button>
+                        <button type="button" class="btn btn-default close-detail-modal-btn" data-dismiss="modal">取消</button>
                         <button type="button" class="btn btn-primary save-detail-btn">保存</button>
                     </div>
                 </form>
@@ -127,6 +108,7 @@
 </div>
 
 <th:block th:replace="global::script-frame"/>
+<script th:src="@{/adminlte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js}"></script>
 <th:block th:replace="global::script-stiger"/>
 <script th:src="@{/js/sys/role.js}"></script>
 </body>

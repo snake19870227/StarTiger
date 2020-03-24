@@ -1,85 +1,92 @@
-var RoleDetailModal = function () {
-    var $modal = $("#role-detail-modal");
-    var $closeBtn = $modal.find(".close-detail-modal-btn");
-    var $saveBtn = $modal.find(".save-detail-btn");
-    var $form = $modal.find("#role-detail-form");
-    var $roleFlow = $form.find("[name='roleFlow']");
-    var $roleCode = $form.find("[name='roleCode']");
-    var $roleName = $form.find("[name='roleName']");
-    var $allResFlows = $form.find("[name='allResFlows']");
-    var $resFlows = $form.find("[name='resFlows']");
-    var $addResources = $form.find(".add-resources");
-    var $removeResources = $form.find(".remove-resources");
+let RoleDetailModal = function () {
+    let $modal = $("#role-detail-modal");
+    let $closeBtn = $modal.find(".close-detail-modal-btn");
+    let $saveBtn = $modal.find(".save-detail-btn");
+    let $form = $modal.find("#role-detail-form");
+    let $roleFlow = $form.find("[name='roleFlow']");
+    let $roleCode = $form.find("[name='roleCode']");
+    let $roleName = $form.find("[name='roleName']");
+    let $resFlows = $form.find("[name='resFlows']");
+
+    let resFlowsBox = DualListbox.create($resFlows);
+
     function isCreate() {
         return !$roleFlow.val() || $roleFlow.val() === "";
     }
+
     function clearForm() {
         $form.clearForm();
         $roleFlow.val("");
-        $resFlows.empty();
-        $allResFlows.empty();
+        resFlowsBox.clear();
     }
-    function hide() {
-        clearForm();
+
+    function showModal() {
+        $modal.modal("show");
+    }
+
+    function hideModal() {
         $modal.modal("hide");
     }
-    function loadDetail(allResources, roleInfo) {
-        if (allResources) {
-            $.each(allResources, function (index, resource) {
-                $allResFlows.append(
-                    "<option value='" + resource.resFlow + "'>" + resource.resName + " [" + resource.resPath + "]" + "</option>"
-                );
-            });
-        }
-        if (roleInfo) {
-            $roleFlow.val(roleInfo.role.roleFlow);
-            $roleCode.val(roleInfo.role.roleCode);
-            $roleName.val(roleInfo.role.roleName);
-            $.each(roleInfo.resources, function (index, resource) {
-                var option = $allResFlows.find("option[value='" + resource.resFlow + "']");
-                $resFlows.append(option);
-            });
-        }
-    }
-    function show(roleFlow) {
-        var options = {
+
+    function loadAllResources() {
+        let options = {
             type: "get",
             url: "/sys/resource/all",
             dataType: "json",
-            _success: function (resp) {
-                if (roleFlow && roleFlow !== "") {
-                    HttpUtil.ajaxReq({
-                        type: "get",
-                        url: "/sys/role/" + roleFlow,
-                        dataType: "json",
-                        _success: function (roleInfoResp) {
-                            loadDetail(resp.data, roleInfoResp.data);
-                            $modal.modal("show");
-                        }
+            _success: function (resp, _options) {
+                let options = [];
+                $.each(resp.data, function (index, resource) {
+                    options.push({
+                        value: resource.resFlow,
+                        text: resource.resName + " [" + resource.resPath + "]",
+                        selected: false
                     });
-                } else {
-                    loadDetail(resp.data);
-                    $modal.modal("show");
-                }
+                });
+                resFlowsBox.setOptions(options);
             }
         };
-        HttpUtil.ajaxReq(options);
+        return HttpUtil.ajaxReq(options);
     }
+
+    function loadRoleResources(roleFlow) {
+        let options = {
+            type: "get",
+            url: "/sys/role/" + roleFlow + "/info",
+            dataType: "json",
+            _success: function (resp, _options) {
+                $roleFlow.val(resp.data.role.roleFlow);
+                $roleCode.val(resp.data.role.roleCode);
+                $roleName.val(resp.data.role.roleName);
+                $.each(resp.data.resources, function (index, resource) {
+                    resFlowsBox.select(resource.resFlow);
+                });
+            }
+        };
+        return HttpUtil.ajaxReq(options);
+    }
+
+    function show(roleFlow) {
+        loadAllResources().done(function () {
+            if (roleFlow && roleFlow !== "") {
+                loadRoleResources(roleFlow).done(showModal);
+            } else {
+                showModal();
+            }
+        });
+    }
+
     return {
         init: function () {
-            $closeBtn.on("click", function () {
-                hide();
+            $modal.on("hide.bs.modal", function () {
+                clearForm();
             });
             $saveBtn.on("click", function () {
-                var resFlowsFieldName = $resFlows.attr("name");
-                var dataStr = $form.find(".simple-fields").fieldSerialize();
-                $resFlows.find("option").each(function () {
-                    var $this = $(this);
-                    dataStr += ("&" + resFlowsFieldName + "=" + $this.attr("value"));
-                });
-                console.log(dataStr);
-                var methodType = isCreate() ? "post" : "put";
-                var options = {
+                let dataStr = $form.formSerialize();
+                if (Proj.isDev()) {
+                    console.log(dataStr);
+                }
+                let methodType = isCreate() ? "post" : "put";
+                let options = {
                     type: methodType,
                     url: "/sys/role",
                     data: dataStr,
@@ -95,23 +102,9 @@ var RoleDetailModal = function () {
                 };
                 HttpUtil.ajaxReq(options);
             });
-            $addResources.on("click", function () {
-                var selectedResFlows = $allResFlows.val();
-                $.each(selectedResFlows, function (index, selectedResFlow) {
-                    var selectedOption = $allResFlows.find("option[value='" + selectedResFlow + "']");
-                    $resFlows.append(selectedOption);
-                });
-            });
-            $removeResources.on("click", function () {
-                var selectedResFlows = $resFlows.val();
-                $.each(selectedResFlows, function (index, selectedResFlow) {
-                    var selectedOption = $resFlows.find("option[value='" + selectedResFlow + "']");
-                    $allResFlows.append(selectedOption);
-                });
-            });
         },
         show: show,
-        hide: hide
+        hide: hideModal
     }
 }();
 var SysRole = function () {

@@ -51,6 +51,9 @@
                 <form id="resource-detail-form">
                     <div class="modal-header">
                         <h4 class="modal-title">资源详情</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="resFlow"/>
@@ -64,7 +67,7 @@
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default close-resource-detail-modal">取消</button>
+                        <button type="button" class="btn btn-default close-resource-detail-modal" data-dismiss="modal">取消</button>
                         <button type="button" class="btn btn-primary save-resource-detail-modal">保存</button>
                     </div>
                 </form>

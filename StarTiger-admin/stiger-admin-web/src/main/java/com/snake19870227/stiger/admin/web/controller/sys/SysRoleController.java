@@ -74,7 +74,7 @@ public class SysRoleController extends BaseController {
         return "sys/role/list";
     }
 
-    @GetMapping(path = "/{roleFlow}")
+    @GetMapping(path = "/{roleFlow}/info")
     @ResponseBody
     public RestResponse.DefaultRestResponse read(@PathVariable(name = "roleFlow") String roleFlow) {
         RoleInfo roleInfo = sysService.readRoleInfo(roleFlow);

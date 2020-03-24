@@ -135,7 +135,7 @@ let SysUser = function () {
                             dataType: "json",
                             _success: function (resp) {
                                 $dom.data("cacheState", state);
-                                search();
+                                // search();
                             },
                             _error: function () {
                                 $dom.bootstrapSwitch("state", !state);

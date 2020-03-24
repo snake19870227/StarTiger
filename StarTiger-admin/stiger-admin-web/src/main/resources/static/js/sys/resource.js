@@ -1,11 +1,11 @@
-var resourceDetailModal = function () {
-    var $modal = $("#resource-detail-modal");
-    var $form = $modal.find("#resource-detail-form");
-    var $saveBtn = $form.find(".save-resource-detail-modal");
-    var $closeBtn = $form.find(".close-resource-detail-modal");
-    var $resFlowInput = $form.find("input[name='resFlow']");
-    var $resNameInput = $form.find("input[name='resName']");
-    var $resPathInput = $form.find("input[name='resPath']");
+let resourceDetailModal = function () {
+    let $modal = $("#resource-detail-modal");
+    let $form = $modal.find("#resource-detail-form");
+    let $saveBtn = $form.find(".save-resource-detail-modal");
+    let $closeBtn = $form.find(".close-resource-detail-modal");
+    let $resFlowInput = $form.find("input[name='resFlow']");
+    let $resNameInput = $form.find("input[name='resName']");
+    let $resPathInput = $form.find("input[name='resPath']");
     return {
         isCreate: function () {
             return !$resFlowInput.val() || $resFlowInput.val() === "";
@@ -26,15 +26,15 @@ var resourceDetailModal = function () {
         },
         init: function () {
             try {
-                var _this = this;
+                let _this = this;
                 $modal.off("hide.bs.modal");
                 $modal.on("hide.bs.modal", function () {
                     $form.clearForm();
                     $resFlowInput.val("");
                 });
                 $saveBtn.on("click", function () {
-                    var methodType = _this.isCreate() ? "post" : "put";
-                    var options = {
+                    let methodType = _this.isCreate() ? "post" : "put";
+                    let options = {
                         type: methodType,
                         url: "/sys/resource",
                         data: $form.formSerialize(),
@@ -60,16 +60,16 @@ var resourceDetailModal = function () {
     }
 }();
 
-var SysRes = function () {
+let SysRes = function () {
 
-    var $resourceSearchForm = $("#resource-search-form");
-    var $resourcesContainer = $("#resources-container");
+    let $resourceSearchForm = $("#resource-search-form");
+    let $resourcesContainer = $("#resources-container");
 
-    var bindRecordEvents = function () {
+    let bindRecordEvents = function () {
         $resourcesContainer.find(".modify-resource-btn").on("click", function () {
-            var $this = $(this);
-            var resFlow = $this.parent("td").data("resFlow");
-            var options = {
+            let $this = $(this);
+            let resFlow = $this.parent("td").data("resFlow");
+            let options = {
                 type: "get",
                 url: "/sys/resource/" + resFlow,
                 dataType: "json",
@@ -80,13 +80,13 @@ var SysRes = function () {
             HttpUtil.ajaxReq(options);
         });
         $resourcesContainer.find(".delete-resource-btn").on("click", function () {
-            var $this = $(this);
-            var resFlow = $this.parent("td").data("resFlow");
-            var resName = $this.parent("td").data("resName");
+            let $this = $(this);
+            let resFlow = $this.parent("td").data("resFlow");
+            let resName = $this.parent("td").data("resName");
             ConfirmModal.create({
                 bodyHtml: "删除&nbsp;" + resName,
                 onConfirm: function () {
-                    var options = {
+                    let options = {
                         type: "delete",
                         url: "/sys/resource/" + resFlow,
                         dataType: "json",
@@ -102,12 +102,12 @@ var SysRes = function () {
         });
     };
 
-    var searchResources = function (page) {
-        var url = "/sys/resource/list";
+    let searchResources = function (page) {
+        let url = "/sys/resource/list";
         if (page) {
             url += ("?page=" + page);
         }
-        var options = {
+        let options = {
             url: url,
             dataType: "html",
             _success: function (data) {
@@ -115,14 +115,14 @@ var SysRes = function () {
                 bindRecordEvents();
             }
         };
-        var queryString = $resourceSearchForm.formSerialize();
+        let queryString = $resourceSearchForm.formSerialize();
         if (queryString) {
             options.data = queryString;
         }
         HttpUtil.ajaxReq(options);
     };
 
-    var bindEvent = function () {
+    let bindEvent = function () {
         /* ========================< search >======================== */
         $("#search-button").on("click", function () {
             searchResources(1);
