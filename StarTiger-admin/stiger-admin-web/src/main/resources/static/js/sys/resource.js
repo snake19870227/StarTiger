@@ -2,38 +2,68 @@ let resourceDetailModal = function () {
     let $modal = $("#resource-detail-modal");
     let $form = $modal.find("#resource-detail-form");
     let $saveBtn = $form.find(".save-resource-detail-modal");
-    let $closeBtn = $form.find(".close-resource-detail-modal");
     let $resFlowInput = $form.find("input[name='resFlow']");
     let $resNameInput = $form.find("input[name='resName']");
     let $resPathInput = $form.find("input[name='resPath']");
-    return {
-        isCreate: function () {
-            return !$resFlowInput.val() || $resFlowInput.val() === "";
-        },
-        isModify: function () {
-            return $resFlowInput.val() && $resFlowInput.val() !== "";
-        },
-        show: function (sysResource) {
-            if (sysResource) {
-                $resFlowInput.val(sysResource.resFlow);
-                $resNameInput.val(sysResource.resName);
-                $resPathInput.val(sysResource.resPath);
+
+    let validator = createFormValidator();
+
+    function clearForm() {
+        $form.clearForm();
+        $resFlowInput.val("");
+        validator.resetForm();
+    }
+
+    function isCreate() {
+        return !$resFlowInput.val() || $resFlowInput.val() === "";
+    }
+
+    function showModal(sysResource) {
+        if (sysResource) {
+            $resFlowInput.val(sysResource.resFlow);
+            $resNameInput.val(sysResource.resName);
+            $resPathInput.val(sysResource.resPath);
+        }
+        $modal.modal("show");
+    }
+
+    function hideModal() {
+        $modal.modal("hide");
+    }
+
+    function createFormValidator() {
+        return $form.validate({
+            rules: {
+                resName: {
+                    required: true,
+                    maxlength: 20
+                },
+                resPath: {
+                    required: true
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
             }
-            $modal.modal("show");
-        },
-        hide: function () {
-            $modal.modal("hide");
-        },
+        });
+    }
+
+    return {
         init: function () {
-            try {
-                let _this = this;
-                $modal.off("hide.bs.modal");
-                $modal.on("hide.bs.modal", function () {
-                    $form.clearForm();
-                    $resFlowInput.val("");
-                });
-                $saveBtn.on("click", function () {
-                    let methodType = _this.isCreate() ? "post" : "put";
+            $modal.on("hide.bs.modal", function () {
+                clearForm();
+            });
+            $saveBtn.on("click", function () {
+                if ($form.valid()) {
+                    let methodType = isCreate() ? "post" : "put";
                     let options = {
                         type: methodType,
                         url: "/sys/resource",
@@ -44,19 +74,15 @@ let resourceDetailModal = function () {
                                 console.log(data);
                             }
                             SysRes.searchResources(1);
-                            _this.hide();
+                            hideModal();
                             Proj.showToasts("success", "保存成功");
                         }
                     };
                     HttpUtil.ajaxReq(options);
-                });
-                $closeBtn.on("click", function () {
-                    _this.hide();
-                });
-            } catch (e) {
-                console.error(e);
-            }
-        }
+                }
+            });
+        },
+        show: showModal
     }
 }();
 
