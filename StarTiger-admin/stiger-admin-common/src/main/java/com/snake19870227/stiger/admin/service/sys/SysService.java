@@ -40,18 +40,6 @@ public interface SysService {
 
     /* ====================< Role >==================== */
 
-    List<SysRole> getAllRoles();
-
-    RecordPage<SysRole> searchRoles(String searchCode, String searchName, String searchResName, long page, long pageSize);
-
-    RoleInfo readRoleInfo(String roleFlow);
-
-    boolean deleteRole(String roleFlow);
-
-    SysRole createRole(SysRole role, String[] resFlows);
-
-    SysRole modifyRole(SysRole role, String[] resFlows);
-
     /* ====================< User >==================== */
 
     /* ====================< Menu >==================== */

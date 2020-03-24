@@ -1,6 +1,5 @@
 let RoleDetailModal = function () {
     let $modal = $("#role-detail-modal");
-    let $closeBtn = $modal.find(".close-detail-modal-btn");
     let $saveBtn = $modal.find(".save-detail-btn");
     let $form = $modal.find("#role-detail-form");
     let $roleFlow = $form.find("[name='roleFlow']");
@@ -10,6 +9,8 @@ let RoleDetailModal = function () {
 
     let resFlowsBox = DualListbox.create($resFlows);
 
+    let validator = createFormValidator();
+
     function isCreate() {
         return !$roleFlow.val() || $roleFlow.val() === "";
     }
@@ -18,6 +19,7 @@ let RoleDetailModal = function () {
         $form.clearForm();
         $roleFlow.val("");
         resFlowsBox.clear();
+        validator.resetForm();
     }
 
     function showModal() {
@@ -75,6 +77,38 @@ let RoleDetailModal = function () {
         });
     }
 
+    function createFormValidator() {
+        return $form.validate({
+            rules: {
+                roleCode: {
+                    required: true,
+                    maxlength: 20,
+                    remote: Proj.getContextPath() + "/sys/role/checkRoleCode"
+                },
+                roleName: {
+                    required: true,
+                    maxlength: 20,
+                }
+            },
+            messages: {
+                roleCode: {
+                    remote: "角色代码已存在"
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    }
+
     return {
         init: function () {
             $modal.on("hide.bs.modal", function () {
@@ -86,25 +120,26 @@ let RoleDetailModal = function () {
                     console.log(dataStr);
                 }
                 let methodType = isCreate() ? "post" : "put";
-                let options = {
-                    type: methodType,
-                    url: "/sys/role",
-                    data: dataStr,
-                    dataType: "json",
-                    _success: function (data) {
-                        if (Proj.isDev()) {
-                            console.log(data);
+                if ($form.valid()) {
+                    let options = {
+                        type: methodType,
+                        url: "/sys/role",
+                        data: dataStr,
+                        dataType: "json",
+                        _success: function (data) {
+                            if (Proj.isDev()) {
+                                console.log(data);
+                            }
+                            SysRole.searchRoles(1);
+                            hideModal();
+                            Proj.showToasts("success", "保存成功");
                         }
-                        SysRole.searchRoles(1);
-                        hide();
-                        Proj.showToasts("success", "保存成功");
-                    }
-                };
-                HttpUtil.ajaxReq(options);
+                    };
+                    HttpUtil.ajaxReq(options);
+                }
             });
         },
-        show: show,
-        hide: hideModal
+        show: show
     }
 }();
 var SysRole = function () {

@@ -9,6 +9,8 @@ let UserDetailModal = function () {
 
     let roleFlowsBox = DualListbox.create($roleFlows);
 
+    let validator = createFormValidator();
+
     function loadAllRoles() {
         let options = {
             type: "get",
@@ -38,6 +40,7 @@ let UserDetailModal = function () {
                 let userInfo = resp.data;
                 $userFlow.val(userInfo.user.userFlow);
                 $username.val(userInfo.user.username);
+                $username.prop("disabled", true);
                 $shortName.val(userInfo.user.shortName);
                 $.each(userInfo.roles, function (index, userRole) {
                     roleFlowsBox.select(userRole.roleFlow);
@@ -49,8 +52,10 @@ let UserDetailModal = function () {
 
     function clearForm() {
         $username.val("");
+        $username.prop("disabled", false);
         $shortName.val("");
         roleFlowsBox.clear();
+        validator.resetForm();
     }
 
     function showModal() {
@@ -75,6 +80,40 @@ let UserDetailModal = function () {
         return !$userFlow.val() || $userFlow.val() === "";
     }
 
+    function createFormValidator() {
+        return $form.validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 12,
+                    remote: Proj.getContextPath() + "/sys/user/checkUsername"
+                },
+                shortName: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 20,
+                }
+            },
+            messages: {
+                username: {
+                    remote: "用户名已存在"
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    }
+
     return {
         init: function () {
             $modal.on("hide.bs.modal", function () {
@@ -85,22 +124,24 @@ let UserDetailModal = function () {
                 if (Proj.isDev()) {
                     console.log(dataStr);
                 }
-                let methodType = isCreate() ? "post" : "put";
-                let options = {
-                    type: methodType,
-                    url: "/sys/user",
-                    data: dataStr,
-                    dataType: "json",
-                    _success: function (data) {
-                        if (Proj.isDev()) {
-                            console.log(data);
+                if ($form.valid()) {
+                    let methodType = isCreate() ? "post" : "put";
+                    let options = {
+                        type: methodType,
+                        url: "/sys/user",
+                        data: dataStr,
+                        dataType: "json",
+                        _success: function (data) {
+                            if (Proj.isDev()) {
+                                console.log(data);
+                            }
+                            SysUser.searchUsers(1);
+                            hideModal();
+                            Proj.showToasts("success", "保存成功");
                         }
-                        SysUser.searchUsers(1);
-                        hideModal();
-                        Proj.showToasts("success", "保存成功");
-                    }
-                };
-                HttpUtil.ajaxReq(options);
+                    };
+                    HttpUtil.ajaxReq(options);
+                }
             });
         },
         show: show

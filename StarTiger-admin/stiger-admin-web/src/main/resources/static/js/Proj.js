@@ -82,7 +82,7 @@ let DualListbox = function () {
         removeAllLabel: "移除所有",
         selectedListLabel: "已选择",
         nonSelectedListLabel: "待选择",
-        selectorMinimalHeight: 300,
+        selectorMinimalHeight: 200,
         infoText: "共 {0}",
         infoTextFiltered: "<span class='label label-warning'>筛选后</span> {0} 共 {1}",
         infoTextEmpty: "空"

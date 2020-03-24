@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.entity.dto.SysUserSearcher;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
-import com.snake19870227.stiger.admin.service.sys.SysService;
+import com.snake19870227.stiger.admin.service.sys.SysRoleService;
 import com.snake19870227.stiger.admin.service.sys.SysUserService;
 import com.snake19870227.stiger.admin.web.controller.BaseController;
 import com.snake19870227.stiger.core.restful.RestResponse;
@@ -39,12 +40,12 @@ public class SysUserController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(SysUserController.class);
 
-    private final SysService sysService;
+    private final SysRoleService sysRoleService;
 
     private final SysUserService sysUserService;
 
-    public SysUserController(SysService sysService, SysUserService sysUserService) {
-        this.sysService = sysService;
+    public SysUserController(SysRoleService sysRoleService, SysUserService sysUserService) {
+        this.sysRoleService = sysRoleService;
         this.sysUserService = sysUserService;
     }
 
@@ -56,7 +57,7 @@ public class SysUserController extends BaseController {
             openMenu(menuCode, request);
         }
 
-        List<SysRole> allRoles = sysService.getAllRoles();
+        List<SysRole> allRoles = sysRoleService.getAllRoles();
         model.addAttribute("allRoles", allRoles);
 
         return "sys/user/main";
@@ -77,6 +78,13 @@ public class SysUserController extends BaseController {
     public RestResponse.DefaultRestResponse read(@PathVariable(name = "userFlow") String userFlow) {
         UserInfo userInfo = sysUserService.loadUserInfo(userFlow);
         return RestResponseBuilder.createSuccessDefaultRestResp(userInfo);
+    }
+
+    @GetMapping(path = "/checkUsername")
+    @ResponseBody
+    public boolean checkUsername(@RequestParam(name = "username") String username) {
+        Optional<SysUser> user = sysUserService.getUserByUsername(username);
+        return !user.isPresent();
     }
 
     @PostMapping

@@ -91,8 +91,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group">
-                                <select class="duallistbox" name="resFlows" multiple="multiple"></select>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <select class="duallistbox" name="resFlows" multiple="multiple"></select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -108,6 +110,9 @@
 </div>
 
 <th:block th:replace="global::script-frame"/>
+<script th:src="@{/adminlte/plugins/jquery-validation/jquery.validate.min.js}"></script>
+<script th:src="@{/adminlte/plugins/jquery-validation/additional-methods.min.js}"></script>
+<script th:src="@{/adminlte/plugins/jquery-validation/localization/messages_zh.js}"></script>
 <script th:src="@{/adminlte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js}"></script>
 <th:block th:replace="global::script-stiger"/>
 <script th:src="@{/js/sys/role.js}"></script>

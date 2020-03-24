@@ -3,8 +3,8 @@ package com.snake19870227.stiger.admin.web.controller.sys;
 import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.snake19870227.stiger.admin.entity.bo.RoleInfo;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
-import com.snake19870227.stiger.admin.service.sys.SysService;
+import com.snake19870227.stiger.admin.service.sys.SysRoleService;
 import com.snake19870227.stiger.admin.web.controller.BaseController;
 import com.snake19870227.stiger.core.restful.RestResponse;
 import com.snake19870227.stiger.core.restful.RestResponseBuilder;
@@ -37,10 +37,10 @@ public class SysRoleController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(SysRoleController.class);
 
-    private final SysService sysService;
+    private final SysRoleService sysRoleService;
 
-    public SysRoleController(SysService sysService) {
-        this.sysService = sysService;
+    public SysRoleController(SysRoleService sysRoleService) {
+        this.sysRoleService = sysRoleService;
     }
 
     @GetMapping(path = "/main")
@@ -58,7 +58,7 @@ public class SysRoleController extends BaseController {
     @GetMapping(path = "/all")
     @ResponseBody
     public RestResponse.DefaultRestResponse all() {
-        List<SysRole> allRoles = sysService.getAllRoles();
+        List<SysRole> allRoles = sysRoleService.getAllRoles();
         return RestResponseBuilder.createSuccessDefaultRestResp(allRoles);
     }
 
@@ -69,7 +69,7 @@ public class SysRoleController extends BaseController {
                        @RequestParam(name = "page", defaultValue = "1") long page,
                        @RequestParam(name = "pageSize", defaultValue = "10") long pageSize,
                        Model model) {
-        IPage<SysRole> roles = sysService.searchRoles(searchCode, searchName, searchResName, page, pageSize);
+        IPage<SysRole> roles = sysRoleService.searchRoles(searchCode, searchName, searchResName, page, pageSize);
         model.addAttribute("sysRoles", roles);
         return "sys/role/list";
     }
@@ -77,15 +77,22 @@ public class SysRoleController extends BaseController {
     @GetMapping(path = "/{roleFlow}/info")
     @ResponseBody
     public RestResponse.DefaultRestResponse read(@PathVariable(name = "roleFlow") String roleFlow) {
-        RoleInfo roleInfo = sysService.readRoleInfo(roleFlow);
+        RoleInfo roleInfo = sysRoleService.readRoleInfo(roleFlow);
         return RestResponseBuilder.createSuccessDefaultRestResp(roleInfo);
+    }
+
+    @GetMapping(path = "/checkRoleCode")
+    @ResponseBody
+    public boolean checkRoleCode(@RequestParam(name = "roleCode") String roleCode) {
+        Optional<SysRole> role = sysRoleService.readRoleByRoleCode(roleCode);
+        return !role.isPresent();
     }
 
     @PostMapping
     @ResponseBody
     public RestResponse.DefaultRestResponse create(@ModelAttribute SysRole role,
                                                    @RequestParam(name = "resFlows") String[] resFlows) {
-        sysService.createRole(role, resFlows);
+        sysRoleService.createRole(role, resFlows);
         return RestResponseBuilder.createSuccessDefaultRestResp(role);
     }
 
@@ -93,14 +100,14 @@ public class SysRoleController extends BaseController {
     @ResponseBody
     public RestResponse.DefaultRestResponse modify(@ModelAttribute SysRole role,
                                                    @RequestParam(name = "resFlows") String[] resFlows) {
-        sysService.modifyRole(role, resFlows);
+        sysRoleService.modifyRole(role, resFlows);
         return RestResponseBuilder.createSuccessDefaultRestResp(role);
     }
 
     @DeleteMapping(path = "/{roleFlow}")
     @ResponseBody
     public RestResponse.DefaultRestResponse delete(@PathVariable(name = "roleFlow") String roleFlow) {
-        sysService.deleteRole(roleFlow);
+        sysRoleService.deleteRole(roleFlow);
         return RestResponseBuilder.createSuccessDefaultRestResp();
     }
 }
