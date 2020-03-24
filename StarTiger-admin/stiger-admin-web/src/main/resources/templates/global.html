@@ -38,7 +38,7 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown user-menu">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                    <span class="d-none d-md-inline">欢迎，<strong sec:authentication="name">用户</strong></span>
+                    <span class="d-none d-md-inline">欢迎，<strong th:text="${#authentication.principal.shortName}">用户</strong></span>
                 </a>
             </li>
             <li class="nav-item">

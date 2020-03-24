@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -67,8 +66,9 @@ public class CustomUserDetailsManager implements UserDetailsManager {
         List<GrantedAuthority> roleCodeList = userInfo.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX + role.getRoleCode()))
                 .collect(Collectors.toList());
-        return User.withUsername(userInfo.getUser().getUsername())
-                .password(userInfo.getUser().getEncodePassword())
-                .authorities(roleCodeList.isEmpty() ? AuthorityUtils.NO_AUTHORITIES : roleCodeList).build();
+        AdminUser adminUser = new AdminUser(userInfo.getUser().getUsername(), userInfo.getUser().getEncodePassword(),
+                roleCodeList.isEmpty() ? AuthorityUtils.NO_AUTHORITIES : roleCodeList);
+        adminUser.setShortName(userInfo.getUser().getShortName());
+        return adminUser;
     }
 }
