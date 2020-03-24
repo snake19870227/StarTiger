@@ -18,6 +18,7 @@ let RoleDetailModal = function () {
     function clearForm() {
         $form.clearForm();
         $roleFlow.val("");
+        $roleCode.prop("disabled", false);
         resFlowsBox.clear();
         validator.resetForm();
     }
@@ -58,6 +59,7 @@ let RoleDetailModal = function () {
             _success: function (resp, _options) {
                 $roleFlow.val(resp.data.role.roleFlow);
                 $roleCode.val(resp.data.role.roleCode);
+                $roleCode.prop("disabled", true);
                 $roleName.val(resp.data.role.roleName);
                 $.each(resp.data.resources, function (index, resource) {
                     resFlowsBox.select(resource.resFlow);
