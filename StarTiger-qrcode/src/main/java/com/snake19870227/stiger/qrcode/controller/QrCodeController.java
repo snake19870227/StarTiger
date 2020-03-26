@@ -38,7 +38,7 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 import com.snake19870227.stiger.qrcode.entity.bo.QrCodeBo;
 import com.snake19870227.stiger.qrcode.entity.dto.CreateQrCodeResponse;
 import com.snake19870227.stiger.qrcode.entity.dto.ReadQrCodeResponse;

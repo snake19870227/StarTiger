@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.core.restful;
+package com.snake19870227.stiger.web.restful;
 
 import cn.hutool.core.util.ObjectUtil;
 
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.ClassUtils;
 import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.core.context.StarTigerContext;
-import com.snake19870227.stiger.core.exception.BaseRuntimeException;
+import com.snake19870227.stiger.web.exception.BaseControllerException;
 
 /**
  * @author Bu HuaYang
@@ -42,8 +42,8 @@ public class RestResponseBuilder {
     }
 
     public static <N extends Throwable> RestResponse.DefaultRestResponse createFailureDefaultRestResp(N ex, Object data) {
-        if (ex instanceof BaseRuntimeException) {
-            BaseRuntimeException exception = (BaseRuntimeException) ex;
+        if (ex instanceof BaseControllerException) {
+            BaseControllerException exception = (BaseControllerException) ex;
             return new RestResponse.DefaultRestResponse(exception.getErrorCode(), exception.getLocalizedMessage(), data);
         } else {
             return new RestResponse.DefaultRestResponse(DEFAULT_EXCEPTION_RESP_CODE, buildMessage(DEFAULT_EXCEPTION_RESP_CODE, ex.getLocalizedMessage()), data);
@@ -73,8 +73,8 @@ public class RestResponseBuilder {
     }
 
     public static <F, M extends RestResponse<F>, N extends Throwable> M createFailureRestResp(N ex, F data, Class<M> clazz) {
-        if (ex instanceof BaseRuntimeException) {
-            BaseRuntimeException exception = (BaseRuntimeException) ex;
+        if (ex instanceof BaseControllerException) {
+            BaseControllerException exception = (BaseControllerException) ex;
             return createRestResp(exception.getErrorCode(), exception.getLocalizedMessage(), data, clazz);
         } else {
             return createRestResp(DEFAULT_EXCEPTION_RESP_CODE, buildMessage(DEFAULT_EXCEPTION_RESP_CODE, ex.getLocalizedMessage()), data, clazz);

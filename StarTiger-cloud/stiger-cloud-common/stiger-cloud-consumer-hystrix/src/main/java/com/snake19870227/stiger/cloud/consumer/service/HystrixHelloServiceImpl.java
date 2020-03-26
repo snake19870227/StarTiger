@@ -4,7 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.snake19870227.stiger.cloud.base.entity.dto.MapRestResponse;
 import com.snake19870227.stiger.cloud.base.properties.StarTigerCloudProperties;
 import com.snake19870227.stiger.core.context.StarTigerContext;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

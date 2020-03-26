@@ -1,11 +1,11 @@
 package com.snake19870227.stiger.mall.exception;
 
-import com.snake19870227.stiger.core.exception.BaseRuntimeException;
+import com.snake19870227.stiger.web.exception.BaseControllerException;
 
 /**
  * @author Bu HuaYang
  */
-public class BusMessageReceiverException extends BaseRuntimeException {
+public class BusMessageReceiverException extends BaseControllerException {
 
     public BusMessageReceiverException(String errorCode, Object... args) {
         super(errorCode, args);

@@ -3,6 +3,7 @@ package com.snake19870227.stiger.admin.web.controller.sys;
 import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.snake19870227.stiger.admin.entity.SysObjectMapStruct;
 import com.snake19870227.stiger.admin.entity.bo.RoleInfo;
+import com.snake19870227.stiger.admin.entity.dto.SysRoleModel;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.service.sys.SysRoleService;
 import com.snake19870227.stiger.admin.web.controller.BaseController;
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponse;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -37,9 +40,12 @@ public class SysRoleController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(SysRoleController.class);
 
+    private final SysObjectMapStruct sysObjectMapStruct;
+
     private final SysRoleService sysRoleService;
 
-    public SysRoleController(SysRoleService sysRoleService) {
+    public SysRoleController(SysObjectMapStruct sysObjectMapStruct, SysRoleService sysRoleService) {
+        this.sysObjectMapStruct = sysObjectMapStruct;
         this.sysRoleService = sysRoleService;
     }
 
@@ -90,16 +96,18 @@ public class SysRoleController extends BaseController {
 
     @PostMapping
     @ResponseBody
-    public RestResponse.DefaultRestResponse create(@ModelAttribute SysRole role,
+    public RestResponse.DefaultRestResponse create(@Valid @ModelAttribute SysRoleModel roleModel,
                                                    @RequestParam(name = "resFlows") String[] resFlows) {
+        SysRole role = sysObjectMapStruct.toRolePo(roleModel);
         sysRoleService.createRole(role, resFlows);
         return RestResponseBuilder.createSuccessDefaultRestResp(role);
     }
 
     @PutMapping
     @ResponseBody
-    public RestResponse.DefaultRestResponse modify(@ModelAttribute SysRole role,
+    public RestResponse.DefaultRestResponse modify(@Valid @ModelAttribute SysRoleModel roleModel,
                                                    @RequestParam(name = "resFlows") String[] resFlows) {
+        SysRole role = sysObjectMapStruct.toRolePo(roleModel);
         sysRoleService.modifyRole(role, resFlows);
         return RestResponseBuilder.createSuccessDefaultRestResp(role);
     }

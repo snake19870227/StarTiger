@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.admin.api.controller;
 
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponse;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

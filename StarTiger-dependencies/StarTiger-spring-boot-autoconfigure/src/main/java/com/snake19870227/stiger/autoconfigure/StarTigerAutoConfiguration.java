@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,8 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import com.snake19870227.stiger.web.context.StarTigerWebContextLoader;
 import com.snake19870227.stiger.core.context.StarTigerContextLoader;
 import com.snake19870227.stiger.core.utils.ClassPathUtil;
+import com.snake19870227.stiger.web.exception.GlobalExceptionHandler;
+import com.snake19870227.stiger.web.exception.PostWebErrorHandler;
 
 /**
  * @author Bu HuaYang
@@ -53,5 +56,10 @@ public class StarTigerAutoConfiguration {
             messageSource.setBasenames(basenames);
         }
         return messageSource;
+    }
+
+    @Bean
+    public GlobalExceptionHandler globalExceptionHandler(ObjectProvider<PostWebErrorHandler> postWebErrorHandlerObjectProvider) {
+        return new GlobalExceptionHandler(postWebErrorHandlerObjectProvider);
     }
 }

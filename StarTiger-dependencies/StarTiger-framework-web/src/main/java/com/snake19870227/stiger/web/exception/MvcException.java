@@ -1,11 +1,11 @@
 package com.snake19870227.stiger.web.exception;
 
-import com.snake19870227.stiger.core.exception.BaseRuntimeException;
-
 /**
  * @author Bu HuaYang
  */
-public class MvcException extends BaseRuntimeException {
+public class MvcException extends BaseControllerException {
+
+    private static final long serialVersionUID = 5959317727556640504L;
 
     public MvcException(String errorCode, Object... args) {
         super(errorCode, args);

@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 
 import java.util.List;
 
-import com.snake19870227.stiger.core.restful.PageRestResponse;
+import com.snake19870227.stiger.web.restful.PageRestResponse;
 import com.snake19870227.stiger.mall.entity.po.MallGoods;
 
 /**

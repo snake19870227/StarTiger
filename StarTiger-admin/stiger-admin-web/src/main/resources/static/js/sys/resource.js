@@ -39,7 +39,8 @@ let resourceDetailModal = function () {
                     maxlength: 20
                 },
                 resPath: {
-                    required: true
+                    required: true,
+                    maxlength: 400
                 }
             },
             errorElement: 'span',
@@ -109,8 +110,9 @@ let SysRes = function () {
             let $this = $(this);
             let resFlow = $this.parent("td").data("resFlow");
             let resName = $this.parent("td").data("resName");
+            let resPath = $this.parent("td").data("resPath");
             ConfirmModal.create({
-                bodyHtml: "删除&nbsp;" + resName,
+                showRecordInfo: "删除&nbsp;" + resName + "&nbsp;(" + resPath + ")",
                 onConfirm: function () {
                     let options = {
                         type: "delete",

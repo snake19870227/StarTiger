@@ -1,7 +1,7 @@
 package com.snake19870227.stiger.mall.controller;
 
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponse;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 import com.snake19870227.stiger.mall.executer.SearchGoodsExecuter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

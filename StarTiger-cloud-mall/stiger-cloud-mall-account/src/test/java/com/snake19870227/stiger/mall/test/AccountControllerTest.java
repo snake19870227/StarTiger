@@ -2,7 +2,7 @@ package com.snake19870227.stiger.mall.test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 import com.snake19870227.stiger.mall.config.StarTigerMallSecurityProperties;
 import com.snake19870227.stiger.mall.entity.dto.AccountDetailRestResponse;
 import com.snake19870227.stiger.mall.entity.po.MallAccount;

@@ -2,7 +2,7 @@ package com.snake19870227.stiger.mall.remote;
 
 import cn.hutool.core.util.StrUtil;
 import com.snake19870227.stiger.core.StarTigerConstant;
-import com.snake19870227.stiger.core.restful.RestResponse;
+import com.snake19870227.stiger.web.restful.RestResponse;
 import com.snake19870227.stiger.mall.config.StarTigerMallServiceProperties;
 import com.snake19870227.stiger.mall.exception.CloudRpcException;
 import org.slf4j.Logger;

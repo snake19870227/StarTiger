@@ -5,7 +5,6 @@ import java.time.Duration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 import com.snake19870227.stiger.mall.remote.MallCloudRpcService;
-import com.snake19870227.stiger.web.exception.GlobalHandlerExceptionResolver;
-import com.snake19870227.stiger.web.exception.PostWebErrorHandler;
 import com.spring4all.swagger.EnableSwagger2Doc;
 
 /**
@@ -35,11 +32,6 @@ public class ServiceConfig {
     public ServiceConfig(StarTigerMallServiceProperties serviceProperties) {
         this.serviceProperties = serviceProperties;
         logger.debug("创建 {}", this.getClass().getName());
-    }
-
-    @Bean
-    public GlobalHandlerExceptionResolver mvcHandlerExceptionResolver(ObjectProvider<PostWebErrorHandler> postExceptionHandlerProvider) {
-        return new GlobalHandlerExceptionResolver(postExceptionHandlerProvider);
     }
 
     @LoadBalanced

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 import com.snake19870227.stiger.qrcode.entity.bo.QrCodeBo;
 import com.snake19870227.stiger.qrcode.entity.dto.CreateQrCodeResponse;
 import com.snake19870227.stiger.web.exception.RestRequestException;

@@ -117,12 +117,15 @@ let RoleDetailModal = function () {
                 clearForm();
             });
             $saveBtn.on("click", function () {
-                let dataStr = $form.formSerialize();
-                if (Proj.isDev()) {
-                    console.log(dataStr);
-                }
-                let methodType = isCreate() ? "post" : "put";
                 if ($form.valid()) {
+                    let dataStr = $form.formSerialize();
+                    if (Proj.isDev()) {
+                        console.log(dataStr);
+                    }
+                    let methodType = isCreate() ? "post" : "put";
+                    if ($roleCode.prop("disabled")) {
+                        dataStr = $roleCode.attr("name") + "=" + $roleCode.val() + "&" + dataStr;
+                    }
                     let options = {
                         type: methodType,
                         url: "/sys/role",

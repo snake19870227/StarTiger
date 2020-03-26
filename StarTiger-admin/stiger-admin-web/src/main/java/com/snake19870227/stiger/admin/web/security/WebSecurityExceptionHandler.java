@@ -22,8 +22,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.core.StarTigerConstant;
 import com.snake19870227.stiger.core.context.StarTigerContext;
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponse;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 import com.snake19870227.stiger.web.StarTigerWebConstant;
 import com.snake19870227.stiger.web.utils.WebUtil;
 

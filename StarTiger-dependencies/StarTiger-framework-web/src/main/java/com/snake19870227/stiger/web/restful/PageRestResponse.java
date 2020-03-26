@@ -1,4 +1,4 @@
-package com.snake19870227.stiger.core.restful;
+package com.snake19870227.stiger.web.restful;
 
 import io.swagger.annotations.ApiModelProperty;
 

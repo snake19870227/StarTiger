@@ -90,7 +90,8 @@ public class SecurityConfig {
 
             http.exceptionHandling()
                     .authenticationEntryPoint(webSecurityExceptionHandler)
-                    .accessDeniedHandler(webSecurityExceptionHandler);
+                    .accessDeniedHandler(webSecurityExceptionHandler)
+            ;
         }
     }
 

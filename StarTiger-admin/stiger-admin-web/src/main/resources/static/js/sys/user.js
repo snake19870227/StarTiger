@@ -120,12 +120,15 @@ let UserDetailModal = function () {
                 clearForm();
             });
             $saveBtn.on("click", function () {
-                let dataStr = $form.find(".simple-fields").fieldSerialize();
-                if (Proj.isDev()) {
-                    console.log(dataStr);
-                }
                 if ($form.valid()) {
+                    let dataStr = $form.find(".simple-fields").fieldSerialize();
+                    if (Proj.isDev()) {
+                        console.log(dataStr);
+                    }
                     let methodType = isCreate() ? "post" : "put";
+                    if ($username.prop("disabled")) {
+                        dataStr = $username.attr("name") + "=" + $username.val() + "&" + dataStr;
+                    }
                     let options = {
                         type: methodType,
                         url: "/sys/user",

@@ -3,6 +3,7 @@ package com.snake19870227.stiger.admin.web.controller.sys;
 import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import java.util.List;
 
@@ -19,12 +20,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.snake19870227.stiger.admin.entity.SysObjectMapStruct;
 import com.snake19870227.stiger.admin.entity.bo.RecordPage;
+import com.snake19870227.stiger.admin.entity.dto.SysResModel;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.admin.web.controller.BaseController;
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponse;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -38,8 +41,11 @@ public class SysResourceController extends BaseController {
 
     private final SysService sysService;
 
-    public SysResourceController(SysService sysService) {
+    private final SysObjectMapStruct sysObjectMapStruct;
+
+    public SysResourceController(SysService sysService, SysObjectMapStruct sysObjectMapStruct) {
         this.sysService = sysService;
+        this.sysObjectMapStruct = sysObjectMapStruct;
     }
 
     @GetMapping(path = "/main")
@@ -82,14 +88,16 @@ public class SysResourceController extends BaseController {
 
     @PostMapping
     @ResponseBody
-    public RestResponse.DefaultRestResponse create(@ModelAttribute SysResource resource) {
+    public RestResponse.DefaultRestResponse create(@Valid @ModelAttribute SysResModel modal) {
+        SysResource resource = sysObjectMapStruct.toResourcePo(modal);
         sysService.createResource(resource);
         return RestResponseBuilder.createSuccessDefaultRestResp(resource);
     }
 
     @PutMapping
     @ResponseBody
-    public RestResponse.DefaultRestResponse modify(@ModelAttribute SysResource resource) {
+    public RestResponse.DefaultRestResponse modify(@Valid @ModelAttribute SysResModel modal) {
+        SysResource resource = sysObjectMapStruct.toResourcePo(modal);
         sysService.modifyResource(resource);
         return RestResponseBuilder.createSuccessDefaultRestResp(resource);
     }

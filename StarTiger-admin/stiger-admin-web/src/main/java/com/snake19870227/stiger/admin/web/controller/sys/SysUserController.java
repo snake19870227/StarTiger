@@ -3,6 +3,7 @@ package com.snake19870227.stiger.admin.web.controller.sys;
 import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,15 +21,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.snake19870227.stiger.admin.entity.SysObjectMapStruct;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
+import com.snake19870227.stiger.admin.entity.dto.SysUserModel;
 import com.snake19870227.stiger.admin.entity.dto.SysUserSearcher;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
 import com.snake19870227.stiger.admin.entity.po.SysUser;
 import com.snake19870227.stiger.admin.service.sys.SysRoleService;
 import com.snake19870227.stiger.admin.service.sys.SysUserService;
 import com.snake19870227.stiger.admin.web.controller.BaseController;
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponse;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -40,11 +43,15 @@ public class SysUserController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(SysUserController.class);
 
+    private final SysObjectMapStruct sysObjectMapStruct;
+
     private final SysRoleService sysRoleService;
 
     private final SysUserService sysUserService;
 
-    public SysUserController(SysRoleService sysRoleService, SysUserService sysUserService) {
+    public SysUserController(SysObjectMapStruct sysObjectMapStruct, SysRoleService sysRoleService,
+                             SysUserService sysUserService) {
+        this.sysObjectMapStruct = sysObjectMapStruct;
         this.sysRoleService = sysRoleService;
         this.sysUserService = sysUserService;
     }
@@ -89,17 +96,19 @@ public class SysUserController extends BaseController {
 
     @PostMapping
     @ResponseBody
-    public RestResponse.DefaultRestResponse create(@ModelAttribute SysUser updater,
+    public RestResponse.DefaultRestResponse create(@Valid @ModelAttribute SysUserModel userModel,
                                                    @RequestParam(name = "roleFlows") String[] roleFlows) {
-        SysUser user = sysUserService.createUser(updater, roleFlows);
+        SysUser user = sysObjectMapStruct.toUserPo(userModel);
+        sysUserService.createUser(user, roleFlows);
         return RestResponseBuilder.createSuccessDefaultRestResp(user);
     }
 
     @PutMapping
     @ResponseBody
-    public RestResponse.DefaultRestResponse modify(@ModelAttribute SysUser updater,
+    public RestResponse.DefaultRestResponse modify(@Valid @ModelAttribute SysUserModel userModel,
                                                    @RequestParam(name = "roleFlows") String[] roleFlows) {
-        SysUser user = sysUserService.modifyUser(updater, roleFlows);
+        SysUser user = sysObjectMapStruct.toUserPo(userModel);
+        sysUserService.modifyUser(user, roleFlows);
         return RestResponseBuilder.createSuccessDefaultRestResp(user);
     }
 

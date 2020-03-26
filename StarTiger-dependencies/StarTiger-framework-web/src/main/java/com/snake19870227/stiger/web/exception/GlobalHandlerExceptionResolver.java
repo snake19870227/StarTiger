@@ -14,9 +14,8 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 import com.snake19870227.stiger.core.StarTigerConstant;
-import com.snake19870227.stiger.core.exception.BaseRuntimeException;
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponse;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 import com.snake19870227.stiger.web.StarTigerWebConstant;
 import com.snake19870227.stiger.web.utils.WebUtil;
 import com.snake19870227.stiger.web.view.ModelAndViewBuilder;
@@ -62,7 +61,7 @@ public class GlobalHandlerExceptionResolver extends AbstractHandlerExceptionReso
         } else {
             Map<String, Object> modelMap = new HashMap<>(1);
             String errorMessage;
-            if (ex instanceof BaseRuntimeException) {
+            if (ex instanceof BaseControllerException) {
                 errorMessage = ex.getLocalizedMessage();
             } else {
                 errorMessage = "[" + StarTigerConstant.StatusCode.CODE_9998 + "]" + ex.getLocalizedMessage();

@@ -51,10 +51,10 @@ let HttpUtil = function () {
     DEFAULT_HEADERS[header] = token;
 
     let statusCode = {
-        400: function () {
+        400: function (options, xhr, textStatus, errorThrown) {
             Proj.showToasts("danger", "无效的请求");
         },
-        404: function () {
+        404: function (options, xhr, textStatus, errorThrown) {
             Proj.showToasts("danger", "未找到本次请求的页面或功能");
         }
     };
@@ -67,8 +67,9 @@ let HttpUtil = function () {
 
     function defError(options, xhr, textStatus, errorThrown) {
         if (statusCode[xhr.status]) {
-            statusCode[xhr.status]();
+            statusCode[xhr.status](options, xhr, textStatus, errorThrown);
         } else {
+            console.error(xhr.responseText);
             Proj.showToasts("danger", "请求失败[" + xhr.status + "]");
         }
         if (options._error && $.type(options._error) === "function") {

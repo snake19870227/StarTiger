@@ -2,8 +2,8 @@ package com.snake19870227.stiger.cloud.producer.controller;
 
 import com.snake19870227.stiger.cloud.producer.service.HelloService;
 import com.snake19870227.stiger.core.context.StarTigerContext;
-import com.snake19870227.stiger.core.restful.RestResponse;
-import com.snake19870227.stiger.core.restful.RestResponseBuilder;
+import com.snake19870227.stiger.web.restful.RestResponse;
+import com.snake19870227.stiger.web.restful.RestResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

@@ -14,6 +14,7 @@ public class StarTigerWebConstant {
 
     public static class ViewAttrKey {
         public static final String ERROR_MESSAGE = "errorMessage";
+        public static final String ERROR_DETAIL_MESSAGES = "errorDetailMessages";
         public static final String ACCESS_DENIED_URL = "accessDeniedUrl";
     }
 

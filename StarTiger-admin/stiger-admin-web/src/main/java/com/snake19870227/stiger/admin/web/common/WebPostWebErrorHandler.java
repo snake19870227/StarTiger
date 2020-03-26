@@ -9,10 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.ModelAndView;
 import com.snake19870227.stiger.admin.web.entity.vo.Sidebar;
 import com.snake19870227.stiger.admin.web.utils.AdminUiUtil;
-import com.snake19870227.stiger.core.StarTigerConstant;
-import com.snake19870227.stiger.core.context.StarTigerContext;
-import com.snake19870227.stiger.web.exception.MvcException;
 import com.snake19870227.stiger.web.exception.PostWebErrorHandler;
+import com.snake19870227.stiger.web.utils.WebUtil;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -33,15 +31,16 @@ public class WebPostWebErrorHandler implements PostWebErrorHandler {
     }
 
     private void closeAllMenu(HttpServletRequest request) {
+        if (WebUtil.isAjaxRequest(request)) {
+            return;
+        }
         Sidebar userSidebar = getSidebar(request);
-        userSidebar.closeAll();
+        if (userSidebar != null) {
+            userSidebar.closeAll();
+        }
     }
 
     private Sidebar getSidebar(HttpServletRequest request) {
-        Sidebar userSidebar = AdminUiUtil.getSidebar(request);
-        if (userSidebar == null) {
-            throw new MvcException(StarTigerContext.getMessage(StarTigerConstant.StatusCode.PREFIX_CODE + "2010"));
-        }
-        return userSidebar;
+        return AdminUiUtil.getSidebar(request);
     }
 }
