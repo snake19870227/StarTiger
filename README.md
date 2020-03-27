@@ -22,8 +22,9 @@ Gitee: [https://gitee.com/buhy/StarTiger.git](https://gitee.com/buhy/StarTiger.g
 
 ## StarTiger-admin
 
-构建简单权限模型, 验证 Spring Boot + Spring Security 组合  
-整合 AdminLTE 前端框架，非前后端分离方式
+构建权限模型, 验证 Spring Boot + Spring Security 组合  
+整合 AdminLTE 前端框架，非前后端分离方式  
+后端管理项目通用脚手架
 
 ## StarTiger-cloud
 
