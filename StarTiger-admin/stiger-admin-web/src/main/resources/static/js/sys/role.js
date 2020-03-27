@@ -39,9 +39,13 @@ let RoleDetailModal = function () {
             _success: function (resp, _options) {
                 let options = [];
                 $.each(resp.data, function (index, resource) {
+                    let method = "all";
+                    if (resource.resMethod) {
+                        method = resource.resMethod;
+                    }
                     options.push({
                         value: resource.resFlow,
-                        text: resource.resName + " [" + resource.resPath + "]",
+                        text: resource.resName + " [(" + method + ")" + resource.resPath + "]",
                         selected: false
                     });
                 });

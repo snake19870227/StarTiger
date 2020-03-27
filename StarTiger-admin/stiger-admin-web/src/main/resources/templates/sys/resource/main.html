@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="global::style('')"/>
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/select2/css/select2.min.css}">
+    <link rel="stylesheet" th:href="@{/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
@@ -18,7 +20,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-8">
-                        <form id="role-search-form">
+                        <form id="resource-search-form">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group row">
@@ -65,10 +67,22 @@
                             <label for="res-path">资源路径</label>
                             <input type="text" name="resPath" class="form-control" id="res-path">
                         </div>
+                        <div class="form-group">
+                            <label for="res-method">操作范围</label>
+                            <select class="select2bs4" name="resMethod" id="res-method"
+                                    data-placeholder="选择操作范围" style="width: 100%;">
+                                <option value="ALL">全部</option>
+                                <option value="GET">查询</option>
+                                <option value="POST">创建</option>
+                                <option value="PUT">修改</option>
+                                <option value="DELETE">删除</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default close-resource-detail-modal" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                         <button type="button" class="btn btn-primary save-resource-detail-modal">保存</button>
+                        <button type="button" class="btn btn-success save-and-continue">保存并继续添加</button>
                     </div>
                 </form>
             </div>
@@ -81,6 +95,8 @@
 <script th:src="@{/adminlte/plugins/jquery-validation/jquery.validate.js}"></script>
 <script th:src="@{/adminlte/plugins/jquery-validation/additional-methods.js}"></script>
 <script th:src="@{/adminlte/plugins/jquery-validation/localization/messages_zh.js}"></script>
+<script th:src="@{/adminlte/plugins/select2/js/select2.full.js}"></script>
+<script th:src="@{/adminlte/plugins/select2/js/i18n/zh-CN.js}"></script>
 <th:block th:replace="global :: script-stiger"/>
 <script th:src="@{/js/sys/resource.js}"></script>
 </body>

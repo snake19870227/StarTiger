@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-22
+ * @since 2020-03-27
  */
 @ApiModel(value="SysResource对象", description="")
 public class SysResource implements Serializable {
@@ -28,6 +28,9 @@ public class SysResource implements Serializable {
 
     @ApiModelProperty(value = "资源路径")
     private String resPath;
+
+    @ApiModelProperty(value = "资源操作方法")
+    private String resMethod;
 
 
     public String getResFlow() {
@@ -57,12 +60,22 @@ public class SysResource implements Serializable {
         return this;
     }
 
+    public String getResMethod() {
+        return resMethod;
+    }
+
+    public SysResource setResMethod(String resMethod) {
+        this.resMethod = resMethod;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "SysResource{" +
         "resFlow=" + resFlow +
         ", resName=" + resName +
         ", resPath=" + resPath +
+        ", resMethod=" + resMethod +
         "}";
     }
 }

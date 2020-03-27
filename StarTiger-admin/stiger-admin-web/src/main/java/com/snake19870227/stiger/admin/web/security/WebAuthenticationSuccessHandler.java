@@ -22,6 +22,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.util.AntPathMatcher;
+import com.snake19870227.stiger.admin.StarTigerAdminConstant;
 import com.snake19870227.stiger.admin.entity.bo.MenuInfo;
 import com.snake19870227.stiger.admin.entity.po.SysMenu;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
@@ -71,6 +72,9 @@ public class WebAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
                     sysMenu -> {
                         for (GrantedAuthority authority : user.getAuthorities()) {
                             String roleCode = StrUtil.replace(authority.getAuthority(), StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX, "");
+                            if (StrUtil.equals(StarTigerAdminConstant.SUPER_ROLE_CODE, roleCode)) {
+                                return true;
+                            }
                             List<SysResource> roleResources = sysService.getResourceByRoleCode(roleCode);
                             if (CollUtil.isNotEmpty(roleResources)) {
                                 for (SysResource resource : roleResources) {

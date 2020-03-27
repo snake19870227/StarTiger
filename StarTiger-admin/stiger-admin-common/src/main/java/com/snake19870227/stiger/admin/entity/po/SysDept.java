@@ -1,12 +1,10 @@
 package com.snake19870227.stiger.admin.entity.po;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -14,7 +12,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
  * </p>
  *
  * @author buhuayang
- * @since 2020-03-22
+ * @since 2020-03-27
  */
 @ApiModel(value="SysDept对象", description="")
 public class SysDept implements Serializable {

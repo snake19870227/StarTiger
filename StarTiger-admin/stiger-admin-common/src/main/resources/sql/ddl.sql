@@ -69,9 +69,10 @@ create table stigeradmin.sys_user_role
 drop table if exists stigeradmin.sys_resource;
 create table stigeradmin.sys_resource
 (
-    res_flow varchar(32) not null comment '资源流水号',
-    res_name varchar(50) comment '资源名称',
-    res_path varchar(500) comment '资源路径',
+    res_flow   varchar(32)  not null comment '资源流水号',
+    res_name   varchar(50)  not null comment '资源名称',
+    res_path   varchar(500) not null comment '资源路径',
+    res_method varchar(50) comment '操作范围',
     primary key (res_flow)
 );
 

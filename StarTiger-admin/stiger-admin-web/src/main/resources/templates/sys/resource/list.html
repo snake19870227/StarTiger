@@ -4,6 +4,7 @@
         <tr>
             <th style="width:300px">资源名称</th>
             <th style="width:500px">资源Path</th>
+            <th>操作范围</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -11,6 +12,7 @@
         <tr th:each="resource : ${sysResources.records}">
             <td th:text="${resource.resName}">资源名称</td>
             <td th:text="${resource.resPath}">资源Path</td>
+            <td th:text="${resource.resMethod}">操作范围</td>
             <td th:attr="data-res-flow=${resource.resFlow},data-res-name=${resource.resName},data-res-path=${resource.resPath}">
                 <button type="button" class="btn btn-primary modify-resource-btn btn-sm">修改</button>
                 <button type="button" class="btn btn-danger delete-resource-btn btn-sm">删除</button>

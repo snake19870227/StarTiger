@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
+import com.snake19870227.stiger.admin.StarTigerAdminConstant;
 import com.snake19870227.stiger.admin.entity.bo.ResourceInfo;
 import com.snake19870227.stiger.admin.entity.po.SysResource;
 import com.snake19870227.stiger.admin.entity.po.SysRole;
@@ -58,17 +59,22 @@ public class AuthAssert {
 
         List<SysRole> matchedRoleList = new ArrayList<>();
         allResourceList.stream()
-                .filter(resource -> new AntPathRequestMatcher(resource.getResPath()).matches(request))
-                .forEach(resource -> {
+                .filter(resource -> {
+                    AntPathRequestMatcher matcher = new AntPathRequestMatcher(resource.getResPath(), resource.getResMethod());
+                    return matcher.matches(request);
+                }).forEach(resource -> {
                     ResourceInfo resourceInfo = sysService.loadResourceInfo(resource.getResFlow());
                     if (resourceInfo.getRoles() != null) {
                         matchedRoleList.addAll(resourceInfo.getRoles());
                     }
                 });
 
+        matchedRoleList.add(StarTigerAdminConstant.getSuperRole());
+
         String[] roles = matchedRoleList.stream()
                 .map(sysRole -> StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX + sysRole.getRoleCode())
                 .toArray(String[]::new);
+
 
         if (ArrayUtil.isEmpty(roles)) {
             logger.error("未找到访问[{}]所需的角色", WebUtil.getPath(request, false, false));

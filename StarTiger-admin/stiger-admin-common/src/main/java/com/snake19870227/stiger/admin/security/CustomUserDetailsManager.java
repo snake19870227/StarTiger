@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
+import com.snake19870227.stiger.admin.StarTigerAdminConstant;
 import com.snake19870227.stiger.admin.entity.bo.UserInfo;
 import com.snake19870227.stiger.admin.service.sys.SysUserService;
 import com.snake19870227.stiger.core.StarTigerConstant;
@@ -57,7 +58,15 @@ public class CustomUserDetailsManager implements UserDetailsManager {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserInfo userInfo = sysUserService.loadUserInfoByUsername(username);
+
+        UserInfo rootUserInfo = StarTigerAdminConstant.getRootUser();
+
+        UserInfo userInfo;
+        if (StrUtil.equals(username, rootUserInfo.getUser().getUsername())) {
+            userInfo = rootUserInfo;
+        } else {
+            userInfo = sysUserService.loadUserInfoByUsername(username);
+        }
 
         if (userInfo == null) {
             throw new UsernameNotFoundException(StrUtil.format("未找到用户名[{}]对应的账户", username));

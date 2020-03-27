@@ -2,14 +2,17 @@ let resourceDetailModal = function () {
     let $modal = $("#resource-detail-modal");
     let $form = $modal.find("#resource-detail-form");
     let $saveBtn = $form.find(".save-resource-detail-modal");
+    let $saveAndContinueBtn = $form.find(".save-and-continue");
     let $resFlowInput = $form.find("input[name='resFlow']");
     let $resNameInput = $form.find("input[name='resName']");
     let $resPathInput = $form.find("input[name='resPath']");
+    let $resMethodInput = $form.find("select[name='resMethod']");
 
     let validator = createFormValidator();
 
     function clearForm() {
         $form.clearForm();
+        $resMethodInput.trigger("change");
         $resFlowInput.val("");
         validator.resetForm();
     }
@@ -23,6 +26,13 @@ let resourceDetailModal = function () {
             $resFlowInput.val(sysResource.resFlow);
             $resNameInput.val(sysResource.resName);
             $resPathInput.val(sysResource.resPath);
+            if (sysResource.resMethod) {
+                $resMethodInput.find("option[value='" + sysResource.resMethod + "']").prop("selected", true);
+                $resMethodInput.trigger("change");
+            }
+            $saveAndContinueBtn.hide();
+        } else {
+            $saveAndContinueBtn.show();
         }
         $modal.modal("show");
     }
@@ -57,31 +67,54 @@ let resourceDetailModal = function () {
         });
     }
 
+    function saveResource(afterSaveSuccess) {
+        let methodType = isCreate() ? "post" : "put";
+        let options = {
+            type: methodType,
+            url: "/sys/resource",
+            data: $form.formSerialize(),
+            dataType: "json",
+            _success: function (data) {
+                if (Proj.isDev()) {
+                    console.log(data);
+                }
+                if (typeof afterSaveSuccess === "function") {
+                    afterSaveSuccess(data);
+                }
+                Proj.showToasts("success", "保存成功");
+            }
+        };
+        HttpUtil.ajaxReq(options);
+    }
+
     return {
         init: function () {
+            $resMethodInput.select2({
+                language: "zh-CN",
+                theme: "bootstrap4",
+                // allowClear: true,
+                minimumResultsForSearch: Infinity
+            });
             $modal.on("hide.bs.modal", function () {
                 clearForm();
             });
             $saveBtn.on("click", function () {
                 if ($form.valid()) {
-                    let methodType = isCreate() ? "post" : "put";
-                    let options = {
-                        type: methodType,
-                        url: "/sys/resource",
-                        data: $form.formSerialize(),
-                        dataType: "json",
-                        _success: function (data) {
-                            if (Proj.isDev()) {
-                                console.log(data);
-                            }
-                            SysRes.searchResources(1);
-                            hideModal();
-                            Proj.showToasts("success", "保存成功");
-                        }
-                    };
-                    HttpUtil.ajaxReq(options);
+                    saveResource(function (data) {
+                        SysRes.searchResources(1);
+                        hideModal();
+                    });
                 }
             });
+            $saveAndContinueBtn.on("click", function () {
+                if ($form.valid()) {
+                    saveResource(function (data) {
+                        SysRes.searchResources(1);
+                        $resFlowInput.val("");
+                        $resNameInput.val("");
+                    });
+                }
+            })
         },
         show: showModal
     }
@@ -172,4 +205,7 @@ let SysRes = function () {
 $(function () {
     resourceDetailModal.init();
     SysRes.init();
+    window.SysRes = {
+        searchResources: SysRes.searchResources
+    };
 });

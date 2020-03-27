@@ -107,6 +107,9 @@ public class SysServiceImpl implements SysService {
     )
     @Transactional(rollbackFor = Exception.class)
     public SysResource modifyResource(SysResource resource) {
+        if (resource.getResMethod() == null) {
+            resource.setResMethod("");
+        }
         if (sysResourceMapper.updateById(resource) != 1) {
             throw new ServiceException("修改资源失败");
         }
