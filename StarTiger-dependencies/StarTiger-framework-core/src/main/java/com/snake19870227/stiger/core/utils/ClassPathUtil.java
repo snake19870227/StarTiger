@@ -1,6 +1,9 @@
 package com.snake19870227.stiger.core.utils;
 
-import com.snake19870227.stiger.core.StarTigerConstant;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -11,11 +14,7 @@ import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.SystemPropertyUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.snake19870227.stiger.core.StarTigerConstant;
 
 /**
  * @author Bu HuaYang
@@ -27,8 +26,8 @@ public class ClassPathUtil {
     private static ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
     private static MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resourcePatternResolver);
 
-    public static List<File> getResourceFolderFiles(String patternName, boolean includeJarFiles) {
-        List<File> fileList = new ArrayList<>();
+    public static List<Resource> getResourceFolderFiles(String patternName, boolean includeJarFiles) {
+        List<Resource> fileList = new ArrayList<>();
         String prefix = includeJarFiles ? ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX : ResourcePatternResolver.CLASSPATH_URL_PREFIX;
         try {
             for (Resource resource : resourcePatternResolver.getResources(prefix + patternName)) {
@@ -36,7 +35,7 @@ public class ClassPathUtil {
                     logger.warn("无法读取 [{}], 跳过", resource.getURI());
                     continue;
                 }
-                fileList.add(resource.getFile());
+                fileList.add(resource);
             }
         } catch (IOException e) {
             logger.error("无法获取 'resources' 下 [{}] 文件", patternName, e);
