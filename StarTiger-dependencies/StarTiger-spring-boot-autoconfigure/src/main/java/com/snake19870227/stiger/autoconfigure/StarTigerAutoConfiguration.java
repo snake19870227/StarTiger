@@ -10,11 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.io.Resource;
+import com.snake19870227.stiger.autoconfigure.properties.StarTigerFrameProperties;
 import com.snake19870227.stiger.core.context.StarTigerContextLoader;
 import com.snake19870227.stiger.core.utils.ClassPathUtil;
 import com.snake19870227.stiger.web.context.StarTigerWebContextLoader;
@@ -25,9 +27,18 @@ import com.snake19870227.stiger.web.exception.PostWebErrorHandler;
  * @author Bu HuaYang
  */
 @Configuration
+@EnableConfigurationProperties({
+        StarTigerFrameProperties.class
+})
 public class StarTigerAutoConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(StarTigerAutoConfiguration.class);
+
+    private final StarTigerFrameProperties starTigerFrameProperties;
+
+    public StarTigerAutoConfiguration(StarTigerFrameProperties starTigerFrameProperties) {
+        this.starTigerFrameProperties = starTigerFrameProperties;
+    }
 
     @Bean
     public StarTigerContextLoader starTigerContextLoader() {
@@ -62,6 +73,8 @@ public class StarTigerAutoConfiguration {
 
     @Bean
     public GlobalExceptionHandler globalExceptionHandler(ObjectProvider<PostWebErrorHandler> postWebErrorHandlerObjectProvider) {
-        return new GlobalExceptionHandler(postWebErrorHandlerObjectProvider);
+        GlobalExceptionHandler globalExceptionHandler = new GlobalExceptionHandler(postWebErrorHandlerObjectProvider);
+        globalExceptionHandler.setUseHttpStatusCode(starTigerFrameProperties.isUseHttpStatusCode());
+        return globalExceptionHandler;
     }
 }

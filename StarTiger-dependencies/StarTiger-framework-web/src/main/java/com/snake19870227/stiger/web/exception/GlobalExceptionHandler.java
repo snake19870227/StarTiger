@@ -24,6 +24,8 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    private boolean useHttpStatusCode;
+
     private PostWebErrorHandler postWebErrorHandler;
 
     public GlobalExceptionHandler(ObjectProvider<PostWebErrorHandler> postExceptionHandlerProvider) {
@@ -48,6 +50,10 @@ public class GlobalExceptionHandler {
             mv = new ModelAndView("error/500", model);
         }
 
+        if (useHttpStatusCode) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+
         if (postWebErrorHandler != null) {
             postWebErrorHandler.exceptionHandler(request, response, handlerMethod, ex, mv);
         }
@@ -55,4 +61,11 @@ public class GlobalExceptionHandler {
         return mv;
     }
 
+    public boolean isUseHttpStatusCode() {
+        return useHttpStatusCode;
+    }
+
+    public void setUseHttpStatusCode(boolean useHttpStatusCode) {
+        this.useHttpStatusCode = useHttpStatusCode;
+    }
 }
