@@ -17,8 +17,10 @@ public class AdminUser extends User {
         super(username, password, authorities);
     }
 
-    public AdminUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+    public AdminUser(String username, String password, Collection<? extends GrantedAuthority> authorities,
+                     String shortName, boolean accountNonLocked) {
+        super(username, password, true, true, true, accountNonLocked, authorities);
+        this.shortName = shortName;
     }
 
     public String getShortName() {

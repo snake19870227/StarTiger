@@ -11,6 +11,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
 import com.snake19870227.stiger.admin.service.sys.SysService;
 import com.snake19870227.stiger.admin.service.sys.SysUserService;
@@ -18,6 +19,7 @@ import com.snake19870227.stiger.admin.web.ProjectConstant;
 import com.snake19870227.stiger.admin.web.security.WebAuthenticationFailureHandler;
 import com.snake19870227.stiger.admin.web.security.WebAuthenticationSuccessHandler;
 import com.snake19870227.stiger.admin.web.security.WebSecurityExceptionHandler;
+import com.snake19870227.stiger.autoconfigure.properties.StarTigerFrameProperties;
 
 /**
  * @author Bu HuaYang
@@ -101,13 +103,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    public WebAuthenticationFailureHandler webAuthenticationFailureHandler() {
-        return new WebAuthenticationFailureHandler();
+    public WebAuthenticationFailureHandler webAuthenticationFailureHandler(StarTigerFrameProperties starTigerFrameProperties) {
+        return new WebAuthenticationFailureHandler(starTigerFrameProperties);
     }
 
     @Bean
-    public WebSecurityExceptionHandler webSecurityExceptionHandler() {
-        return new WebSecurityExceptionHandler();
+    public WebSecurityExceptionHandler webSecurityExceptionHandler(StarTigerFrameProperties starTigerFrameProperties, ObjectMapper objectMapper) {
+        return new WebSecurityExceptionHandler(starTigerFrameProperties, objectMapper);
     }
 
     @Bean

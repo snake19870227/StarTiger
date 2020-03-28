@@ -8,6 +8,7 @@ public class ProjectConstant {
     public static class UrlParamNames {
         public static final String LOGIN_ERROR = "error";
         public static final String LOGIN_EXPIRE = "expire";
+        public static final String LOGIN_LOCKED = "locked";
     }
 
     public static class UrlPath {

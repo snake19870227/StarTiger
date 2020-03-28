@@ -33,12 +33,17 @@ public class LoginController {
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
             String paramName = paramNames.nextElement();
+            String errorMessage = null;
             if (StrUtil.equals(ProjectConstant.UrlParamNames.LOGIN_ERROR, paramName)) {
-                model.addAttribute(StarTigerWebConstant.ViewAttrKey.ERROR_MESSAGE, StarTigerContext.getMessage("code.1001"));
+                errorMessage = StarTigerContext.getMessage("code.1001");
             }
             if (StrUtil.equals(ProjectConstant.UrlParamNames.LOGIN_EXPIRE, paramName)) {
-                model.addAttribute(StarTigerWebConstant.ViewAttrKey.ERROR_MESSAGE, StarTigerContext.getMessage("code.2003"));
+                errorMessage = StarTigerContext.getMessage("code.2003");
             }
+            if (StrUtil.equals(ProjectConstant.UrlParamNames.LOGIN_LOCKED, paramName)) {
+                errorMessage = StarTigerContext.getMessage("code.2004");
+            }
+            model.addAttribute(StarTigerWebConstant.ViewAttrKey.ERROR_MESSAGE, errorMessage);
         }
     }
 

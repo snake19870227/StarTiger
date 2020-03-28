@@ -3,6 +3,7 @@ package com.snake19870227.stiger.admin.web.entity.vo;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,9 @@ import com.snake19870227.stiger.web.exception.MvcException;
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
  * @date 2020/03/16
  */
-public class Sidebar {
+public class Sidebar implements Serializable {
+
+    private static final long serialVersionUID = 5807932254815509563L;
 
     private List<MenuItem> currentMenuPathQueue;
 
@@ -86,7 +89,9 @@ public class Sidebar {
         return items;
     }
 
-    public static class MenuItem {
+    public static class MenuItem implements Serializable {
+
+        private static final long serialVersionUID = 6573615797428070461L;
 
         private boolean hasChild;
         private boolean active;

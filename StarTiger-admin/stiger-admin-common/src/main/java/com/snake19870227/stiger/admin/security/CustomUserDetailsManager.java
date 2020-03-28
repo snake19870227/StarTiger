@@ -75,8 +75,13 @@ public class CustomUserDetailsManager implements UserDetailsManager {
         List<GrantedAuthority> roleCodeList = userInfo.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(StarTigerConstant.SPRING_SECURITY_ROLE_PREFIX + role.getRoleCode()))
                 .collect(Collectors.toList());
-        AdminUser adminUser = new AdminUser(userInfo.getUser().getUsername(), userInfo.getUser().getEncodePassword(),
-                roleCodeList.isEmpty() ? AuthorityUtils.NO_AUTHORITIES : roleCodeList);
+        AdminUser adminUser = new AdminUser(
+                userInfo.getUser().getUsername(),
+                userInfo.getUser().getEncodePassword(),
+                roleCodeList.isEmpty() ? AuthorityUtils.NO_AUTHORITIES : roleCodeList,
+                userInfo.getUser().getShortName(),
+                StrUtil.equals(userInfo.getUser().getLocked(), StarTigerConstant.FLAG_N)
+        );
         adminUser.setShortName(userInfo.getUser().getShortName());
         return adminUser;
     }

@@ -97,6 +97,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.snake19870227</groupId>
             <artifactId>stiger-admin-common</artifactId>
             <version>${admin.version}</version>
