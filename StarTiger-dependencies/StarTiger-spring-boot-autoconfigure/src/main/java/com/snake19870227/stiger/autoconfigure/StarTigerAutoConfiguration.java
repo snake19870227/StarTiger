@@ -14,6 +14,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.io.Resource;
 import com.snake19870227.stiger.autoconfigure.properties.StarTigerFrameProperties;
@@ -29,6 +30,9 @@ import com.snake19870227.stiger.web.exception.PostWebErrorHandler;
 @Configuration
 @EnableConfigurationProperties({
         StarTigerFrameProperties.class
+})
+@Import({
+        StarTigerRedisAutoConfiguration.class
 })
 public class StarTigerAutoConfiguration {
 
