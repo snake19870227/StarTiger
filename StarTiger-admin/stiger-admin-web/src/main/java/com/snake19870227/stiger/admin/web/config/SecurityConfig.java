@@ -9,8 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snake19870227.stiger.admin.security.CustomUserDetailsManager;
 import com.snake19870227.stiger.admin.service.sys.SysService;
@@ -119,9 +119,10 @@ public class SecurityConfig {
 
     @Bean
     public RememberMeServices rememberMeServices(UserDetailsManager userDetailsManager) {
-        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(rememberMeKey, userDetailsManager);
-        rememberMeServices.setParameter(ProjectConstant.WebAttrKey.REMEMBER_ME);
-        rememberMeServices.setCookieName(rememberMeCookieName);
+        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
+//        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(rememberMeKey, userDetailsManager);
+//        rememberMeServices.setParameter(Pr;
+//        memberMeCookieName);
         return rememberMeServices;
     }
 }

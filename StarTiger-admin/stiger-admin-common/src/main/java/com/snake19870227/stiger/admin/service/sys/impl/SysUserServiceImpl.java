@@ -21,6 +21,7 @@ import com.snake19870227.stiger.admin.entity.po.SysUserRole;
 import com.snake19870227.stiger.admin.opt.UserInfoOpt;
 import com.snake19870227.stiger.admin.service.sys.SysUserService;
 import com.snake19870227.stiger.core.StarTigerConstant;
+import com.snake19870227.stiger.core.exception.ServiceException;
 
 /**
  * @author Bu HuaYang (buhuayang1987@foxmail.com)
@@ -118,16 +119,17 @@ public class SysUserServiceImpl implements SysUserService {
             }
     )
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeUserLockState(String userFlow, boolean unlocked) {
-        return sysUserMapper.changeLockState(userFlow, unlocked ? StarTigerConstant.FLAG_N : StarTigerConstant.FLAG_Y) == 1;
+    public SysUser changeUserLockState(String userFlow, boolean unlocked) {
+        SysUser user = sysUserMapper.selectById(userFlow);
+        user.setLocked(unlocked ? StarTigerConstant.FLAG_N : StarTigerConstant.FLAG_Y);
+        return sysUserMapper.updateById(user) == 1 ? user : null;
     }
 
     @Override
-    public boolean resetUserPassword(String userFlow) {
-        SysUser updater = new SysUser();
-        updater.setUserFlow(userFlow)
-                .setEncodePassword(passwordEncoder.encode(DEFAULT_PASSWORD));
-        return sysUserMapper.updateById(updater) == 1;
+    public SysUser resetUserPassword(String userFlow) {
+        SysUser user = sysUserMapper.selectById(userFlow);
+        user.setEncodePassword(passwordEncoder.encode(DEFAULT_PASSWORD));
+        return sysUserMapper.updateById(user) == 1 ? user : null;
     }
 
     @Override
@@ -137,8 +139,12 @@ public class SysUserServiceImpl implements SysUserService {
             }
     )
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteUser(String userFlow) {
+    public SysUser deleteUser(String userFlow) {
+        SysUser user = sysUserMapper.selectById(userFlow);
+        if (user == null) {
+            throw new ServiceException("账户不存在");
+        }
         sysUserRoleMapper.deleteByUserFlow(userFlow);
-        return sysUserMapper.deleteById(userFlow) == 1;
+        return sysUserMapper.deleteById(userFlow) == 1 ? user : null;
     }
 }

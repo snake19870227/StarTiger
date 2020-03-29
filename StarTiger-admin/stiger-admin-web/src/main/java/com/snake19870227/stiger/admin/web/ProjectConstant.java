@@ -23,7 +23,7 @@ public class ProjectConstant {
 
         public static String[] anonymousPaths() {
             return new String[] {
-                    ROOT, INDEX, LOGIN, ACCESS_DENIED, ADMINLTE + "/**"
+                    ROOT, INDEX, LOGIN, ACCESS_DENIED, ADMINLTE + "/**", "/session/**"
             };
         }
 

@@ -5,10 +5,14 @@ import cn.hutool.core.util.StrUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,14 +47,18 @@ public class SysUserController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(SysUserController.class);
 
+    private final FindByIndexNameSessionRepository<? extends Session> sessions;
+
     private final SysObjectMapStruct sysObjectMapStruct;
 
     private final SysRoleService sysRoleService;
 
     private final SysUserService sysUserService;
 
-    public SysUserController(SysObjectMapStruct sysObjectMapStruct, SysRoleService sysRoleService,
+    public SysUserController(FindByIndexNameSessionRepository<? extends Session> sessions,
+                             SysObjectMapStruct sysObjectMapStruct, SysRoleService sysRoleService,
                              SysUserService sysUserService) {
+        this.sessions = sessions;
         this.sysObjectMapStruct = sysObjectMapStruct;
         this.sysRoleService = sysRoleService;
         this.sysUserService = sysUserService;
@@ -116,7 +124,9 @@ public class SysUserController extends BaseController {
     @ResponseBody
     public RestResponse.DefaultRestResponse modify(@PathVariable(name = "userFlow") String userFlow,
                                                    @RequestParam(name = "unlocked") boolean unlocked) {
-        if (sysUserService.changeUserLockState(userFlow, unlocked)) {
+        SysUser user = sysUserService.changeUserLockState(userFlow, unlocked);
+        if (user != null) {
+            deleteSession(user.getUsername());
             return RestResponseBuilder.createSuccessDefaultRestResp();
         } else {
             return RestResponseBuilder.createFailureDefaultRestResp();
@@ -126,7 +136,9 @@ public class SysUserController extends BaseController {
     @PutMapping(path = "/{userFlow}/resetPwd")
     @ResponseBody
     public RestResponse.DefaultRestResponse modify(@PathVariable(name = "userFlow") String userFlow) {
-        if (sysUserService.resetUserPassword(userFlow)) {
+        SysUser user = sysUserService.resetUserPassword(userFlow);
+        if (user != null) {
+            deleteSession(user.getUsername());
             return RestResponseBuilder.createSuccessDefaultRestResp();
         } else {
             return RestResponseBuilder.createFailureDefaultRestResp();
@@ -136,10 +148,23 @@ public class SysUserController extends BaseController {
     @DeleteMapping(path = "/{userFlow}")
     @ResponseBody
     public RestResponse.DefaultRestResponse delete(@PathVariable(name = "userFlow") String userFlow) {
-        if (sysUserService.deleteUser(userFlow)) {
+        SysUser user = sysUserService.deleteUser(userFlow);
+        if (user != null) {
+            deleteSession(user.getUsername());
             return RestResponseBuilder.createSuccessDefaultRestResp();
         } else {
             return RestResponseBuilder.createFailureDefaultRestResp();
+        }
+    }
+
+    private void deleteSession(String username) {
+        try {
+            Map<String, ? extends Session> sessionMap = sessions.findByPrincipalName(username);
+            if (sessionMap != null) {
+                sessionMap.forEach((BiConsumer<String, Session>) (s, session) -> sessions.deleteById(s));
+            }
+        } catch (Exception e) {
+            logger.warn("删除已登录session失败", e);
         }
     }
 }

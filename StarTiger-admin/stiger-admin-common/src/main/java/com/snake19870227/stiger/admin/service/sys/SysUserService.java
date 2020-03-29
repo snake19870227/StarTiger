@@ -25,9 +25,9 @@ public interface SysUserService {
 
     SysUser modifyUser(SysUser user, String[] roleFlows);
 
-    boolean changeUserLockState(String userFlow, boolean unlocked);
+    SysUser changeUserLockState(String userFlow, boolean unlocked);
 
-    boolean resetUserPassword(String userFlow);
+    SysUser resetUserPassword(String userFlow);
 
-    boolean deleteUser(String userFlow);
+    SysUser deleteUser(String userFlow);
 }
