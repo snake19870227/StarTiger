@@ -27,6 +27,7 @@
         <module>StarTiger-oauth2</module>
         <module>StarTiger-elasticsearch</module>
         <module>StarTiger-qrcode</module>
+        <module>StarTiger-springboot-docker</module>
     </modules>
 
     <repositories>
