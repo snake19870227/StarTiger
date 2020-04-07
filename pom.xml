@@ -28,6 +28,7 @@
         <module>StarTiger-elasticsearch</module>
         <module>StarTiger-qrcode</module>
         <module>StarTiger-springboot-docker</module>
+        <module>StarTiger-springboot-excel</module>
     </modules>
 
     <repositories>
