@@ -16,7 +16,9 @@ Gitee: [https://gitee.com/buhy/StarTiger.git](https://gitee.com/buhy/StarTiger.g
 - StarTiger-framework
 框架
 - StarTiger-spring-boot-autoconfigure、StarTiger-spring-boot-starter
-框架配套的springboot starter
+框架配套的springboot starter  
+  
+已迁移至 [https://github.com/snake19870227/star-tiger-framework](https://github.com/snake19870227/star-tiger-framework)
 
 ---
 
@@ -24,7 +26,9 @@ Gitee: [https://gitee.com/buhy/StarTiger.git](https://gitee.com/buhy/StarTiger.g
 
 构建权限模型, 验证 Spring Boot + Spring Security 组合  
 整合 AdminLTE 前端框架，非前后端分离方式  
-后端管理项目通用脚手架
+后端管理项目通用脚手架  
+  
+已迁移至 [https://github.com/snake19870227/star-tiger-admin](https://github.com/snake19870227/star-tiger-admin)
 
 ## StarTiger-cloud
 
