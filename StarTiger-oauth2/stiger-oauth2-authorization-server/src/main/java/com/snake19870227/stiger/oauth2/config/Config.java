@@ -16,11 +16,14 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.builders.ClientDetailsServiceBuilder;
+import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -38,6 +41,24 @@ public class Config {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    public ClientDetailsService clientDetailsService(PasswordEncoder passwordEncoder) throws Exception {
+        ClientDetailsServiceBuilder<InMemoryClientDetailsServiceBuilder> builder
+                = new ClientDetailsServiceBuilder<>().inMemory();
+        builder.withClient("client1")
+                .secret(passwordEncoder.encode("123"))
+                .authorizedGrantTypes("authorization_code", "password", "refresh_token")
+                .scopes("any", "read")
+                .redirectUris(
+                        "http://localhost:8880/oauthServer/callback",
+                        "http://localhost:8881/oauthClient/login/oauth2/code/demo"
+                )
+//                .accessTokenValiditySeconds(30)
+//                .refreshTokenValiditySeconds(3600)
+        ;
+        return builder.build();
     }
 
     @Configuration
@@ -67,7 +88,7 @@ public class Config {
             http.authorizeRequests()
                     .antMatchers("/callback", "/oauth/**").permitAll()
                     .anyRequest().authenticated()
-                .and()
+                    .and()
                     .httpBasic()
             ;
         }
@@ -84,6 +105,7 @@ public class Config {
 
         private final PasswordEncoder passwordEncoder;
         private final UserDetailsService userDetailsService;
+        private final ClientDetailsService clientDetailsService;
         private final TokenStore tokenStore;
         private final AuthenticationManager authenticationManager;
         private final JwtAccessTokenConverter jwtAccessTokenConverter;
@@ -91,11 +113,13 @@ public class Config {
         public AuthorizationServerConfig(
                 PasswordEncoder passwordEncoder,
                 UserDetailsService userDetailsService,
+                ClientDetailsService clientDetailsService,
                 TokenStore tokenStore,
                 AuthenticationManager authenticationManager,
                 JwtAccessTokenConverter jwtAccessTokenConverter) {
             this.passwordEncoder = passwordEncoder;
             this.userDetailsService = userDetailsService;
+            this.clientDetailsService = clientDetailsService;
             this.tokenStore = tokenStore;
             this.authenticationManager = authenticationManager;
             this.jwtAccessTokenConverter = jwtAccessTokenConverter;
@@ -103,16 +127,7 @@ public class Config {
 
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-            clients.inMemory()
-                    .withClient("client1")
-                        .secret(passwordEncoder.encode("123"))
-                        .authorizedGrantTypes("authorization_code", "password")
-                        .scopes("any", "read")
-                        .redirectUris(
-                                "http://localhost:8880/oauthServer/callback",
-                                "http://localhost:8881/oauthClient/login/oauth2/code/demo"
-                        )
-            ;
+            clients.withClientDetails(clientDetailsService);
         }
 
         @Override
@@ -128,6 +143,7 @@ public class Config {
         public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
             security.tokenKeyAccess("isAuthenticated()")
                     .checkTokenAccess("isAuthenticated()")
+                    .allowFormAuthenticationForClients()
             ;
         }
     }
@@ -152,8 +168,8 @@ public class Config {
         public KeyPair keyPair() {
             KeyStoreKeyFactory keyStoreKeyFactory
                     = new KeyStoreKeyFactory(
-                            new ClassPathResource("snake.keystore"),
-                            "123456".toCharArray()
+                    new ClassPathResource("snake.keystore"),
+                    "123456".toCharArray()
             );
             return keyStoreKeyFactory.getKeyPair("com.snake19870227");
         }
