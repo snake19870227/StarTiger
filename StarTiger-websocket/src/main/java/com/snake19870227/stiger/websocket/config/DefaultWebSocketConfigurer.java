@@ -27,6 +27,12 @@ public class DefaultWebSocketConfigurer implements WebSocketConfigurer {
                 .addInterceptors(new HttpSessionHandshakeInterceptor())
                 .setAllowedOrigins("*")
         ;
+
+        registry.addHandler(webSocketHandler(), "/sockjsHandle")
+                .addInterceptors(new HttpSessionHandshakeInterceptor())
+                .setAllowedOrigins("*")
+                .withSockJS()
+        ;
     }
 
     @Bean
