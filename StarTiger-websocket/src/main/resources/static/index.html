@@ -5,7 +5,9 @@
     <title>Websocket Demo</title>
 </head>
 <body>
-<span></span><br/>
+<span id="message"></span><br/>
+<span id="login-user"></span><br/>
+<input id="login-name" type="text"/><button type="button" onclick="login()">登录</button><br/>
 <button id="connect" type="button" onclick="connect()">连接</button><br/>
 <button id="disconnect" type="button" disabled="disabled" onclick="disconnect()">断开</button><br/>
 <input id="text-value" type="text"/><button type="button" onclick="send()">发送</button><br/>
@@ -16,11 +18,25 @@
 <script>
     let ws;
 
+    function login() {
+        let loginName = $("#login-name").val();
+        if (_.isEmpty(loginName)) {
+            $("#message").html("登录名不能为空");
+            return;
+        }
+        $.post("http://127.0.0.1:8080/login", {name:loginName}, function (resp) {
+            $("#message").html("登录成功");
+            $.get("http://127.0.0.1:8080/loginUser", function (resp) {
+                $("#login-user").html(resp);
+            })
+        }, "text");
+    }
+
     function send() {
         if (ws && ws.readyState === WebSocket.OPEN) {
             ws.send($("#text-value").val());
         } else {
-            $("span").html("连接不可用");
+            $("#message").html("连接不可用");
         }
     }
 
@@ -32,7 +48,7 @@
     function onconnect() {
         ws.onopen = function(evt) {
             console.log("连接成功 ...");
-            $("span").html("连接成功");
+            $("#message").html("连接成功");
             $("#connect").attr("disabled", "disabled");
             $("#disconnect").removeAttr("disabled");
         };
@@ -42,7 +58,7 @@
         };
         ws.onclose = function(evt) {
             console.log("断开成功");
-            $("span").html("断开成功");
+            $("#message").html("断开成功");
             $("#connect").removeAttr("disabled");
             $("#disconnect").attr("disabled", "disabled");
         };

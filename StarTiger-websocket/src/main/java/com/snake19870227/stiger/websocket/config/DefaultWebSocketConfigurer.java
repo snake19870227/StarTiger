@@ -8,7 +8,6 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
-import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 import com.snake19870227.stiger.websocket.common.DefaultWebSocketHandler;
 
 /**
@@ -24,8 +23,8 @@ public class DefaultWebSocketConfigurer implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(webSocketHandler(), "/defaultHandle")
-                .setAllowedOrigins("http://127.0.0.1:8080")
-                .addInterceptors(new HttpSessionHandshakeInterceptor())
+//                .addInterceptors(new HttpSessionHandshakeInterceptor())
+                .setAllowedOrigins("*")
         ;
     }
 

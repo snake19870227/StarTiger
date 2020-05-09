@@ -2,6 +2,7 @@ package com.snake19870227.stiger.websocket.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -18,6 +19,16 @@ public class DefaultWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         logger.info(message.getPayload());
 
-        session.sendMessage(new TextMessage("收到" + message.getPayload()));
+        String loginName = (String) session.getAttributes().get("name");
+
+        String resultText = message.getPayload();
+
+        if (StringUtils.hasText(loginName)) {
+            resultText = loginName + " : " + resultText;
+        } else {
+            resultText = "匿名用户 : " + resultText;
+        }
+
+        session.sendMessage(new TextMessage(resultText));
     }
 }
