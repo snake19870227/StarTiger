@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Websocket Demo</title>
+</head>
+<body>
+<span></span><br/>
+<button id="connect" type="button" onclick="connect()">连接</button><br/>
+<button id="disconnect" type="button" disabled="disabled" onclick="disconnect()">断开</button><br/>
+<input id="text-value" type="text"/><button type="button" onclick="send()">发送</button><br/>
+<div id="container"></div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+<script>
+    let ws;
+
+    function send() {
+        if (ws && ws.readyState === WebSocket.OPEN) {
+            ws.send($("#text-value").val());
+        } else {
+            $("span").html("连接不可用");
+        }
+    }
+
+    function connect() {
+        ws = new WebSocket("ws://localhost:8080/defaultHandle");
+        onconnect();
+    }
+
+    function onconnect() {
+        ws.onopen = function(evt) {
+            console.log("连接成功 ...");
+            $("span").html("连接成功");
+            $("#connect").attr("disabled", "disabled");
+            $("#disconnect").removeAttr("disabled");
+        };
+        ws.onmessage = function(evt) {
+            console.log("收到服务器消息: " + evt.data);
+            $("#container").append("<span>" + evt.data + "</span><br/>")
+        };
+        ws.onclose = function(evt) {
+            console.log("断开成功");
+            $("span").html("断开成功");
+            $("#connect").removeAttr("disabled");
+            $("#disconnect").attr("disabled", "disabled");
+        };
+        ws.onerror = function (evt) {
+            console.log("出错了: " + evt);
+        }
+    }
+
+    function disconnect() {
+        ws.close();
+    }
+
+</script>
+</body>
+</html>

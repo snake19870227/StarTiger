@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: stiger-websocket-demo
+logging:
+  level:
+    root: debug
