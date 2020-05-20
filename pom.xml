@@ -30,6 +30,8 @@
         <module>StarTiger-springboot-docker</module>
         <module>StarTiger-springboot-excel</module>
         <module>StarTiger-websocket</module>
+        <module>StarTiger-redis</module>
+        <module>StarTiger-func-endpoint</module>
     </modules>
 
     <repositories>
