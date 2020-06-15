@@ -32,6 +32,7 @@
         <module>StarTiger-websocket</module>
         <module>StarTiger-redis</module>
         <module>StarTiger-func-endpoint</module>
+        <module>StarTiger-lock</module>
     </modules>
 
     <repositories>
